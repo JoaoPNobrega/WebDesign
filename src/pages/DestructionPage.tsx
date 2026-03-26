@@ -32,14 +32,14 @@ const PROBLEMS: ProblemSpec[] = [
   {
     id: "mobile",
     text: "layout quebrando no mobile",
-    color: "rgb(255, 226, 202)",
+    color: "rgb(202, 255, 202)",
     desktop: { top: "38%", left: "92%", width: 340, height: 50, rotation: 0, fontSize: "20px" },
     mobile: { top: "24%", left: "85%", width: 170, height: 40, rotation: 0, fontSize: "12px" },
   },
   {
     id: "slow",
     text: "site lento",
-    color: "rgb(255, 242, 214)",
+    color: "rgb(214, 255, 214)",
     desktop: { top: "38%", left: "8%", width: 200, height: 50, rotation: 0, fontSize: "24px" },
     mobile: { top: "24%", left: "15%", width: 120, height: 40, rotation: 0, fontSize: "16px" },
   },
@@ -53,7 +53,7 @@ const PROBLEMS: ProblemSpec[] = [
   {
     id: "impact",
     text: "visual sem impacto",
-    color: "rgb(255, 238, 228)",
+    color: "rgb(228, 255, 228)",
     desktop: { top: "61%", left: "8%", width: 300, height: 70, rotation: 0, fontSize: "28px" },
     mobile: { top: "76%", left: "15%", width: 180, height: 46, rotation: 0, fontSize: "18px" },
   },
@@ -67,7 +67,7 @@ const PROBLEMS: ProblemSpec[] = [
   {
     id: "code",
     text: "código bagunçado",
-    color: "rgb(255, 231, 214)",
+    color: "rgb(214, 255, 214)",
     desktop: { top: "84%", left: "15%", width: 240, height: 50, rotation: 0, fontSize: "22px" },
     mobile: { top: "88%", left: "28%", width: 150, height: 40, rotation: 0, fontSize: "14px" },
   },
@@ -250,7 +250,7 @@ export default function DestructionPage() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(255,116,48,0.09),transparent_26%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
       <div className="relative flex min-h-screen items-center justify-center px-6 pb-32 pt-16">
         <div className="relative h-[min(78vh,760px)] w-full max-w-7xl">
           {!showFinalMessage && visibleProblems.map((problem) => (
@@ -275,7 +275,7 @@ export default function DestructionPage() {
                   transition={{ duration: 0.45, ease: "easeOut" }}
                   className="text-center"
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.45em] text-[#ff7430] drop-shadow-sm">Solução Definitiva</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.45em] text-[#A7EF9E] drop-shadow-sm">Solução Definitiva</p>
                   <h2 className="mt-4 bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-7xl">
                     Eu resolvo isso.
                   </h2>
@@ -290,7 +290,7 @@ export default function DestructionPage() {
                   className="flex flex-col items-center"
                 >
                   <div className="mb-6 flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-white/70 shadow-lg backdrop-blur-md">
-                    <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff7430]"></span>
+                    <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#A7EF9E]"></span>
                     O fim da frustração
                   </div>
                   <h1 className="max-w-4xl text-center bg-gradient-to-b from-white via-white to-white/40 bg-clip-text pb-4 text-4xl font-bold leading-[1.1] tracking-tighter text-transparent sm:text-6xl md:text-7xl">

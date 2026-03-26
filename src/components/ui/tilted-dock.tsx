@@ -34,7 +34,7 @@ function DockAction({ item, isActive }: { item: TiltedDockItem; isActive: boolea
   const sharedClassName = cn(
     "h-14 w-14 rounded-2xl border border-white/10 bg-white/5 text-zinc-100 shadow-[0_8px_20px_rgba(0,0,0,0.25)] backdrop-blur-md",
     "hover:bg-white/10 hover:text-white",
-    isActive && "border-orange-300/35 bg-orange-500/20 text-white",
+    isActive && "border-[#A7EF9E]/35 bg-[#A7EF9E]/20 text-[#A7EF9E]",
   );
 
   if (item.href) {

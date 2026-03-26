@@ -1,156 +1,137 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Code, Laptop, Layout, Sparkles } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-
-const PROJECTS = [
-  {
-    title: "Crachá Interativo",
-    description: "Um crachá 3D interativo com física realística e texturas personalizadas.",
-    href: "#/",
-    icon: <Layout className="h-6 w-6" />,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    title: "Destruction Engine",
-    description: "Efeito de vaporização de texto com animações fluidas e design focado em problemas reais.",
-    href: "#/destruction",
-    icon: <Sparkles className="h-6 w-6" />,
-    color: "from-orange-500 to-red-600",
-  },
-];
+import { motion, useScroll, useTransform } from "framer-motion";
+import FaultyTerminal from "@/components/ui/FaultyTerminal";
+import TextType from "@/components/ui/TextType";
+import ScrollVelocity from "@/components/ui/ScrollVelocity";
+import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 export default function PortfolioPage() {
+
+  const { scrollY } = useScroll();
+
+  // Terminal background parallax and cinematic blur
+  // Moves down slightly slower than the scroll (Parallax), scales up, blurs, and fades lightly.
+  const terminalY = useTransform(scrollY, [0, 800], [0, 300]);
+  const terminalScale = useTransform(scrollY, [0, 600], [1, 1.15]);
+  const terminalBlur = useTransform(scrollY, [0, 600], ["blur(0px)", "blur(16px)"]);
+  const terminalOpacity = useTransform(scrollY, [0, 800], [1, 0.4]); 
+
+  // Text scrolls UP much faster than the page, fading out early
+  const textY = useTransform(scrollY, [0, 400], [0, -120]);
+  const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white/20">
-      {/* Background Orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-orange-500/10 blur-[120px] rounded-full" />
-      </div>
-
-      <main className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32">
-        {/* Hero Section */}
-        <section className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+    <div className="w-full bg-black text-white min-h-[200vh]">
+      {/* Hero Section */}
+      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        
+        {/* Terminal Background Layer securely masked by CSS to prevent harsh edges */}
+        <div className="absolute inset-0 z-0 w-full h-full overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
+          <motion.div 
+            className="absolute inset-0 w-full h-full origin-center"
+            style={{
+              y: terminalY,
+              scale: terminalScale,
+              filter: terminalBlur,
+              opacity: terminalOpacity,
+            }}
           >
-            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold uppercase tracking-[0.2em] bg-white/5 border border-white/10 rounded-full text-white/60">
-              Web Design Portfolio
-            </span>
-            <h1 className="text-5xl font-bold tracking-tight sm:text-7xl mb-8">
-              Transformando ideias em <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/40">
-                experiências digitais.
-              </span>
-            </h1>
-            <p className="max-w-2xl text-lg text-zinc-400 mb-10 mx-auto">
-              Desenvolvedor Full Stack especializado em interfaces interativas e experiências imersivas. 
-              Focado em elevar o padrão visual de produtos digitais.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button size="lg" className="rounded-full bg-white text-black hover:bg-zinc-200 px-8 py-6 text-md font-medium">
-                Conferir Projetos
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-white/10 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-md font-medium">
-                Contatos
-              </Button>
-            </div>
+            <FaultyTerminal
+              scale={1.5}
+              gridMul={[2, 1]}
+              digitSize={1.2}
+              timeScale={0.5}
+              pause={false}
+              scanlineIntensity={0.5}
+              glitchAmount={1}
+              flickerAmount={1}
+              noiseAmp={1}
+              chromaticAberration={0}
+              dither={0}
+              curvature={0.1}
+              tint="#A7EF9E"
+              mouseReact={true}
+              mouseStrength={0.5}
+              pageLoadAnimation
+              brightness={0.6}
+            />
           </motion.div>
-        </section>
+        </div>
 
-        {/* Featured Projects */}
-        <section className="mt-40">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl font-semibold tracking-tight">Projetos em Destaque</h2>
-            <div className="block h-[1px] flex-1 mx-8 bg-zinc-800" />
-          </div>
+        {/* Text Layer */}
+        <motion.div 
+          className="relative z-10 pointer-events-none px-6 w-full flex items-center justify-center text-center"
+          style={{
+            y: textY,
+            opacity: textOpacity,
+          }}
+        >
+          <TextType
+            text={`Olá...${"\u200B".repeat(25)}\n\nMeu nome é João Pedro,\nE esse é meu portfólio.`}
+            typingSpeed={65}
+            loop={false}
+            showCursor
+            cursorCharacter="_"
+            cursorBlinkDuration={0.4}
+            className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.04em] text-white drop-shadow-2xl leading-[1.25]"
+          />
+        </motion.div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {PROJECTS.map((project, index) => (
-              <motion.a
-                key={project.title}
-                href={project.href}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="group relative flex flex-col p-8 rounded-3xl bg-zinc-900/40 border border-white/5 hover:border-white/10 transition-colors overflow-hidden"
-              >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity blur-3xl`} />
-                
-                <div className="mb-6 p-4 rounded-2xl bg-white/5 w-fit border border-white/5 group-hover:border-white/10 transition-colors">
-                  {project.icon}
-                </div>
-                
-                <h3 className="text-2xl font-semibold mb-4 group-hover:text-white transition-colors">{project.title}</h3>
-                <p className="text-zinc-400 mb-8 flex-1 leading-relaxed">
-                  {project.description}
-                </p>
-                
-                <div className="flex items-center text-sm font-medium text-white/60 group-hover:text-white transition-all">
-                  Ver projeto
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </section>
+      {/* Marquee Infinite Scroll Separator */}
+      <section className="w-full relative z-20 bg-black pt-12 pb-12">
+        <ScrollVelocity
+          texts={['HTML5', 'CSS3', 'React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Vite']} 
+          velocity={65}
+          className="text-[#A7EF9E] mr-12 text-6xl md:text-8xl tracking-tighter uppercase font-black opacity-90"
+        />
+      </section>
 
-        {/* Philosophy / About */}
-        <section className="mt-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div>
-            <h2 className="text-4xl font-bold mb-8">O Design não é apenas como parece, mas <span className="text-zinc-500">como funciona.</span></h2>
-            <div className="space-y-6 text-zinc-400">
-              <p>
-                Acredito que cada detalhe importa. Do micro-interação à arquitetura de rede, 
-                o objetivo é sempre o mesmo: criar algo que importe.
-              </p>
-              <p>
-                Com experiência em tecnologias modernas como React, Three.js e Tailwind, 
-                eu busco o equilíbrio perfeito entre estética e funcionalidade.
-              </p>
-            </div>
-            <div className="mt-12 grid grid-cols-3 gap-8">
-              <div>
-                <div className="text-white font-bold text-2xl mb-1">2+</div>
-                <div className="text-xs uppercase tracking-widest text-zinc-500">Anos Exp.</div>
-              </div>
-              <div>
-                <div className="text-white font-bold text-2xl mb-1">15+</div>
-                <div className="text-xs uppercase tracking-widest text-zinc-500">Projetos</div>
-              </div>
-              <div>
-                <div className="text-white font-bold text-2xl mb-1">100%</div>
-                <div className="text-xs uppercase tracking-widest text-zinc-500">Qualidade</div>
-              </div>
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-[3rem] overflow-hidden bg-zinc-900 border border-white/5 shadow-2xl">
-              <img 
-                src="/assets/portfolioIcon.jpeg" 
-                alt="Profile" 
-                className="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-          </div>
-        </section>
+      {/* Work Showcase Title */}
+      <section className="relative w-full z-20 flex flex-col items-center pt-24 pb-0">
+        <motion.div 
+          className="max-w-4xl text-center"
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-sans font-bold tracking-tighter text-white drop-shadow-xl">
+            conheça meu <span className="text-[#A7EF9E]">trabalho</span>
+          </h2>
+        </motion.div>
+      </section>
 
-        {/* Footer */}
-        <footer className="mt-60 pt-16 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="text-xs uppercase tracking-widest text-zinc-500">
-            © 2026 Joao Pedro / Design Portfolio
-          </div>
-          <div className="flex gap-8 text-sm font-medium text-zinc-400">
-            <a href="#" className="hover:text-white transition-colors">GitHub</a>
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Email</a>
-          </div>
-        </footer>
-      </main>
+      {/* Zoom Parallax — LAST section, image zooms to fill screen as finale */}
+      <ZoomParallax images={[
+        {
+          src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Modern architecture building',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Urban cityscape at sunset',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Abstract geometric pattern',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Mountain landscape',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Minimalist design elements',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Ocean waves and beach',
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+          alt: 'Forest trees and sunlight',
+        },
+      ]} />
     </div>
   );
 }
