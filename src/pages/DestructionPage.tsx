@@ -26,57 +26,57 @@ const PROBLEMS: ProblemSpec[] = [
     id: "header",
     text: "header bugada",
     color: "rgb(255, 255, 255)",
-    desktop: { top: "18%", left: "16%", width: 250, height: 72, rotation: -8, fontSize: "30px" },
-    mobile: { top: "21%", left: "24%", width: 170, height: 56, rotation: -6, fontSize: "19px" },
+    desktop: { top: "15%", left: "15%", width: 440, height: 70, rotation: 0, fontSize: "56px" },
+    mobile: { top: "12%", left: "28%", width: 240, height: 50, rotation: 0, fontSize: "24px" },
   },
   {
     id: "mobile",
     text: "layout quebrando no mobile",
     color: "rgb(255, 226, 202)",
-    desktop: { top: "24%", left: "78%", width: 360, height: 82, rotation: 7, fontSize: "26px" },
-    mobile: { top: "32%", left: "70%", width: 210, height: 60, rotation: 6, fontSize: "17px" },
+    desktop: { top: "38%", left: "92%", width: 340, height: 50, rotation: 0, fontSize: "20px" },
+    mobile: { top: "24%", left: "85%", width: 170, height: 40, rotation: 0, fontSize: "12px" },
   },
   {
     id: "slow",
     text: "site lento",
     color: "rgb(255, 242, 214)",
-    desktop: { top: "41%", left: "12%", width: 190, height: 64, rotation: -10, fontSize: "28px" },
-    mobile: { top: "44%", left: "24%", width: 135, height: 50, rotation: -7, fontSize: "18px" },
+    desktop: { top: "38%", left: "8%", width: 200, height: 50, rotation: 0, fontSize: "24px" },
+    mobile: { top: "24%", left: "15%", width: 120, height: 40, rotation: 0, fontSize: "16px" },
   },
   {
     id: "animation",
-    text: "anima\u00E7\u00E3o travando",
+    text: "animação travando",
     color: "rgb(241, 245, 249)",
-    desktop: { top: "35%", left: "84%", width: 300, height: 72, rotation: 10, fontSize: "24px" },
-    mobile: { top: "54%", left: "75%", width: 190, height: 54, rotation: 8, fontSize: "16px" },
+    desktop: { top: "61%", left: "92%", width: 320, height: 70, rotation: 0, fontSize: "28px" },
+    mobile: { top: "76%", left: "85%", width: 200, height: 46, rotation: 0, fontSize: "16px" },
   },
   {
     id: "impact",
     text: "visual sem impacto",
     color: "rgb(255, 238, 228)",
-    desktop: { top: "61%", left: "18%", width: 280, height: 72, rotation: 6, fontSize: "24px" },
-    mobile: { top: "63%", left: "28%", width: 175, height: 52, rotation: 5, fontSize: "16px" },
+    desktop: { top: "61%", left: "8%", width: 300, height: 70, rotation: 0, fontSize: "28px" },
+    mobile: { top: "76%", left: "15%", width: 180, height: 46, rotation: 0, fontSize: "18px" },
   },
   {
     id: "conversion",
-    text: "falta de convers\u00E3o",
+    text: "falta de conversão",
     color: "rgb(255, 255, 255)",
-    desktop: { top: "69%", left: "78%", width: 280, height: 72, rotation: -7, fontSize: "24px" },
-    mobile: { top: "72%", left: "70%", width: 180, height: 54, rotation: -5, fontSize: "16px" },
+    desktop: { top: "84%", left: "85%", width: 240, height: 50, rotation: 0, fontSize: "22px" },
+    mobile: { top: "88%", left: "72%", width: 150, height: 40, rotation: 0, fontSize: "14px" },
   },
   {
     id: "code",
-    text: "c\u00F3digo bagun\u00E7ado",
+    text: "código bagunçado",
     color: "rgb(255, 231, 214)",
-    desktop: { top: "78%", left: "28%", width: 250, height: 68, rotation: -5, fontSize: "22px" },
-    mobile: { top: "80%", left: "32%", width: 165, height: 50, rotation: -4, fontSize: "15px" },
+    desktop: { top: "84%", left: "15%", width: 240, height: 50, rotation: 0, fontSize: "22px" },
+    mobile: { top: "88%", left: "28%", width: 150, height: 40, rotation: 0, fontSize: "14px" },
   },
   {
     id: "ux",
     text: "UX confusa",
     color: "rgb(241, 245, 249)",
-    desktop: { top: "80%", left: "72%", width: 220, height: 68, rotation: 5, fontSize: "24px" },
-    mobile: { top: "86%", left: "70%", width: 140, height: 48, rotation: 5, fontSize: "16px" },
+    desktop: { top: "15%", left: "85%", width: 440, height: 70, rotation: 0, fontSize: "56px" },
+    mobile: { top: "12%", left: "72%", width: 240, height: 50, rotation: 0, fontSize: "24px" },
   },
 ];
 
@@ -97,15 +97,15 @@ function ProblemText({
 
   return (
     <motion.div
-      className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2"
+      className="pointer-events-none absolute"
       style={{
         top: layout.top,
         left: layout.left,
         width: `${layout.width}px`,
         height: `${layout.height}px`,
       }}
-      initial={{ opacity: 0, scale: 0.82, filter: "blur(12px)" }}
-      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0, scale: 0.82, filter: "blur(12px)", x: "-50%", y: "-50%" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: "-50%", y: "-50%" }}
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
       <div
@@ -138,7 +138,7 @@ function ProblemText({
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <p
-              className="text-center font-semibold tracking-tight"
+              className="text-center font-semibold tracking-tight whitespace-nowrap"
               style={{
                 color: problem.color,
                 fontSize: layout.fontSize,
@@ -239,7 +239,7 @@ export default function DestructionPage() {
     }
 
     const timeout = window.setTimeout(() => {
-      setIsClearing(false);
+      // Do not revert isClearing to false so the text stays fully vaporized forever
       setShowFinalMessage(true);
     }, 180);
 
@@ -253,7 +253,7 @@ export default function DestructionPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(255,116,48,0.09),transparent_26%)]" />
       <div className="relative flex min-h-screen items-center justify-center px-6 pb-32 pt-16">
         <div className="relative h-[min(78vh,760px)] w-full max-w-7xl">
-          {visibleProblems.map((problem) => (
+          {!showFinalMessage && visibleProblems.map((problem) => (
             <ProblemText
               key={problem.id}
               problem={problem}
@@ -275,8 +275,8 @@ export default function DestructionPage() {
                   transition={{ duration: 0.45, ease: "easeOut" }}
                   className="text-center"
                 >
-                  <p className="text-sm uppercase tracking-[0.45em] text-white/35">Resultado</p>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
+                  <p className="text-sm font-semibold uppercase tracking-[0.45em] text-[#ff7430] drop-shadow-sm">Solução Definitiva</p>
+                  <h2 className="mt-4 bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-7xl">
                     Eu resolvo isso.
                   </h2>
                 </motion.div>
@@ -289,17 +289,27 @@ export default function DestructionPage() {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="flex flex-col items-center"
                 >
-                  <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-                    {"Voc\u00EA est\u00E1 enfrentando esses problemas?"}
+                  <div className="mb-6 flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-white/70 shadow-lg backdrop-blur-md">
+                    <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff7430]"></span>
+                    O fim da frustração
+                  </div>
+                  <h1 className="max-w-4xl text-center bg-gradient-to-b from-white via-white to-white/40 bg-clip-text pb-4 text-4xl font-bold leading-[1.1] tracking-tighter text-transparent sm:text-6xl md:text-7xl">
+                    Você está enfrentando <br />
+                    esses problemas?
                   </h1>
                   <Button
                     type="button"
                     size="lg"
-                    className="mt-8 rounded-full bg-white px-8 py-6 text-sm uppercase tracking-[0.3em] text-black hover:bg-white/90"
+                    className="group relative flex items-center justify-center mt-8 overflow-hidden rounded-full bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black transition-all duration-500 ease-out hover:px-16 hover:bg-white/90"
                     disabled={isClearing}
                     onClick={handleActivate}
                   >
-                    Me contrate
+                    <span className="transition-all duration-500 group-hover:-translate-y-8 group-hover:opacity-0 group-hover:blur-sm">
+                      Não aguento mais
+                    </span>
+                    <span className="absolute inset-0 flex items-center justify-center translate-y-8 opacity-0 blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-hover:blur-0">
+                      Me contrate
+                    </span>
                   </Button>
                 </motion.div>
               )}

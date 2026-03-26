@@ -44,6 +44,7 @@ type Particle = {
   originalAlpha: number;
   velocityX: number;
   velocityY: number;
+  angle: number;
   speed: number;
   size: number;
   shouldFadeQuickly: boolean;
@@ -93,6 +94,7 @@ export default function VaporizeTextCycle({
 }: VaporizeTextCycleProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const textMaskRef = useRef<HTMLDivElement | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const frameRef = useRef<number | null>(null);
   const lastActivatedRef = useRef<number | null>(null);
@@ -107,7 +109,6 @@ export default function VaporizeTextCycle({
     if (typeof window === "undefined") {
       return 1;
     }
-
     return Math.min(window.devicePixelRatio || 1, MAX_RENDER_DPR);
   }, []);
 
@@ -127,7 +128,6 @@ export default function VaporizeTextCycle({
         if (currentSize.width === width && currentSize.height === height) {
           return currentSize;
         }
-
         return { width, height };
       });
     };
@@ -148,25 +148,24 @@ export default function VaporizeTextCycle({
       return;
     }
 
-    colorRef.current = parseColor(color);
-    prepareCanvas({
-      canvas,
-      text,
-      font,
-      alignment,
-      colorRef,
-      particlesRef,
-      wrapperSize,
-      globalDpr,
-      density,
-      vectorPath,
-      vectorViewBox,
-      vectorScale,
-    });
-
-    if (animationState !== "done") {
-      drawStatic(canvas, particlesRef.current, colorRef.current, globalDpr);
-    } else {
+    if (animationState === "idle") {
+      colorRef.current = parseColor(color);
+      prepareCanvas({
+        canvas,
+        text,
+        font,
+        alignment,
+        colorRef,
+        particlesRef,
+        wrapperSize,
+        globalDpr,
+        density,
+        vectorPath,
+        vectorViewBox,
+        vectorScale,
+      });
+      drawStatic(canvas); // Keeps canvas clear until trigger
+    } else if (animationState === "done") {
       const ctx = canvas.getContext("2d");
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -193,11 +192,21 @@ export default function VaporizeTextCycle({
       lastActivatedRef.current = activationKey;
 
       if (activationKey === 0) {
+        if (textMaskRef.current) {
+          textMaskRef.current.style.opacity = "1";
+          textMaskRef.current.style.maskImage = "none";
+          textMaskRef.current.style.webkitMaskImage = "none";
+        }
         return;
       }
 
       progressRef.current = 0;
       resetParticles(particlesRef.current);
+      if (textMaskRef.current) {
+        textMaskRef.current.style.opacity = "1";
+        textMaskRef.current.style.maskImage = "none";
+        textMaskRef.current.style.WebkitMaskImage = "none";
+      }
       setAnimationState("vaporizing");
       return;
     }
@@ -209,6 +218,11 @@ export default function VaporizeTextCycle({
     lastActivatedRef.current = activationKey;
     progressRef.current = 0;
     resetParticles(particlesRef.current);
+    if (textMaskRef.current) {
+      textMaskRef.current.style.opacity = "1";
+      textMaskRef.current.style.maskImage = "none";
+      textMaskRef.current.style.WebkitMaskImage = "none";
+    }
     setAnimationState("vaporizing");
   }, [activationKey, wrapperSize]);
 
@@ -240,6 +254,19 @@ export default function VaporizeTextCycle({
           ? canvas.textBoundaries!.left + canvas.textBoundaries!.width * progress
           : canvas.textBoundaries!.right - canvas.textBoundaries!.width * progress;
 
+      // Update text wiping mask
+      if (textMaskRef.current) {
+        if (direction === "left-to-right") {
+          const grad = `linear-gradient(to right, transparent ${Math.max(0, vaporizeX - 8)}px, black ${vaporizeX + 8}px)`;
+          textMaskRef.current.style.webkitMaskImage = grad;
+          textMaskRef.current.style.maskImage = grad;
+        } else {
+          const grad = `linear-gradient(to right, black ${Math.max(0, vaporizeX - 8)}px, transparent ${vaporizeX + 8}px)`;
+          textMaskRef.current.style.webkitMaskImage = grad;
+          textMaskRef.current.style.maskImage = grad;
+        }
+      }
+
       const finished = updateParticles(
         particlesRef.current,
         vaporizeX,
@@ -247,6 +274,8 @@ export default function VaporizeTextCycle({
         spread,
         density,
         direction,
+        font,
+        vaporizeDuration
       );
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -254,6 +283,9 @@ export default function VaporizeTextCycle({
 
       if (progress >= 1 && finished) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (textMaskRef.current) {
+          textMaskRef.current.style.opacity = "0";
+        }
         if (lastCompletedRef.current !== activationKey) {
           lastCompletedRef.current = activationKey;
           onComplete?.(activationKey);
@@ -274,7 +306,7 @@ export default function VaporizeTextCycle({
         frameRef.current = null;
       }
     };
-  }, [activationKey, animationState, density, direction, globalDpr, onComplete, spread, vaporizeDuration]);
+  }, [activationKey, animationState, density, direction, globalDpr, onComplete, spread, vaporizeDuration, font]);
 
   return (
     <div
@@ -283,37 +315,41 @@ export default function VaporizeTextCycle({
         width: "100%",
         height: "100%",
         pointerEvents: "none",
+        position: "relative"
       }}
     >
+      <div
+        ref={textMaskRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: alignment === "left" ? "flex-start" : alignment === "right" ? "flex-end" : "center",
+          color: color,
+          fontFamily: font?.fontFamily,
+          fontSize: font?.fontSize,
+          fontWeight: font?.fontWeight,
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+          opacity: animationState === "done" ? 0 : 1,
+        }}
+      >
+        {text}
+      </div>
       <canvas
         ref={canvasRef}
         style={{
+          position: "absolute",
+          inset: 0,
           width: "100%",
           height: "100%",
           pointerEvents: "none",
         }}
       />
-      <SeoElement tag={tag} texts={texts} />
     </div>
   );
 }
-
-const SeoElement = memo(({ tag = Tag.P, texts }: { tag: Tag; texts: string[] }) => {
-  const style = useMemo(
-    () => ({
-      position: "absolute" as const,
-      width: "0",
-      height: "0",
-      overflow: "hidden",
-      userSelect: "none" as const,
-      pointerEvents: "none" as const,
-    }),
-    [],
-  );
-
-  const safeTag = Object.values(Tag).includes(tag) ? tag : "p";
-  return createElement(safeTag, { style }, texts.join(" "));
-});
 
 function prepareCanvas({
   canvas,
@@ -339,16 +375,11 @@ function prepareCanvas({
   globalDpr: number;
   density: number;
   vectorPath?: string;
-  vectorViewBox?: {
-    width: number;
-    height: number;
-  };
+  vectorViewBox?: { width: number; height: number; };
   vectorScale: number;
 }) {
   const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    return;
-  }
+  if (!ctx) return;
 
   canvas.width = Math.floor(wrapperSize.width * globalDpr);
   canvas.height = Math.floor(wrapperSize.height * globalDpr);
@@ -367,11 +398,7 @@ function prepareCanvas({
     const path = new Path2D(vectorPath);
     const availableWidth = canvas.width * 0.34;
     const availableHeight = canvas.height * 0.72;
-    const scale =
-      Math.min(
-        availableWidth / vectorViewBox.width,
-        availableHeight / vectorViewBox.height,
-      ) * vectorScale;
+    const scale = Math.min(availableWidth / vectorViewBox.width, availableHeight / vectorViewBox.height) * vectorScale;
     const drawnWidth = vectorViewBox.width * scale;
     const drawnHeight = vectorViewBox.height * scale;
     const offsetX = (canvas.width - drawnWidth) / 2;
@@ -396,9 +423,7 @@ function prepareCanvas({
     sampleHeight = Math.min(canvas.height - sampleTop, Math.ceil(drawnHeight + padding * 2));
   } else {
     const fontSize = parseInt(font?.fontSize?.replace("px", "") || "72", 10);
-    const internalFont = `${font?.fontWeight ?? 700} ${fontSize * globalDpr}px ${
-      font?.fontFamily ?? "sans-serif"
-    }`;
+    const internalFont = `${font?.fontWeight ?? 700} ${fontSize * globalDpr}px ${font?.fontFamily ?? "sans-serif"}`;
 
     ctx.font = internalFont;
     ctx.textAlign = alignment;
@@ -410,20 +435,11 @@ function prepareCanvas({
     const descent = metrics.actualBoundingBoxDescent || fontSize * globalDpr * 0.24;
 
     let textX = canvas.width / 2;
-    if (alignment === "left") {
-      textX = 0;
-    }
-    if (alignment === "right") {
-      textX = canvas.width;
-    }
+    if (alignment === "left") textX = 0;
+    if (alignment === "right") textX = canvas.width;
 
     const textY = canvas.height / 2;
-    const textLeft =
-      alignment === "center"
-        ? textX - textWidth / 2
-        : alignment === "left"
-          ? textX
-          : textX - textWidth;
+    const textLeft = alignment === "center" ? textX - textWidth / 2 : alignment === "left" ? textX : textX - textWidth;
 
     canvas.textBoundaries = {
       left: textLeft,
@@ -437,10 +453,7 @@ function prepareCanvas({
     sampleLeft = Math.max(0, Math.floor(textLeft - padding));
     sampleTop = Math.max(0, Math.floor(textY - ascent - padding));
     sampleWidth = Math.min(canvas.width - sampleLeft, Math.ceil(textWidth + padding * 2));
-    sampleHeight = Math.min(
-      canvas.height - sampleTop,
-      Math.ceil(ascent + descent + padding * 2),
-    );
+    sampleHeight = Math.min(canvas.height - sampleTop, Math.ceil(ascent + descent + padding * 2));
   }
 
   const imageData = ctx.getImageData(sampleLeft, sampleTop, sampleWidth, sampleHeight);
@@ -467,6 +480,7 @@ function prepareCanvas({
           originalAlpha: alpha / 255,
           velocityX: 0,
           velocityY: 0,
+          angle: 0,
           speed: 0,
           size: drawSize,
           shouldFadeQuickly: false,
@@ -485,19 +499,11 @@ function prepareCanvas({
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function drawStatic(
-  canvas: HTMLCanvasElement,
-  particles: Particle[],
-  color: ParsedColor,
-  globalDpr: number,
-) {
+function drawStatic(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    return;
-  }
-
+  if (!ctx) return;
+  // We explicitly do NOT draw particles here so the user sees only the high-res crisp HTML text.
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawParticles(ctx, particles, color, globalDpr);
 }
 
 function drawParticles(
@@ -511,7 +517,8 @@ function drawParticles(
   ctx.fillStyle = color.css;
 
   for (const particle of particles) {
-    if (particle.opacity <= 0.02) {
+    // Only render particles that have actually started moving (speed > 0)
+    if (particle.opacity <= 0.02 || particle.speed === 0) {
       continue;
     }
 
@@ -530,9 +537,16 @@ function updateParticles(
   spread: number,
   density: number,
   direction: "left-to-right" | "right-to-left",
+  fontProp: VaporizeTextCycleProps["font"],
+  vaporizeDurationMS: number
 ) {
   let allGone = true;
-  const velocityBase = 30 + spread * 7;
+
+  const fontSize = parseInt(fontProp?.fontSize?.replace("px", "") || "72", 10);
+  const VAPORIZE_SPREAD = calculateVaporizeSpread(fontSize);
+  const MULTIPLIED_VAPORIZE_SPREAD = VAPORIZE_SPREAD * spread;
+  
+  const transformedDensity = 0.3 + (density / 10) * 0.7;
 
   for (const particle of particles) {
     const shouldMove =
@@ -546,22 +560,38 @@ function updateParticles(
     }
 
     if (particle.speed === 0) {
-      particle.speed = velocityBase * (0.6 + Math.random() * 0.6);
-      particle.velocityX = (Math.random() - 0.5) * particle.speed;
-      particle.velocityY = (Math.random() - 0.55) * particle.speed;
-      particle.shouldFadeQuickly = Math.random() > density / 10;
+      // Thanos Snap Initial Burst
+      const isLeftToRight = direction === "left-to-right";
+      const baseAngle = isLeftToRight ? 0 : Math.PI;
+      // Shoot out roughly in the direction of the sweep
+      particle.angle = baseAngle + (Math.random() - 0.5) * Math.PI * 0.6;
+      particle.speed = (Math.random() * 0.6 + 0.5) * MULTIPLIED_VAPORIZE_SPREAD * 1.8;
+      
+      particle.velocityX = Math.cos(particle.angle) * particle.speed;
+      // Add a slight upward kick initially
+      particle.velocityY = Math.sin(particle.angle) * particle.speed - MULTIPLIED_VAPORIZE_SPREAD * 1.5;
+      
+      particle.shouldFadeQuickly = Math.random() > transformedDensity;
     }
 
-    particle.x += particle.velocityX * deltaTime;
-    particle.y += particle.velocityY * deltaTime;
-    particle.velocityY -= deltaTime * 4;
-    particle.velocityX *= 0.985;
-    particle.velocityY *= 0.985;
+    // Thanos Dust Wind Physics: Aerodynamic Drag
+    particle.velocityX *= 0.94;
+    particle.velocityY *= 0.94;
+    
+    // Thanos Dust Wind Physics: Directional Wind Drag (drifting up and sideways)
+    const windDirection = direction === "left-to-right" ? 1 : -1;
+    particle.velocityX += windDirection * MULTIPLIED_VAPORIZE_SPREAD * deltaTime * 50;
+    particle.velocityY -= MULTIPLIED_VAPORIZE_SPREAD * deltaTime * 90; // Drifts upward like smoke/dust
+    
+    particle.x += particle.velocityX * deltaTime * 14;
+    particle.y += particle.velocityY * deltaTime * 14;
 
-    const fadeRate = particle.shouldFadeQuickly ? 2.8 : 2.1;
-    particle.opacity = Math.max(0, particle.opacity - deltaTime * fadeRate);
+    const baseFadeRate = particle.shouldFadeQuickly ? 3.0 : 1.4;
+    const durationBasedFadeRate = baseFadeRate * (2000 / vaporizeDurationMS);
 
-    if (particle.opacity > 0.02) {
+    particle.opacity = Math.max(0, particle.opacity - deltaTime * durationBasedFadeRate);
+
+    if (particle.opacity > 0.01) {
       allGone = false;
     }
   }
@@ -577,8 +607,28 @@ function resetParticles(particles: Particle[]) {
     particle.velocityX = 0;
     particle.velocityY = 0;
     particle.speed = 0;
+    particle.angle = 0;
     particle.shouldFadeQuickly = false;
   }
+}
+
+function calculateVaporizeSpread(fontSize: number) {
+  const points = [
+    { size: 20, spread: 0.2 },
+    { size: 50, spread: 0.5 },
+    { size: 100, spread: 1.5 }
+  ];
+
+  if (fontSize <= points[0].size) return points[0].spread;
+  if (fontSize >= points[points.length - 1].size) return points[points.length - 1].spread;
+
+  let i = 0;
+  while (i < points.length - 1 && points[i + 1].size < fontSize) i++;
+
+  const p1 = points[i];
+  const p2 = points[i + 1];
+
+  return p1.spread + (fontSize - p1.size) * (p2.spread - p1.spread) / (p2.size - p1.size);
 }
 
 function parseColor(color: string): ParsedColor {
