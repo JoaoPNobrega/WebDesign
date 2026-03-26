@@ -20,7 +20,7 @@ export default function PortfolioPage() {
   const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <div className="w-full bg-black text-white min-h-[200vh]">
+    <div className="w-full bg-black text-white min-h-[300vh]">
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         
@@ -132,6 +132,33 @@ export default function PortfolioPage() {
           alt: 'Forest trees and sunlight',
         },
       ]} />
+
+      {/* New Section following the Zoom Parallax — The expanded photo acts as the transition/hero */}
+      <section className="relative z-30 w-full min-h-screen bg-black flex flex-col items-center justify-center px-6 py-24">
+        <motion.div 
+          className="max-w-4xl text-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <span className="text-[#A7EF9E] font-mono text-sm uppercase tracking-widest mb-4 block">Design de Impacto</span>
+          <h2 className="text-5xl md:text-8xl font-sans font-black tracking-tighter text-white mb-8 leading-[0.9]">
+            TRANSFORMANDO <br/> <span className="text-[#A7EF9E]">IDEIAS</span> EM <br/> REALIDADE.
+          </h2>
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            Meu trabalho foca na intersecção entre estética moderna e funcionalidade absoluta. Cada projeto é uma nova oportunidade de desafiar o comum.
+          </p>
+          <div className="mt-12 flex gap-4 justify-center">
+            <button className="px-8 py-4 bg-[#A7EF9E] text-black font-bold uppercase tracking-tighter transition-transform hover:scale-105">
+              Ver Projetos
+            </button>
+            <button className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-tighter transition-all hover:bg-white/10">
+              Contato
+            </button>
+          </div>
+        </motion.div>
+      </section>
     </div>
   );
 }

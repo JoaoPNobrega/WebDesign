@@ -1,6 +1,6 @@
 'use client';
 
-import { useScroll, useTransform, motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useRef, useEffect, useState, useCallback } from 'react';
 
 interface Image {
@@ -11,124 +11,172 @@ interface Image {
 interface ZoomParallaxProps {
 	/** Array of images to be displayed in the parallax effect max 7 images */
 	images: Image[];
-	/** Duration in ms the scroll stays locked before zoom begins (default 2500) */
-	lockDuration?: number;
+	/** How many "scroll units" (pixels of wheel delta) needed to go from 0→1 (default 3000) */
+	scrollBudget?: number;
 }
 
-export function ZoomParallax({ images, lockDuration = 2500 }: ZoomParallaxProps) {
-	const container = useRef<HTMLDivElement>(null);
+export function ZoomParallax({ images, scrollBudget = 3000 }: ZoomParallaxProps) {
 	const stickyRef = useRef<HTMLDivElement>(null);
-	const [isLocked, setIsLocked] = useState(false);
-	const [hasUnlocked, setHasUnlocked] = useState(false);
-	const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const progressRef = useRef(0);
+	const isLockedRef = useRef(false);
+	const hasFinishedRef = useRef(false);
+	const touchStartY = useRef(0);
 
-	const { scrollYProgress } = useScroll({
-		target: container,
-		offset: ['start start', 'end end'],
-	});
+	// Framer-motion value driven by our virtual scroll
+	const progress = useMotionValue(0);
 
-	// ─── Hard-lock scroll when section enters viewport ────────────────
-	// Uses IntersectionObserver to detect when the sticky zone hits the
-	// top of the screen, then blocks ALL scroll for `lockDuration` ms.
+	// Build zoom scales from progress (0 → 1)
+	const scale4 = useTransform(progress, [0, 1], [1, 4]);
+	const scale5 = useTransform(progress, [0, 1], [1, 5]);
+	const scale6 = useTransform(progress, [0, 1], [1, 6]);
+	const scale8 = useTransform(progress, [0, 1], [1, 8]);
+	const scale9 = useTransform(progress, [0, 1], [1, 9]);
+	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
+
+	// No longer using contentOpacity to keep images at 100% opacity as requested
+
 	const lockScroll = useCallback(() => {
 		document.documentElement.style.overflow = 'hidden';
 		document.body.style.overflow = 'hidden';
-		// Also block touch scrolling on mobile
-		document.addEventListener('touchmove', preventScroll, { passive: false });
-		document.addEventListener('wheel', preventScroll, { passive: false });
 	}, []);
 
 	const unlockScroll = useCallback(() => {
 		document.documentElement.style.overflow = '';
 		document.body.style.overflow = '';
-		document.removeEventListener('touchmove', preventScroll);
-		document.removeEventListener('wheel', preventScroll);
 	}, []);
 
 	useEffect(() => {
 		const el = stickyRef.current;
-		if (!el || hasUnlocked) return;
+		if (!el) return;
 
+		// ── Intersection Observer: detect when the sticky area is on-screen ──
 		const observer = new IntersectionObserver(
 			(entries) => {
 				const entry = entries[0];
-				// Trigger only when the sticky container is fully at the top
-				if (entry.isIntersecting && entry.intersectionRatio >= 0.95 && !isLocked && !hasUnlocked) {
-					setIsLocked(true);
-					lockScroll();
-
-					lockTimerRef.current = setTimeout(() => {
-						unlockScroll();
-						setIsLocked(false);
-						setHasUnlocked(true);
-					}, lockDuration);
+				if (entry.isIntersecting && entry.intersectionRatio >= 0.9) {
+					if (!isLockedRef.current && !hasFinishedRef.current) {
+						// Snap the page so the section is exactly at top
+						el.scrollIntoView({ behavior: 'instant' as ScrollBehavior });
+						isLockedRef.current = true;
+						lockScroll();
+					}
 				}
 			},
-			{
-				threshold: [0.95, 1.0],
-			}
+			{ threshold: [0.9, 1.0] },
 		);
 
 		observer.observe(el);
 
+		// ── Wheel handler: eat the scroll, feed the progress ──
+		const onWheel = (e: WheelEvent) => {
+			if (!isLockedRef.current) return;
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			const delta = e.deltaY;
+			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / scrollBudget));
+			progress.set(progressRef.current);
+
+			// Scrolling backwards past 0 → unlock upward
+			if (progressRef.current <= 0 && delta < 0) {
+				isLockedRef.current = false;
+				unlockScroll();
+				return;
+			}
+
+			// Finished → unlock downward
+			if (progressRef.current >= 1) {
+				isLockedRef.current = false;
+				hasFinishedRef.current = true;
+				unlockScroll();
+			}
+		};
+
+		// ── Touch handlers for mobile ──
+		const onTouchStart = (e: TouchEvent) => {
+			touchStartY.current = e.touches[0].clientY;
+		};
+
+		const onTouchMove = (e: TouchEvent) => {
+			if (!isLockedRef.current) return;
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			const currentY = e.touches[0].clientY;
+			const delta = touchStartY.current - currentY; // positive = scroll down
+			touchStartY.current = currentY;
+
+			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / (scrollBudget * 0.4)));
+			progress.set(progressRef.current);
+
+			if (progressRef.current <= 0 && delta < 0) {
+				isLockedRef.current = false;
+				unlockScroll();
+				return;
+			}
+
+			if (progressRef.current >= 1) {
+				isLockedRef.current = false;
+				hasFinishedRef.current = true;
+				unlockScroll();
+			}
+		};
+
+		window.addEventListener('wheel', onWheel, { passive: false });
+		window.addEventListener('touchstart', onTouchStart, { passive: true });
+		window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+		// ── Reset when user scrolls back above the section ──
+		const onNativeScroll = () => {
+			if (!containerRef.current || isLockedRef.current) return;
+			const rect = containerRef.current.getBoundingClientRect();
+			// If we're above the section again, let the lock re-trigger
+			if (rect.top > window.innerHeight * 0.5 && hasFinishedRef.current) {
+				hasFinishedRef.current = false;
+				progressRef.current = 0;
+				progress.set(0);
+			}
+		};
+		window.addEventListener('scroll', onNativeScroll, { passive: true });
+
 		return () => {
 			observer.disconnect();
-			if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
-			// Always clean up scroll lock on unmount
+			window.removeEventListener('wheel', onWheel);
+			window.removeEventListener('touchstart', onTouchStart);
+			window.removeEventListener('touchmove', onTouchMove);
+			window.removeEventListener('scroll', onNativeScroll);
 			unlockScroll();
 		};
-	}, [isLocked, hasUnlocked, lockDuration, lockScroll, unlockScroll]);
-
-	// Reset lock state if user scrolls back up above the section
-	useEffect(() => {
-		if (!hasUnlocked) return;
-
-		const unsubscribe = scrollYProgress.on('change', (v) => {
-			if (v <= 0.01) {
-				setHasUnlocked(false);
-			}
-		});
-
-		return () => unsubscribe();
-	}, [hasUnlocked, scrollYProgress]);
-
-	const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
-	const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
-	const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);
-	const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-	const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
-
-	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
+	}, [lockScroll, unlockScroll, progress, scrollBudget]);
 
 	return (
-		<div ref={container} className="relative h-[300vh]">
+		<div ref={containerRef} className="relative" style={{ height: '100vh' }}>
 			<div ref={stickyRef} className="sticky top-0 h-screen overflow-hidden">
-				{images.map(({ src, alt }, index) => {
-					const scale = scales[index % scales.length];
+				<motion.div style={{ opacity: 1 }} className="h-full w-full">
+					{images.map(({ src, alt }, index) => {
+						const scale = scales[index % scales.length];
 
-					return (
-						<motion.div
-							key={index}
-							style={{ scale }}
-							className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[22.5vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
-						>
-							<div className="relative h-[25vh] w-[25vw]">
-								<img
-									src={src || '/placeholder.svg'}
-									alt={alt || `Parallax image ${index + 1}`}
-									className="h-full w-full object-cover"
-								/>
-							</div>
-						</motion.div>
-					);
-				})}
+						return (
+							<motion.div
+								key={index}
+								style={{ scale }}
+								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[22.5vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
+							>
+								<div className="relative h-[25vh] w-[25vw]">
+									<img
+										src={src || '/placeholder.svg'}
+										alt={alt || `Parallax image ${index + 1}`}
+										className="h-full w-full object-cover"
+									/>
+								</div>
+							</motion.div>
+						);
+					})}
+				</motion.div>
 			</div>
 		</div>
 	);
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────
-function preventScroll(e: Event) {
-	e.preventDefault();
-	e.stopPropagation();
 }
