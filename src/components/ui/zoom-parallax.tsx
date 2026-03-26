@@ -1,75 +1,208 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import {
+	animate,
+	motion,
+	useMotionTemplate,
+	useMotionValue,
+	useSpring,
+	useTransform,
+} from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface Image {
+interface ZoomMediaAsset {
+	type?: 'image' | 'video';
 	src: string;
+	fallbackSrc?: string;
+	posterSrc?: string;
 	alt?: string;
 }
 
 interface ZoomParallaxProps {
 	/** Array of images to be displayed in the parallax effect max 7 images */
-	images: Image[];
-	/** How many "scroll units" (pixels of wheel delta) needed to go from 0→1 (default 3000) */
+	images: ZoomMediaAsset[];
+	/** How many "scroll units" (pixels of wheel delta) needed to go from 0 to 1 (default 3000) */
 	scrollBudget?: number;
+	/** Intersection ratio that locks the section into place (default 0.9) */
+	lockThreshold?: number;
 }
 
-export function ZoomParallax({ images, scrollBudget = 3000 }: ZoomParallaxProps) {
+function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
+	const [hasVideoError, setHasVideoError] = useState(false);
+	const [currentImageSrc, setCurrentImageSrc] = useState(media.src);
+	const mediaType = media.type ?? 'image';
+
+	useEffect(() => {
+		setHasVideoError(false);
+		setCurrentImageSrc(media.src);
+	}, [media.fallbackSrc, media.src, media.type]);
+
+	if (mediaType === 'video' && !hasVideoError) {
+		return (
+			<video
+				src={media.src}
+				poster={media.posterSrc ?? media.fallbackSrc}
+				autoPlay
+				muted
+				loop
+				playsInline
+				preload="auto"
+				aria-label={media.alt || `Parallax video ${index + 1}`}
+				className="h-full w-full object-cover"
+				onError={() => {
+					setHasVideoError(true);
+				}}
+			/>
+		);
+	}
+
+	return (
+		<img
+			src={currentImageSrc || media.fallbackSrc || '/placeholder.svg'}
+			alt={media.alt || `Parallax image ${index + 1}`}
+			className="h-full w-full object-cover"
+			onError={() => {
+				if (!media.fallbackSrc || currentImageSrc === media.fallbackSrc) return;
+				setCurrentImageSrc(media.fallbackSrc);
+			}}
+		/>
+	);
+}
+
+export function ZoomParallax({
+	images,
+	scrollBudget = 3000,
+	lockThreshold = 0.9,
+}: ZoomParallaxProps) {
 	const stickyRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const progressRef = useRef(0);
 	const isLockedRef = useRef(false);
+	const isPrimingRef = useRef(false);
 	const hasFinishedRef = useRef(false);
 	const touchStartY = useRef(0);
+	const snapTimeoutRef = useRef<number | null>(null);
+	const entryAnimationRef = useRef<ReturnType<typeof animate> | null>(null);
+	const clampedLockThreshold = Math.min(0.99, Math.max(0.1, lockThreshold));
 
-	// Framer-motion value driven by our virtual scroll
+	// Separate target progress from rendered progress so the zoom has inertia.
 	const progress = useMotionValue(0);
+	const visualProgress = useSpring(progress, {
+		stiffness: 120,
+		damping: 24,
+		mass: 0.42,
+	});
+	const entryProgress = useMotionValue(0);
+	const entrySpring = useSpring(entryProgress, {
+		stiffness: 180,
+		damping: 28,
+		mass: 0.55,
+	});
 
-	// Build zoom scales from progress (0 → 1)
-	const scale4 = useTransform(progress, [0, 1], [1, 4]);
-	const scale5 = useTransform(progress, [0, 1], [1, 5]);
-	const scale6 = useTransform(progress, [0, 1], [1, 6]);
-	const scale8 = useTransform(progress, [0, 1], [1, 8]);
-	const scale9 = useTransform(progress, [0, 1], [1, 9]);
+	// Build zoom scales from progress (0 to 1).
+	const scale4 = useTransform(visualProgress, [0, 1], [1, 4]);
+	const scale5 = useTransform(visualProgress, [0, 1], [1, 5]);
+	const scale6 = useTransform(visualProgress, [0, 1], [1, 6]);
+	const scale8 = useTransform(visualProgress, [0, 1], [1, 8]);
+	const scale9 = useTransform(visualProgress, [0, 1], [1, 9]);
 	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
-	// No longer using contentOpacity to keep images at 100% opacity as requested
+	// Morph the section in so the lock feels more like a cinematic settle than a hard snap.
+	const stageScale = useTransform(entrySpring, [0, 1], [0.965, 1]);
+	const stageY = useTransform(entrySpring, [0, 1], [34, 0]);
+	const stageOpacity = useTransform(entrySpring, [0, 1], [0.82, 1]);
+	const stageBlur = useTransform(entrySpring, [0, 1], [18, 0]);
+	const stageRadius = useTransform(entrySpring, [0, 1], [32, 0]);
+	const stageSaturate = useTransform(entrySpring, [0, 1], [0.82, 1]);
+	const stageBrightness = useTransform(entrySpring, [0, 1], [0.82, 1]);
+	const stageFilter = useMotionTemplate`blur(${stageBlur}px) saturate(${stageSaturate}) brightness(${stageBrightness})`;
+	const overlayOpacity = useTransform(entrySpring, [0, 1], [0.2, 0]);
 
 	const lockScroll = useCallback(() => {
 		document.documentElement.style.overflow = 'hidden';
 		document.body.style.overflow = 'hidden';
+		document.documentElement.style.overscrollBehavior = 'none';
+		document.body.style.overscrollBehavior = 'none';
+		document.body.style.touchAction = 'none';
 	}, []);
 
 	const unlockScroll = useCallback(() => {
 		document.documentElement.style.overflow = '';
 		document.body.style.overflow = '';
+		document.documentElement.style.overscrollBehavior = '';
+		document.body.style.overscrollBehavior = '';
+		document.body.style.touchAction = '';
 	}, []);
+
+	const animateEntry = useCallback(
+		(nextValue: number, duration = 0.55) => {
+			entryAnimationRef.current?.stop();
+			entryAnimationRef.current = animate(entryProgress, nextValue, {
+				duration,
+				ease: [0.22, 1, 0.36, 1],
+			});
+		},
+		[entryProgress],
+	);
+
+	const releaseLock = useCallback(
+		(markAsFinished: boolean) => {
+			if (snapTimeoutRef.current !== null) {
+				window.clearTimeout(snapTimeoutRef.current);
+				snapTimeoutRef.current = null;
+			}
+
+			isPrimingRef.current = false;
+			isLockedRef.current = false;
+			hasFinishedRef.current = markAsFinished;
+			unlockScroll();
+		},
+		[unlockScroll],
+	);
+
+	const beginCapture = useCallback(() => {
+		const el = stickyRef.current;
+		if (!el || isLockedRef.current || isPrimingRef.current || hasFinishedRef.current) {
+			return;
+		}
+
+		const targetTop = window.scrollY + el.getBoundingClientRect().top;
+
+		isPrimingRef.current = true;
+		animateEntry(1, 0.65);
+		window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+		snapTimeoutRef.current = window.setTimeout(() => {
+			window.scrollTo({ top: targetTop });
+			isPrimingRef.current = false;
+			isLockedRef.current = true;
+			lockScroll();
+		}, 420);
+	}, [animateEntry, lockScroll]);
 
 	useEffect(() => {
 		const el = stickyRef.current;
 		if (!el) return;
 
-		// ── Intersection Observer: detect when the sticky area is on-screen ──
 		const observer = new IntersectionObserver(
 			(entries) => {
 				const entry = entries[0];
-				if (entry.isIntersecting && entry.intersectionRatio >= 0.9) {
-					if (!isLockedRef.current && !hasFinishedRef.current) {
-						// Snap the page so the section is exactly at top
-						el.scrollIntoView({ behavior: 'instant' as ScrollBehavior });
-						isLockedRef.current = true;
-						lockScroll();
-					}
+				if (entry.isIntersecting && entry.intersectionRatio >= clampedLockThreshold) {
+					beginCapture();
 				}
 			},
-			{ threshold: [0.9, 1.0] },
+			{ threshold: [clampedLockThreshold, 1] },
 		);
 
 		observer.observe(el);
 
-		// ── Wheel handler: eat the scroll, feed the progress ──
 		const onWheel = (e: WheelEvent) => {
+			if (isPrimingRef.current) {
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+
 			if (!isLockedRef.current) return;
 
 			e.preventDefault();
@@ -79,49 +212,46 @@ export function ZoomParallax({ images, scrollBudget = 3000 }: ZoomParallaxProps)
 			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / scrollBudget));
 			progress.set(progressRef.current);
 
-			// Scrolling backwards past 0 → unlock upward
 			if (progressRef.current <= 0 && delta < 0) {
-				isLockedRef.current = false;
-				unlockScroll();
+				releaseLock(false);
 				return;
 			}
 
-			// Finished → unlock downward
 			if (progressRef.current >= 1) {
-				isLockedRef.current = false;
-				hasFinishedRef.current = true;
-				unlockScroll();
+				releaseLock(true);
 			}
 		};
 
-		// ── Touch handlers for mobile ──
 		const onTouchStart = (e: TouchEvent) => {
 			touchStartY.current = e.touches[0].clientY;
 		};
 
 		const onTouchMove = (e: TouchEvent) => {
+			if (isPrimingRef.current) {
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+
 			if (!isLockedRef.current) return;
 
 			e.preventDefault();
 			e.stopPropagation();
 
 			const currentY = e.touches[0].clientY;
-			const delta = touchStartY.current - currentY; // positive = scroll down
+			const delta = touchStartY.current - currentY;
 			touchStartY.current = currentY;
 
 			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / (scrollBudget * 0.4)));
 			progress.set(progressRef.current);
 
 			if (progressRef.current <= 0 && delta < 0) {
-				isLockedRef.current = false;
-				unlockScroll();
+				releaseLock(false);
 				return;
 			}
 
 			if (progressRef.current >= 1) {
-				isLockedRef.current = false;
-				hasFinishedRef.current = true;
-				unlockScroll();
+				releaseLock(true);
 			}
 		};
 
@@ -129,34 +259,50 @@ export function ZoomParallax({ images, scrollBudget = 3000 }: ZoomParallaxProps)
 		window.addEventListener('touchstart', onTouchStart, { passive: true });
 		window.addEventListener('touchmove', onTouchMove, { passive: false });
 
-		// ── Reset when user scrolls back above the section ──
 		const onNativeScroll = () => {
-			if (!containerRef.current || isLockedRef.current) return;
+			if (!containerRef.current || isLockedRef.current || isPrimingRef.current) return;
+
 			const rect = containerRef.current.getBoundingClientRect();
-			// If we're above the section again, let the lock re-trigger
-			if (rect.top > window.innerHeight * 0.5 && hasFinishedRef.current) {
+			if (rect.top > window.innerHeight * 0.55 && (hasFinishedRef.current || progressRef.current > 0)) {
+				releaseLock(false);
 				hasFinishedRef.current = false;
 				progressRef.current = 0;
 				progress.set(0);
+				animateEntry(0, 0.35);
 			}
 		};
+
 		window.addEventListener('scroll', onNativeScroll, { passive: true });
 
 		return () => {
+			releaseLock(false);
+			entryAnimationRef.current?.stop();
 			observer.disconnect();
 			window.removeEventListener('wheel', onWheel);
 			window.removeEventListener('touchstart', onTouchStart);
 			window.removeEventListener('touchmove', onTouchMove);
 			window.removeEventListener('scroll', onNativeScroll);
-			unlockScroll();
 		};
-	}, [lockScroll, unlockScroll, progress, scrollBudget]);
+	}, [animateEntry, beginCapture, clampedLockThreshold, progress, releaseLock, scrollBudget]);
 
 	return (
 		<div ref={containerRef} className="relative" style={{ height: '100vh' }}>
-			<div ref={stickyRef} className="sticky top-0 h-screen overflow-hidden">
-				<motion.div style={{ opacity: 1 }} className="h-full w-full">
-					{images.map(({ src, alt }, index) => {
+			<div ref={stickyRef} className="sticky top-0 h-screen overflow-hidden bg-black">
+				<motion.div
+					style={{
+						scale: stageScale,
+						y: stageY,
+						opacity: stageOpacity,
+						filter: stageFilter,
+						borderRadius: stageRadius,
+					}}
+					className="relative h-full w-full overflow-hidden will-change-transform"
+				>
+					<motion.div
+						style={{ opacity: overlayOpacity }}
+						className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.16),rgba(0,0,0,0.55)_72%)]"
+					/>
+					{images.map((media, index) => {
 						const scale = scales[index % scales.length];
 
 						return (
@@ -166,11 +312,7 @@ export function ZoomParallax({ images, scrollBudget = 3000 }: ZoomParallaxProps)
 								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[22.5vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
 							>
 								<div className="relative h-[25vh] w-[25vw]">
-									<img
-										src={src || '/placeholder.svg'}
-										alt={alt || `Parallax image ${index + 1}`}
-										className="h-full w-full object-cover"
-									/>
+									<ZoomMedia media={media} index={index} />
 								</div>
 							</motion.div>
 						);

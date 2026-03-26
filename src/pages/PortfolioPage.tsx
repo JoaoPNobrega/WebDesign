@@ -1,10 +1,72 @@
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import FaultyTerminal from "@/components/ui/FaultyTerminal";
 import TextType from "@/components/ui/TextType";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
+import { StaggeredMenu } from "@/components/ui/StaggeredMenu";
+
+const portfolioZoomImages = [
+  {
+    type: "video",
+    src: "/portfolio-sites/site-01-opening.mp4",
+    posterSrc: "/portfolio-sites/site-01-opening-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Center site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-02-top-left.mp4",
+    posterSrc: "/portfolio-sites/site-02-top-left-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Top left site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-03-left-tall.mp4",
+    posterSrc: "/portfolio-sites/site-03-left-tall-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Left tall site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-04-center-right.mp4",
+    posterSrc: "/portfolio-sites/site-04-center-right-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Center right site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-05-bottom-left.mp4",
+    posterSrc: "/portfolio-sites/site-05-bottom-left-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Bottom left site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-06-bottom-wide.mp4",
+    posterSrc: "/portfolio-sites/site-06-bottom-wide-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Bottom wide site preview",
+  },
+  {
+    type: "video",
+    src: "/portfolio-sites/site-07-final-zoom.mp4",
+    posterSrc: "/portfolio-sites/site-07-final-zoom-poster.jpg",
+    fallbackSrc: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "Final zoom site preview",
+  },
+] as const;
+
+const projectMenuItems = [
+  { label: "Home", ariaLabel: "Go to home page", link: "/" },
+  { label: "Cracha", ariaLabel: "View the 3D badge project", link: "/cracha" },
+  { label: "Destroy", ariaLabel: "View the destruction experiment", link: "/destruction" },
+  { label: "Page 67", ariaLabel: "View the Page 67 project", link: "/67" },
+] as const;
 
 export default function PortfolioPage() {
+  const [projectsMenuOpen, setProjectsMenuOpen] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -21,6 +83,23 @@ export default function PortfolioPage() {
 
   return (
     <div className="w-full bg-black text-white min-h-[300vh]">
+      <StaggeredMenu
+        position="left"
+        items={[...projectMenuItems]}
+        displaySocials={false}
+        displayItemNumbering={true}
+        menuButtonColor="#ffffff"
+        openMenuButtonColor="#ffffff"
+        changeMenuColorOnOpen={true}
+        colors={["#D7F6D0", "#A7EF9E"]}
+        logoUrl="/jp-mark.svg"
+        accentColor="#7AD06A"
+        isFixed
+        hideToggleButton
+        controlledOpen={projectsMenuOpen}
+        onMenuClose={() => setProjectsMenuOpen(false)}
+      />
+
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         
@@ -102,36 +181,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Zoom Parallax — LAST section, image zooms to fill screen as finale */}
-      <ZoomParallax images={[
-        {
-          src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Modern architecture building',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Urban cityscape at sunset',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Abstract geometric pattern',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Mountain landscape',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Minimalist design elements',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Ocean waves and beach',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-          alt: 'Forest trees and sunlight',
-        },
-      ]} />
+      <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} />
 
       {/* New Section following the Zoom Parallax — The expanded photo acts as the transition/hero */}
       <section className="relative z-30 w-full min-h-screen bg-black flex flex-col items-center justify-center px-6 py-24">
@@ -150,8 +200,12 @@ export default function PortfolioPage() {
             Meu trabalho foca na intersecção entre estética moderna e funcionalidade absoluta. Cada projeto é uma nova oportunidade de desafiar o comum.
           </p>
           <div className="mt-12 flex gap-4 justify-center">
-            <button className="px-8 py-4 bg-[#A7EF9E] text-black font-bold uppercase tracking-tighter transition-transform hover:scale-105">
-              Ver Projetos
+            <button
+              type="button"
+              onClick={() => setProjectsMenuOpen((current) => !current)}
+              className="px-8 py-4 bg-[#A7EF9E] text-black font-bold uppercase tracking-tighter transition-transform hover:scale-105"
+            >
+              PROJETOS
             </button>
             <button className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-tighter transition-all hover:bg-white/10">
               Contato

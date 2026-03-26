@@ -1,0 +1,2073 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.19.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\pedro\Documents\GitHub\WebDesign\.npmrc
+5 silly config load:file:C:\Users\pedro\.npmrc
+6 silly config load:file:C:\Users\pedro\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\pedro\Documents\GitHub\WebDesign\.npm-cache\_logs\2026-03-26T18_17_23_015Z-
+10 verbose logfile C:\Users\pedro\Documents\GitHub\WebDesign\.npm-cache\_logs\2026-03-26T18_17_23_015Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with EACCES
+15 silly reify mark retired [
+15 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\anymatch'
+15 silly reify ]
+16 silly reify mark retired [
+16 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\any-promise'
+16 silly reify ]
+17 silly reify mark retired [ 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\arg' ]
+18 silly reify mark retired [
+18 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\autoprefixer'
+18 silly reify ]
+19 silly reify mark retired [
+19 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\base64-js'
+19 silly reify ]
+20 silly reify mark retired [
+20 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\baseline-browser-mapping'
+20 silly reify ]
+21 silly reify mark retired [
+21 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\bidi-js'
+21 silly reify ]
+22 silly reify mark retired [
+22 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\binary-extensions'
+22 silly reify ]
+23 silly reify mark retired [
+23 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\browserslist'
+23 silly reify ]
+24 silly reify mark retired [
+24 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\braces'
+24 silly reify ]
+25 silly reify mark retired [
+25 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\camelcase-css'
+25 silly reify ]
+26 silly reify mark retired [
+26 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\buffer'
+26 silly reify ]
+27 silly reify mark retired [
+27 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\camera-controls'
+27 silly reify ]
+28 silly reify mark retired [
+28 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\caniuse-lite'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\chokidar'
+29 silly reify ]
+30 silly reify mark retired [
+30 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\class-variance-authority'
+30 silly reify ]
+31 silly reify mark retired [
+31 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\commander'
+31 silly reify ]
+32 silly reify mark retired [
+32 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\clsx'
+32 silly reify ]
+33 silly reify mark retired [
+33 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cross-env'
+33 silly reify ]
+34 silly reify mark retired [
+34 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cssesc'
+34 silly reify ]
+35 silly reify mark retired [
+35 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cross-spawn'
+35 silly reify ]
+36 silly reify mark retired [
+36 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\csstype'
+36 silly reify ]
+37 silly reify mark retired [
+37 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\detect-gpu'
+37 silly reify ]
+38 silly reify mark retired [
+38 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\didyoumean'
+38 silly reify ]
+39 silly reify mark retired [ 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\dlv' ]
+40 silly reify mark retired [
+40 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\draco3d'
+40 silly reify ]
+41 silly reify mark retired [
+41 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\electron-to-chromium'
+41 silly reify ]
+42 silly reify mark retired [
+42 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\esbuild'
+42 silly reify ]
+43 silly reify mark retired [
+43 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\escalade'
+43 silly reify ]
+44 silly reify mark retired [
+44 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fast-glob'
+44 silly reify ]
+45 silly reify mark retired [
+45 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fflate'
+45 silly reify ]
+46 silly reify mark retired [
+46 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fastq'
+46 silly reify ]
+47 silly reify mark retired [
+47 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fill-range'
+47 silly reify ]
+48 silly reify mark retired [
+48 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\framer-motion'
+48 silly reify ]
+49 silly reify mark retired [
+49 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fraction.js'
+49 silly reify ]
+50 silly reify mark retired [
+50 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fsevents'
+50 silly reify ]
+51 silly reify mark retired [
+51 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\function-bind'
+51 silly reify ]
+52 silly reify mark retired [
+52 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\glob-parent'
+52 silly reify ]
+53 silly reify mark retired [
+53 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\gsap'
+53 silly reify ]
+54 silly reify mark retired [
+54 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\glsl-noise'
+54 silly reify ]
+55 silly reify mark retired [
+55 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\hasown'
+55 silly reify ]
+56 silly reify mark retired [
+56 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\hls.js'
+56 silly reify ]
+57 silly reify mark retired [
+57 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ieee754'
+57 silly reify ]
+58 silly reify mark retired [
+58 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-binary-path'
+58 silly reify ]
+59 silly reify mark retired [
+59 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\immediate'
+59 silly reify ]
+60 silly reify mark retired [
+60 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-core-module'
+60 silly reify ]
+61 silly reify mark retired [
+61 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-glob'
+61 silly reify ]
+62 silly reify mark retired [
+62 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-extglob'
+62 silly reify ]
+63 silly reify mark retired [
+63 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-number'
+63 silly reify ]
+64 silly reify mark retired [
+64 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-promise'
+64 silly reify ]
+65 silly reify mark retired [
+65 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\isexe'
+65 silly reify ]
+66 silly reify mark retired [
+66 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\its-fine'
+66 silly reify ]
+67 silly reify mark retired [
+67 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\jiti'
+67 silly reify ]
+68 silly reify mark retired [ 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lie' ]
+69 silly reify mark retired [
+69 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\js-tokens'
+69 silly reify ]
+70 silly reify mark retired [
+70 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lilconfig'
+70 silly reify ]
+71 silly reify mark retired [
+71 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lines-and-columns'
+71 silly reify ]
+72 silly reify mark retired [
+72 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\loose-envify'
+72 silly reify ]
+73 silly reify mark retired [
+73 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lucide-react'
+73 silly reify ]
+74 silly reify mark retired [
+74 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\maath'
+74 silly reify ]
+75 silly reify mark retired [
+75 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\merge2'
+75 silly reify ]
+76 silly reify mark retired [
+76 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\meshline'
+76 silly reify ]
+77 silly reify mark retired [
+77 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\micromatch'
+77 silly reify ]
+78 silly reify mark retired [
+78 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\meshoptimizer'
+78 silly reify ]
+79 silly reify mark retired [
+79 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\motion-dom'
+79 silly reify ]
+80 silly reify mark retired [
+80 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\motion-utils'
+80 silly reify ]
+81 silly reify mark retired [ 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\mz' ]
+82 silly reify mark retired [
+82 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\node-releases'
+82 silly reify ]
+83 silly reify mark retired [
+83 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\nanoid'
+83 silly reify ]
+84 silly reify mark retired [
+84 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\normalize-path'
+84 silly reify ]
+85 silly reify mark retired [
+85 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\object-hash'
+85 silly reify ]
+86 silly reify mark retired [ 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ogl' ]
+87 silly reify mark retired [
+87 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\object-assign'
+87 silly reify ]
+88 silly reify mark retired [
+88 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\path-parse'
+88 silly reify ]
+89 silly reify mark retired [
+89 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\path-key'
+89 silly reify ]
+90 silly reify mark retired [
+90 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\picocolors'
+90 silly reify ]
+91 silly reify mark retired [
+91 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\picomatch'
+91 silly reify ]
+92 silly reify mark retired [
+92 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\pify'
+92 silly reify ]
+93 silly reify mark retired [
+93 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\pirates'
+93 silly reify ]
+94 silly reify mark retired [
+94 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-js'
+94 silly reify ]
+95 silly reify mark retired [
+95 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-import'
+95 silly reify ]
+96 silly reify mark retired [
+96 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss'
+96 silly reify ]
+97 silly reify mark retired [
+97 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-load-config'
+97 silly reify ]
+98 silly reify mark retired [
+98 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-nested'
+98 silly reify ]
+99 silly reify mark retired [
+99 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\potpack'
+99 silly reify ]
+100 silly reify mark retired [
+100 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-selector-parser'
+100 silly reify ]
+101 silly reify mark retired [
+101 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\promise-worker-transferable'
+101 silly reify ]
+102 silly reify mark retired [
+102 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-value-parser'
+102 silly reify ]
+103 silly reify mark retired [
+103 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\prop-types'
+103 silly reify ]
+104 silly reify mark retired [
+104 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\queue-microtask'
+104 silly reify ]
+105 silly reify mark retired [
+105 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react'
+105 silly reify ]
+106 silly reify mark retired [
+106 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-dom'
+106 silly reify ]
+107 silly reify mark retired [
+107 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-is'
+107 silly reify ]
+108 silly reify mark retired [
+108 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-reconciler'
+108 silly reify ]
+109 silly reify mark retired [
+109 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-use-measure'
+109 silly reify ]
+110 silly reify mark retired [
+110 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-composer'
+110 silly reify ]
+111 silly reify mark retired [
+111 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\read-cache'
+111 silly reify ]
+112 silly reify mark retired [
+112 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\readdirp'
+112 silly reify ]
+113 silly reify mark retired [
+113 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\require-from-string'
+113 silly reify ]
+114 silly reify mark retired [
+114 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\resolve'
+114 silly reify ]
+115 silly reify mark retired [
+115 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\reusify'
+115 silly reify ]
+116 silly reify mark retired [
+116 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\rollup'
+116 silly reify ]
+117 silly reify mark retired [
+117 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\scheduler'
+117 silly reify ]
+118 silly reify mark retired [
+118 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\run-parallel'
+118 silly reify ]
+119 silly reify mark retired [
+119 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\shebang-command'
+119 silly reify ]
+120 silly reify mark retired [
+120 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\shebang-regex'
+120 silly reify ]
+121 silly reify mark retired [
+121 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\source-map-js'
+121 silly reify ]
+122 silly reify mark retired [
+122 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\stats-gl'
+122 silly reify ]
+123 silly reify mark retired [
+123 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\stats.js'
+123 silly reify ]
+124 silly reify mark retired [
+124 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\sucrase'
+124 silly reify ]
+125 silly reify mark retired [
+125 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\supports-preserve-symlinks-flag'
+125 silly reify ]
+126 silly reify mark retired [
+126 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\suspend-react'
+126 silly reify ]
+127 silly reify mark retired [
+127 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwind-merge'
+127 silly reify ]
+128 silly reify mark retired [
+128 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwindcss'
+128 silly reify ]
+129 silly reify mark retired [
+129 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwindcss-animate'
+129 silly reify ]
+130 silly reify mark retired [
+130 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\thenify'
+130 silly reify ]
+131 silly reify mark retired [
+131 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\thenify-all'
+131 silly reify ]
+132 silly reify mark retired [
+132 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three'
+132 silly reify ]
+133 silly reify mark retired [
+133 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three-mesh-bvh'
+133 silly reify ]
+134 silly reify mark retired [
+134 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tinyglobby'
+134 silly reify ]
+135 silly reify mark retired [
+135 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three-stdlib'
+135 silly reify ]
+136 silly reify mark retired [
+136 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\to-regex-range'
+136 silly reify ]
+137 silly reify mark retired [
+137 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-three-utils'
+137 silly reify ]
+138 silly reify mark retired [
+138 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-three-text'
+138 silly reify ]
+139 silly reify mark retired [
+139 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-worker-utils'
+139 silly reify ]
+140 silly reify mark retired [
+140 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ts-interface-checker'
+140 silly reify ]
+141 silly reify mark retired [
+141 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tslib'
+141 silly reify ]
+142 silly reify mark retired [
+142 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\update-browserslist-db'
+142 silly reify ]
+143 silly reify mark retired [
+143 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tunnel-rat'
+143 silly reify ]
+144 silly reify mark retired [
+144 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\use-sync-external-store'
+144 silly reify ]
+145 silly reify mark retired [
+145 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\typescript'
+145 silly reify ]
+146 silly reify mark retired [
+146 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\util-deprecate'
+146 silly reify ]
+147 silly reify mark retired [
+147 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\vite'
+147 silly reify ]
+148 silly reify mark retired [
+148 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\utility-types'
+148 silly reify ]
+149 silly reify mark retired [
+149 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\webgl-sdf-generator'
+149 silly reify ]
+150 silly reify mark retired [
+150 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\webgl-constants'
+150 silly reify ]
+151 silly reify mark retired [
+151 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\which'
+151 silly reify ]
+152 silly reify mark retired [
+152 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\yaml'
+152 silly reify ]
+153 silly reify mark retired [
+153 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\zustand'
+153 silly reify ]
+154 silly reify mark retired [
+154 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@alloc\\quick-lru'
+154 silly reify ]
+155 silly reify mark retired [
+155 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@babel\\runtime'
+155 silly reify ]
+156 silly reify mark retired [
+156 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@dimforge\\rapier3d-compat'
+156 silly reify ]
+157 silly reify mark retired [
+157 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\aix-ppc64'
+157 silly reify ]
+158 silly reify mark retired [
+158 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm'
+158 silly reify ]
+159 silly reify mark retired [
+159 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-x64'
+159 silly reify ]
+160 silly reify mark retired [
+160 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-arm64'
+160 silly reify ]
+161 silly reify mark retired [
+161 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm64'
+161 silly reify ]
+162 silly reify mark retired [
+162 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-x64'
+162 silly reify ]
+163 silly reify mark retired [
+163 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-arm64'
+163 silly reify ]
+164 silly reify mark retired [
+164 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-x64'
+164 silly reify ]
+165 silly reify mark retired [
+165 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm'
+165 silly reify ]
+166 silly reify mark retired [
+166 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm64'
+166 silly reify ]
+167 silly reify mark retired [
+167 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ia32'
+167 silly reify ]
+168 silly reify mark retired [
+168 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-mips64el'
+168 silly reify ]
+169 silly reify mark retired [
+169 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-loong64'
+169 silly reify ]
+170 silly reify mark retired [
+170 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ppc64'
+170 silly reify ]
+171 silly reify mark retired [
+171 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-riscv64'
+171 silly reify ]
+172 silly reify mark retired [
+172 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-s390x'
+172 silly reify ]
+173 silly reify mark retired [
+173 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-x64'
+173 silly reify ]
+174 silly reify mark retired [
+174 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\netbsd-x64'
+174 silly reify ]
+175 silly reify mark retired [
+175 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\openbsd-x64'
+175 silly reify ]
+176 silly reify mark retired [
+176 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\sunos-x64'
+176 silly reify ]
+177 silly reify mark retired [
+177 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-arm64'
+177 silly reify ]
+178 silly reify mark retired [
+178 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-ia32'
+178 silly reify ]
+179 silly reify mark retired [
+179 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-x64'
+179 silly reify ]
+180 silly reify mark retired [
+180 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\core'
+180 silly reify ]
+181 silly reify mark retired [
+181 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\dom'
+181 silly reify ]
+182 silly reify mark retired [
+182 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\react-dom'
+182 silly reify ]
+183 silly reify mark retired [
+183 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\utils'
+183 silly reify ]
+184 silly reify mark retired [
+184 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\gen-mapping'
+184 silly reify ]
+185 silly reify mark retired [
+185 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\resolve-uri'
+185 silly reify ]
+186 silly reify mark retired [
+186 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\sourcemap-codec'
+186 silly reify ]
+187 silly reify mark retired [
+187 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\trace-mapping'
+187 silly reify ]
+188 silly reify mark retired [
+188 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@monogrid\\gainmap-js'
+188 silly reify ]
+189 silly reify mark retired [
+189 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@mediapipe\\tasks-vision'
+189 silly reify ]
+190 silly reify mark retired [
+190 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.scandir'
+190 silly reify ]
+191 silly reify mark retired [
+191 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.stat'
+191 silly reify ]
+192 silly reify mark retired [
+192 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.walk'
+192 silly reify ]
+193 silly reify mark retired [
+193 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\primitive'
+193 silly reify ]
+194 silly reify mark retired [
+194 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-arrow'
+194 silly reify ]
+195 silly reify mark retired [
+195 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-compose-refs'
+195 silly reify ]
+196 silly reify mark retired [
+196 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-context'
+196 silly reify ]
+197 silly reify mark retired [
+197 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-id'
+197 silly reify ]
+198 silly reify mark retired [
+198 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-dismissable-layer'
+198 silly reify ]
+199 silly reify mark retired [
+199 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-popper'
+199 silly reify ]
+200 silly reify mark retired [
+200 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-portal'
+200 silly reify ]
+201 silly reify mark retired [
+201 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-presence'
+201 silly reify ]
+202 silly reify mark retired [
+202 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-primitive'
+202 silly reify ]
+203 silly reify mark retired [
+203 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-slot'
+203 silly reify ]
+204 silly reify mark retired [
+204 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-callback-ref'
+204 silly reify ]
+205 silly reify mark retired [
+205 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-controllable-state'
+205 silly reify ]
+206 silly reify mark retired [
+206 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-effect-event'
+206 silly reify ]
+207 silly reify mark retired [
+207 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-tooltip'
+207 silly reify ]
+208 silly reify mark retired [
+208 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-escape-keydown'
+208 silly reify ]
+209 silly reify mark retired [
+209 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-layout-effect'
+209 silly reify ]
+210 silly reify mark retired [
+210 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-visually-hidden'
+210 silly reify ]
+211 silly reify mark retired [
+211 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-size'
+211 silly reify ]
+212 silly reify mark retired [
+212 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-rect'
+212 silly reify ]
+213 silly reify mark retired [
+213 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\rect'
+213 silly reify ]
+214 silly reify mark retired [
+214 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\animated'
+214 silly reify ]
+215 silly reify mark retired [
+215 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\shared'
+215 silly reify ]
+216 silly reify mark retired [
+216 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\rafz'
+216 silly reify ]
+217 silly reify mark retired [
+217 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\core'
+217 silly reify ]
+218 silly reify mark retired [
+218 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\types'
+218 silly reify ]
+219 silly reify mark retired [
+219 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\three'
+219 silly reify ]
+220 silly reify mark retired [
+220 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\drei'
+220 silly reify ]
+221 silly reify mark retired [
+221 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\fiber'
+221 silly reify ]
+222 silly reify mark retired [
+222 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\rapier'
+222 silly reify ]
+223 silly reify mark retired [
+223 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rolldown\\pluginutils'
+223 silly reify ]
+224 silly reify mark retired [
+224 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm-eabi'
+224 silly reify ]
+225 silly reify mark retired [
+225 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm64'
+225 silly reify ]
+226 silly reify mark retired [
+226 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-arm64'
+226 silly reify ]
+227 silly reify mark retired [
+227 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-x64'
+227 silly reify ]
+228 silly reify mark retired [
+228 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-arm64'
+228 silly reify ]
+229 silly reify mark retired [
+229 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-x64'
+229 silly reify ]
+230 silly reify mark retired [
+230 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-gnueabihf'
+230 silly reify ]
+231 silly reify mark retired [
+231 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-musleabihf'
+231 silly reify ]
+232 silly reify mark retired [
+232 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-gnu'
+232 silly reify ]
+233 silly reify mark retired [
+233 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-musl'
+233 silly reify ]
+234 silly reify mark retired [
+234 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-gnu'
+234 silly reify ]
+235 silly reify mark retired [
+235 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-musl'
+235 silly reify ]
+236 silly reify mark retired [
+236 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-gnu'
+236 silly reify ]
+237 silly reify mark retired [
+237 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-musl'
+237 silly reify ]
+238 silly reify mark retired [
+238 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-gnu'
+238 silly reify ]
+239 silly reify mark retired [
+239 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-gnu'
+239 silly reify ]
+240 silly reify mark retired [
+240 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-musl'
+240 silly reify ]
+241 silly reify mark retired [
+241 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-s390x-gnu'
+241 silly reify ]
+242 silly reify mark retired [
+242 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-musl'
+242 silly reify ]
+243 silly reify mark retired [
+243 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openbsd-x64'
+243 silly reify ]
+244 silly reify mark retired [
+244 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openharmony-arm64'
+244 silly reify ]
+245 silly reify mark retired [
+245 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-arm64-msvc'
+245 silly reify ]
+246 silly reify mark retired [
+246 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-ia32-msvc'
+246 silly reify ]
+247 silly reify mark retired [
+247 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-x64-msvc'
+247 silly reify ]
+248 silly reify mark retired [
+248 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-x64-gnu'
+248 silly reify ]
+249 silly reify mark retired [
+249 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@studio-freight\\lenis'
+249 silly reify ]
+250 silly reify mark retired [
+250 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core'
+250 silly reify ]
+251 silly reify mark retired [
+251 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-x64'
+251 silly reify ]
+252 silly reify mark retired [
+252 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm-gnueabihf'
+252 silly reify ]
+253 silly reify mark retired [
+253 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-gnu'
+253 silly reify ]
+254 silly reify mark retired [
+254 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-arm64'
+254 silly reify ]
+255 silly reify mark retired [
+255 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-ppc64-gnu'
+255 silly reify ]
+256 silly reify mark retired [
+256 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-musl'
+256 silly reify ]
+257 silly reify mark retired [
+257 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-s390x-gnu'
+257 silly reify ]
+258 silly reify mark retired [
+258 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-musl'
+258 silly reify ]
+259 silly reify mark retired [
+259 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-gnu'
+259 silly reify ]
+260 silly reify mark retired [
+260 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-ia32-msvc'
+260 silly reify ]
+261 silly reify mark retired [
+261 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-x64-msvc'
+261 silly reify ]
+262 silly reify mark retired [
+262 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\counter'
+262 silly reify ]
+263 silly reify mark retired [
+263 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-arm64-msvc'
+263 silly reify ]
+264 silly reify mark retired [
+264 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@tweenjs\\tween.js'
+264 silly reify ]
+265 silly reify mark retired [
+265 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\types'
+265 silly reify ]
+266 silly reify mark retired [
+266 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\draco3d'
+266 silly reify ]
+267 silly reify mark retired [
+267 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\estree'
+267 silly reify ]
+268 silly reify mark retired [
+268 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\offscreencanvas'
+268 silly reify ]
+269 silly reify mark retired [
+269 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\prop-types'
+269 silly reify ]
+270 silly reify mark retired [
+270 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react'
+270 silly reify ]
+271 silly reify mark retired [
+271 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react-dom'
+271 silly reify ]
+272 silly reify mark retired [
+272 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react-reconciler'
+272 silly reify ]
+273 silly reify mark retired [
+273 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\stats.js'
+273 silly reify ]
+274 silly reify mark retired [
+274 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\three'
+274 silly reify ]
+275 silly reify mark retired [
+275 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\webxr'
+275 silly reify ]
+276 silly reify mark retired [
+276 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\core'
+276 silly reify ]
+277 silly reify mark retired [
+277 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\react'
+277 silly reify ]
+278 silly reify mark retired [
+278 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@vitejs\\plugin-react-swc'
+278 silly reify ]
+279 silly reify mark retired [
+279 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@webgpu\\types'
+279 silly reify ]
+280 silly reify moves {
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\anymatch': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.anymatch-KBt89Guq',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\any-promise': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.any-promise-lZUiOWRQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\arg': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.arg-MdRCMBrQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\autoprefixer': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.autoprefixer-VjcrsRUz',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\base64-js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.base64-js-kzd0Q1Qk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\baseline-browser-mapping': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.baseline-browser-mapping-UOv1w38o',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\bidi-js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.bidi-js-vGaj5o7B',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\binary-extensions': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.binary-extensions-7SODmy4X',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\browserslist': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.browserslist-KKf9G7yL',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\braces': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.braces-8QlwqVTX',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\camelcase-css': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.camelcase-css-nTwjvJnl',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\buffer': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.buffer-Ts8ESul4',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\camera-controls': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.camera-controls-fbwY1qtt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\caniuse-lite': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.caniuse-lite-EVSAFBx6',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\chokidar': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.chokidar-HpWYuL2S',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\class-variance-authority': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.class-variance-authority-WhCpUT91',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\commander': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.commander-WyPmMUj2',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\clsx': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.clsx-Wctn2spH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cross-env': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.cross-env-HlgHQlS5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cssesc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.cssesc-7N3c4PQM',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\cross-spawn': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.cross-spawn-T7kuHXjQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\csstype': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.csstype-W8HRLDEd',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\detect-gpu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.detect-gpu-n7LGZcCk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\didyoumean': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.didyoumean-SGPZjJjF',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\dlv': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.dlv-VtojHr1H',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\draco3d': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.draco3d-eQJ2eO79',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\electron-to-chromium': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.electron-to-chromium-vTJDOXs1',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\esbuild': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.esbuild-QnEBGFLQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\escalade': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.escalade-Dlgdv49e',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fast-glob': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fast-glob-exWqOtiV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fflate': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fflate-rn0412X5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fastq': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fastq-aZddCpIk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fill-range': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fill-range-P8MBvSwh',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\framer-motion': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.framer-motion-sScO4ZQN',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fraction.js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fraction.js-dXHGPALE',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fsevents': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.fsevents-FIcgByFH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\function-bind': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.function-bind-mEgCa0Wu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\glob-parent': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.glob-parent-Ulj1xf7O',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\gsap': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.gsap-ahSbebfm',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\glsl-noise': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.glsl-noise-0DnC89tN',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\hasown': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.hasown-83XE1E3O',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\hls.js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.hls.js-IufQhTfu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ieee754': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.ieee754-ygAw0v7l',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-binary-path': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-binary-path-wKot2sOh',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\immediate': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.immediate-9rKyqY8N',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-core-module': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-core-module-ODUO99lY',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-glob': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-glob-RxrYNr9E',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-extglob': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-extglob-0qJCzZIt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-number': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-number-edgQhEZj',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\is-promise': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.is-promise-OAHTxM84',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\isexe': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.isexe-6fljOEib',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\its-fine': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.its-fine-5XoYiu8B',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\jiti': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.jiti-Jw4OoVML',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lie': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.lie-UTMHkGBT',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\js-tokens': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.js-tokens-duA0bpMs',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lilconfig': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.lilconfig-DDP02hZA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lines-and-columns': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.lines-and-columns-S5D5iD7J',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\loose-envify': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.loose-envify-xKIq6gzR',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\lucide-react': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.lucide-react-0cg779AT',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\maath': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.maath-VbILyB9U',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\merge2': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.merge2-MRyl0wEZ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\meshline': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.meshline-tg8muhpO',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\micromatch': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.micromatch-mCZkgoQV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\meshoptimizer': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.meshoptimizer-J7QvPCBE',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\motion-dom': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.motion-dom-INx2eAio',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\motion-utils': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.motion-utils-IDZAScPA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\mz': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.mz-KjU7rkPt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\node-releases': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.node-releases-10AOKiHg',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\nanoid': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.nanoid-2A7z2tQu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\normalize-path': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.normalize-path-LANuVPLR',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\object-hash': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.object-hash-sgFAaxlG',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ogl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.ogl-ZBmAgqNo',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\object-assign': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.object-assign-XulpMBQ9',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\path-parse': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.path-parse-hc27ccak',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\path-key': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.path-key-NEbs4AVW',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\picocolors': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.picocolors-kZx9yjem',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\picomatch': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.picomatch-bgLITtnm',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\pify': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.pify-eF1HV0NV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\pirates': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.pirates-jcRxuo7r',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-js-u17om2kc',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-import': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-import-tw6TS1L5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-X9Amiu8y',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-load-config': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-load-config-Nnb6WECU',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-nested': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-nested-M7UQy1Gn',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\potpack': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.potpack-oNz4xcsm',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-selector-parser': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-selector-parser-Nz0ho5Jd',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\promise-worker-transferable': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.promise-worker-transferable-GRecAUnR',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\postcss-value-parser': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.postcss-value-parser-NdIWwzVP',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\prop-types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.prop-types-UbJuYkJe',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\queue-microtask': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.queue-microtask-QvLfHzvg',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-34AaEwUG',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-dom': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-dom-INGMnpDE',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-is': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-is-EMqZR1Ln',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-reconciler': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-reconciler-HfYnKat0',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-use-measure': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-use-measure-2PkNVOTM',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\react-composer': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.react-composer-jyXlLxfM',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\read-cache': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.read-cache-WA0RAiLn',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\readdirp': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.readdirp-bQat0XI0',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\require-from-string': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.require-from-string-UiYB05at',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\resolve': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.resolve-aiy3HZHy',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\reusify': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.reusify-fKLu5sBs',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\rollup': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.rollup-8CfNE8j3',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\scheduler': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.scheduler-blkKEnFX',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\run-parallel': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.run-parallel-xzWABY6w',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\shebang-command': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.shebang-command-1WV1x6k5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\shebang-regex': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.shebang-regex-6QAoehlj',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\source-map-js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.source-map-js-1d5QMHv8',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\stats-gl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.stats-gl-Ae5hDYtR',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\stats.js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.stats.js-99azoxZt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\sucrase': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.sucrase-eSagckjp',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\supports-preserve-symlinks-flag': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.supports-preserve-symlinks-flag-m3L9KFdV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\suspend-react': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.suspend-react-6DAY7IFb',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwind-merge': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tailwind-merge-BXVIy2xC',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwindcss': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tailwindcss-kCSETIUa',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tailwindcss-animate': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tailwindcss-animate-0SRvjxK3',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\thenify': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.thenify-ZdX2fSu2',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\thenify-all': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.thenify-all-3mfHvnX2',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.three-Gp3rdSzt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three-mesh-bvh': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.three-mesh-bvh-7g6S94Sy',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tinyglobby': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tinyglobby-TsW5C6V6',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\three-stdlib': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.three-stdlib-Ak33kbe3',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\to-regex-range': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.to-regex-range-tRYfRAiJ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-three-utils': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.troika-three-utils-E8yTuhVq',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-three-text': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.troika-three-text-mm5uwtRj',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\troika-worker-utils': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.troika-worker-utils-3gObyd3G',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\ts-interface-checker': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.ts-interface-checker-adDa5xMx',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tslib': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tslib-d7jEuqBM',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\update-browserslist-db': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.update-browserslist-db-gxF0TDoo',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\tunnel-rat': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.tunnel-rat-LsnNq6uV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\use-sync-external-store': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.use-sync-external-store-OutgdAw6',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\typescript': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.typescript-kofQSCOJ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\util-deprecate': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.util-deprecate-nvcSabKm',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\vite': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.vite-C0HhgiBJ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\utility-types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.utility-types-dv0ogub5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\webgl-sdf-generator': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.webgl-sdf-generator-e8wHEqYB',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\webgl-constants': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.webgl-constants-xwQlxNC3',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\which': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.which-1ePhyCF8',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\yaml': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.yaml-4bcSKueP',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\zustand': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\.zustand-HAQJiQay',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@alloc\\quick-lru': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@alloc\\.quick-lru-Xx0v1MH1',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@babel\\runtime': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@babel\\.runtime-uzaLFDVk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@dimforge\\rapier3d-compat': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@dimforge\\.rapier3d-compat-BYFrjnPW',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\aix-ppc64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.aix-ppc64-ntKqh2K2',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.android-arm-SJU58ejz',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.android-x64-vFzqde53',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.darwin-arm64-KmRIgJB4',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.android-arm64-4MgXl2mg',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.darwin-x64-xOJLY93Q',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.freebsd-arm64-X9cAuWLt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.freebsd-x64-WconR2u4',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-arm-etsTGBSK',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-arm64-sVmSnFA2',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ia32': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-ia32-a2nXgVg8',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-mips64el': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-mips64el-C2u4Xlsz',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-loong64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-loong64-TfQ5C7zW',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ppc64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-ppc64-OlEMA3ED',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-riscv64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-riscv64-ovjv0azu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-s390x': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-s390x-N6uFbPMi',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.linux-x64-Kh5SnA5C',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\netbsd-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.netbsd-x64-4qmQiBKu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\openbsd-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.openbsd-x64-wDL9H0Oc',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\sunos-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.sunos-x64-fPwaXDtY',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.win32-arm64-FOuDL6cp',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-ia32': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.win32-ia32-cYutKgqM',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\.win32-x64-Mf6Lxl1A',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\core': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\.core-GGS9ZBks',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\dom': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\.dom-uo3CtEu9',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\react-dom': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\.react-dom-zwuDUeel',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\utils': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@floating-ui\\.utils-6fn8r8Ey',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\gen-mapping': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\.gen-mapping-eDPnPpog',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\resolve-uri': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\.resolve-uri-7Kl3UJyZ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\sourcemap-codec': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\.sourcemap-codec-lggu7nYj',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\trace-mapping': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@jridgewell\\.trace-mapping-fjf8fDvU',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@monogrid\\gainmap-js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@monogrid\\.gainmap-js-nhTRd1BT',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@mediapipe\\tasks-vision': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@mediapipe\\.tasks-vision-U3UhE1f7',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.scandir': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\.fs.scandir-VBKzHS5T',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.stat': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\.fs.stat-Q2H6znIl',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\fs.walk': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@nodelib\\.fs.walk-Ytt4izXW',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\primitive': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.primitive-oHl3S9jE',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-arrow': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-arrow-NZTdG01g',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-compose-refs': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-compose-refs-7yE44EXD',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-context': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-context-l40hrZH0',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-id': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-id-2IKKh4mK',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-dismissable-layer': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-dismissable-layer-dwlfJOtr',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-popper': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-popper-tBHzogoc',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-portal': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-portal-RwgsNbEK',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-presence': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-presence-BGA3Fe6e',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-primitive': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-primitive-u5Wnvba5',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-slot': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-slot-cef1RjUP',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-callback-ref': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-callback-ref-ZnZoBp9n',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-controllable-state': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-controllable-state-eKLmzF3U',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-effect-event': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-effect-event-7eUZpcmA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-tooltip': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-tooltip-QoxcI4rX',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-escape-keydown': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-escape-keydown-01JUzNp1',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-layout-effect': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-layout-effect-5JLR8q3X',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-visually-hidden': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-visually-hidden-801Yh7uA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-size': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-size-sVp0EpYW',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\react-use-rect': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.react-use-rect-Yaq7EgXQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\rect': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@radix-ui\\.rect-hnEMHD7n',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\animated': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.animated-oA2z14oS',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\shared': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.shared-S9CEEomg',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\rafz': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.rafz-uwmYLXUp',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\core': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.core-YHmysq5x',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.types-iWspCnFV',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\three': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-spring\\.three-lPikXN7X',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\drei': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\.drei-dgvJPcYP',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\fiber': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\.fiber-0hsbth3Q',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\rapier': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@react-three\\.rapier-HyNThfXB',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rolldown\\pluginutils': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rolldown\\.pluginutils-Ama9xTBH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm-eabi': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-android-arm-eabi-qoqc3g4G',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-android-arm64-hLQPvMmu',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-darwin-arm64-qyzWQGGH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-darwin-x64-2Y36Uvjz',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-freebsd-arm64-coEiDADr',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-freebsd-x64-yc65QydE',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-gnueabihf': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-arm-gnueabihf-0dCMSzJX',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-musleabihf': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-arm-musleabihf-qttAtnQl',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-arm64-gnu-8d681Fz4',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-arm64-musl-uy7ZwaQQ',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-loong64-gnu-EYKAGHzp',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-loong64-musl-dZoNdUER',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-ppc64-gnu-bLGPz2zi',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-ppc64-musl-jKQz03D0',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-riscv64-gnu-XtWazZ0c',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-x64-gnu-02Vm0V7l',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-riscv64-musl-4WBWJxPA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-s390x-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-s390x-gnu-y6bGh26f',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-linux-x64-musl-hOOwe6I1',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openbsd-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-openbsd-x64-Oku9ZohI',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openharmony-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-openharmony-arm64-zCYGCtNk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-arm64-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-win32-arm64-msvc-ONLHzSmF',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-ia32-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-win32-ia32-msvc-yIWlvuKp',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-x64-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-win32-x64-msvc-JVtG3We6',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-x64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\.rollup-win32-x64-gnu-tm9dz9NF',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@studio-freight\\lenis': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@studio-freight\\.lenis-gB9yhccU',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-f01XC7BS',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-x64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-darwin-x64-Rii5GqWo',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm-gnueabihf': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-arm-gnueabihf-YpE4bLGA',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-arm64-gnu-pAi1SUWO',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-arm64': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-darwin-arm64-afiyJYy8',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-ppc64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-ppc64-gnu-Av1hMB1H',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-arm64-musl-DkOshEvm',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-s390x-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-s390x-gnu-0ekIqgFk',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-musl': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-x64-musl-zjflkpjH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-gnu': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-linux-x64-gnu-50r4Eit0',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-ia32-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-win32-ia32-msvc-dZBAA9Go',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-x64-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-win32-x64-msvc-ciSg5R8g',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\counter': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.counter-35df109e',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-arm64-msvc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.core-win32-arm64-msvc-YBabqquY',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@tweenjs\\tween.js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@tweenjs\\.tween.js-88jcsKFd',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\.types-OwhjnKxY',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\draco3d': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.draco3d-JVx21Sw8',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\estree': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.estree-FWljLwHH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\offscreencanvas': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.offscreencanvas-wcJHaS7E',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\prop-types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.prop-types-qSnY42wt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.react-KJubitT1',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react-dom': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.react-dom-wZsefQvN',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\react-reconciler': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.react-reconciler-ilAmUJ3Q',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\stats.js': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.stats.js-PtlplxAb',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\three': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.three-Mjj4jLeN',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\webxr': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@types\\.webxr-OavlshjR',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\core': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\.core-9VZtS0eH',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\react': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@use-gesture\\.react-6DWCSZTt',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@vitejs\\plugin-react-swc': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@vitejs\\.plugin-react-swc-JROyky07',
+280 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@webgpu\\types': 'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@webgpu\\.types-TornkrZg'
+280 silly reify }
+281 silly audit bulk request {
+281 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+281 silly audit   '@babel/runtime': [ '7.29.2' ],
+281 silly audit   '@dimforge/rapier3d-compat': [ '0.14.0', '0.12.0' ],
+281 silly audit   '@esbuild/aix-ppc64': [ '0.21.5' ],
+281 silly audit   '@esbuild/android-arm': [ '0.21.5' ],
+281 silly audit   '@esbuild/android-arm64': [ '0.21.5' ],
+281 silly audit   '@esbuild/android-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/darwin-arm64': [ '0.21.5' ],
+281 silly audit   '@esbuild/darwin-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/freebsd-arm64': [ '0.21.5' ],
+281 silly audit   '@esbuild/freebsd-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-arm': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-arm64': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-ia32': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-loong64': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-mips64el': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-ppc64': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-riscv64': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-s390x': [ '0.21.5' ],
+281 silly audit   '@esbuild/linux-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/netbsd-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/openbsd-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/sunos-x64': [ '0.21.5' ],
+281 silly audit   '@esbuild/win32-arm64': [ '0.21.5' ],
+281 silly audit   '@esbuild/win32-ia32': [ '0.21.5' ],
+281 silly audit   '@esbuild/win32-x64': [ '0.21.5' ],
+281 silly audit   '@floating-ui/core': [ '1.7.5' ],
+281 silly audit   '@floating-ui/dom': [ '1.7.6' ],
+281 silly audit   '@floating-ui/react-dom': [ '2.1.8' ],
+281 silly audit   '@floating-ui/utils': [ '0.2.11' ],
+281 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+281 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+281 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+281 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+281 silly audit   '@mediapipe/tasks-vision': [ '0.10.17' ],
+281 silly audit   '@monogrid/gainmap-js': [ '3.4.0' ],
+281 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+281 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+281 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+281 silly audit   '@radix-ui/primitive': [ '1.1.3' ],
+281 silly audit   '@radix-ui/react-arrow': [ '1.1.7' ],
+281 silly audit   '@radix-ui/react-compose-refs': [ '1.1.2' ],
+281 silly audit   '@radix-ui/react-context': [ '1.1.2' ],
+281 silly audit   '@radix-ui/react-dismissable-layer': [ '1.1.11' ],
+281 silly audit   '@radix-ui/react-id': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-popper': [ '1.2.8' ],
+281 silly audit   '@radix-ui/react-portal': [ '1.1.9' ],
+281 silly audit   '@radix-ui/react-presence': [ '1.1.5' ],
+281 silly audit   '@radix-ui/react-primitive': [ '2.1.3' ],
+281 silly audit   '@radix-ui/react-slot': [ '1.2.3', '1.2.4' ],
+281 silly audit   '@radix-ui/react-tooltip': [ '1.2.8' ],
+281 silly audit   '@radix-ui/react-use-callback-ref': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-use-controllable-state': [ '1.2.2' ],
+281 silly audit   '@radix-ui/react-use-effect-event': [ '0.0.2' ],
+281 silly audit   '@radix-ui/react-use-escape-keydown': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-use-layout-effect': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-use-rect': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-use-size': [ '1.1.1' ],
+281 silly audit   '@radix-ui/react-visually-hidden': [ '1.2.3' ],
+281 silly audit   '@radix-ui/rect': [ '1.1.1' ],
+281 silly audit   '@react-spring/animated': [ '9.7.5' ],
+281 silly audit   '@react-spring/core': [ '9.7.5' ],
+281 silly audit   '@react-spring/rafz': [ '9.7.5' ],
+281 silly audit   '@react-spring/shared': [ '9.7.5' ],
+281 silly audit   '@react-spring/three': [ '9.7.5' ],
+281 silly audit   '@react-spring/types': [ '9.7.5' ],
+281 silly audit   '@react-three/drei': [ '9.122.0' ],
+281 silly audit   '@react-three/fiber': [ '8.17.14' ],
+281 silly audit   zustand: [ '3.7.2', '4.5.7', '5.0.12' ],
+281 silly audit   '@react-three/rapier': [ '1.5.0' ],
+281 silly audit   '@rolldown/pluginutils': [ '1.0.0-beta.27' ],
+281 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-android-arm64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-darwin-arm64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-darwin-x64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-freebsd-x64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-openbsd-x64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.60.0' ],
+281 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.60.0' ],
+281 silly audit   '@studio-freight/lenis': [ '1.0.42' ],
+281 silly audit   '@swc/core': [ '1.15.21' ],
+281 silly audit   '@swc/core-darwin-arm64': [ '1.15.21' ],
+281 silly audit   '@swc/core-darwin-x64': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-arm-gnueabihf': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-arm64-gnu': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-arm64-musl': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-ppc64-gnu': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-s390x-gnu': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-x64-gnu': [ '1.15.21' ],
+281 silly audit   '@swc/core-linux-x64-musl': [ '1.15.21' ],
+281 silly audit   '@swc/core-win32-arm64-msvc': [ '1.15.21' ],
+281 silly audit   '@swc/core-win32-ia32-msvc': [ '1.15.21' ],
+281 silly audit   '@swc/core-win32-x64-msvc': [ '1.15.21' ],
+281 silly audit   '@swc/counter': [ '0.1.3' ],
+281 silly audit   '@swc/types': [ '0.1.26' ],
+281 silly audit   '@tweenjs/tween.js': [ '23.1.3' ],
+281 silly audit   '@types/draco3d': [ '1.4.10' ],
+281 silly audit   '@types/estree': [ '1.0.8' ],
+281 silly audit   '@types/offscreencanvas': [ '2019.7.3' ],
+281 silly audit   '@types/prop-types': [ '15.7.15' ],
+281 silly audit   '@types/react': [ '18.3.28' ],
+281 silly audit   '@types/react-dom': [ '18.3.7' ],
+281 silly audit   '@types/react-reconciler': [ '0.26.7', '0.28.9' ],
+281 silly audit   '@types/stats.js': [ '0.17.4' ],
+281 silly audit   '@types/three': [ '0.183.1' ],
+281 silly audit   '@types/webxr': [ '0.5.24' ],
+281 silly audit   '@use-gesture/core': [ '10.3.1' ],
+281 silly audit   '@use-gesture/react': [ '10.3.1' ],
+281 silly audit   '@vitejs/plugin-react-swc': [ '3.11.0' ],
+281 silly audit   '@webgpu/types': [ '0.1.69' ],
+281 silly audit   'any-promise': [ '1.3.0' ],
+281 silly audit   anymatch: [ '3.1.3' ],
+281 silly audit   arg: [ '5.0.2' ],
+281 silly audit   autoprefixer: [ '10.4.27' ],
+281 silly audit   'base64-js': [ '1.5.1' ],
+281 silly audit   'baseline-browser-mapping': [ '2.10.10' ],
+281 silly audit   'bidi-js': [ '1.0.3' ],
+281 silly audit   'binary-extensions': [ '2.3.0' ],
+281 silly audit   braces: [ '3.0.3' ],
+281 silly audit   browserslist: [ '4.28.1' ],
+281 silly audit   buffer: [ '6.0.3' ],
+281 silly audit   'camelcase-css': [ '2.0.1' ],
+281 silly audit   'camera-controls': [ '2.10.1' ],
+281 silly audit   'caniuse-lite': [ '1.0.30001781' ],
+281 silly audit   chokidar: [ '3.6.0' ],
+281 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+281 silly audit   'class-variance-authority': [ '0.7.1' ],
+281 silly audit   clsx: [ '2.1.1' ],
+281 silly audit   commander: [ '4.1.1' ],
+281 silly audit   'cross-env': [ '7.0.3' ],
+281 silly audit   'cross-spawn': [ '7.0.6' ],
+281 silly audit   cssesc: [ '3.0.0' ],
+281 silly audit   csstype: [ '3.2.3' ],
+281 silly audit   'detect-gpu': [ '5.0.70' ],
+281 silly audit   didyoumean: [ '1.2.2' ],
+281 silly audit   dlv: [ '1.1.3' ],
+281 silly audit   draco3d: [ '1.5.7' ],
+281 silly audit   'electron-to-chromium': [ '1.5.325' ],
+281 silly audit   esbuild: [ '0.21.5' ],
+281 silly audit   escalade: [ '3.2.0' ],
+281 silly audit   'fast-glob': [ '3.3.3' ],
+281 silly audit   fastq: [ '1.20.1' ],
+281 silly audit   fflate: [ '0.8.2', '0.6.10' ],
+281 silly audit   'fill-range': [ '7.1.1' ],
+281 silly audit   'fraction.js': [ '5.3.4' ],
+281 silly audit   'framer-motion': [ '12.38.0' ],
+281 silly audit   fsevents: [ '2.3.3' ],
+281 silly audit   'function-bind': [ '1.1.2' ],
+281 silly audit   'glsl-noise': [ '0.0.0' ],
+281 silly audit   gsap: [ '3.14.2' ],
+281 silly audit   hasown: [ '2.0.2' ],
+281 silly audit   'hls.js': [ '1.6.15' ],
+281 silly audit   ieee754: [ '1.2.1' ],
+281 silly audit   immediate: [ '3.0.6' ],
+281 silly audit   'is-binary-path': [ '2.1.0' ],
+281 silly audit   'is-core-module': [ '2.16.1' ],
+281 silly audit   'is-extglob': [ '2.1.1' ],
+281 silly audit   'is-glob': [ '4.0.3' ],
+281 silly audit   'is-number': [ '7.0.0' ],
+281 silly audit   'is-promise': [ '2.2.2' ],
+281 silly audit   isexe: [ '2.0.0' ],
+281 silly audit   'its-fine': [ '1.2.5' ],
+281 silly audit   jiti: [ '1.21.7' ],
+281 silly audit   'js-tokens': [ '4.0.0' ],
+281 silly audit   lie: [ '3.3.0' ],
+281 silly audit   lilconfig: [ '3.1.3' ],
+281 silly audit   'lines-and-columns': [ '1.2.4' ],
+281 silly audit   'loose-envify': [ '1.4.0' ],
+281 silly audit   'lucide-react': [ '1.7.0' ],
+281 silly audit   maath: [ '0.10.8' ],
+281 silly audit   merge2: [ '1.4.1' ],
+281 silly audit   meshline: [ '3.3.1' ],
+281 silly audit   meshoptimizer: [ '1.0.1' ],
+281 silly audit   micromatch: [ '4.0.8' ],
+281 silly audit   'motion-dom': [ '12.38.0' ],
+281 silly audit   'motion-utils': [ '12.36.0' ],
+281 silly audit   mz: [ '2.7.0' ],
+281 silly audit   nanoid: [ '3.3.11' ],
+281 silly audit   'node-releases': [ '2.0.36' ],
+281 silly audit   'normalize-path': [ '3.0.0' ],
+281 silly audit   'object-assign': [ '4.1.1' ],
+281 silly audit   'object-hash': [ '3.0.0' ],
+281 silly audit   ogl: [ '1.0.11' ],
+281 silly audit   'path-key': [ '3.1.1' ],
+281 silly audit   'path-parse': [ '1.0.7' ],
+281 silly audit   picocolors: [ '1.1.1' ],
+281 silly audit   picomatch: [ '2.3.2', '4.0.4' ],
+281 silly audit   pify: [ '2.3.0' ],
+281 silly audit   pirates: [ '4.0.7' ],
+281 silly audit   postcss: [ '8.5.8' ],
+281 silly audit   'postcss-import': [ '15.1.0' ],
+281 silly audit   'postcss-js': [ '4.1.0' ],
+281 silly audit   'postcss-load-config': [ '4.0.2' ],
+281 silly audit   'postcss-nested': [ '6.2.0' ],
+281 silly audit   'postcss-selector-parser': [ '6.1.2' ],
+281 silly audit   'postcss-value-parser': [ '4.2.0' ],
+281 silly audit   potpack: [ '1.0.2' ],
+281 silly audit   'promise-worker-transferable': [ '1.0.4' ],
+281 silly audit   'prop-types': [ '15.8.1' ],
+281 silly audit   'queue-microtask': [ '1.2.3' ],
+281 silly audit   react: [ '18.3.1' ],
+281 silly audit   'react-composer': [ '5.0.3' ],
+281 silly audit   'react-dom': [ '18.3.1' ],
+281 silly audit   scheduler: [ '0.23.2', '0.21.0' ],
+281 silly audit   'react-is': [ '16.13.1' ],
+281 silly audit   'react-reconciler': [ '0.27.0' ],
+281 silly audit   'react-use-measure': [ '2.1.7' ],
+281 silly audit   'read-cache': [ '1.0.0' ],
+281 silly audit   readdirp: [ '3.6.0' ],
+281 silly audit   'require-from-string': [ '2.0.2' ],
+281 silly audit   resolve: [ '1.22.11' ],
+281 silly audit   reusify: [ '1.1.0' ],
+281 silly audit   rollup: [ '4.60.0' ],
+281 silly audit   'run-parallel': [ '1.2.0' ],
+281 silly audit   'shebang-command': [ '2.0.0' ],
+281 silly audit   'shebang-regex': [ '3.0.0' ],
+281 silly audit   'source-map-js': [ '1.2.1' ],
+281 silly audit   'stats-gl': [ '2.4.2' ],
+281 silly audit   three: [ '0.170.0', '0.183.2' ],
+281 silly audit   'stats.js': [ '0.17.0' ],
+281 silly audit   sucrase: [ '3.35.1' ],
+281 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+281 silly audit   'suspend-react': [ '0.1.3' ],
+281 silly audit   'tailwind-merge': [ '3.5.0' ],
+281 silly audit   tailwindcss: [ '3.4.17' ],
+281 silly audit   'tailwindcss-animate': [ '1.0.7' ],
+281 silly audit   thenify: [ '3.3.1' ],
+281 silly audit   'thenify-all': [ '1.6.0' ],
+281 silly audit   'three-mesh-bvh': [ '0.7.8' ],
+281 silly audit   'three-stdlib': [ '2.36.1' ],
+281 silly audit   tinyglobby: [ '0.2.15' ],
+281 silly audit   fdir: [ '6.5.0' ],
+281 silly audit   'to-regex-range': [ '5.0.1' ],
+281 silly audit   'troika-three-text': [ '0.52.4' ],
+281 silly audit   'troika-three-utils': [ '0.52.4' ],
+281 silly audit   'troika-worker-utils': [ '0.52.0' ],
+281 silly audit   'ts-interface-checker': [ '0.1.13' ],
+281 silly audit   tslib: [ '2.8.1' ],
+281 silly audit   'tunnel-rat': [ '0.1.2' ],
+281 silly audit   typescript: [ '5.9.3' ],
+281 silly audit   'update-browserslist-db': [ '1.2.3' ],
+281 silly audit   'use-sync-external-store': [ '1.6.0' ],
+281 silly audit   'util-deprecate': [ '1.0.2' ],
+281 silly audit   'utility-types': [ '3.11.0' ],
+281 silly audit   vite: [ '5.4.21' ],
+281 silly audit   'webgl-constants': [ '1.1.1' ],
+281 silly audit   'webgl-sdf-generator': [ '1.1.1' ],
+281 silly audit   which: [ '2.0.2' ],
+281 silly audit   yaml: [ '2.8.3' ]
+281 silly audit }
+282 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-win32-arm64-msvc
+283 silly reify mark deleted [
+283 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-arm64-msvc'
+283 silly reify ]
+284 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-win32-ia32-msvc
+285 silly reify mark deleted [
+285 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-win32-ia32-msvc'
+285 silly reify ]
+286 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-x64-gnu
+287 silly reify mark deleted [
+287 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-gnu'
+287 silly reify ]
+288 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-x64-musl
+289 silly reify mark deleted [
+289 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-x64-musl'
+289 silly reify ]
+290 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-s390x-gnu
+291 silly reify mark deleted [
+291 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-s390x-gnu'
+291 silly reify ]
+292 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-arm64-musl
+293 silly reify mark deleted [
+293 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-musl'
+293 silly reify ]
+294 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-ppc64-gnu
+295 silly reify mark deleted [
+295 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-ppc64-gnu'
+295 silly reify ]
+296 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-darwin-arm64
+297 silly reify mark deleted [
+297 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-arm64'
+297 silly reify ]
+298 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-arm64-gnu
+299 silly reify mark deleted [
+299 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm64-gnu'
+299 silly reify ]
+300 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-linux-arm-gnueabihf
+301 silly reify mark deleted [
+301 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-linux-arm-gnueabihf'
+301 silly reify ]
+302 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@swc\core-darwin-x64
+303 silly reify mark deleted [
+303 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@swc\\core-darwin-x64'
+303 silly reify ]
+304 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-win32-ia32-msvc
+305 silly reify mark deleted [
+305 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-ia32-msvc'
+305 silly reify ]
+306 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-win32-arm64-msvc
+307 silly reify mark deleted [
+307 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-win32-arm64-msvc'
+307 silly reify ]
+308 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-openharmony-arm64
+309 silly reify mark deleted [
+309 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openharmony-arm64'
+309 silly reify ]
+310 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-openbsd-x64
+311 silly reify mark deleted [
+311 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-openbsd-x64'
+311 silly reify ]
+312 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-x64-musl
+313 silly reify mark deleted [
+313 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-musl'
+313 silly reify ]
+314 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-s390x-gnu
+315 silly reify mark deleted [
+315 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-s390x-gnu'
+315 silly reify ]
+316 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-riscv64-musl
+317 silly reify mark deleted [
+317 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-musl'
+317 silly reify ]
+318 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-x64-gnu
+319 silly reify mark deleted [
+319 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-x64-gnu'
+319 silly reify ]
+320 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-riscv64-gnu
+321 silly reify mark deleted [
+321 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-riscv64-gnu'
+321 silly reify ]
+322 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-ppc64-musl
+323 silly reify mark deleted [
+323 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-musl'
+323 silly reify ]
+324 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-ppc64-gnu
+325 silly reify mark deleted [
+325 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-ppc64-gnu'
+325 silly reify ]
+326 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-loong64-musl
+327 silly reify mark deleted [
+327 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-musl'
+327 silly reify ]
+328 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-loong64-gnu
+329 silly reify mark deleted [
+329 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-loong64-gnu'
+329 silly reify ]
+330 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-arm64-musl
+331 silly reify mark deleted [
+331 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-musl'
+331 silly reify ]
+332 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-arm64-gnu
+333 silly reify mark deleted [
+333 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm64-gnu'
+333 silly reify ]
+334 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-arm-musleabihf
+335 silly reify mark deleted [
+335 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-musleabihf'
+335 silly reify ]
+336 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-linux-arm-gnueabihf
+337 silly reify mark deleted [
+337 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-linux-arm-gnueabihf'
+337 silly reify ]
+338 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-freebsd-x64
+339 silly reify mark deleted [
+339 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-x64'
+339 silly reify ]
+340 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-freebsd-arm64
+341 silly reify mark deleted [
+341 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-freebsd-arm64'
+341 silly reify ]
+342 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-darwin-x64
+343 silly reify mark deleted [
+343 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-x64'
+343 silly reify ]
+344 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-darwin-arm64
+345 silly reify mark deleted [
+345 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-darwin-arm64'
+345 silly reify ]
+346 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-android-arm64
+347 silly reify mark deleted [
+347 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm64'
+347 silly reify ]
+348 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@rollup\rollup-android-arm-eabi
+349 silly reify mark deleted [
+349 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@rollup\\rollup-android-arm-eabi'
+349 silly reify ]
+350 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\win32-ia32
+351 silly reify mark deleted [
+351 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-ia32'
+351 silly reify ]
+352 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\win32-arm64
+353 silly reify mark deleted [
+353 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\win32-arm64'
+353 silly reify ]
+354 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\sunos-x64
+355 silly reify mark deleted [
+355 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\sunos-x64'
+355 silly reify ]
+356 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\openbsd-x64
+357 silly reify mark deleted [
+357 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\openbsd-x64'
+357 silly reify ]
+358 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\netbsd-x64
+359 silly reify mark deleted [
+359 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\netbsd-x64'
+359 silly reify ]
+360 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-x64
+361 silly reify mark deleted [
+361 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-x64'
+361 silly reify ]
+362 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-s390x
+363 silly reify mark deleted [
+363 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-s390x'
+363 silly reify ]
+364 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-riscv64
+365 silly reify mark deleted [
+365 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-riscv64'
+365 silly reify ]
+366 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-ppc64
+367 silly reify mark deleted [
+367 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ppc64'
+367 silly reify ]
+368 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-loong64
+369 silly reify mark deleted [
+369 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-loong64'
+369 silly reify ]
+370 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-mips64el
+371 silly reify mark deleted [
+371 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-mips64el'
+371 silly reify ]
+372 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-ia32
+373 silly reify mark deleted [
+373 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-ia32'
+373 silly reify ]
+374 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-arm64
+375 silly reify mark deleted [
+375 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm64'
+375 silly reify ]
+376 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\linux-arm
+377 silly reify mark deleted [
+377 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\linux-arm'
+377 silly reify ]
+378 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\freebsd-x64
+379 silly reify mark deleted [
+379 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-x64'
+379 silly reify ]
+380 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\freebsd-arm64
+381 silly reify mark deleted [
+381 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\freebsd-arm64'
+381 silly reify ]
+382 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\darwin-x64
+383 silly reify mark deleted [
+383 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-x64'
+383 silly reify ]
+384 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\android-arm64
+385 silly reify mark deleted [
+385 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm64'
+385 silly reify ]
+386 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\darwin-arm64
+387 silly reify mark deleted [
+387 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\darwin-arm64'
+387 silly reify ]
+388 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\android-x64
+389 silly reify mark deleted [
+389 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-x64'
+389 silly reify ]
+390 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\android-arm
+391 silly reify mark deleted [
+391 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\android-arm'
+391 silly reify ]
+392 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\@esbuild\aix-ppc64
+393 silly reify mark deleted [
+393 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\@esbuild\\aix-ppc64'
+393 silly reify ]
+394 verbose reify failed optional dependency C:\Users\pedro\Documents\GitHub\WebDesign\node_modules\fsevents
+395 silly reify mark deleted [
+395 silly reify   'C:\\Users\\pedro\\Documents\\GitHub\\WebDesign\\node_modules\\fsevents'
+395 silly reify ]
+396 silly audit bulk request failed undefined
+397 http cache @webgpu/types@https://registry.npmjs.org/@webgpu/types/-/types-0.1.69.tgz 0ms (cache hit)
+398 http cache @vitejs/plugin-react-swc@https://registry.npmjs.org/@vitejs/plugin-react-swc/-/plugin-react-swc-3.11.0.tgz 0ms (cache hit)
+399 http cache @use-gesture/react@https://registry.npmjs.org/@use-gesture/react/-/react-10.3.1.tgz 0ms (cache hit)
+400 http cache @use-gesture/core@https://registry.npmjs.org/@use-gesture/core/-/core-10.3.1.tgz 0ms (cache hit)
+401 http cache @types/webxr@https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz 0ms (cache hit)
+402 http cache @types/three@https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz 0ms (cache hit)
+403 http cache @types/stats.js@https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz 0ms (cache hit)
+404 http cache @types/react-reconciler@https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.26.7.tgz 0ms (cache hit)
+405 http cache @types/react-dom@https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz 0ms (cache hit)
+406 http cache @types/react@https://registry.npmjs.org/@types/react/-/react-18.3.28.tgz 0ms (cache hit)
+407 http cache @types/offscreencanvas@https://registry.npmjs.org/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz 0ms (cache hit)
+408 http cache @types/prop-types@https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz 0ms (cache hit)
+409 http cache @swc/types@https://registry.npmjs.org/@swc/types/-/types-0.1.26.tgz 0ms (cache hit)
+410 http cache @types/draco3d@https://registry.npmjs.org/@types/draco3d/-/draco3d-1.4.10.tgz 0ms (cache hit)
+411 http cache @types/estree@https://registry.npmjs.org/@types/estree/-/estree-1.0.8.tgz 0ms (cache hit)
+412 http cache @tweenjs/tween.js@https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz 0ms (cache hit)
+413 http cache @swc/counter@https://registry.npmjs.org/@swc/counter/-/counter-0.1.3.tgz 0ms (cache hit)
+414 http cache @studio-freight/lenis@https://registry.npmjs.org/@studio-freight/lenis/-/lenis-1.0.42.tgz 0ms (cache hit)
+415 http cache @swc/core-win32-x64-msvc@https://registry.npmjs.org/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.15.21.tgz 0ms (cache hit)
+416 http cache @rolldown/pluginutils@https://registry.npmjs.org/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.27.tgz 0ms (cache hit)
+417 http cache @swc/core@https://registry.npmjs.org/@swc/core/-/core-1.15.21.tgz 0ms (cache hit)
+418 http cache @rollup/rollup-win32-x64-gnu@https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.60.0.tgz 0ms (cache hit)
+419 http cache @react-three/rapier@https://registry.npmjs.org/@react-three/rapier/-/rapier-1.5.0.tgz 0ms (cache hit)
+420 http cache @rollup/rollup-win32-x64-msvc@https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.60.0.tgz 0ms (cache hit)
+421 http cache @react-spring/three@https://registry.npmjs.org/@react-spring/three/-/three-9.7.5.tgz 0ms (cache hit)
+422 http cache @react-three/fiber@https://registry.npmjs.org/@react-three/fiber/-/fiber-8.17.14.tgz 1ms (cache hit)
+423 http cache @react-three/drei@https://registry.npmjs.org/@react-three/drei/-/drei-9.122.0.tgz 0ms (cache hit)
+424 http cache @react-spring/core@https://registry.npmjs.org/@react-spring/core/-/core-9.7.5.tgz 0ms (cache hit)
+425 http cache @react-spring/types@https://registry.npmjs.org/@react-spring/types/-/types-9.7.5.tgz 0ms (cache hit)
+426 http cache @react-spring/rafz@https://registry.npmjs.org/@react-spring/rafz/-/rafz-9.7.5.tgz 0ms (cache hit)
+427 http cache @react-spring/shared@https://registry.npmjs.org/@react-spring/shared/-/shared-9.7.5.tgz 0ms (cache hit)
+428 http cache @react-spring/animated@https://registry.npmjs.org/@react-spring/animated/-/animated-9.7.5.tgz 0ms (cache hit)
+429 http cache @radix-ui/rect@https://registry.npmjs.org/@radix-ui/rect/-/rect-1.1.1.tgz 0ms (cache hit)
+430 http cache @radix-ui/react-use-size@https://registry.npmjs.org/@radix-ui/react-use-size/-/react-use-size-1.1.1.tgz 0ms (cache hit)
+431 http cache @radix-ui/react-use-rect@https://registry.npmjs.org/@radix-ui/react-use-rect/-/react-use-rect-1.1.1.tgz 0ms (cache hit)
+432 http cache @radix-ui/react-visually-hidden@https://registry.npmjs.org/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.2.3.tgz 0ms (cache hit)
+433 http cache @radix-ui/react-use-layout-effect@https://registry.npmjs.org/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.1.tgz 0ms (cache hit)
+434 http cache @radix-ui/react-use-escape-keydown@https://registry.npmjs.org/@radix-ui/react-use-escape-keydown/-/react-use-escape-keydown-1.1.1.tgz 0ms (cache hit)
+435 http cache @radix-ui/react-use-effect-event@https://registry.npmjs.org/@radix-ui/react-use-effect-event/-/react-use-effect-event-0.0.2.tgz 0ms (cache hit)
+436 http cache @radix-ui/react-tooltip@https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.2.8.tgz 0ms (cache hit)
+437 http cache @radix-ui/react-use-callback-ref@https://registry.npmjs.org/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.1.tgz 0ms (cache hit)
+438 http cache @radix-ui/react-use-controllable-state@https://registry.npmjs.org/@radix-ui/react-use-controllable-state/-/react-use-controllable-state-1.2.2.tgz 0ms (cache hit)
+439 http cache @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.4.tgz 0ms (cache hit)
+440 http cache @radix-ui/react-presence@https://registry.npmjs.org/@radix-ui/react-presence/-/react-presence-1.1.5.tgz 0ms (cache hit)
+441 http cache @radix-ui/react-primitive@https://registry.npmjs.org/@radix-ui/react-primitive/-/react-primitive-2.1.3.tgz 0ms (cache hit)
+442 http cache @radix-ui/react-portal@https://registry.npmjs.org/@radix-ui/react-portal/-/react-portal-1.1.9.tgz 0ms (cache hit)
+443 http cache @radix-ui/react-popper@https://registry.npmjs.org/@radix-ui/react-popper/-/react-popper-1.2.8.tgz 0ms (cache hit)
+444 http cache @radix-ui/react-dismissable-layer@https://registry.npmjs.org/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.11.tgz 0ms (cache hit)
+445 http cache @radix-ui/react-context@https://registry.npmjs.org/@radix-ui/react-context/-/react-context-1.1.2.tgz 0ms (cache hit)
+446 http cache @radix-ui/react-id@https://registry.npmjs.org/@radix-ui/react-id/-/react-id-1.1.1.tgz 0ms (cache hit)
+447 http cache @nodelib/fs.walk@https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz 0ms (cache hit)
+448 http cache @radix-ui/react-compose-refs@https://registry.npmjs.org/@radix-ui/react-compose-refs/-/react-compose-refs-1.1.2.tgz 0ms (cache hit)
+449 http cache @radix-ui/react-arrow@https://registry.npmjs.org/@radix-ui/react-arrow/-/react-arrow-1.1.7.tgz 0ms (cache hit)
+450 http cache @radix-ui/primitive@https://registry.npmjs.org/@radix-ui/primitive/-/primitive-1.1.3.tgz 0ms (cache hit)
+451 http cache @nodelib/fs.stat@https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz 0ms (cache hit)
+452 http cache @mediapipe/tasks-vision@https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-0.10.17.tgz 0ms (cache hit)
+453 http cache @monogrid/gainmap-js@https://registry.npmjs.org/@monogrid/gainmap-js/-/gainmap-js-3.4.0.tgz 0ms (cache hit)
+454 http cache @jridgewell/trace-mapping@https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz 0ms (cache hit)
+455 http cache @nodelib/fs.scandir@https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz 0ms (cache hit)
+456 http cache @floating-ui/utils@https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.11.tgz 0ms (cache hit)
+457 http cache @jridgewell/sourcemap-codec@https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz 0ms (cache hit)
+458 http cache @jridgewell/gen-mapping@https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz 0ms (cache hit)
+459 http cache @jridgewell/resolve-uri@https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz 0ms (cache hit)
+460 http cache @floating-ui/react-dom@https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-2.1.8.tgz 0ms (cache hit)
+461 http cache @floating-ui/dom@https://registry.npmjs.org/@floating-ui/dom/-/dom-1.7.6.tgz 0ms (cache hit)
+462 http cache @esbuild/win32-x64@https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz 0ms (cache hit)
+463 http cache @floating-ui/core@https://registry.npmjs.org/@floating-ui/core/-/core-1.7.5.tgz 0ms (cache hit)
+464 http cache @babel/runtime@https://registry.npmjs.org/@babel/runtime/-/runtime-7.29.2.tgz 0ms (cache hit)
+465 http cache @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.14.0.tgz 0ms (cache hit)
+466 http cache @alloc/quick-lru@https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz 0ms (cache hit)
+467 http cache zustand@https://registry.npmjs.org/zustand/-/zustand-5.0.12.tgz 0ms (cache hit)
+468 http cache yaml@https://registry.npmjs.org/yaml/-/yaml-2.8.3.tgz 0ms (cache hit)
+469 http cache webgl-constants@https://registry.npmjs.org/webgl-constants/-/webgl-constants-1.1.1.tgz 0ms (cache hit)
+470 http cache webgl-sdf-generator@https://registry.npmjs.org/webgl-sdf-generator/-/webgl-sdf-generator-1.1.1.tgz 0ms (cache hit)
+471 http cache which@https://registry.npmjs.org/which/-/which-2.0.2.tgz 0ms (cache hit)
+472 http cache utility-types@https://registry.npmjs.org/utility-types/-/utility-types-3.11.0.tgz 0ms (cache hit)
+473 http cache vite@https://registry.npmjs.org/vite/-/vite-5.4.21.tgz 0ms (cache hit)
+474 http cache util-deprecate@https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz 0ms (cache hit)
+475 http cache update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz 0ms (cache hit)
+476 http cache typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 0ms (cache hit)
+477 http cache use-sync-external-store@https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.6.0.tgz 0ms (cache hit)
+478 http cache tslib@https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz 0ms (cache hit)
+479 http cache ts-interface-checker@https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz 0ms (cache hit)
+480 http cache tunnel-rat@https://registry.npmjs.org/tunnel-rat/-/tunnel-rat-0.1.2.tgz 0ms (cache hit)
+481 http cache troika-worker-utils@https://registry.npmjs.org/troika-worker-utils/-/troika-worker-utils-0.52.0.tgz 0ms (cache hit)
+482 http cache troika-three-utils@https://registry.npmjs.org/troika-three-utils/-/troika-three-utils-0.52.4.tgz 0ms (cache hit)
+483 http cache troika-three-text@https://registry.npmjs.org/troika-three-text/-/troika-three-text-0.52.4.tgz 0ms (cache hit)
+484 http cache three-stdlib@https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.36.1.tgz 0ms (cache hit)
+485 http cache three-mesh-bvh@https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.7.8.tgz 0ms (cache hit)
+486 http cache tinyglobby@https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.15.tgz 0ms (cache hit)
+487 http cache to-regex-range@https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz 0ms (cache hit)
+488 http cache thenify-all@https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz 0ms (cache hit)
+489 http cache three@https://registry.npmjs.org/three/-/three-0.183.2.tgz 0ms (cache hit)
+490 http cache thenify@https://registry.npmjs.org/thenify/-/thenify-3.3.1.tgz 0ms (cache hit)
+491 http cache tailwindcss-animate@https://registry.npmjs.org/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz 0ms (cache hit)
+492 http cache tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz 0ms (cache hit)
+493 http cache tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.17.tgz 0ms (cache hit)
+494 http cache suspend-react@https://registry.npmjs.org/suspend-react/-/suspend-react-0.1.3.tgz 0ms (cache hit)
+495 http cache sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz 0ms (cache hit)
+496 http cache stats-gl@https://registry.npmjs.org/stats-gl/-/stats-gl-2.4.2.tgz 0ms (cache hit)
+497 http cache supports-preserve-symlinks-flag@https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz 0ms (cache hit)
+498 http cache stats.js@https://registry.npmjs.org/stats.js/-/stats.js-0.17.0.tgz 0ms (cache hit)
+499 http cache source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz 0ms (cache hit)
+500 http cache shebang-regex@https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz 0ms (cache hit)
+501 http cache run-parallel@https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz 0ms (cache hit)
+502 http cache shebang-command@https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz 0ms (cache hit)
+503 http cache scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.21.0.tgz 0ms (cache hit)
+504 http cache reusify@https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz 0ms (cache hit)
+505 http cache resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz 0ms (cache hit)
+506 http cache rollup@https://registry.npmjs.org/rollup/-/rollup-4.60.0.tgz 0ms (cache hit)
+507 http cache readdirp@https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz 0ms (cache hit)
+508 http cache require-from-string@https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz 0ms (cache hit)
+509 http cache read-cache@https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz 0ms (cache hit)
+510 http cache react-composer@https://registry.npmjs.org/react-composer/-/react-composer-5.0.3.tgz 0ms (cache hit)
+511 http cache react-use-measure@https://registry.npmjs.org/react-use-measure/-/react-use-measure-2.1.7.tgz 0ms (cache hit)
+512 http cache react-reconciler@https://registry.npmjs.org/react-reconciler/-/react-reconciler-0.27.0.tgz 0ms (cache hit)
+513 http cache react@https://registry.npmjs.org/react/-/react-18.3.1.tgz 0ms (cache hit)
+514 http cache react-is@https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz 0ms (cache hit)
+515 http cache react-dom@https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz 0ms (cache hit)
+516 http cache queue-microtask@https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz 0ms (cache hit)
+517 http cache prop-types@https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz 0ms (cache hit)
+518 http cache postcss-value-parser@https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz 0ms (cache hit)
+519 http cache promise-worker-transferable@https://registry.npmjs.org/promise-worker-transferable/-/promise-worker-transferable-1.0.4.tgz 0ms (cache hit)
+520 http cache potpack@https://registry.npmjs.org/potpack/-/potpack-1.0.2.tgz 0ms (cache hit)
+521 http cache postcss-load-config@https://registry.npmjs.org/postcss-load-config/-/postcss-load-config-4.0.2.tgz 0ms (cache hit)
+522 http cache postcss-selector-parser@https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz 0ms (cache hit)
+523 http cache postcss-nested@https://registry.npmjs.org/postcss-nested/-/postcss-nested-6.2.0.tgz 0ms (cache hit)
+524 http cache postcss@https://registry.npmjs.org/postcss/-/postcss-8.5.8.tgz 0ms (cache hit)
+525 http cache postcss-js@https://registry.npmjs.org/postcss-js/-/postcss-js-4.1.0.tgz 0ms (cache hit)
+526 http cache postcss-import@https://registry.npmjs.org/postcss-import/-/postcss-import-15.1.0.tgz 1ms (cache hit)
+527 http cache picomatch@https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz 0ms (cache hit)
+528 http cache pify@https://registry.npmjs.org/pify/-/pify-2.3.0.tgz 0ms (cache hit)
+529 http cache pirates@https://registry.npmjs.org/pirates/-/pirates-4.0.7.tgz 0ms (cache hit)
+530 http cache picocolors@https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz 0ms (cache hit)
+531 http cache path-key@https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz 0ms (cache hit)
+532 http cache object-assign@https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz 0ms (cache hit)
+533 http cache ogl@https://registry.npmjs.org/ogl/-/ogl-1.0.11.tgz 0ms (cache hit)
+534 http cache object-hash@https://registry.npmjs.org/object-hash/-/object-hash-3.0.0.tgz 0ms (cache hit)
+535 http cache normalize-path@https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz 0ms (cache hit)
+536 http cache path-parse@https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz 0ms (cache hit)
+537 http cache nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz 0ms (cache hit)
+538 http cache motion-utils@https://registry.npmjs.org/motion-utils/-/motion-utils-12.36.0.tgz 0ms (cache hit)
+539 http cache motion-dom@https://registry.npmjs.org/motion-dom/-/motion-dom-12.38.0.tgz 0ms (cache hit)
+540 http cache meshoptimizer@https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz 0ms (cache hit)
+541 http cache mz@https://registry.npmjs.org/mz/-/mz-2.7.0.tgz 0ms (cache hit)
+542 http cache micromatch@https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz 0ms (cache hit)
+543 http cache meshline@https://registry.npmjs.org/meshline/-/meshline-3.3.1.tgz 0ms (cache hit)
+544 http cache merge2@https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz 0ms (cache hit)
+545 http cache node-releases@https://registry.npmjs.org/node-releases/-/node-releases-2.0.36.tgz 0ms (cache hit)
+546 http cache maath@https://registry.npmjs.org/maath/-/maath-0.10.8.tgz 0ms (cache hit)
+547 http cache lucide-react@https://registry.npmjs.org/lucide-react/-/lucide-react-1.7.0.tgz 0ms (cache hit)
+548 http cache loose-envify@https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz 0ms (cache hit)
+549 http cache lilconfig@https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz 0ms (cache hit)
+550 http cache js-tokens@https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz 0ms (cache hit)
+551 http cache lines-and-columns@https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz 0ms (cache hit)
+552 http cache lie@https://registry.npmjs.org/lie/-/lie-3.3.0.tgz 0ms (cache hit)
+553 http cache jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz 0ms (cache hit)
+554 http cache its-fine@https://registry.npmjs.org/its-fine/-/its-fine-1.2.5.tgz 0ms (cache hit)
+555 http cache is-promise@https://registry.npmjs.org/is-promise/-/is-promise-2.2.2.tgz 0ms (cache hit)
+556 http cache isexe@https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz 0ms (cache hit)
+557 http cache is-number@https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz 0ms (cache hit)
+558 http cache is-extglob@https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz 0ms (cache hit)
+559 http cache is-glob@https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz 0ms (cache hit)
+560 http cache is-core-module@https://registry.npmjs.org/is-core-module/-/is-core-module-2.16.1.tgz 0ms (cache hit)
+561 http cache ieee754@https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz 0ms (cache hit)
+562 http cache is-binary-path@https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz 0ms (cache hit)
+563 http cache hls.js@https://registry.npmjs.org/hls.js/-/hls.js-1.6.15.tgz 0ms (cache hit)
+564 http cache immediate@https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz 0ms (cache hit)
+565 http cache hasown@https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz 0ms (cache hit)
+566 http cache glsl-noise@https://registry.npmjs.org/glsl-noise/-/glsl-noise-0.0.0.tgz 0ms (cache hit)
+567 http cache gsap@https://registry.npmjs.org/gsap/-/gsap-3.14.2.tgz 0ms (cache hit)
+568 http cache glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz 0ms (cache hit)
+569 http cache framer-motion@https://registry.npmjs.org/framer-motion/-/framer-motion-12.38.0.tgz 0ms (cache hit)
+570 http cache fraction.js@https://registry.npmjs.org/fraction.js/-/fraction.js-5.3.4.tgz 0ms (cache hit)
+571 http cache function-bind@https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz 0ms (cache hit)
+572 http cache fill-range@https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz 0ms (cache hit)
+573 http cache fastq@https://registry.npmjs.org/fastq/-/fastq-1.20.1.tgz 0ms (cache hit)
+574 http cache fflate@https://registry.npmjs.org/fflate/-/fflate-0.8.2.tgz 0ms (cache hit)
+575 http cache escalade@https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz 0ms (cache hit)
+576 http cache fast-glob@https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz 0ms (cache hit)
+577 http cache esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz 0ms (cache hit)
+578 http cache electron-to-chromium@https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.325.tgz 0ms (cache hit)
+579 http cache draco3d@https://registry.npmjs.org/draco3d/-/draco3d-1.5.7.tgz 0ms (cache hit)
+580 http cache detect-gpu@https://registry.npmjs.org/detect-gpu/-/detect-gpu-5.0.70.tgz 0ms (cache hit)
+581 http cache dlv@https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz 0ms (cache hit)
+582 http cache didyoumean@https://registry.npmjs.org/didyoumean/-/didyoumean-1.2.2.tgz 0ms (cache hit)
+583 http cache cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz 0ms (cache hit)
+584 http cache cross-spawn@https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz 0ms (cache hit)
+585 http cache csstype@https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz 0ms (cache hit)
+586 http cache cross-env@https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz 0ms (cache hit)
+587 http cache clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz 0ms (cache hit)
+588 http cache class-variance-authority@https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz 0ms (cache hit)
+589 http cache commander@https://registry.npmjs.org/commander/-/commander-4.1.1.tgz 0ms (cache hit)
+590 http cache caniuse-lite@https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001781.tgz 0ms (cache hit)
+591 http cache camelcase-css@https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz 0ms (cache hit)
+592 http cache buffer@https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz 1ms (cache hit)
+593 http cache chokidar@https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz 0ms (cache hit)
+594 http cache camera-controls@https://registry.npmjs.org/camera-controls/-/camera-controls-2.10.1.tgz 0ms (cache hit)
+595 http cache braces@https://registry.npmjs.org/braces/-/braces-3.0.3.tgz 0ms (cache hit)
+596 http cache browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz 0ms (cache hit)
+597 http cache bidi-js@https://registry.npmjs.org/bidi-js/-/bidi-js-1.0.3.tgz 0ms (cache hit)
+598 http cache baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.10.tgz 0ms (cache hit)
+599 http cache binary-extensions@https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz 0ms (cache hit)
+600 http cache autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.27.tgz 0ms (cache hit)
+601 http cache arg@https://registry.npmjs.org/arg/-/arg-5.0.2.tgz 0ms (cache hit)
+602 http cache base64-js@https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz 0ms (cache hit)
+603 http cache any-promise@https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz 0ms (cache hit)
+604 http cache anymatch@https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz 0ms (cache hit)
+605 http cache @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz 0ms (cache hit)
+606 http cache zustand@https://registry.npmjs.org/zustand/-/zustand-3.7.2.tgz 0ms (cache hit)
+607 http cache @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.3.tgz 0ms (cache hit)
+608 http cache fflate@https://registry.npmjs.org/fflate/-/fflate-0.6.10.tgz 0ms (cache hit)
+609 http cache zustand@https://registry.npmjs.org/zustand/-/zustand-4.5.7.tgz 0ms (cache hit)
+610 http cache @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.3.tgz 0ms (cache hit)
+611 http cache picomatch@https://registry.npmjs.org/picomatch/-/picomatch-4.0.4.tgz 0ms (cache hit)
+612 http cache three@https://registry.npmjs.org/three/-/three-0.170.0.tgz 0ms (cache hit)
+613 http cache scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.23.2.tgz 0ms (cache hit)
+614 http cache fdir@https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz 0ms (cache hit)
+615 silly tarball no local data for @webgpu/types@https://registry.npmjs.org/@webgpu/types/-/types-0.1.69.tgz. Extracting by manifest.
+616 http cache glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz 0ms (cache hit)
+617 silly tarball no local data for @vitejs/plugin-react-swc@https://registry.npmjs.org/@vitejs/plugin-react-swc/-/plugin-react-swc-3.11.0.tgz. Extracting by manifest.
+618 http cache @types/react-reconciler@https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.28.9.tgz 0ms (cache hit)
+619 silly tarball no local data for @use-gesture/react@https://registry.npmjs.org/@use-gesture/react/-/react-10.3.1.tgz. Extracting by manifest.
+620 silly tarball no local data for @use-gesture/core@https://registry.npmjs.org/@use-gesture/core/-/core-10.3.1.tgz. Extracting by manifest.
+621 silly tarball no local data for @types/webxr@https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz. Extracting by manifest.
+622 silly tarball no local data for @types/three@https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz. Extracting by manifest.
+623 silly tarball no local data for @types/stats.js@https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz. Extracting by manifest.
+624 http cache glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz 0ms (cache hit)
+625 silly tarball no local data for @types/react-reconciler@https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.26.7.tgz. Extracting by manifest.
+626 silly tarball no local data for @types/react-dom@https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz. Extracting by manifest.
+627 silly tarball no local data for @types/react@https://registry.npmjs.org/@types/react/-/react-18.3.28.tgz. Extracting by manifest.
+628 silly tarball no local data for @types/offscreencanvas@https://registry.npmjs.org/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz. Extracting by manifest.
+629 silly tarball no local data for @types/prop-types@https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz. Extracting by manifest.
+630 silly tarball no local data for @swc/types@https://registry.npmjs.org/@swc/types/-/types-0.1.26.tgz. Extracting by manifest.
+631 silly tarball no local data for @types/draco3d@https://registry.npmjs.org/@types/draco3d/-/draco3d-1.4.10.tgz. Extracting by manifest.
+632 silly tarball no local data for @types/estree@https://registry.npmjs.org/@types/estree/-/estree-1.0.8.tgz. Extracting by manifest.
+633 silly tarball no local data for @tweenjs/tween.js@https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-23.1.3.tgz. Extracting by manifest.
+634 silly tarball no local data for @swc/counter@https://registry.npmjs.org/@swc/counter/-/counter-0.1.3.tgz. Extracting by manifest.
+635 silly tarball no local data for @studio-freight/lenis@https://registry.npmjs.org/@studio-freight/lenis/-/lenis-1.0.42.tgz. Extracting by manifest.
+636 silly tarball no local data for @swc/core-win32-x64-msvc@https://registry.npmjs.org/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.15.21.tgz. Extracting by manifest.
+637 silly tarball no local data for @rolldown/pluginutils@https://registry.npmjs.org/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.27.tgz. Extracting by manifest.
+638 silly tarball no local data for @swc/core@https://registry.npmjs.org/@swc/core/-/core-1.15.21.tgz. Extracting by manifest.
+639 silly tarball no local data for @rollup/rollup-win32-x64-gnu@https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.60.0.tgz. Extracting by manifest.
+640 silly tarball no local data for @react-three/rapier@https://registry.npmjs.org/@react-three/rapier/-/rapier-1.5.0.tgz. Extracting by manifest.
+641 silly tarball no local data for @rollup/rollup-win32-x64-msvc@https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.60.0.tgz. Extracting by manifest.
+642 silly tarball no local data for @react-spring/three@https://registry.npmjs.org/@react-spring/three/-/three-9.7.5.tgz. Extracting by manifest.
+643 silly tarball no local data for @react-three/fiber@https://registry.npmjs.org/@react-three/fiber/-/fiber-8.17.14.tgz. Extracting by manifest.
+644 silly tarball no local data for @react-three/drei@https://registry.npmjs.org/@react-three/drei/-/drei-9.122.0.tgz. Extracting by manifest.
+645 silly tarball no local data for @react-spring/core@https://registry.npmjs.org/@react-spring/core/-/core-9.7.5.tgz. Extracting by manifest.
+646 silly tarball no local data for @react-spring/types@https://registry.npmjs.org/@react-spring/types/-/types-9.7.5.tgz. Extracting by manifest.
+647 silly tarball no local data for @react-spring/rafz@https://registry.npmjs.org/@react-spring/rafz/-/rafz-9.7.5.tgz. Extracting by manifest.
+648 silly tarball no local data for @react-spring/shared@https://registry.npmjs.org/@react-spring/shared/-/shared-9.7.5.tgz. Extracting by manifest.
+649 silly tarball no local data for @react-spring/animated@https://registry.npmjs.org/@react-spring/animated/-/animated-9.7.5.tgz. Extracting by manifest.
+650 silly tarball no local data for @radix-ui/rect@https://registry.npmjs.org/@radix-ui/rect/-/rect-1.1.1.tgz. Extracting by manifest.
+651 silly tarball no local data for @radix-ui/react-use-size@https://registry.npmjs.org/@radix-ui/react-use-size/-/react-use-size-1.1.1.tgz. Extracting by manifest.
+652 silly tarball no local data for @radix-ui/react-use-rect@https://registry.npmjs.org/@radix-ui/react-use-rect/-/react-use-rect-1.1.1.tgz. Extracting by manifest.
+653 silly tarball no local data for @radix-ui/react-visually-hidden@https://registry.npmjs.org/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.2.3.tgz. Extracting by manifest.
+654 silly tarball no local data for @radix-ui/react-use-layout-effect@https://registry.npmjs.org/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.1.tgz. Extracting by manifest.
+655 silly tarball no local data for @radix-ui/react-use-escape-keydown@https://registry.npmjs.org/@radix-ui/react-use-escape-keydown/-/react-use-escape-keydown-1.1.1.tgz. Extracting by manifest.
+656 silly tarball no local data for @radix-ui/react-use-effect-event@https://registry.npmjs.org/@radix-ui/react-use-effect-event/-/react-use-effect-event-0.0.2.tgz. Extracting by manifest.
+657 silly tarball no local data for @radix-ui/react-tooltip@https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.2.8.tgz. Extracting by manifest.
+658 silly tarball no local data for @radix-ui/react-use-callback-ref@https://registry.npmjs.org/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.1.tgz. Extracting by manifest.
+659 silly tarball no local data for @radix-ui/react-use-controllable-state@https://registry.npmjs.org/@radix-ui/react-use-controllable-state/-/react-use-controllable-state-1.2.2.tgz. Extracting by manifest.
+660 silly tarball no local data for @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.4.tgz. Extracting by manifest.
+661 silly tarball no local data for @radix-ui/react-presence@https://registry.npmjs.org/@radix-ui/react-presence/-/react-presence-1.1.5.tgz. Extracting by manifest.
+662 silly tarball no local data for @radix-ui/react-primitive@https://registry.npmjs.org/@radix-ui/react-primitive/-/react-primitive-2.1.3.tgz. Extracting by manifest.
+663 silly tarball no local data for @radix-ui/react-portal@https://registry.npmjs.org/@radix-ui/react-portal/-/react-portal-1.1.9.tgz. Extracting by manifest.
+664 silly tarball no local data for @radix-ui/react-popper@https://registry.npmjs.org/@radix-ui/react-popper/-/react-popper-1.2.8.tgz. Extracting by manifest.
+665 silly tarball no local data for @radix-ui/react-dismissable-layer@https://registry.npmjs.org/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.11.tgz. Extracting by manifest.
+666 silly tarball no local data for @radix-ui/react-context@https://registry.npmjs.org/@radix-ui/react-context/-/react-context-1.1.2.tgz. Extracting by manifest.
+667 silly tarball no local data for @radix-ui/react-id@https://registry.npmjs.org/@radix-ui/react-id/-/react-id-1.1.1.tgz. Extracting by manifest.
+668 silly tarball no local data for @nodelib/fs.walk@https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz. Extracting by manifest.
+669 silly tarball no local data for @radix-ui/react-compose-refs@https://registry.npmjs.org/@radix-ui/react-compose-refs/-/react-compose-refs-1.1.2.tgz. Extracting by manifest.
+670 silly tarball no local data for @radix-ui/react-arrow@https://registry.npmjs.org/@radix-ui/react-arrow/-/react-arrow-1.1.7.tgz. Extracting by manifest.
+671 silly tarball no local data for @radix-ui/primitive@https://registry.npmjs.org/@radix-ui/primitive/-/primitive-1.1.3.tgz. Extracting by manifest.
+672 silly tarball no local data for @nodelib/fs.stat@https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz. Extracting by manifest.
+673 silly tarball no local data for @mediapipe/tasks-vision@https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-0.10.17.tgz. Extracting by manifest.
+674 silly tarball no local data for @monogrid/gainmap-js@https://registry.npmjs.org/@monogrid/gainmap-js/-/gainmap-js-3.4.0.tgz. Extracting by manifest.
+675 silly tarball no local data for @jridgewell/trace-mapping@https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz. Extracting by manifest.
+676 silly tarball no local data for @nodelib/fs.scandir@https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz. Extracting by manifest.
+677 silly tarball no local data for @floating-ui/utils@https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.11.tgz. Extracting by manifest.
+678 silly tarball no local data for @jridgewell/sourcemap-codec@https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz. Extracting by manifest.
+679 silly tarball no local data for @jridgewell/gen-mapping@https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz. Extracting by manifest.
+680 silly tarball no local data for @jridgewell/resolve-uri@https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz. Extracting by manifest.
+681 silly tarball no local data for @floating-ui/react-dom@https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-2.1.8.tgz. Extracting by manifest.
+682 silly tarball no local data for @floating-ui/dom@https://registry.npmjs.org/@floating-ui/dom/-/dom-1.7.6.tgz. Extracting by manifest.
+683 silly tarball no local data for @esbuild/win32-x64@https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz. Extracting by manifest.
+684 silly tarball no local data for @floating-ui/core@https://registry.npmjs.org/@floating-ui/core/-/core-1.7.5.tgz. Extracting by manifest.
+685 silly tarball no local data for @babel/runtime@https://registry.npmjs.org/@babel/runtime/-/runtime-7.29.2.tgz. Extracting by manifest.
+686 silly tarball no local data for @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.14.0.tgz. Extracting by manifest.
+687 silly tarball no local data for @alloc/quick-lru@https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz. Extracting by manifest.
+688 silly tarball no local data for zustand@https://registry.npmjs.org/zustand/-/zustand-5.0.12.tgz. Extracting by manifest.
+689 silly tarball no local data for yaml@https://registry.npmjs.org/yaml/-/yaml-2.8.3.tgz. Extracting by manifest.
+690 silly tarball no local data for webgl-constants@https://registry.npmjs.org/webgl-constants/-/webgl-constants-1.1.1.tgz. Extracting by manifest.
+691 silly tarball no local data for webgl-sdf-generator@https://registry.npmjs.org/webgl-sdf-generator/-/webgl-sdf-generator-1.1.1.tgz. Extracting by manifest.
+692 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-2.0.2.tgz. Extracting by manifest.
+693 silly tarball no local data for utility-types@https://registry.npmjs.org/utility-types/-/utility-types-3.11.0.tgz. Extracting by manifest.
+694 silly tarball no local data for vite@https://registry.npmjs.org/vite/-/vite-5.4.21.tgz. Extracting by manifest.
+695 silly tarball no local data for util-deprecate@https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz. Extracting by manifest.
+696 silly tarball no local data for update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz. Extracting by manifest.
+697 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+698 silly tarball no local data for tslib@https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz. Extracting by manifest.
+699 silly tarball no local data for use-sync-external-store@https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.6.0.tgz. Extracting by manifest.
+700 silly tarball no local data for ts-interface-checker@https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz. Extracting by manifest.
+701 silly tarball no local data for tunnel-rat@https://registry.npmjs.org/tunnel-rat/-/tunnel-rat-0.1.2.tgz. Extracting by manifest.
+702 silly tarball no local data for troika-worker-utils@https://registry.npmjs.org/troika-worker-utils/-/troika-worker-utils-0.52.0.tgz. Extracting by manifest.
+703 silly tarball no local data for troika-three-utils@https://registry.npmjs.org/troika-three-utils/-/troika-three-utils-0.52.4.tgz. Extracting by manifest.
+704 silly tarball no local data for troika-three-text@https://registry.npmjs.org/troika-three-text/-/troika-three-text-0.52.4.tgz. Extracting by manifest.
+705 silly tarball no local data for three-stdlib@https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.36.1.tgz. Extracting by manifest.
+706 silly tarball no local data for three-mesh-bvh@https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.7.8.tgz. Extracting by manifest.
+707 silly tarball no local data for tinyglobby@https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.15.tgz. Extracting by manifest.
+708 silly tarball no local data for to-regex-range@https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz. Extracting by manifest.
+709 silly tarball no local data for thenify-all@https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz. Extracting by manifest.
+710 silly tarball no local data for three@https://registry.npmjs.org/three/-/three-0.183.2.tgz. Extracting by manifest.
+711 silly tarball no local data for thenify@https://registry.npmjs.org/thenify/-/thenify-3.3.1.tgz. Extracting by manifest.
+712 silly tarball no local data for tailwindcss-animate@https://registry.npmjs.org/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz. Extracting by manifest.
+713 silly tarball no local data for tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz. Extracting by manifest.
+714 silly tarball no local data for tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.17.tgz. Extracting by manifest.
+715 silly tarball no local data for suspend-react@https://registry.npmjs.org/suspend-react/-/suspend-react-0.1.3.tgz. Extracting by manifest.
+716 silly tarball no local data for sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz. Extracting by manifest.
+717 silly tarball no local data for stats-gl@https://registry.npmjs.org/stats-gl/-/stats-gl-2.4.2.tgz. Extracting by manifest.
+718 silly tarball no local data for supports-preserve-symlinks-flag@https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz. Extracting by manifest.
+719 silly tarball no local data for stats.js@https://registry.npmjs.org/stats.js/-/stats.js-0.17.0.tgz. Extracting by manifest.
+720 silly tarball no local data for source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz. Extracting by manifest.
+721 silly tarball no local data for shebang-regex@https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz. Extracting by manifest.
+722 silly tarball no local data for run-parallel@https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz. Extracting by manifest.
+723 silly tarball no local data for shebang-command@https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz. Extracting by manifest.
+724 silly tarball no local data for scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.21.0.tgz. Extracting by manifest.
+725 silly tarball no local data for reusify@https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz. Extracting by manifest.
+726 silly tarball no local data for resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz. Extracting by manifest.
+727 silly tarball no local data for rollup@https://registry.npmjs.org/rollup/-/rollup-4.60.0.tgz. Extracting by manifest.
+728 silly tarball no local data for readdirp@https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz. Extracting by manifest.
+729 silly tarball no local data for require-from-string@https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz. Extracting by manifest.
+730 silly tarball no local data for read-cache@https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz. Extracting by manifest.
+731 silly tarball no local data for react-composer@https://registry.npmjs.org/react-composer/-/react-composer-5.0.3.tgz. Extracting by manifest.
+732 silly tarball no local data for react-use-measure@https://registry.npmjs.org/react-use-measure/-/react-use-measure-2.1.7.tgz. Extracting by manifest.
+733 silly tarball no local data for react-reconciler@https://registry.npmjs.org/react-reconciler/-/react-reconciler-0.27.0.tgz. Extracting by manifest.
+734 silly tarball no local data for react@https://registry.npmjs.org/react/-/react-18.3.1.tgz. Extracting by manifest.
+735 silly tarball no local data for react-is@https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz. Extracting by manifest.
+736 silly tarball no local data for react-dom@https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz. Extracting by manifest.
+737 silly tarball no local data for queue-microtask@https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz. Extracting by manifest.
+738 silly tarball no local data for prop-types@https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz. Extracting by manifest.
+739 silly tarball no local data for postcss-value-parser@https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz. Extracting by manifest.
+740 silly tarball no local data for promise-worker-transferable@https://registry.npmjs.org/promise-worker-transferable/-/promise-worker-transferable-1.0.4.tgz. Extracting by manifest.
+741 silly tarball no local data for potpack@https://registry.npmjs.org/potpack/-/potpack-1.0.2.tgz. Extracting by manifest.
+742 silly tarball no local data for postcss-load-config@https://registry.npmjs.org/postcss-load-config/-/postcss-load-config-4.0.2.tgz. Extracting by manifest.
+743 silly tarball no local data for postcss-selector-parser@https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz. Extracting by manifest.
+744 silly tarball no local data for postcss-nested@https://registry.npmjs.org/postcss-nested/-/postcss-nested-6.2.0.tgz. Extracting by manifest.
+745 silly tarball no local data for postcss@https://registry.npmjs.org/postcss/-/postcss-8.5.8.tgz. Extracting by manifest.
+746 silly tarball no local data for postcss-js@https://registry.npmjs.org/postcss-js/-/postcss-js-4.1.0.tgz. Extracting by manifest.
+747 silly tarball no local data for postcss-import@https://registry.npmjs.org/postcss-import/-/postcss-import-15.1.0.tgz. Extracting by manifest.
+748 silly tarball no local data for picomatch@https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz. Extracting by manifest.
+749 silly tarball no local data for pify@https://registry.npmjs.org/pify/-/pify-2.3.0.tgz. Extracting by manifest.
+750 silly tarball no local data for pirates@https://registry.npmjs.org/pirates/-/pirates-4.0.7.tgz. Extracting by manifest.
+751 silly tarball no local data for picocolors@https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz. Extracting by manifest.
+752 silly tarball no local data for path-key@https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz. Extracting by manifest.
+753 silly tarball no local data for object-assign@https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz. Extracting by manifest.
+754 silly tarball no local data for ogl@https://registry.npmjs.org/ogl/-/ogl-1.0.11.tgz. Extracting by manifest.
+755 silly tarball no local data for object-hash@https://registry.npmjs.org/object-hash/-/object-hash-3.0.0.tgz. Extracting by manifest.
+756 silly tarball no local data for normalize-path@https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz. Extracting by manifest.
+757 silly tarball no local data for path-parse@https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz. Extracting by manifest.
+758 silly tarball no local data for nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz. Extracting by manifest.
+759 silly tarball no local data for motion-utils@https://registry.npmjs.org/motion-utils/-/motion-utils-12.36.0.tgz. Extracting by manifest.
+760 silly tarball no local data for motion-dom@https://registry.npmjs.org/motion-dom/-/motion-dom-12.38.0.tgz. Extracting by manifest.
+761 silly tarball no local data for meshoptimizer@https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz. Extracting by manifest.
+762 silly tarball no local data for mz@https://registry.npmjs.org/mz/-/mz-2.7.0.tgz. Extracting by manifest.
+763 silly tarball no local data for micromatch@https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz. Extracting by manifest.
+764 silly tarball no local data for meshline@https://registry.npmjs.org/meshline/-/meshline-3.3.1.tgz. Extracting by manifest.
+765 silly tarball no local data for merge2@https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz. Extracting by manifest.
+766 silly tarball no local data for node-releases@https://registry.npmjs.org/node-releases/-/node-releases-2.0.36.tgz. Extracting by manifest.
+767 silly tarball no local data for maath@https://registry.npmjs.org/maath/-/maath-0.10.8.tgz. Extracting by manifest.
+768 silly tarball no local data for lucide-react@https://registry.npmjs.org/lucide-react/-/lucide-react-1.7.0.tgz. Extracting by manifest.
+769 silly tarball no local data for loose-envify@https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz. Extracting by manifest.
+770 silly tarball no local data for lilconfig@https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz. Extracting by manifest.
+771 silly tarball no local data for js-tokens@https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz. Extracting by manifest.
+772 silly tarball no local data for lines-and-columns@https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz. Extracting by manifest.
+773 silly tarball no local data for lie@https://registry.npmjs.org/lie/-/lie-3.3.0.tgz. Extracting by manifest.
+774 silly tarball no local data for jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz. Extracting by manifest.
+775 silly tarball no local data for its-fine@https://registry.npmjs.org/its-fine/-/its-fine-1.2.5.tgz. Extracting by manifest.
+776 silly tarball no local data for is-promise@https://registry.npmjs.org/is-promise/-/is-promise-2.2.2.tgz. Extracting by manifest.
+777 silly tarball no local data for isexe@https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz. Extracting by manifest.
+778 silly tarball no local data for is-number@https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz. Extracting by manifest.
+779 silly tarball no local data for is-extglob@https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz. Extracting by manifest.
+780 silly tarball no local data for is-glob@https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz. Extracting by manifest.
+781 silly tarball no local data for is-core-module@https://registry.npmjs.org/is-core-module/-/is-core-module-2.16.1.tgz. Extracting by manifest.
+782 silly tarball no local data for ieee754@https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz. Extracting by manifest.
+783 silly tarball no local data for is-binary-path@https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz. Extracting by manifest.
+784 silly tarball no local data for hls.js@https://registry.npmjs.org/hls.js/-/hls.js-1.6.15.tgz. Extracting by manifest.
+785 silly tarball no local data for immediate@https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz. Extracting by manifest.
+786 silly tarball no local data for hasown@https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz. Extracting by manifest.
+787 silly tarball no local data for glsl-noise@https://registry.npmjs.org/glsl-noise/-/glsl-noise-0.0.0.tgz. Extracting by manifest.
+788 silly tarball no local data for gsap@https://registry.npmjs.org/gsap/-/gsap-3.14.2.tgz. Extracting by manifest.
+789 silly tarball no local data for glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz. Extracting by manifest.
+790 silly tarball no local data for framer-motion@https://registry.npmjs.org/framer-motion/-/framer-motion-12.38.0.tgz. Extracting by manifest.
+791 silly tarball no local data for fraction.js@https://registry.npmjs.org/fraction.js/-/fraction.js-5.3.4.tgz. Extracting by manifest.
+792 silly tarball no local data for function-bind@https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz. Extracting by manifest.
+793 silly tarball no local data for fill-range@https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz. Extracting by manifest.
+794 silly tarball no local data for fastq@https://registry.npmjs.org/fastq/-/fastq-1.20.1.tgz. Extracting by manifest.
+795 silly tarball no local data for fflate@https://registry.npmjs.org/fflate/-/fflate-0.8.2.tgz. Extracting by manifest.
+796 silly tarball no local data for escalade@https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz. Extracting by manifest.
+797 silly tarball no local data for fast-glob@https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz. Extracting by manifest.
+798 silly tarball no local data for esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz. Extracting by manifest.
+799 silly tarball no local data for electron-to-chromium@https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.325.tgz. Extracting by manifest.
+800 silly tarball no local data for draco3d@https://registry.npmjs.org/draco3d/-/draco3d-1.5.7.tgz. Extracting by manifest.
+801 silly tarball no local data for detect-gpu@https://registry.npmjs.org/detect-gpu/-/detect-gpu-5.0.70.tgz. Extracting by manifest.
+802 silly tarball no local data for dlv@https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz. Extracting by manifest.
+803 silly tarball no local data for didyoumean@https://registry.npmjs.org/didyoumean/-/didyoumean-1.2.2.tgz. Extracting by manifest.
+804 silly tarball no local data for cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz. Extracting by manifest.
+805 silly tarball no local data for cross-spawn@https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz. Extracting by manifest.
+806 silly tarball no local data for csstype@https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz. Extracting by manifest.
+807 silly tarball no local data for cross-env@https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz. Extracting by manifest.
+808 silly tarball no local data for clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz. Extracting by manifest.
+809 silly tarball no local data for class-variance-authority@https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz. Extracting by manifest.
+810 silly tarball no local data for commander@https://registry.npmjs.org/commander/-/commander-4.1.1.tgz. Extracting by manifest.
+811 silly tarball no local data for caniuse-lite@https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001781.tgz. Extracting by manifest.
+812 silly tarball no local data for camelcase-css@https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz. Extracting by manifest.
+813 silly tarball no local data for buffer@https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz. Extracting by manifest.
+814 silly tarball no local data for chokidar@https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz. Extracting by manifest.
+815 silly tarball no local data for camera-controls@https://registry.npmjs.org/camera-controls/-/camera-controls-2.10.1.tgz. Extracting by manifest.
+816 silly tarball no local data for braces@https://registry.npmjs.org/braces/-/braces-3.0.3.tgz. Extracting by manifest.
+817 silly tarball no local data for browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz. Extracting by manifest.
+818 silly tarball no local data for bidi-js@https://registry.npmjs.org/bidi-js/-/bidi-js-1.0.3.tgz. Extracting by manifest.
+819 silly tarball no local data for baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.10.tgz. Extracting by manifest.
+820 silly tarball no local data for binary-extensions@https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz. Extracting by manifest.
+821 silly tarball no local data for autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.27.tgz. Extracting by manifest.
+822 silly tarball no local data for arg@https://registry.npmjs.org/arg/-/arg-5.0.2.tgz. Extracting by manifest.
+823 silly tarball no local data for base64-js@https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz. Extracting by manifest.
+824 silly tarball no local data for any-promise@https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz. Extracting by manifest.
+825 silly tarball no local data for anymatch@https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz. Extracting by manifest.
+826 silly tarball no local data for @dimforge/rapier3d-compat@https://registry.npmjs.org/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz. Extracting by manifest.
+827 silly tarball no local data for zustand@https://registry.npmjs.org/zustand/-/zustand-3.7.2.tgz. Extracting by manifest.
+828 silly tarball no local data for @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.3.tgz. Extracting by manifest.
+829 silly tarball no local data for fflate@https://registry.npmjs.org/fflate/-/fflate-0.6.10.tgz. Extracting by manifest.
+830 silly tarball no local data for zustand@https://registry.npmjs.org/zustand/-/zustand-4.5.7.tgz. Extracting by manifest.
+831 silly tarball no local data for @radix-ui/react-slot@https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.3.tgz. Extracting by manifest.
+832 silly tarball no local data for picomatch@https://registry.npmjs.org/picomatch/-/picomatch-4.0.4.tgz. Extracting by manifest.
+833 silly tarball no local data for three@https://registry.npmjs.org/three/-/three-0.170.0.tgz. Extracting by manifest.
+834 silly tarball no local data for scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.23.2.tgz. Extracting by manifest.
+835 silly tarball no local data for fdir@https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz. Extracting by manifest.
+836 silly tarball no local data for glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz. Extracting by manifest.
+837 silly tarball no local data for @types/react-reconciler@https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.28.9.tgz. Extracting by manifest.
+838 silly tarball no local data for glob-parent@https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz. Extracting by manifest.
+839 verbose audit error FetchError: request to https://registry.npmjs.org/-/npm/v1/security/audits/quick failed, reason: 
+839 verbose audit error     at ClientRequest.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\minipass-fetch\lib\index.js:130:14)
+839 verbose audit error     at ClientRequest.emit (node:events:519:28)
+839 verbose audit error     at emitErrorEvent (node:_http_client:105:11)
+839 verbose audit error     at _destroy (node:_http_client:898:9)
+839 verbose audit error     at onSocketNT (node:_http_client:918:5)
+839 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:91:21) {
+839 verbose audit error   code: 'EACCES',
+839 verbose audit error   errno: 'EACCES',
+839 verbose audit error   type: 'system'
+839 verbose audit error }
+840 silly audit error undefined
+841 silly audit report null
+842 http fetch GET https://registry.npmjs.org/@webgpu/types/-/types-0.1.69.tgz attempt 1 failed with EACCES
+843 http fetch GET https://registry.npmjs.org/@vitejs/plugin-react-swc/-/plugin-react-swc-3.11.0.tgz attempt 1 failed with EACCES
+844 http fetch GET https://registry.npmjs.org/@use-gesture/react/-/react-10.3.1.tgz attempt 1 failed with EACCES
+845 http fetch GET https://registry.npmjs.org/@use-gesture/core/-/core-10.3.1.tgz attempt 1 failed with EACCES
+846 http fetch GET https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz attempt 1 failed with EACCES
+847 http fetch GET https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz attempt 1 failed with EACCES
+848 http fetch GET https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz attempt 1 failed with EACCES
+849 http fetch GET https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.26.7.tgz attempt 1 failed with EACCES
+850 http fetch GET https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz attempt 1 failed with EACCES
+851 http fetch GET https://registry.npmjs.org/@types/react/-/react-18.3.28.tgz attempt 1 failed with EACCES
+852 http fetch GET https://registry.npmjs.org/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz attempt 1 failed with EACCES
+853 http fetch GET https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz attempt 1 failed with EACCES
+854 http fetch GET https://registry.npmjs.org/@swc/types/-/types-0.1.26.tgz attempt 1 failed with EACCES
+855 http fetch GET https://registry.npmjs.org/@types/draco3d/-/draco3d-1.4.10.tgz attempt 1 failed with EACCES
+856 http fetch GET https://registry.npmjs.org/npm attempt 2 failed with EACCES
+857 http fetch GET https://registry.npmjs.org/@webgpu/types/-/types-0.1.69.tgz attempt 2 failed with EACCES
+858 http fetch GET https://registry.npmjs.org/@vitejs/plugin-react-swc/-/plugin-react-swc-3.11.0.tgz attempt 2 failed with EACCES
+859 http fetch GET https://registry.npmjs.org/@use-gesture/react/-/react-10.3.1.tgz attempt 2 failed with EACCES
+860 http fetch GET https://registry.npmjs.org/@use-gesture/core/-/core-10.3.1.tgz attempt 2 failed with EACCES
+861 http fetch GET https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz attempt 2 failed with EACCES
+862 http fetch GET https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz attempt 2 failed with EACCES
+863 http fetch GET https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz attempt 2 failed with EACCES
+864 http fetch GET https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.26.7.tgz attempt 2 failed with EACCES
+865 http fetch GET https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz attempt 2 failed with EACCES
+866 http fetch GET https://registry.npmjs.org/@types/react/-/react-18.3.28.tgz attempt 2 failed with EACCES
+867 http fetch GET https://registry.npmjs.org/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz attempt 2 failed with EACCES
+868 http fetch GET https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz attempt 2 failed with EACCES
+869 http fetch GET https://registry.npmjs.org/@swc/types/-/types-0.1.26.tgz attempt 2 failed with EACCES
+870 http fetch GET https://registry.npmjs.org/@types/draco3d/-/draco3d-1.4.10.tgz attempt 2 failed with EACCES
+871 http fetch GET https://registry.npmjs.org/npm attempt 3 failed with EACCES
+872 http fetch GET https://registry.npmjs.org/@webgpu/types/-/types-0.1.69.tgz attempt 3 failed with EACCES
+873 http fetch GET https://registry.npmjs.org/@vitejs/plugin-react-swc/-/plugin-react-swc-3.11.0.tgz attempt 3 failed with EACCES
+874 http fetch GET https://registry.npmjs.org/@use-gesture/react/-/react-10.3.1.tgz attempt 3 failed with EACCES
+875 http fetch GET https://registry.npmjs.org/@use-gesture/core/-/core-10.3.1.tgz attempt 3 failed with EACCES
+876 http fetch GET https://registry.npmjs.org/@types/webxr/-/webxr-0.5.24.tgz attempt 3 failed with EACCES
+877 http fetch GET https://registry.npmjs.org/@types/three/-/three-0.183.1.tgz attempt 3 failed with EACCES
+878 http fetch GET https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.4.tgz attempt 3 failed with EACCES
+879 http fetch GET https://registry.npmjs.org/@types/react-reconciler/-/react-reconciler-0.26.7.tgz attempt 3 failed with EACCES
+880 http fetch GET https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz attempt 3 failed with EACCES
+881 http fetch GET https://registry.npmjs.org/@types/react/-/react-18.3.28.tgz attempt 3 failed with EACCES
+882 http fetch GET https://registry.npmjs.org/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz attempt 3 failed with EACCES
+883 http fetch GET https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz attempt 3 failed with EACCES
+884 http fetch GET https://registry.npmjs.org/@swc/types/-/types-0.1.26.tgz attempt 3 failed with EACCES
+885 http fetch GET https://registry.npmjs.org/@types/draco3d/-/draco3d-1.4.10.tgz attempt 3 failed with EACCES
+886 verbose cwd C:\Users\pedro\Documents\GitHub\WebDesign
+887 verbose os Windows_NT 10.0.26200
+888 verbose node v22.19.0
+889 verbose npm  v10.9.3
+890 error Exit handler never called!
+891 error This is an error with npm itself. Please report this error at:
+892 error   <https://github.com/npm/cli/issues>
+893 verbose exit 1
+894 verbose code 1
+895 error A complete log of this run can be found in: C:\Users\pedro\Documents\GitHub\WebDesign\.npm-cache\_logs\2026-03-26T18_17_23_015Z-debug-0.log

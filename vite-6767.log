@@ -1,0 +1,17 @@
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m862[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m6767[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.8:[1m6767[22m/[39m
+[2m15:29:57[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ui/zoom-parallax.tsx, /src/index.css[22m
+[2m15:29:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m15:36:29[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ui/zoom-parallax.tsx, /src/index.css[22m
+[2m15:42:22[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ui/zoom-parallax.tsx, /src/index.css[22m
+[2m15:42:22[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m15:44:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ui/zoom-parallax.tsx, /src/index.css[22m
+[2m15:44:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m16:01:02[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m16:30:11[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m16:47:10[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m17:06:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PortfolioPage.tsx, /src/index.css[22m
+[2m17:06:25[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ui/StaggeredMenu.tsx, /src/index.css[22m
