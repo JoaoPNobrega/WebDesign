@@ -1,4 +1,4 @@
-# oiiiiii
+# oiiii
 
 Projeto standalone com a pagina do cracha 3D pronta para subir no GitHub.
 
