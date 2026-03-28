@@ -1,23 +1,21 @@
-import { CreditCard, Flame, Home, Play } from "lucide-react";
+import { Flame, Home, Play } from "lucide-react";
 
 import type { SiteLanguage } from "@/lib/site-language";
 import Dock, { DockItemData } from "@/components/ui/Dock";
 
 interface AppDockProps {
-  activeId: "home" | "cracha" | "destruction" | "67";
+  activeId: "home" | "destruction" | "67";
   language: SiteLanguage;
 }
 
 const dockLabels: Record<SiteLanguage, Record<AppDockProps["activeId"], string>> = {
   "pt-BR": {
     home: "In\u00EDcio",
-    cracha: "Crach\u00E1",
     destruction: "Destruction",
     "67": "Proj 67",
   },
   "en-US": {
     home: "Home",
-    cracha: "Badge",
     destruction: "Destruction",
     "67": "Proj 67",
   },
@@ -43,12 +41,6 @@ export function AppDock({ activeId, language }: AppDockProps) {
       label: labels.home,
       onClick: () => navigate("/"),
       className: getStyle("home"),
-    },
-    {
-      icon: <CreditCard size={22} />,
-      label: labels.cracha,
-      onClick: () => navigate("/cracha"),
-      className: getStyle("cracha"),
     },
     {
       icon: <Flame size={22} />,

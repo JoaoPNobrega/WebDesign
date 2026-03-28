@@ -6,7 +6,6 @@ import {
   type SiteLanguage,
 } from "@/lib/site-language";
 import DestructionPage from "@/pages/DestructionPage";
-import LanyardPage from "@/pages/LanyardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import Page67 from "@/pages/Page67";
 import PortfolioPage from "@/pages/PortfolioPage";
@@ -59,13 +58,11 @@ export default function App() {
       "pt-BR": {
         "/": "Portf\u00F3lio | Jo\u00E3o Pedro",
         "/destruction": "Destruction | Jo\u00E3o Pedro",
-        "/cracha": "Crach\u00E1 | Jo\u00E3o Pedro",
         "/67": "Projeto 67 | Jo\u00E3o Pedro",
       },
       "en-US": {
         "/": "Portfolio | Jo\u00E3o Pedro",
         "/destruction": "Destruction | Jo\u00E3o Pedro",
-        "/cracha": "Badge | Jo\u00E3o Pedro",
         "/67": "Project 67 | Jo\u00E3o Pedro",
       },
     };
@@ -87,8 +84,6 @@ export default function App() {
         return <PortfolioPage language={activeLanguage} />;
       case "/destruction":
         return <DestructionPage language={activeLanguage} />;
-      case "/cracha":
-        return <LanyardPage />;
       case "/67":
         return <Page67 language={activeLanguage} />;
       default:
@@ -107,11 +102,9 @@ export default function App() {
         activeId={
           pathname === "/destruction"
             ? "destruction"
-            : pathname === "/cracha"
-              ? "cracha"
-              : pathname === "/67"
-                ? "67"
-                : "home"
+            : pathname === "/67"
+              ? "67"
+              : "home"
         }
         language={activeLanguage}
       />
