@@ -1,6 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import type { SiteLanguage } from "@/lib/site-language";
+
+const page67Copy = {
+  "pt-BR": {
+    kicker: "PROJETO DE PRODU\u00C7\u00C3O VISUAL 67",
+    watch: "ASSISTIR",
+    hint: "Clique com o bot\u00E3o direito e arraste para destruir as estruturas",
+    close: "FECHAR",
+  },
+  "en-US": {
+    kicker: "VISUAL PRODUCTION PROJECT 67",
+    watch: "WATCH",
+    hint: "Right-click and drag to destroy the structures",
+    close: "CLOSE",
+  },
+} as const;
+
 interface Vector2D {
   x: number;
   y: number;
@@ -126,7 +143,12 @@ class Particle {
   }
 }
 
-export default function Page67() {
+interface Page67Props {
+  language: SiteLanguage;
+}
+
+export default function Page67({ language }: Page67Props) {
+  const copy = page67Copy[language];
   const words = [
     "bandido",
     "cachocox",
@@ -366,14 +388,18 @@ export default function Page67() {
             layoutId="video-popup"
             className="absolute bottom-24 z-10 flex flex-col items-center gap-4"
           >
-            <p className="text-xs text-white/30 uppercase tracking-[0.3em] pointer-events-none pb-2">PROJETO DE PRODUÇÃO VISUAL 67</p>
+            <p className="pointer-events-none pb-2 text-xs uppercase tracking-[0.3em] text-white/30">
+              {copy.kicker}
+            </p>
             <motion.button 
               onClick={() => setIsVideoOpen(true)}
               className="px-16 py-5 bg-[#A7EF9E] text-black font-extrabold tracking-[0.3em] rounded-full shadow-[0_0_50px_rgba(167,239,158,0.25)] hover:scale-105 active:scale-95 transition-transform"
             >
-              ASSISTIR
+              {copy.watch}
             </motion.button>
-            <p className="text-[10px] text-white/20 uppercase tracking-widest pointer-events-none">Right-click move destroys structures</p>
+            <p className="pointer-events-none text-[10px] uppercase tracking-widest text-white/20">
+              {copy.hint}
+            </p>
           </motion.div>
         ) : (
           <motion.div
@@ -391,7 +417,7 @@ export default function Page67() {
                 onClick={() => setIsVideoOpen(false)}
                 className="absolute top-6 right-6 z-50 px-6 py-2 bg-black/30 hover:bg-[#A7EF9E] text-white hover:text-black rounded-full backdrop-blur-md transition-colors font-bold tracking-widest text-sm border border-white/10 hover:border-transparent"
               >
-                FECHAR
+                {copy.close}
               </button>
             </div>
           </motion.div>

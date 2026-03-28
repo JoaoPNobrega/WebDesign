@@ -1,0 +1,9 @@
+<svg width="220" height="292" viewBox="0 0 220 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="292" rx="18" fill="#F8F8F5"/>
+  <circle cx="110" cy="57" r="22" fill="#B7BE4B"/>
+  <path d="M109.5 88C114.6 88 119.33 90.58 121.98 94.86L176.54 183.11C180.61 189.68 175.89 198 168.14 198H145.38C140.48 198 135.94 195.42 133.37 191.21L109.5 151.97L85.63 191.21C83.06 195.42 78.52 198 73.62 198H50.86C43.11 198 38.39 189.68 42.46 183.11L97.02 94.86C99.67 90.58 104.4 88 109.5 88Z" fill="#0E6B56"/>
+  <path d="M98.88 148.89L81.93 176.75C80.76 178.68 78.67 179.86 76.41 179.86H67.47C62.37 179.86 59.28 174.19 61.97 169.84L106.83 97.32C108.01 95.42 110.99 95.42 112.17 97.32L157.03 169.84C159.72 174.19 156.63 179.86 151.53 179.86H142.59C140.33 179.86 138.24 178.68 137.07 176.75L120.12 148.89C117.78 145.04 112.19 145.04 109.85 148.89L109.5 149.47L109.15 148.89C106.81 145.04 101.22 145.04 98.88 148.89Z" fill="#F8F8F5"/>
+  <text x="110" y="232" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" letter-spacing="3" fill="#9B9B96">COL&#201;GIO</text>
+  <text x="110" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" letter-spacing="1.5" fill="#0E6B56">PINHEIROS</text>
+  <text x="110" y="283" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#88A98B">. O importante &#233; voc&#234;.</text>
+</svg>

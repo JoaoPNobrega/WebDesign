@@ -1,6 +1,33 @@
 import React from "react";
 
-export default function NotFoundPage() {
+import type { SiteLanguage } from "@/lib/site-language";
+
+const notFoundCopy = {
+  "pt-BR": {
+    ariaLabel:
+      "Um 404 vira um rosto, olha para os lados, pisca e forma um sorriso.",
+    title: "Protocolo n\u00E3o encontrado",
+    description:
+      "Parece que voc\u00EA acessou um setor restrito do sistema que n\u00E3o existe.",
+    button: "Retornar ao Hub",
+  },
+  "en-US": {
+    ariaLabel:
+      "A 404 becomes a face, looks to the sides, blinks, and forms a smile.",
+    title: "Protocol not found",
+    description:
+      "It looks like you reached a restricted sector of the system that does not exist.",
+    button: "Return to Hub",
+  },
+} as const;
+
+interface NotFoundPageProps {
+  language: SiteLanguage;
+}
+
+export default function NotFoundPage({ language }: NotFoundPageProps) {
+  const copy = notFoundCopy[language];
+
   const goHome = (e: React.MouseEvent) => {
     e.preventDefault();
     window.history.pushState(null, "", "/");
@@ -8,7 +35,7 @@ export default function NotFoundPage() {
   };
 
   return (
-    <main className="w-full h-screen flex flex-col items-center justify-center bg-zinc-950 text-[#A7EF9E] overflow-hidden">
+    <main className="flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-zinc-950 text-[#A7EF9E]">
       <style>{`
         .face {
           display: block;
@@ -50,7 +77,6 @@ export default function NotFoundPage() {
           animation-name: pupil;
         }
 
-        /* Animations */
         @keyframes eye-lid {
           from, 40%, 45%, to {
             transform: translateY(0);
@@ -94,13 +120,13 @@ export default function NotFoundPage() {
           to { transform: translate(0, 22.5px); }
         }
       `}</style>
-      
-      <svg 
-        className="face drop-shadow-[0_0_20px_rgba(167,239,158,0.3)]" 
-        viewBox="0 0 320 380" 
-        width="320px" 
-        height="380px" 
-        aria-label="A 404 becomes a face, looks to the sides, and blinks. The 4s slide up, the 0 slides down, and then a mouth appears."
+
+      <svg
+        className="face drop-shadow-[0_0_20px_rgba(167,239,158,0.3)]"
+        viewBox="0 0 320 380"
+        width="320px"
+        height="380px"
+        aria-label={copy.ariaLabel}
       >
         <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="25">
           <g className="face__eyes" transform="translate(0, 112.5)">
@@ -120,18 +146,21 @@ export default function NotFoundPage() {
           </g>
         </g>
       </svg>
-      
-      <div className="mt-8 flex flex-col items-center justify-center opacity-0 animate-[fadeIn_0.5s_0.8s_forwards]">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-white mb-2">Protocolo não encontrado</h1>
-        <p className="text-zinc-400 mb-8 max-w-sm text-center">Parece que você acessou um setor restrito do sistema que não existe.</p>
-        <button 
-          onClick={goHome} 
-          className="px-8 py-3 bg-[#A7EF9E] text-black font-semibold tracking-tight shadow-[0_0_20px_rgba(167,239,158,0.2)] rounded-md hover:bg-[#8ece84] hover:shadow-[0_0_30px_rgba(167,239,158,0.4)] transition-all active:scale-95"
+
+      <div className="mt-8 flex animate-[fadeIn_0.5s_0.8s_forwards] flex-col items-center justify-center opacity-0">
+        <h1 className="mb-2 text-3xl font-bold tracking-tighter text-white md:text-4xl">
+          {copy.title}
+        </h1>
+        <p className="mb-8 max-w-sm text-center text-zinc-400">
+          {copy.description}
+        </p>
+        <button
+          onClick={goHome}
+          className="rounded-md bg-[#A7EF9E] px-8 py-3 font-semibold tracking-tight text-black shadow-[0_0_20px_rgba(167,239,158,0.2)] transition-all hover:bg-[#8ece84] hover:shadow-[0_0_30px_rgba(167,239,158,0.4)] active:scale-95"
         >
-          Retornar ao Hub
+          {copy.button}
         </button>
       </div>
-
     </main>
   );
 }

@@ -1,11 +1,29 @@
 import { CreditCard, Flame, Home, Play } from "lucide-react";
+
+import type { SiteLanguage } from "@/lib/site-language";
 import Dock, { DockItemData } from "@/components/ui/Dock";
 
 interface AppDockProps {
   activeId: "home" | "cracha" | "destruction" | "67";
+  language: SiteLanguage;
 }
 
-export function AppDock({ activeId }: AppDockProps) {
+const dockLabels: Record<SiteLanguage, Record<AppDockProps["activeId"], string>> = {
+  "pt-BR": {
+    home: "In\u00EDcio",
+    cracha: "Crach\u00E1",
+    destruction: "Destruction",
+    "67": "Proj 67",
+  },
+  "en-US": {
+    home: "Home",
+    cracha: "Badge",
+    destruction: "Destruction",
+    "67": "Proj 67",
+  },
+};
+
+export function AppDock({ activeId, language }: AppDockProps) {
   const navigate = (path: string) => {
     window.history.pushState(null, "", path);
     window.dispatchEvent(new Event("popstate"));
@@ -17,36 +35,38 @@ export function AppDock({ activeId }: AppDockProps) {
       : "text-zinc-400 hover:text-white bg-black/40 border-transparent hover:border-white/10";
   };
 
+  const labels = dockLabels[language];
+
   const items: DockItemData[] = [
-    { 
-      icon: <Home size={22} />, 
-      label: 'Home', 
+    {
+      icon: <Home size={22} />,
+      label: labels.home,
       onClick: () => navigate("/"),
-      className: getStyle("home")
+      className: getStyle("home"),
     },
-    { 
-      icon: <CreditCard size={22} />, 
-      label: 'Crachá', 
+    {
+      icon: <CreditCard size={22} />,
+      label: labels.cracha,
       onClick: () => navigate("/cracha"),
-      className: getStyle("cracha")
+      className: getStyle("cracha"),
     },
-    { 
-      icon: <Flame size={22} />, 
-      label: 'Destruction', 
+    {
+      icon: <Flame size={22} />,
+      label: labels.destruction,
       onClick: () => navigate("/destruction"),
-      className: getStyle("destruction")
+      className: getStyle("destruction"),
     },
-    { 
-      icon: <Play size={22} />, 
-      label: 'Proj 67', 
+    {
+      icon: <Play size={22} />,
+      label: labels["67"],
       onClick: () => navigate("/67"),
-      className: getStyle("67")
+      className: getStyle("67"),
     },
   ];
 
   return (
     <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-      <Dock 
+      <Dock
         items={items}
         panelHeight={68}
         baseItemSize={50}

@@ -5,6 +5,7 @@ export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
   link: string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export interface StaggeredMenuSocialItem {
@@ -31,6 +32,12 @@ export interface StaggeredMenuProps {
   onMenuClose?: () => void;
   controlledOpen?: boolean;
   hideToggleButton?: boolean;
+  toggleLabels?: {
+    menu: string;
+    close: string;
+    openAria: string;
+    closeAria: string;
+  };
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -52,6 +59,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuClose,
   controlledOpen,
   hideToggleButton = false,
+  toggleLabels = {
+    menu: "Menu",
+    close: "Close",
+    openAria: "Open menu",
+    closeAria: "Close menu",
+  },
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -66,7 +79,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
-  const [textLines, setTextLines] = useState<string[]>(["Menu", "Close"]);
+  const [textLines, setTextLines] = useState<string[]>([
+    toggleLabels.menu,
+    toggleLabels.close,
+  ]);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -117,6 +133,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     return () => ctx.revert();
   }, [menuButtonColor, position]);
+
+  useLayoutEffect(() => {
+    if (!busyRef.current) {
+      setTextLines([toggleLabels.menu, toggleLabels.close]);
+    }
+  }, [toggleLabels]);
 
   const buildOpenTimeline = useCallback(() => {
     const panel = panelRef.current;
@@ -340,14 +362,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     textCycleAnimRef.current?.kill();
 
-    const currentLabel = opening ? "Menu" : "Close";
-    const targetLabel = opening ? "Close" : "Menu";
+    const currentLabel = opening ? toggleLabels.menu : toggleLabels.close;
+    const targetLabel = opening ? toggleLabels.close : toggleLabels.menu;
     const cycles = 3;
 
     const sequence: string[] = [currentLabel];
     let last = currentLabel;
     for (let i = 0; i < cycles; i += 1) {
-      last = last === "Menu" ? "Close" : "Menu";
+      last = last === toggleLabels.menu ? toggleLabels.close : toggleLabels.menu;
       sequence.push(last);
     }
     if (last !== targetLabel) sequence.push(targetLabel);
@@ -364,7 +386,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       duration: 0.5 + lineCount * 0.07,
       ease: "power4.out",
     });
-  }, []);
+  }, [toggleLabels.close, toggleLabels.menu]);
 
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
@@ -448,7 +470,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   return (
     <div
-      className={`sm-scope z-40 ${isFixed ? "fixed left-0 top-0 h-screen w-screen overflow-hidden" : "h-full w-full"}`}
+      className={`sm-scope z-40 pointer-events-none ${isFixed ? "fixed left-0 top-0 h-screen w-screen overflow-hidden" : "h-full w-full"}`}
     >
       <div
         className={`${className ? `${className} ` : ""}staggered-menu-wrapper pointer-events-none relative z-40 h-full w-full`}
@@ -501,7 +523,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 className={`sm-toggle relative inline-flex items-center gap-[0.3rem] overflow-visible border-0 bg-transparent font-medium leading-none cursor-pointer pointer-events-auto ${
                   open ? "text-black" : "text-[#e9e9ef]"
                 }`}
-                aria-label={open ? "Close menu" : "Open menu"}
+                aria-label={open ? toggleLabels.closeAria : toggleLabels.openAria}
                 aria-expanded={open}
                 aria-controls="staggered-menu-panel"
                 onClick={toggleMenu}
@@ -561,7 +583,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       href={item.link}
                       aria-label={item.ariaLabel}
                       data-index={index + 1}
-                      onClick={closeMenu}
+                      onClick={(e) => {
+                        if (item.onClick) {
+                          item.onClick(e);
+                        }
+                        closeMenu();
+                      }}
                     >
                       <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
                         {item.label}

@@ -10,12 +10,13 @@ import {
 } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface ZoomMediaAsset {
+export interface ZoomMediaAsset {
 	type?: 'image' | 'video';
 	src: string;
 	fallbackSrc?: string;
 	posterSrc?: string;
 	alt?: string;
+	objectPosition?: 'top' | 'bottom' | 'center';
 }
 
 interface ZoomParallaxProps {
@@ -48,7 +49,7 @@ function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
 				playsInline
 				preload="auto"
 				aria-label={media.alt || `Parallax video ${index + 1}`}
-				className="h-full w-full object-cover"
+			className={`h-full w-full object-cover ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
 				onError={() => {
 					setHasVideoError(true);
 				}}
@@ -60,7 +61,7 @@ function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
 		<img
 			src={currentImageSrc || media.fallbackSrc || '/placeholder.svg'}
 			alt={media.alt || `Parallax image ${index + 1}`}
-			className="h-full w-full object-cover"
+			className={`h-full w-full object-cover ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
 			onError={() => {
 				if (!media.fallbackSrc || currentImageSrc === media.fallbackSrc) return;
 				setCurrentImageSrc(media.fallbackSrc);
@@ -168,6 +169,13 @@ export function ZoomParallax({
 
 		const targetTop = window.scrollY + el.getBoundingClientRect().top;
 
+		// IMPORTANT: Only lock if we are coming from ABOVE the element (scrolling down).
+		// If the current scroll position is significantly below the target, we are 
+		// likely scrolling up from the bottom of the page.
+		if (window.scrollY > targetTop + 10) {
+			return;
+		}
+
 		isPrimingRef.current = true;
 		animateEntry(1, 0.65);
 		window.scrollTo({ top: targetTop, behavior: 'smooth' });
@@ -209,13 +217,15 @@ export function ZoomParallax({
 			e.stopPropagation();
 
 			const delta = e.deltaY;
-			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / scrollBudget));
-			progress.set(progressRef.current);
 
-			if (progressRef.current <= 0 && delta < 0) {
+			// Release lock immediately if scrolling UP (delta < 0)
+			if (delta < 0) {
 				releaseLock(false);
 				return;
 			}
+
+			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / scrollBudget));
+			progress.set(progressRef.current);
 
 			if (progressRef.current >= 1) {
 				releaseLock(true);
@@ -309,7 +319,7 @@ export function ZoomParallax({
 							<motion.div
 								key={index}
 								style={{ scale }}
-								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[22.5vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
+								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
 							>
 								<div className="relative h-[25vh] w-[25vw]">
 									<ZoomMedia media={media} index={index} />
