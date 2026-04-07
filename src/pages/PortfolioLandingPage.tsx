@@ -695,12 +695,24 @@ export default function PortfolioLandingPage() {
       );
     };
 
+    let scrollAnimationControls: ReturnType<typeof animate> | null = null;
+    let targetScrollLeft = scroller.scrollLeft;
+
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
       event.stopPropagation();
 
       const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-      scroller.scrollLeft += delta;
+      const maxScrollLeft = Math.max(scroller.scrollWidth - scroller.clientWidth, 0);
+      targetScrollLeft = Math.min(Math.max(targetScrollLeft + delta, 0), maxScrollLeft);
+      scrollAnimationControls?.stop();
+      scrollAnimationControls = animate(scroller.scrollLeft, targetScrollLeft, {
+        duration: 0.34,
+        ease: [0.22, 1, 0.36, 1],
+        onUpdate: (value) => {
+          scroller.scrollLeft = value;
+        },
+      });
     };
 
     const frameId = window.requestAnimationFrame(updateProjectsScrollEdges);
@@ -711,6 +723,7 @@ export default function PortfolioLandingPage() {
     window.addEventListener("resize", updateProjectsScrollEdges);
 
     return () => {
+      scrollAnimationControls?.stop();
       window.cancelAnimationFrame(frameId);
       scroller.removeEventListener("wheel", handleWheel);
       scroller.removeEventListener("scroll", updateProjectsScrollEdges);
