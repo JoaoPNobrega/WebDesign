@@ -46,25 +46,38 @@ const navProjectItems = [
     title: "Dr Guilherme Maia",
     image: "/assets/dr-guilherme-preview.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: "Landing page médica com foco em autoridade, clareza de conversão e acabamento visual premium para uma presença digital mais confiável.",
+    description: "Site desenvolvido para o urologista Dr. Guilherme Maia durante meu estágio na Web Star Studio. Uma landing page médica com foco em storytelling, atendimento ao público e simplicidade, fortalecendo a autoridade profissional.",
+    partner: "Web Star Studio",
     href: "https://drguilhermemaia.com.br/",
   },
   {
     title: "FlyHigh",
-    image: "/assets/flyhigh.png",
-    description: "Projeto de interface com estética vertical, composição forte e direção visual pensada para destacar produto, ritmo e impacto.",
+    image: "/assets/flynotch.png",
+    description: "App web mobile feito para gerenciar partidas e acompanhar estatísticas. Criei para ajudar no vôlei que jogo com meus primos, com inspiração no anime Haikyu!!.",
+  },
+  {
+    title: "PetFeeder",
+    image: "/assets/petfeeder-preview.webp",
+    description: "Alimentador automático inteligente para pets, desenvolvido com ESP32, sensores e atuadores. O projeto integra um dashboard web em tempo real via Firebase, controle local por Access Point e API Gemini para sugerir rotinas de alimentação personalizadas.",
+    href: "https://github.com/JoaoPNobrega/PetFeeder-Front",
+    ctaLabel: "GitHub",
+    partner: "CESAR School",
+    partnerLogo: "/assets/cesar-school-logo.png",
+    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
   },
   {
     title: "Dr Daniel Pianetti",
-    image: "/portfolio-sites/site-02-top-left-poster.jpg",
-    description: "Experiência digital para presença médica, combinando estrutura objetiva, navegação direta e visual limpo para gerar confiança.",
+    image: "/assets/daniel-notch.png",
+    description: "Site desenvolvido para o urologista Dr. Daniel Pianetti durante meu estágio na Web Star Studio. A experiência combina logo animada, objeto 3D e uma narrativa visual voltada para cirurgia robótica, tecnologia e confiança.",
+    partner: "Web Star Studio",
     href: "https://daniel.webstar.studio/",
   },
   {
     title: "Stephanie Bolsoni",
     image: "/assets/stephanie-bolsoni.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: "Landing page elegante e editorial para nutrição, com atmosfera leve, hierarquia refinada e foco em apresentação profissional.",
+    description: "Site desenvolvido para a nutricionista Stephanie Bolsoni durante meu estágio na Web Star Studio. O projeto destaca avaliações em tempo real e uma presença internacional, com atendimento em Dublin e online.",
+    partner: "Web Star Studio",
     href: "https://stephaniebolsoni.com/",
   },
 ] as const;
@@ -78,7 +91,7 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   },
   {
     type: "image",
-    src: "/portfolio-sites/site-02-top-left-poster.jpg",
+    src: "/assets/daniel-parallax.png",
     alt: "Preview do projeto Dr Daniel Pianetti",
   },
   {
@@ -559,6 +572,7 @@ export default function PortfolioLandingPage() {
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
   const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
   const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | null>(null);
+  const [projectsScrollEdges, setProjectsScrollEdges] = useState({ left: false, right: true });
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
   const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
@@ -665,8 +679,21 @@ export default function PortfolioLandingPage() {
     const scroller = projectsScrollerRef.current;
 
     if (!isProjectsDropdownOpen || !scroller) {
+      setProjectsScrollEdges({ left: false, right: true });
       return;
     }
+
+    const updateProjectsScrollEdges = () => {
+      const maxScrollLeft = Math.max(scroller.scrollWidth - scroller.clientWidth, 0);
+      const nextEdges = {
+        left: scroller.scrollLeft > 2,
+        right: maxScrollLeft > 2 && scroller.scrollLeft < maxScrollLeft - 2,
+      };
+
+      setProjectsScrollEdges((currentEdges) =>
+        currentEdges.left === nextEdges.left && currentEdges.right === nextEdges.right ? currentEdges : nextEdges,
+      );
+    };
 
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
@@ -676,10 +703,18 @@ export default function PortfolioLandingPage() {
       scroller.scrollLeft += delta;
     };
 
+    const frameId = window.requestAnimationFrame(updateProjectsScrollEdges);
+    updateProjectsScrollEdges();
+
     scroller.addEventListener("wheel", handleWheel, { passive: false });
+    scroller.addEventListener("scroll", updateProjectsScrollEdges, { passive: true });
+    window.addEventListener("resize", updateProjectsScrollEdges);
 
     return () => {
+      window.cancelAnimationFrame(frameId);
       scroller.removeEventListener("wheel", handleWheel);
+      scroller.removeEventListener("scroll", updateProjectsScrollEdges);
+      window.removeEventListener("resize", updateProjectsScrollEdges);
     };
   }, [isProjectsDropdownOpen]);
 
@@ -694,7 +729,16 @@ export default function PortfolioLandingPage() {
 
   const selectedProject = navProjectItems.find((item) => item.title === selectedProjectTitle);
   const selectedProjectHref = selectedProject && "href" in selectedProject ? selectedProject.href : GITHUB_URL;
-  const selectedProjectCtaLabel = selectedProject && "href" in selectedProject ? "Ver site" : "GitHub";
+  const selectedProjectCtaLabel = selectedProject && "ctaLabel" in selectedProject ? selectedProject.ctaLabel : selectedProject && "href" in selectedProject ? "Ver site" : "GitHub";
+  const selectedProjectPartner = selectedProject && "partner" in selectedProject ? selectedProject.partner : null;
+  const selectedProjectPartnerLogo = selectedProject && "partnerLogo" in selectedProject ? selectedProject.partnerLogo : "/assets/webstar-logo-white.png";
+  const selectedProjectPartnerLogoClassName =
+    selectedProject && "partnerLogoClassName" in selectedProject
+      ? selectedProject.partnerLogoClassName
+      : "h-8 w-auto object-contain [filter:brightness(1.28)_contrast(1.25)_drop-shadow(0_0_10px_rgba(255,255,255,0.18))] sm:h-9";
+  const projectsCarouselMaskImage = `linear-gradient(90deg, ${
+    projectsScrollEdges.left ? "transparent 0%, black 7%" : "black 0%, black 7%"
+  }, black 93%, ${projectsScrollEdges.right ? "transparent 100%" : "black 100%"})`;
 
   const isHeroContactDropdownOpen = isContactDropdownOpen && !isNavDetached;
   const isHeroProjectsDropdownOpen = isProjectsDropdownOpen && !isNavDetached;
@@ -917,8 +961,8 @@ export default function PortfolioLandingPage() {
                       isHeroProjectsDropdownOpen ? "mt-2" : "mt-2 border-t border-white/10"
                     }`}
                     style={{
-                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
-                      maskImage: "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
+                      WebkitMaskImage: projectsCarouselMaskImage,
+                      maskImage: projectsCarouselMaskImage,
                     }}
                   >
                     <div className="flex w-max gap-2.5 pr-2">
@@ -1150,7 +1194,9 @@ export default function PortfolioLandingPage() {
                 <img
                   src={selectedProject.image}
                   alt={`Preview ampliado do projeto ${selectedProject.title}`}
-                  className="h-[18rem] w-full object-cover object-center sm:h-[24rem] lg:h-[28rem]"
+                  className={`h-[18rem] w-full object-center sm:h-[24rem] lg:h-[28rem] ${
+                    "object-cover"
+                  }`}
                   loading="lazy"
                   decoding="async"
                 />
@@ -1161,12 +1207,34 @@ export default function PortfolioLandingPage() {
                   <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-white/36">
                     Projeto selecionado
                   </p>
-                  <h2
-                    id="project-preview-title"
-                    className="text-3xl font-black uppercase leading-[0.92] tracking-[-0.075em] text-white sm:text-5xl"
-                  >
-                    {selectedProject.title}
-                  </h2>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h2
+                      id="project-preview-title"
+                      className="text-3xl font-black uppercase leading-[0.92] tracking-[-0.075em] text-white sm:text-5xl"
+                    >
+                      {selectedProject.title}
+                    </h2>
+                    {selectedProjectPartner ? (
+                    <div className="group relative inline-flex">
+                      <div
+                        className="inline-flex cursor-help items-center rounded-full border border-white/20 bg-black/55 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_16px_45px_rgba(0,0,0,0.36)] transition duration-300 hover:border-[#A7EF9E]/45 hover:bg-black/70"
+                        aria-label={`Projeto em parceria com ${selectedProjectPartner}`}
+                      >
+                        <img
+                          src={selectedProjectPartnerLogo}
+                          alt=""
+                          aria-hidden="true"
+                          className={selectedProjectPartnerLogoClassName}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                      <div className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-1/2 w-max -translate-x-1/2 rounded-full border border-white/10 bg-black/90 px-3 py-1.5 text-[0.68rem] font-medium text-white/72 opacity-0 shadow-[0_16px_50px_rgba(0,0,0,0.42)] transition duration-200 group-hover:-translate-y-1 group-hover:opacity-100">
+                        Parceria com {selectedProjectPartner}
+                      </div>
+                    </div>
+                    ) : null}
+                  </div>
                   <p className="mt-5 max-w-2xl text-base leading-7 text-white/56 sm:text-lg sm:leading-8">
                     {selectedProject.description}
                   </p>
