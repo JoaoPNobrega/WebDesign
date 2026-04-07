@@ -43,6 +43,8 @@ function ZoomMedia({
 	const [hasVideoError, setHasVideoError] = useState(false);
 	const [currentImageSrc, setCurrentImageSrc] = useState(media.src);
 	const mediaType = media.type ?? 'image';
+	const transparentPlaceholder =
+		'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 	useEffect(() => {
 		setHasVideoError(false);
@@ -70,11 +72,12 @@ function ZoomMedia({
 
 	return (
 		<img
-			src={currentImageSrc || media.fallbackSrc || '/placeholder.svg'}
+			src={shouldLoad ? currentImageSrc || media.fallbackSrc || '/placeholder.svg' : transparentPlaceholder}
 			alt={media.alt || `Parallax image ${index + 1}`}
-			loading={index === 0 ? 'eager' : 'lazy'}
+			loading="lazy"
 			decoding="async"
-			className={`h-full w-full object-cover ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
+			fetchPriority={index === 0 && shouldLoad ? 'high' : 'auto'}
+			className={`h-full w-full object-cover [backface-visibility:hidden] ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
 			onError={() => {
 				if (!media.fallbackSrc || currentImageSrc === media.fallbackSrc) return;
 				setCurrentImageSrc(media.fallbackSrc);
@@ -95,6 +98,7 @@ export function ZoomParallax({
 	const isNearViewport = useInView(containerRef, {
 		margin: '900px 0px',
 	});
+	const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
 		offset: ['start start', 'end end'],
@@ -142,6 +146,13 @@ export function ZoomParallax({
 		[0.72, 0.9, 1],
 		shouldReduceMotion ? [1, 1, 1] : [0, 0.55, 1],
 	);
+	const shouldLoadMedia = isNearViewport || hasEnteredViewport;
+
+	useEffect(() => {
+		if (isNearViewport) {
+			setHasEnteredViewport(true);
+		}
+	}, [isNearViewport]);
 
 	return (
 		<div
@@ -158,7 +169,7 @@ export function ZoomParallax({
 						filter: stageFilter,
 						borderRadius: stageRadius,
 					}}
-					className="relative h-full w-full overflow-hidden [contain:layout_paint_style] will-change-transform"
+					className="relative h-full w-full overflow-hidden [contain:layout_paint_style] [content-visibility:auto] will-change-transform"
 				>
 					<motion.div
 						style={{ opacity: overlayOpacity }}
@@ -171,10 +182,10 @@ export function ZoomParallax({
 							<motion.div
 								key={index}
 								style={{ scale }}
-								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
+								className={`absolute top-0 flex h-full w-full transform-gpu items-center justify-center [backface-visibility:hidden] [will-change:transform] ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
 							>
-								<div className="relative h-[25vh] w-[25vw]">
-									<ZoomMedia media={media} index={index} shouldLoad={isNearViewport} />
+								<div className="relative h-[25vh] w-[25vw] transform-gpu [backface-visibility:hidden]">
+									<ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />
 								</div>
 							</motion.div>
 						);
