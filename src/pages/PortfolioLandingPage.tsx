@@ -270,7 +270,7 @@ function JourneyHorizontalSection() {
             >
               <motion.div
                 style={{ y: graduationLeftY }}
-                className="pointer-events-none relative mx-auto flex w-full max-w-[26rem] flex-col items-start lg:mx-0"
+                className="pointer-events-none relative mx-auto flex w-full max-w-[26rem] flex-col items-start lg:mx-0 lg:-translate-x-16 xl:-translate-x-28 2xl:-translate-x-36"
               >
                 <div className="relative h-[25rem] w-full sm:h-[29rem]">
                   <div className="absolute bottom-0 right-0 h-72 w-56 overflow-hidden border border-zinc-600/50 shadow-[0_24px_64px_rgba(0,0,0,0.7)] sm:h-80 sm:w-64">
@@ -297,7 +297,7 @@ function JourneyHorizontalSection() {
 
               <motion.div
                 style={{ y: graduationRightY }}
-                className="pointer-events-none relative z-10 flex flex-col items-center gap-6"
+                className="pointer-events-none relative z-10 flex flex-col items-center gap-6 lg:translate-x-16 xl:translate-x-28 2xl:translate-x-36"
               >
                 <h2
                   id="graduation-heading"
@@ -363,12 +363,12 @@ function ExperienceStackSection() {
       >
         <div className="relative mx-auto h-full max-w-7xl">
           <div className="relative z-10 mx-auto max-w-4xl text-center">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.48em] text-white/36">
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.48em] text-white/36">
               Linha do tempo
             </p>
             <h2
               id="experience-heading"
-              className="max-w-4xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.085em] text-white sm:text-7xl lg:text-[6rem]"
+              className="max-w-4xl text-6xl font-black uppercase leading-[0.9] tracking-[-0.085em] text-white sm:text-8xl lg:text-[7rem]"
             >
               Experi&#234;ncia
             </h2>
@@ -413,36 +413,36 @@ function ExperienceStackSection() {
 
             <motion.article
               style={{ opacity: firstItemOpacity, x: firstItemX }}
-              className="absolute right-[calc(50%+14.5rem)] top-[20%] max-w-[21rem] text-center"
+              className="absolute right-[calc(50%+14.5rem)] top-[20%] max-w-[24rem] text-center"
             >
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
+              <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.3em] text-white/55">
                 {experienceHighlights[0].company}
               </p>
-              <p className="mt-2 text-sm text-white/50">
+              <h3 className="mt-3 text-2xl font-black uppercase leading-[0.96] tracking-[-0.065em] text-white lg:text-[2.15rem]">
                 {experienceHighlights[0].role}
-              </p>
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/30">
+              </h3>
+              <p className="mx-auto mt-4 inline-flex rounded-full border border-white/10 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/42">
                 {experienceHighlights[0].period}
               </p>
-              <p className="mt-4 text-xs leading-6 text-white/42">
+              <p className="mx-auto mt-5 max-w-[20rem] text-base leading-7 text-white/52">
                 {experienceHighlights[0].description}
               </p>
             </motion.article>
 
             <motion.article
               style={{ opacity: secondItemOpacity, x: secondItemX }}
-              className="absolute left-[calc(50%+14.5rem)] top-[60%] max-w-[21rem] text-center"
+              className="absolute left-[calc(50%+14.5rem)] top-[60%] max-w-[24rem] text-center"
             >
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
+              <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.3em] text-white/55">
                 {experienceHighlights[1].company}
               </p>
-              <p className="mt-2 text-sm text-white/50">
+              <h3 className="mt-3 text-2xl font-black uppercase leading-[0.96] tracking-[-0.065em] text-white lg:text-[2.15rem]">
                 {experienceHighlights[1].role}
-              </p>
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/30">
+              </h3>
+              <p className="mx-auto mt-4 inline-flex rounded-full border border-white/10 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/42">
                 {experienceHighlights[1].period}
               </p>
-              <p className="mt-4 whitespace-pre-line text-xs leading-6 text-white/42">
+              <p className="mx-auto mt-5 max-w-[21rem] whitespace-pre-line text-base leading-7 text-white/52">
                 {experienceHighlights[1].description}
               </p>
             </motion.article>
@@ -451,13 +451,15 @@ function ExperienceStackSection() {
           <div className="mt-10 grid gap-4 md:hidden">
             {experienceHighlights.map((item) => (
               <article key={item.company} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/35">
+                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/42">
+                  {item.company}
+                </p>
+                <h3 className="mt-3 text-3xl font-black uppercase leading-[0.95] tracking-[-0.065em] text-white">
+                  {item.role}
+                </h3>
+                <p className="mt-4 inline-flex rounded-full border border-white/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
                   {item.period}
                 </p>
-                <h3 className="mt-3 text-xl font-black uppercase tracking-[-0.055em] text-white">
-                  {item.company}
-                </h3>
-                <p className="mt-2 text-sm text-white/48">{item.role}</p>
               </article>
             ))}
           </div>
@@ -626,14 +628,18 @@ export default function PortfolioLandingPage() {
   const isHeroDropdownOpen = isHeroContactDropdownOpen || isHeroProjectsDropdownOpen;
   const visibleNotchDepth = isHeroDropdownOpen ? 1 : notchDepth;
   const notchDropdownExtraDepth = isHeroProjectsDropdownOpen ? 308 : isHeroContactDropdownOpen ? 54 : 0;
-  const notchY = (value: number) => (value * visibleNotchDepth + (value / 84) * notchDropdownExtraDepth).toFixed(2);
-  const projectNotchY = (value: number) => (value * visibleNotchDepth + (value / 70) * 256).toFixed(2);
+  const notchSourceHeight = isHeroContactDropdownOpen ? 142 : 86;
+  const scaleNotchY = (value: number, sourceHeight: number) => ((value / sourceHeight) * 392).toFixed(2);
+  const notchYValue = (value: number) => value * visibleNotchDepth + (value / 84) * notchDropdownExtraDepth;
+  const projectNotchYValue = (value: number) => value * visibleNotchDepth + (value / 70) * 256;
+  const notchY = (value: number) => scaleNotchY(notchYValue(value), notchSourceHeight);
+  const projectNotchY = (value: number) => scaleNotchY(projectNotchYValue(value), 392);
   const notchPath = isHeroProjectsDropdownOpen
     ? `M0 0H6C38 0 62 ${projectNotchY(2)} 82 ${projectNotchY(8)}C101 ${projectNotchY(14)} 114 ${projectNotchY(28)} 126 ${projectNotchY(46)}C138 ${projectNotchY(63)} 154 ${projectNotchY(70)} 178 ${projectNotchY(70)}H282C306 ${projectNotchY(70)} 322 ${projectNotchY(63)} 334 ${projectNotchY(46)}C346 ${projectNotchY(28)} 359 ${projectNotchY(14)} 378 ${projectNotchY(8)}C398 ${projectNotchY(2)} 422 0 454 0H460V0H0Z`
     : `M0 0H92C111 0 123 ${notchY(5)} 131 ${notchY(16)}C140 ${notchY(29)} 145 ${notchY(43)} 148 ${notchY(57)}C152 ${notchY(75)} 164 ${notchY(84)} 182 ${notchY(84)}H278C296 ${notchY(84)} 308 ${notchY(75)} 312 ${notchY(57)}C315 ${notchY(43)} 320 ${notchY(29)} 329 ${notchY(16)}C337 ${notchY(5)} 349 0 368 0H460V0H0Z`;
-  const notchViewBoxHeight = isHeroProjectsDropdownOpen ? 392 : isHeroContactDropdownOpen ? 142 : 86;
-  const notchVisualHeight = isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "4.55rem";
-  const notchVisualWidth = isHeroProjectsDropdownOpen ? "min(142vw,112rem)" : "min(94vw,52rem)";
+  const notchVisualHeight = isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "5rem";
+  const notchVisualWidth = isHeroProjectsDropdownOpen ? "142vw" : isHeroContactDropdownOpen ? "94vw" : "96vw";
+  const notchVisualMaxWidth = isHeroProjectsDropdownOpen ? "112rem" : isHeroContactDropdownOpen ? "52rem" : "58rem";
   const navExitProgress = Math.min(Math.max((notchProgress - 0.04) / 0.42, 0), 1);
   const shouldKeepNavTextVisible = isNavDetached || isHeroDropdownOpen;
   const navTextOpacity = shouldKeepNavTextVisible ? "1" : (1 - navExitProgress).toFixed(2);
@@ -652,13 +658,15 @@ export default function PortfolioLandingPage() {
         style={{ height: `calc(100vh + ${FLOATING_NAV_SCROLL_THRESHOLD}px)` }}
       >
         <div className="sticky top-0 z-[200] h-screen overflow-visible">
-        <div
+        <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-5 z-10 -translate-x-1/2 overflow-visible transition-[height,width] duration-500 sm:top-6 lg:top-8"
-          style={{ height: notchVisualHeight, width: notchVisualWidth, transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
+          initial={false}
+          animate={{ height: notchVisualHeight, maxWidth: notchVisualMaxWidth, width: notchVisualWidth }}
+          transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute left-1/2 top-5 z-10 -translate-x-1/2 overflow-visible sm:top-6 lg:top-8"
         >
           <svg
-            viewBox={`0 0 460 ${notchViewBoxHeight}`}
+            viewBox="0 0 460 392"
             preserveAspectRatio="none"
             className="h-full w-full overflow-visible"
           >
@@ -669,7 +677,7 @@ export default function PortfolioLandingPage() {
               fill="#050505"
             />
           </svg>
-        </div>
+        </motion.div>
 
         <div
           ref={navRef}
@@ -789,10 +797,35 @@ export default function PortfolioLandingPage() {
                 <motion.div
                   layout
                   key="projects-dropdown"
-                  initial={{ height: 0, opacity: 0, y: -10, filter: "blur(10px)" }}
-                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ height: 0, opacity: 0, y: -8, filter: "blur(10px)" }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{
+                    height: 0,
+                    width: isNavDetached ? "18.5rem" : "auto",
+                    opacity: 0,
+                    y: -10,
+                    filter: "blur(10px)",
+                  }}
+                  animate={{
+                    height: "auto",
+                    width: isNavDetached ? "40rem" : "auto",
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                  }}
+                  exit={{
+                    height: 0,
+                    width: isNavDetached ? "18.5rem" : "auto",
+                    opacity: 0,
+                    y: -8,
+                    filter: "blur(10px)",
+                  }}
+                  transition={{
+                    height: { duration: 0.48, ease: [0.22, 1, 0.36, 1] },
+                    width: { duration: 0.34, ease: [0.32, 0.72, 0, 1] },
+                    opacity: { duration: 0.26, ease: "easeOut" },
+                    y: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+                    filter: { duration: 0.34, ease: "easeOut" },
+                  }}
+                  style={{ maxWidth: isNavDetached ? "82vw" : undefined }}
                   className="overflow-hidden"
                 >
                   <div
