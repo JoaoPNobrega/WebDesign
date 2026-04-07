@@ -55,6 +55,16 @@
   }
 }
 
+@keyframes shiny-text {
+  0% {
+    background-position: 200% 50%;
+  }
+
+  100% {
+    background-position: -40% 50%;
+  }
+}
+
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
   display: none;

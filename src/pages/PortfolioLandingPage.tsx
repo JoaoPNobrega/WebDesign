@@ -1,14 +1,67 @@
-import { useEffect, useRef, useState } from "react";
+import { type SVGProps, useEffect, useRef, useState } from "react";
 
-import { animate, motion, useInView, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, LayoutGroup, animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { Mail } from "lucide-react";
 import Lanyard from "@/components/Lanyard";
 import DestructionSection from "@/components/DestructionSection";
+import GlassSurface from "@/components/ui/GlassSurface";
 import OrbitingSkills from "@/components/ui/orbiting-skills";
+import ShinyText from "@/components/ui/ShinyText";
+import SplitText from "@/components/ui/SplitText";
+import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
 
 const HERO_MORPH_SCROLL_DISTANCE = 860;
 const FLOATING_NAV_SCROLL_OFFSET = 360;
 const FLOATING_NAV_SCROLL_THRESHOLD = HERO_MORPH_SCROLL_DISTANCE + FLOATING_NAV_SCROLL_OFFSET;
+const HERO_TEXT_EXIT_SCROLL_DELAY = 260;
+const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
+
+function GithubMark(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 .7C5.74.7.66 5.78.66 12.04c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55v-2c-3.16.69-3.83-1.36-3.83-1.36-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.52-2.52-.29-5.17-1.26-5.17-5.61 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16.91-.25 1.88-.38 2.85-.38s1.94.13 2.85.38c2.17-1.47 3.13-1.16 3.13-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.36-2.65 5.32-5.18 5.6.41.35.77 1.04.77 2.1v3.11c0 .31.21.66.78.55a11.35 11.35 0 0 0 7.76-10.76C23.34 5.78 18.26.7 12 .7Z" />
+    </svg>
+  );
+}
+
+function LinkedinMark(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z" />
+    </svg>
+  );
+}
+
+const navContactItems = [
+  { label: "GitHub", icon: GithubMark, href: "https://github.com/JoaoPNobrega" },
+  { label: "LinkedIn", icon: LinkedinMark, href: "https://linkedin.com/in/joaopedro-nobrega" },
+  { label: "Email", icon: Mail, href: "mailto:jpan@cesar.school" },
+] as const;
+
+const navProjectItems = [
+  {
+    title: "Dr Guilherme Maia",
+    image: "/portfolio-sites/site-04-center-right-poster.jpg",
+    imageScale: "scale-[1.2] group-hover:scale-[1.28]",
+    href: "https://drguilhermemaia.com.br/",
+  },
+  {
+    title: "FlyHigh",
+    image: "/assets/flyhigh.png",
+  },
+  {
+    title: "Dr Daniel Pianetti",
+    image: "/portfolio-sites/site-02-top-left-poster.jpg",
+    href: "https://daniel.webstar.studio/",
+  },
+  {
+    title: "Stephanie Bolsoni",
+    image: "/assets/stephanie-bolsoni.png",
+    imageScale: "scale-[1.2] group-hover:scale-[1.28]",
+    href: "https://stephaniebolsoni.com/",
+  },
+] as const;
 
 const portfolioZoomImages: ZoomMediaAsset[] = [
   {
@@ -83,14 +136,14 @@ const experienceHighlights = [
     company: "AJ Solu\u00e7\u00f5es & Sistemas \u00b7 Est\u00e1gio",
     period: "Agosto \u2014 Novembro 2025",
     description:
-      "Primeiro est\u00e1gio profissional, com atua\u00e7\u00e3o em desenvolvimento de software e evolu\u00e7\u00e3o de base t\u00e9cnica em produto real.",
+      "Desenvolvimento de software, automa\u00e7\u00f5es N8N e planilhas VBA.",
   },
   {
     role: "Desenvolvedor full stack",
     company: "Web Star Studio \u00b7 Est\u00e1gio",
     period: "Fevereiro 2026 \u2014 Hoje",
     description:
-      "Atua\u00e7\u00e3o full stack em experi\u00eancias digitais, com foco em front-end, integra\u00e7\u00f5es e interfaces de alto acabamento.",
+      "Atua\u00e7\u00e3o full stack em experi\u00eancias digitais, com foco em \nfront-end, integra\u00e7\u00f5es e interfaces de alto acabamento.",
   },
   {
     role: "Full stack foundation",
@@ -360,7 +413,7 @@ function ExperienceStackSection() {
 
             <motion.article
               style={{ opacity: firstItemOpacity, x: firstItemX }}
-              className="absolute right-[calc(50%+14.5rem)] top-[20%] max-w-[21rem] text-right"
+              className="absolute right-[calc(50%+14.5rem)] top-[20%] max-w-[21rem] text-center"
             >
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
                 {experienceHighlights[0].company}
@@ -378,7 +431,7 @@ function ExperienceStackSection() {
 
             <motion.article
               style={{ opacity: secondItemOpacity, x: secondItemX }}
-              className="absolute left-[calc(50%+14.5rem)] top-[60%] max-w-[21rem]"
+              className="absolute left-[calc(50%+14.5rem)] top-[60%] max-w-[21rem] text-center"
             >
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
                 {experienceHighlights[1].company}
@@ -389,7 +442,7 @@ function ExperienceStackSection() {
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/30">
                 {experienceHighlights[1].period}
               </p>
-              <p className="mt-4 text-xs leading-6 text-white/42">
+              <p className="mt-4 whitespace-pre-line text-xs leading-6 text-white/42">
                 {experienceHighlights[1].description}
               </p>
             </motion.article>
@@ -455,10 +508,19 @@ function DestructionStackSection() {
 export default function PortfolioLandingPage() {
   const [isNavDetached, setIsNavDetached] = useState(false);
   const [notchProgress, setNotchProgress] = useState(0);
+  const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+  const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
   const heroRef = useRef<HTMLElement | null>(null);
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
   const lastScrollYRef = useRef(0);
   const notchProgressRef = useRef(0);
   const autoMorphControlsRef = useRef<ReturnType<typeof animate> | null>(null);
+  const shouldReduceHeroTextMotion = useReducedMotion();
+  const heroTextExitProgress = useMotionValue(0);
+  const heroTextExitY = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [0, 0] : [0, -220]);
+  const heroTextExitOpacity = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [1, 1] : [1, 0.04]);
+  const heroTextExitBlur = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? ["blur(0px)", "blur(0px)"] : ["blur(0px)", "blur(20px)"]);
 
   const setSyncedNotchProgress = (progress: number) => {
     notchProgressRef.current = progress;
@@ -471,7 +533,12 @@ export default function PortfolioLandingPage() {
       const heroTop = heroRef.current?.offsetTop ?? 0;
       const heroScroll = Math.max(scrollY - heroTop, 0);
       const progress = Math.min(heroScroll / HERO_MORPH_SCROLL_DISTANCE, 1);
+      const textExitProgress = shouldReduceHeroTextMotion
+        ? 0
+        : Math.min(Math.max((heroScroll - FLOATING_NAV_SCROLL_THRESHOLD - HERO_TEXT_EXIT_SCROLL_DELAY) / HERO_TEXT_EXIT_SCROLL_DISTANCE, 0), 1);
       const isScrollingUp = scrollY < lastScrollYRef.current;
+
+      heroTextExitProgress.set(textExitProgress);
 
       if (isScrollingUp && heroScroll <= FLOATING_NAV_SCROLL_THRESHOLD) {
         setIsNavDetached(false);
@@ -499,16 +566,78 @@ export default function PortfolioLandingPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isContactDropdownOpen && !isProjectsDropdownOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setIsContactDropdownOpen(false);
+        setIsProjectsDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsContactDropdownOpen(false);
+        setIsProjectsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isContactDropdownOpen, isProjectsDropdownOpen]);
+
+  useEffect(() => {
+    const scroller = projectsScrollerRef.current;
+
+    if (!isProjectsDropdownOpen || !scroller) {
+      return;
+    }
+
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      scroller.scrollLeft += delta;
+    };
+
+    scroller.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      scroller.removeEventListener("wheel", handleWheel);
+    };
+  }, [isProjectsDropdownOpen]);
+
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const isHeroContactDropdownOpen = isContactDropdownOpen && !isNavDetached;
+  const isHeroProjectsDropdownOpen = isProjectsDropdownOpen && !isNavDetached;
   const notchDepth = 1 - notchProgress;
-  const notchY = (value: number) => (value * notchDepth).toFixed(2);
-  const notchPath = `M0 0H92C111 0 123 ${notchY(5)} 131 ${notchY(16)}C140 ${notchY(29)} 145 ${notchY(43)} 148 ${notchY(57)}C152 ${notchY(75)} 164 ${notchY(84)} 182 ${notchY(84)}H278C296 ${notchY(84)} 308 ${notchY(75)} 312 ${notchY(57)}C315 ${notchY(43)} 320 ${notchY(29)} 329 ${notchY(16)}C337 ${notchY(5)} 349 0 368 0H460V0H0Z`;
+  const isHeroDropdownOpen = isHeroContactDropdownOpen || isHeroProjectsDropdownOpen;
+  const visibleNotchDepth = isHeroDropdownOpen ? 1 : notchDepth;
+  const notchDropdownExtraDepth = isHeroProjectsDropdownOpen ? 308 : isHeroContactDropdownOpen ? 54 : 0;
+  const notchY = (value: number) => (value * visibleNotchDepth + (value / 84) * notchDropdownExtraDepth).toFixed(2);
+  const projectNotchY = (value: number) => (value * visibleNotchDepth + (value / 70) * 256).toFixed(2);
+  const notchPath = isHeroProjectsDropdownOpen
+    ? `M0 0H6C38 0 62 ${projectNotchY(2)} 82 ${projectNotchY(8)}C101 ${projectNotchY(14)} 114 ${projectNotchY(28)} 126 ${projectNotchY(46)}C138 ${projectNotchY(63)} 154 ${projectNotchY(70)} 178 ${projectNotchY(70)}H282C306 ${projectNotchY(70)} 322 ${projectNotchY(63)} 334 ${projectNotchY(46)}C346 ${projectNotchY(28)} 359 ${projectNotchY(14)} 378 ${projectNotchY(8)}C398 ${projectNotchY(2)} 422 0 454 0H460V0H0Z`
+    : `M0 0H92C111 0 123 ${notchY(5)} 131 ${notchY(16)}C140 ${notchY(29)} 145 ${notchY(43)} 148 ${notchY(57)}C152 ${notchY(75)} 164 ${notchY(84)} 182 ${notchY(84)}H278C296 ${notchY(84)} 308 ${notchY(75)} 312 ${notchY(57)}C315 ${notchY(43)} 320 ${notchY(29)} 329 ${notchY(16)}C337 ${notchY(5)} 349 0 368 0H460V0H0Z`;
+  const notchViewBoxHeight = isHeroProjectsDropdownOpen ? 392 : isHeroContactDropdownOpen ? 142 : 86;
+  const notchVisualHeight = isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "4.55rem";
+  const notchVisualWidth = isHeroProjectsDropdownOpen ? "min(142vw,112rem)" : "min(94vw,52rem)";
   const navExitProgress = Math.min(Math.max((notchProgress - 0.04) / 0.42, 0), 1);
-  const navTextOpacity = isNavDetached ? "1" : (1 - navExitProgress).toFixed(2);
-  const navTextTranslateY = isNavDetached ? "0" : (-18 * navExitProgress).toFixed(2);
+  const shouldKeepNavTextVisible = isNavDetached || isHeroDropdownOpen;
+  const navTextOpacity = shouldKeepNavTextVisible ? "1" : (1 - navExitProgress).toFixed(2);
+  const navTextTranslateY = shouldKeepNavTextVisible ? "0" : (-18 * navExitProgress).toFixed(2);
   const heroImageScale = 1 + notchProgress * 0.045;
   const heroBottomOpenProgress = Math.min(Math.max((notchProgress - 0.08) / 0.76, 0), 1);
   const heroBottomRadius = `${3 - heroBottomOpenProgress * 1.75}rem`;
@@ -522,55 +651,265 @@ export default function PortfolioLandingPage() {
         className="relative"
         style={{ height: `calc(100vh + ${FLOATING_NAV_SCROLL_THRESHOLD}px)` }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="sticky top-0 z-[200] h-screen overflow-visible">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-5 z-10 h-[4.55rem] w-[min(94vw,52rem)] -translate-x-1/2 overflow-visible sm:top-6 lg:top-8"
+          className="pointer-events-none absolute left-1/2 top-5 z-10 -translate-x-1/2 overflow-visible transition-[height,width] duration-500 sm:top-6 lg:top-8"
+          style={{ height: notchVisualHeight, width: notchVisualWidth, transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
         >
           <svg
-            viewBox="0 0 460 86"
+            viewBox={`0 0 460 ${notchViewBoxHeight}`}
             preserveAspectRatio="none"
             className="h-full w-full overflow-visible"
           >
-            <path
-              d={notchPath}
+            <motion.path
+              initial={false}
+              animate={{ d: notchPath }}
+              transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
               fill="#050505"
             />
           </svg>
         </div>
 
         <div
+          ref={navRef}
           className={`left-1/2 w-fit -translate-x-1/2 transition-[top] duration-500 ${
-            isNavDetached ? "fixed top-5 z-[120]" : "absolute top-[1.82rem] z-30 sm:top-[2.14rem] lg:top-[2.62rem]"
+            isNavDetached ? "fixed top-5 z-[999]" : "absolute top-[1.82rem] z-30 sm:top-[2.14rem] lg:top-[2.62rem]"
           }`}
         >
+          <LayoutGroup id="hero-notch-nav">
           <motion.nav
+            layout
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-            className={`flex items-center justify-center gap-2 rounded-full transition-[background-color,border-color,box-shadow,padding] duration-500 ${
+            transition={{ layout: { duration: 0.46, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.7, ease: "easeOut", delay: 0.15 }, y: { duration: 0.7, ease: "easeOut", delay: 0.15 } }}
+            className={`flex flex-col items-center justify-center rounded-[1.65rem] transition-[background-color,border-color,box-shadow,padding] duration-500 ${
               isNavDetached
-                ? "border border-white/10 bg-black px-1.5 py-1.5 shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+                ? "border border-white/10 bg-black px-2 py-2 shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
                 : "border border-transparent bg-transparent px-0 py-0 shadow-none"
             }`}
           >
-            <button
-              type="button"
-              onClick={() => scrollToSection("projects")}
-              className="cursor-pointer px-5 py-1 text-[1rem] font-medium uppercase tracking-[0.28em] text-white/80 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
-            >
-              Projetos
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection("contact")}
-              className="cursor-pointer px-5 py-1 text-[1rem] font-medium uppercase tracking-[0.28em] text-white/80 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
-            >
-              Contato
-            </button>
+            <motion.div layout className="flex items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsContactDropdownOpen(false);
+                  setIsProjectsDropdownOpen((current) => !current);
+                }}
+                aria-expanded={isProjectsDropdownOpen}
+                className={`relative cursor-pointer rounded-full px-5 py-1 text-[1rem] font-medium uppercase tracking-[0.28em] drop-shadow-[0_0_8px_rgba(255,255,255,0.16)] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                  isProjectsDropdownOpen ? "text-white" : "text-white/90 hover:text-white"
+                }`}
+                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+              >
+                <AnimatePresence>
+                  {isProjectsDropdownOpen ? (
+                    <motion.span
+                      layoutId="hero-nav-active-glass"
+                      className="pointer-events-none absolute inset-0"
+                      initial={{ opacity: 0, scale: 0.86 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{
+                        layout: { duration: 0.24, ease: [0.32, 0.72, 0, 1] },
+                        opacity: { duration: 0.22, ease: "easeOut" },
+                        scale: { duration: 0.22, ease: "easeOut" },
+                      }}
+                    >
+                      <GlassSurface
+                        width="100%"
+                        height="100%"
+                        borderRadius={999}
+                        borderWidth={0.12}
+                        brightness={70}
+                        opacity={0.88}
+                        blur={8}
+                        displace={0.45}
+                        backgroundOpacity={0.08}
+                        saturation={1.25}
+                        distortionScale={-92}
+                        mixBlendMode="screen"
+                        className="h-full w-full"
+                      />
+                    </motion.span>
+                  ) : null}
+                </AnimatePresence>
+                <span className="relative z-10">Projetos</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsProjectsDropdownOpen(false);
+                  setIsContactDropdownOpen((current) => !current);
+                }}
+                aria-expanded={isContactDropdownOpen}
+                className={`relative cursor-pointer rounded-full px-5 py-1 text-[1rem] font-medium uppercase tracking-[0.28em] drop-shadow-[0_0_8px_rgba(255,255,255,0.16)] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                  isContactDropdownOpen ? "text-white" : "text-white/90 hover:text-white"
+                }`}
+                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+              >
+                <AnimatePresence>
+                  {isContactDropdownOpen ? (
+                    <motion.span
+                      layoutId="hero-nav-active-glass"
+                      className="pointer-events-none absolute inset-0"
+                      initial={{ opacity: 0, scale: 0.86 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{
+                        layout: { duration: 0.24, ease: [0.32, 0.72, 0, 1] },
+                        opacity: { duration: 0.22, ease: "easeOut" },
+                        scale: { duration: 0.22, ease: "easeOut" },
+                      }}
+                    >
+                      <GlassSurface
+                        width="100%"
+                        height="100%"
+                        borderRadius={999}
+                        borderWidth={0.12}
+                        brightness={70}
+                        opacity={0.88}
+                        blur={8}
+                        displace={0.45}
+                        backgroundOpacity={0.08}
+                        saturation={1.25}
+                        distortionScale={-92}
+                        mixBlendMode="screen"
+                        className="h-full w-full"
+                      />
+                    </motion.span>
+                  ) : null}
+                </AnimatePresence>
+                <span className="relative z-10">Contato</span>
+              </button>
+            </motion.div>
+
+            <AnimatePresence>
+              {isProjectsDropdownOpen ? (
+                <motion.div
+                  layout
+                  key="projects-dropdown"
+                  initial={{ height: 0, opacity: 0, y: -10, filter: "blur(10px)" }}
+                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ height: 0, opacity: 0, y: -8, filter: "blur(10px)" }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    ref={projectsScrollerRef}
+                    className={`w-[min(82vw,40rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+                      isHeroProjectsDropdownOpen ? "mt-2" : "mt-2 border-t border-white/10"
+                    }`}
+                    style={{
+                      WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
+                      maskImage: "linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%)",
+                    }}
+                  >
+                    <div className="flex w-max gap-2.5 pr-2">
+                      {navProjectItems.map((item, index) => (
+                        <motion.article
+                          key={item.title}
+                          initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.96, y: -8 }}
+                          transition={{ duration: 0.34, delay: index * 0.045, ease: "easeOut" }}
+                          className="group relative w-[calc((min(82vw,40rem)-0.625rem)/2)] flex-none overflow-hidden rounded-[1.15rem] border border-white/10 bg-white/[0.045] p-2 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:border-white/20 hover:bg-white/[0.075]"
+                        >
+                          <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
+                            <img
+                              src={item.image}
+                              alt={`Preview do projeto ${item.title}`}
+                              className={`h-full w-full object-cover transition duration-500 ${
+                                "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
+                              }`}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="mt-2.5 flex items-center justify-between gap-3">
+                            <h3 className="min-w-0 truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
+                              {item.title}
+                            </h3>
+                            {"href" in item ? (
+                              <a
+                                href={item.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                              >
+                                Ver
+                              </a>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setIsProjectsDropdownOpen(false);
+                                  scrollToSection("projects");
+                                }}
+                                className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                              >
+                                Ver
+                              </button>
+                            )}
+                          </div>
+                        </motion.article>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ) : null}
+
+              {isContactDropdownOpen ? (
+                <motion.div
+                  layout
+                  key="contact-dropdown"
+                  initial={{ height: 0, opacity: 0, y: -8, filter: "blur(8px)" }}
+                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ height: 0, opacity: 0, y: -6, filter: "blur(8px)" }}
+                  transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    className={`flex items-center justify-center gap-2 ${
+                      isHeroContactDropdownOpen ? "mt-3 pt-0" : "mt-2 border-t border-white/10 pt-2"
+                    }`}
+                  >
+                    {navContactItems.map((item, index) => {
+                      const Icon = item.icon;
+                      const className =
+                        "inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-[1rem] border border-white/10 bg-white/[0.055] text-white/62 transition duration-300 hover:-translate-y-0.5 hover:border-[#A7EF9E]/45 hover:bg-white/[0.105] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60";
+
+                      return (
+                        <motion.div
+                          key={item.label}
+                          initial={{ opacity: 0, scale: 0.84, y: -6 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.88, y: -4 }}
+                          transition={{ duration: 0.28, delay: index * 0.06, ease: "easeOut" }}
+                        >
+                          {"href" in item ? (
+                            <a
+                              href={item.href}
+                              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                              rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                              aria-label={item.label}
+                              className={className}
+                            >
+                              <Icon className="h-5 w-5" aria-hidden="true" />
+                            </a>
+                          ) : (
+                            <button type="button" aria-label={item.label} className={className}>
+                              <Icon className="h-5 w-5" aria-hidden="true" />
+                            </button>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </motion.nav>
+          </LayoutGroup>
         </div>
 
         <div
@@ -586,7 +925,7 @@ export default function PortfolioLandingPage() {
             initial={{ scale: 1.06, opacity: 0 }}
             animate={{ scale: heroImageScale, opacity: 1 }}
             transition={{ scale: { duration: 0.18, ease: "linear" }, opacity: { duration: 1.1, ease: "easeOut" } }}
-            src="/portfolio/hero.jpeg"
+            src="/portfolio/hero-risk-radar.png"
             alt="Hero do portf&#243;lio de Jo&#227;o Pedro"
             className="absolute inset-0 h-full w-full object-cover object-center"
             style={{
@@ -606,20 +945,62 @@ export default function PortfolioLandingPage() {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+            className="w-full"
           >
-            <h1 className="max-w-2xl text-6xl font-black uppercase tracking-[-0.08em] text-white sm:text-7xl lg:-translate-y-28 lg:text-[8.5rem] lg:leading-[0.88]">
-              Jo&#227;o Pedro
+            <motion.div
+              style={{
+                y: heroTextExitY,
+                opacity: heroTextExitOpacity,
+                filter: heroTextExitBlur,
+                willChange: "transform, opacity, filter",
+              }}
+              className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+            >
+            <h1
+              aria-label="Joao Pedro"
+              className="max-w-2xl text-6xl font-black uppercase leading-[1.02] tracking-[-0.08em] text-white sm:text-7xl lg:-translate-x-24 lg:-translate-y-28 lg:text-[8.5rem] lg:leading-[0.98] xl:-translate-x-32"
+            >
+              <SplitText
+                text={"J O Ã O\nP E D R O"}
+                tag="span"
+                splitType="chars"
+                delay={34}
+                duration={1.05}
+                from={{ opacity: 0, y: 54, filter: "blur(12px)" }}
+                to={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                threshold={0.1}
+                rootMargin="-80px"
+                textAlign="left"
+                className="block [&>span:first-child]:-translate-x-10 [&>span:last-child]:translate-x-3 sm:[&>span:first-child]:-translate-x-16 sm:[&>span:last-child]:translate-x-6"
+              />
             </h1>
-            <div className="max-w-xl lg:translate-y-16 lg:justify-self-end lg:text-right">
-              <p className="text-xs font-medium uppercase tracking-[0.34em] text-white/72 sm:text-sm">
-                Full Stack Developer focused on Front-end
-              </p>
-              <p className="mt-5 text-base leading-8 text-white/82 sm:text-lg">
-                Desenvolvo experi&#234;ncias digitais com foco em interfaces de alto impacto,
-                anima&#231;&#245;es refinadas e execu&#231;&#227;o visual de alta qualidade.
-              </p>
+            <div className="flex w-full max-w-2xl flex-col items-center text-center lg:translate-x-12 lg:translate-y-16 lg:justify-self-end xl:translate-x-20 2xl:translate-x-28">
+              <ShinyText
+                as="p"
+                speed="3s"
+                className="text-sm font-medium uppercase tracking-[0.34em] sm:text-base lg:text-lg"
+              >
+                Full Stack Developer
+                <br />
+                focused on Front-end
+              </ShinyText>
+              <div className="mt-6 flex w-full items-start justify-center overflow-visible">
+              <TextType
+                as="p"
+                text="Desenvolvo experiências digitais com foco em interfaces de alto impacto, animações refinadas e execução visual de alta qualidade."
+                typingSpeed={34}
+                initialDelay={900}
+                loop={false}
+                showCursor
+                cursorCharacter="_"
+                startOnVisible
+                reserveSpace
+                className="relative block min-h-48 w-full max-w-2xl text-lg leading-9 text-white/86 sm:min-h-44 sm:text-xl lg:min-h-40 lg:text-2xl lg:leading-10"
+                cursorClassName="text-[#A7EF9E]/80"
+              />
+              </div>
             </div>
+          </motion.div>
           </motion.div>
         </div>
         </div>

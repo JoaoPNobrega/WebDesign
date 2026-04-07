@@ -1,10 +1,10 @@
 import { type SVGProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Mail } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import AetherFlowHero from "@/components/ui/aether-flow-hero";
 import VaporizeTextCycle, { Tag } from "@/components/ui/vaporize-text-cycle";
+import WetPaintButton from "@/components/ui/wet-paint-button";
 import type { SiteLanguage } from "@/lib/site-language";
 
 type ProblemLayout = {
@@ -85,8 +85,8 @@ function LinkedinMark(props: SVGProps<SVGSVGElement>) {
 }
 
 const finalContactItems = [
-  { label: "GitHub", icon: GithubMark },
-  { label: "LinkedIn", icon: LinkedinMark },
+  { label: "GitHub", icon: GithubMark, href: "https://github.com/JoaoPNobrega" },
+  { label: "LinkedIn", icon: LinkedinMark, href: "https://linkedin.com/in/joaopedro-nobrega" },
   { label: "jpan@cesar.school", icon: Mail, href: "mailto:jpan@cesar.school" },
 ] as const;
 
@@ -159,14 +159,17 @@ function ProblemText({
   activationKey,
   isClearing,
   onComplete,
+  shouldReduceMotion,
 }: {
   problem: ProblemSpec;
   isMobile: boolean;
   activationKey: number;
   isClearing: boolean;
   onComplete: (activationKey: number) => void;
+  shouldReduceMotion: boolean | null;
 }) {
   const layout = isMobile ? problem.mobile : problem.desktop;
+  const vaporizeDirection = Number.parseFloat(layout.left) > 50 ? "right-to-left" : "left-to-right";
 
   return (
     <motion.div
@@ -179,6 +182,7 @@ function ProblemText({
       }}
       initial={{ opacity: 0, scale: 0.82, filter: "blur(12px)", x: "-50%", y: "-50%" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: "-50%", y: "-50%" }}
+      exit={{ opacity: 0, scale: 0.88, filter: "blur(18px)", x: "-50%", y: "-50%" }}
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
       <div
@@ -188,7 +192,7 @@ function ProblemText({
           transformOrigin: "center",
         }}
       >
-        {isClearing ? (
+        {isClearing && !shouldReduceMotion ? (
           <VaporizeTextCycle
             texts={[problem.text]}
             font={{
@@ -197,12 +201,12 @@ function ProblemText({
               fontWeight: 600,
             }}
             color={problem.color}
-            spread={2.6}
-            density={2.8}
+            spread={isMobile ? 1.65 : 2.1}
+            density={isMobile ? 2.1 : 2.35}
             animation={{
-              vaporizeDuration: 0.8,
+              vaporizeDuration: isMobile ? 0.62 : 0.68,
             }}
-            direction="left-to-right"
+            direction={vaporizeDirection}
             alignment="center"
             tag={Tag.P}
             activationKey={activationKey}
@@ -239,6 +243,7 @@ export default function DestructionSection({
 }: DestructionSectionProps) {
   const copy = destructionCopy[language];
   const problems = useMemo(() => buildProblems(language), [language]);
+  const shouldReduceMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768,
   );
@@ -313,6 +318,24 @@ export default function DestructionSection({
     trigger();
   };
 
+  const scrollToPortfolioTop = () => {
+    window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
+  };
+
+  useEffect(() => {
+    if (!isClearing || !shouldReduceMotion) {
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setShowFinalMessage(true);
+    }, 320);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [isClearing, shouldReduceMotion]);
+
   const handleProblemComplete = useCallback((finishedRun: number) => {
     if (finishedRun !== activeRunRef.current) {
       return;
@@ -341,6 +364,32 @@ export default function DestructionSection({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
       )}
       <AnimatePresence>
+        {isClearing && !showFinalMessage && !shouldReduceMotion && (
+          <motion.div
+            key="snap-flash"
+            className="pointer-events-none absolute inset-0 z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1, 0.34, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.78, times: [0, 0.12, 0.42, 1], ease: "easeOut" }}
+          >
+            <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/16 blur-3xl" />
+            <motion.div
+              className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#A7EF9E]/45"
+              initial={{ scale: 0.28, opacity: 0.92 }}
+              animate={{ scale: 9.5, opacity: 0 }}
+              transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <motion.div
+              className="absolute left-1/2 top-1/2 h-px w-[min(78vw,52rem)] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+              initial={{ scaleX: 0.08, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: [0, 0.8, 0] }}
+              transition={{ duration: 0.58, ease: "easeOut" }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
         {showFinalMessage && (
           <motion.div
             key="aether-flow-background"
@@ -364,7 +413,15 @@ export default function DestructionSection({
             exit={{ opacity: 0, y: 8, filter: "blur(8px)" }}
             transition={{ delay: 4.2, duration: 1.1, ease: "easeOut" }}
           >
-            Portf&#243;lio desenvolvido por Jo&#227;o Pedro. Todos os{" "}
+            <button
+              type="button"
+              onClick={scrollToPortfolioTop}
+              className="pointer-events-auto cursor-pointer uppercase text-white/16 transition hover:text-white/34 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
+              aria-label="Voltar ao topo do portf&#243;lio"
+            >
+              Portf&#243;lio
+            </button>{" "}
+            desenvolvido por Jo&#227;o Pedro. Todos os{" "}
             <a
               href="/67"
               className="pointer-events-auto cursor-pointer text-white/24 transition hover:text-[#A7EF9E]/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/50"
@@ -387,6 +444,7 @@ export default function DestructionSection({
                 activationKey={activationKey}
                 isClearing={isClearing}
                 onComplete={handleProblemComplete}
+                shouldReduceMotion={shouldReduceMotion}
               />
             ))}
 
@@ -437,7 +495,13 @@ export default function DestructionSection({
                           transition={{ duration: 0.48, ease: "easeOut" }}
                         >
                           {"href" in item ? (
-                            <a href={item.href} className={itemClassName} aria-label={item.label}>
+                            <a
+                              href={item.href}
+                              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                              rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                              className={itemClassName}
+                              aria-label={item.label}
+                            >
                               {content}
                             </a>
                           ) : (
@@ -468,20 +532,21 @@ export default function DestructionSection({
                     <br />
                     {copy.ctaTitleSecond}
                   </h1>
-                  <Button
+                  <WetPaintButton
                     type="button"
-                    size="lg"
-                    className="group relative mt-8 flex items-center justify-center overflow-hidden rounded-full bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black transition-all duration-500 ease-out hover:bg-white/90 hover:px-16"
+                    className="mt-8 bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-all duration-500 ease-out hover:bg-white/90 hover:px-20 hover:py-7 disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={isClearing}
                     onClick={handleActivate}
                   >
-                    <span className="transition-all duration-500 group-hover:-translate-y-8 group-hover:opacity-0 group-hover:blur-sm">
-                      {copy.ctaPrimary}
+                    <span className="relative z-10 inline-flex h-8 min-w-[13rem] items-center justify-center overflow-hidden transition-all duration-500 group-hover:min-w-[16rem]">
+                      <span className="transition-all duration-500 group-hover:-translate-y-10 group-hover:opacity-0 group-hover:blur-sm">
+                        {copy.ctaPrimary}
+                      </span>
+                      <span className="absolute inset-0 flex translate-y-10 items-center justify-center text-xl font-black tracking-[0.22em] opacity-0 blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-hover:blur-0 sm:text-2xl">
+                        {copy.ctaSecondary}
+                      </span>
                     </span>
-                    <span className="absolute inset-0 flex translate-y-8 items-center justify-center opacity-0 blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-hover:blur-0">
-                      {copy.ctaSecondary}
-                    </span>
-                  </Button>
+                  </WetPaintButton>
                 </motion.div>
               )}
             </AnimatePresence>

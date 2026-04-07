@@ -1,0 +1,24 @@
+
+[1m[33mwarn[39m[22m - The class `ease-[cubic-bezier(0.22,1,0.36,1)]` is ambiguous and matches multiple utilities.
+[1m[33mwarn[39m[22m - If this is content and not a class, replace it with `ease-&lsqb;cubic-bezier(0.22,1,0.36,1)&rsqb;` to silence this warning.
+
+[1m[33mwarn[39m[22m - The class `duration-[260ms]` is ambiguous and matches multiple utilities.
+[1m[33mwarn[39m[22m - If this is content and not a class, replace it with `duration-&lsqb;260ms&rsqb;` to silence this warning.
+[2m10:30:26[22m [31m[1m[vite][22m[39m [31mInternal server error:   x Expected '</', got 'jsx text'
+      ,-[C:/Users/pedro/Desktop/PESSOAL/WebDesign/src/pages/PortfolioLandingPage.tsx:999:1]
+  996 |                   />
+  997 |                 </div>
+  998 |               </motion.div>
+  999 | ,->         </div>
+ 1000 | `->         </div>
+ 1001 |           </section>
+ 1002 |     
+ 1003 |           <section
+      `----
+
+
+Caused by:
+    Syntax Error[39m
+  Plugin: [35mvite:react-swc[39m
+  File: [36mC:/Users/pedro/Desktop/PESSOAL/WebDesign/src/pages/PortfolioLandingPage.tsx[39m
+  
