@@ -1,14 +1,15 @@
 'use client';
 
 import {
-	animate,
 	motion,
+	useInView,
 	useMotionTemplate,
-	useMotionValue,
+	useReducedMotion,
+	useScroll,
 	useSpring,
 	useTransform,
 } from 'framer-motion';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface ZoomMediaAsset {
 	type?: 'image' | 'video';
@@ -26,9 +27,19 @@ interface ZoomParallaxProps {
 	scrollBudget?: number;
 	/** Intersection ratio that locks the section into place (default 0.9) */
 	lockThreshold?: number;
+	/** Adds a cinematic fade into the following dark section at the end of the effect. */
+	endBlend?: boolean;
 }
 
-function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
+function ZoomMedia({
+	media,
+	index,
+	shouldLoad,
+}: {
+	media: ZoomMediaAsset;
+	index: number;
+	shouldLoad: boolean;
+}) {
 	const [hasVideoError, setHasVideoError] = useState(false);
 	const [currentImageSrc, setCurrentImageSrc] = useState(media.src);
 	const mediaType = media.type ?? 'image';
@@ -41,13 +52,13 @@ function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
 	if (mediaType === 'video' && !hasVideoError) {
 		return (
 			<video
-				src={media.src}
+				src={shouldLoad ? media.src : undefined}
 				poster={media.posterSrc ?? media.fallbackSrc}
-				autoPlay
+				autoPlay={shouldLoad}
 				muted
 				loop
 				playsInline
-				preload="auto"
+				preload="metadata"
 				aria-label={media.alt || `Parallax video ${index + 1}`}
 			className={`h-full w-full object-cover ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
 				onError={() => {
@@ -61,6 +72,8 @@ function ZoomMedia({ media, index }: { media: ZoomMediaAsset; index: number }) {
 		<img
 			src={currentImageSrc || media.fallbackSrc || '/placeholder.svg'}
 			alt={media.alt || `Parallax image ${index + 1}`}
+			loading={index === 0 ? 'eager' : 'lazy'}
+			decoding="async"
 			className={`h-full w-full object-cover ${media.objectPosition === 'bottom' ? 'object-bottom' : ''} ${media.objectPosition === 'top' ? 'object-top' : ''}`}
 			onError={() => {
 				if (!media.fallbackSrc || currentImageSrc === media.fallbackSrc) return;
@@ -74,26 +87,32 @@ export function ZoomParallax({
 	images,
 	scrollBudget = 3000,
 	lockThreshold = 0.9,
+	endBlend = false,
 }: ZoomParallaxProps) {
-	const stickyRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const progressRef = useRef(0);
-	const isLockedRef = useRef(false);
-	const isPrimingRef = useRef(false);
-	const hasFinishedRef = useRef(false);
-	const touchStartY = useRef(0);
-	const snapTimeoutRef = useRef<number | null>(null);
-	const entryAnimationRef = useRef<ReturnType<typeof animate> | null>(null);
 	const clampedLockThreshold = Math.min(0.99, Math.max(0.1, lockThreshold));
+	const shouldReduceMotion = useReducedMotion();
+	const isNearViewport = useInView(containerRef, {
+		margin: '900px 0px',
+	});
+	const { scrollYProgress } = useScroll({
+		target: containerRef,
+		offset: ['start start', 'end end'],
+	});
 
-	// Separate target progress from rendered progress so the zoom has inertia.
-	const progress = useMotionValue(0);
+	// Native sticky scroll replaces manual wheel/touch locking for a smoother
+	// "brake" that cannot be skipped by normal fast scrolling.
+	const progress = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 1]);
 	const visualProgress = useSpring(progress, {
 		stiffness: 120,
 		damping: 24,
 		mass: 0.42,
 	});
-	const entryProgress = useMotionValue(0);
+	const entryProgress = useTransform(
+		scrollYProgress,
+		[0, Math.max(0.08, 0.2 * clampedLockThreshold)],
+		shouldReduceMotion ? [1, 1] : [0, 1],
+	);
 	const entrySpring = useSpring(entryProgress, {
 		stiffness: 180,
 		damping: 28,
@@ -118,186 +137,19 @@ export function ZoomParallax({
 	const stageBrightness = useTransform(entrySpring, [0, 1], [0.82, 1]);
 	const stageFilter = useMotionTemplate`blur(${stageBlur}px) saturate(${stageSaturate}) brightness(${stageBrightness})`;
 	const overlayOpacity = useTransform(entrySpring, [0, 1], [0.2, 0]);
-
-	const lockScroll = useCallback(() => {
-		document.documentElement.style.overflow = 'hidden';
-		document.body.style.overflow = 'hidden';
-		document.documentElement.style.overscrollBehavior = 'none';
-		document.body.style.overscrollBehavior = 'none';
-		document.body.style.touchAction = 'none';
-	}, []);
-
-	const unlockScroll = useCallback(() => {
-		document.documentElement.style.overflow = '';
-		document.body.style.overflow = '';
-		document.documentElement.style.overscrollBehavior = '';
-		document.body.style.overscrollBehavior = '';
-		document.body.style.touchAction = '';
-	}, []);
-
-	const animateEntry = useCallback(
-		(nextValue: number, duration = 0.55) => {
-			entryAnimationRef.current?.stop();
-			entryAnimationRef.current = animate(entryProgress, nextValue, {
-				duration,
-				ease: [0.22, 1, 0.36, 1],
-			});
-		},
-		[entryProgress],
+	const endBlendOpacity = useTransform(
+		scrollYProgress,
+		[0.72, 0.9, 1],
+		shouldReduceMotion ? [1, 1, 1] : [0, 0.55, 1],
 	);
-
-	const releaseLock = useCallback(
-		(markAsFinished: boolean) => {
-			if (snapTimeoutRef.current !== null) {
-				window.clearTimeout(snapTimeoutRef.current);
-				snapTimeoutRef.current = null;
-			}
-
-			isPrimingRef.current = false;
-			isLockedRef.current = false;
-			hasFinishedRef.current = markAsFinished;
-			unlockScroll();
-		},
-		[unlockScroll],
-	);
-
-	const beginCapture = useCallback(() => {
-		const el = stickyRef.current;
-		if (!el || isLockedRef.current || isPrimingRef.current || hasFinishedRef.current) {
-			return;
-		}
-
-		const targetTop = window.scrollY + el.getBoundingClientRect().top;
-
-		// IMPORTANT: Only lock if we are coming from ABOVE the element (scrolling down).
-		// If the current scroll position is significantly below the target, we are 
-		// likely scrolling up from the bottom of the page.
-		if (window.scrollY > targetTop + 10) {
-			return;
-		}
-
-		isPrimingRef.current = true;
-		animateEntry(1, 0.65);
-		window.scrollTo({ top: targetTop, behavior: 'smooth' });
-
-		snapTimeoutRef.current = window.setTimeout(() => {
-			window.scrollTo({ top: targetTop });
-			isPrimingRef.current = false;
-			isLockedRef.current = true;
-			lockScroll();
-		}, 420);
-	}, [animateEntry, lockScroll]);
-
-	useEffect(() => {
-		const el = stickyRef.current;
-		if (!el) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const entry = entries[0];
-				if (entry.isIntersecting && entry.intersectionRatio >= clampedLockThreshold) {
-					beginCapture();
-				}
-			},
-			{ threshold: [clampedLockThreshold, 1] },
-		);
-
-		observer.observe(el);
-
-		const onWheel = (e: WheelEvent) => {
-			if (isPrimingRef.current) {
-				e.preventDefault();
-				e.stopPropagation();
-				return;
-			}
-
-			if (!isLockedRef.current) return;
-
-			e.preventDefault();
-			e.stopPropagation();
-
-			const delta = e.deltaY;
-
-			// Release lock immediately if scrolling UP (delta < 0)
-			if (delta < 0) {
-				releaseLock(false);
-				return;
-			}
-
-			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / scrollBudget));
-			progress.set(progressRef.current);
-
-			if (progressRef.current >= 1) {
-				releaseLock(true);
-			}
-		};
-
-		const onTouchStart = (e: TouchEvent) => {
-			touchStartY.current = e.touches[0].clientY;
-		};
-
-		const onTouchMove = (e: TouchEvent) => {
-			if (isPrimingRef.current) {
-				e.preventDefault();
-				e.stopPropagation();
-				return;
-			}
-
-			if (!isLockedRef.current) return;
-
-			e.preventDefault();
-			e.stopPropagation();
-
-			const currentY = e.touches[0].clientY;
-			const delta = touchStartY.current - currentY;
-			touchStartY.current = currentY;
-
-			progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta / (scrollBudget * 0.4)));
-			progress.set(progressRef.current);
-
-			if (progressRef.current <= 0 && delta < 0) {
-				releaseLock(false);
-				return;
-			}
-
-			if (progressRef.current >= 1) {
-				releaseLock(true);
-			}
-		};
-
-		window.addEventListener('wheel', onWheel, { passive: false });
-		window.addEventListener('touchstart', onTouchStart, { passive: true });
-		window.addEventListener('touchmove', onTouchMove, { passive: false });
-
-		const onNativeScroll = () => {
-			if (!containerRef.current || isLockedRef.current || isPrimingRef.current) return;
-
-			const rect = containerRef.current.getBoundingClientRect();
-			if (rect.top > window.innerHeight * 0.55 && (hasFinishedRef.current || progressRef.current > 0)) {
-				releaseLock(false);
-				hasFinishedRef.current = false;
-				progressRef.current = 0;
-				progress.set(0);
-				animateEntry(0, 0.35);
-			}
-		};
-
-		window.addEventListener('scroll', onNativeScroll, { passive: true });
-
-		return () => {
-			releaseLock(false);
-			entryAnimationRef.current?.stop();
-			observer.disconnect();
-			window.removeEventListener('wheel', onWheel);
-			window.removeEventListener('touchstart', onTouchStart);
-			window.removeEventListener('touchmove', onTouchMove);
-			window.removeEventListener('scroll', onNativeScroll);
-		};
-	}, [animateEntry, beginCapture, clampedLockThreshold, progress, releaseLock, scrollBudget]);
 
 	return (
-		<div ref={containerRef} className="relative" style={{ height: '100vh' }}>
-			<div ref={stickyRef} className="sticky top-0 h-screen overflow-hidden bg-black">
+		<div
+			ref={containerRef}
+			className="relative"
+			style={{ height: shouldReduceMotion ? '100vh' : `calc(100vh + ${scrollBudget}px)` }}
+		>
+			<div className="sticky top-0 h-screen overflow-hidden bg-[#050505]">
 				<motion.div
 					style={{
 						scale: stageScale,
@@ -306,7 +158,7 @@ export function ZoomParallax({
 						filter: stageFilter,
 						borderRadius: stageRadius,
 					}}
-					className="relative h-full w-full overflow-hidden will-change-transform"
+					className="relative h-full w-full overflow-hidden [contain:layout_paint_style] will-change-transform"
 				>
 					<motion.div
 						style={{ opacity: overlayOpacity }}
@@ -322,12 +174,19 @@ export function ZoomParallax({
 								className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
 							>
 								<div className="relative h-[25vh] w-[25vw]">
-									<ZoomMedia media={media} index={index} />
+									<ZoomMedia media={media} index={index} shouldLoad={isNearViewport} />
 								</div>
 							</motion.div>
 						);
 					})}
 				</motion.div>
+				{endBlend && (
+					<motion.div
+						aria-hidden="true"
+						style={{ opacity: endBlendOpacity }}
+						className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[72vh] bg-[linear-gradient(180deg,rgba(5,5,5,0)_0%,rgba(5,5,5,0.58)_48%,#050505_100%)]"
+					/>
+				)}
 			</div>
 		</div>
 	);

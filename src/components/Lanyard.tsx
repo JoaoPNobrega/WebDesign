@@ -24,12 +24,14 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
+  performanceMode?: boolean;
 }
 
 interface BandProps {
   maxSpeed?: number;
   minSpeed?: number;
   isMobile?: boolean;
+  performanceMode?: boolean;
 }
 
 const LANYARD_MAX_LENGTH = 3;
@@ -186,10 +188,15 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
+  performanceMode = false,
 }: LanyardProps) {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768,
   );
+  const canvasDpr: [number, number] = performanceMode
+    ? [1, isMobile ? 1.1 : 1.35]
+    : [1, isMobile ? 1.5 : 2];
+  const physicsTimeStep = isMobile ? 1 / 30 : 1 / 60;
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -202,52 +209,71 @@ export default function Lanyard({
     <div className="lanyard-stage">
       <Canvas
         camera={{ position, fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={canvasDpr}
         gl={{ alpha: transparent, antialias: true }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <Suspense fallback={null}>
           <ambientLight intensity={Math.PI} />
-          <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-            <Band isMobile={isMobile} />
+          <Physics gravity={gravity} timeStep={physicsTimeStep}>
+            <Band isMobile={isMobile} performanceMode={performanceMode} />
           </Physics>
-          <Environment blur={0.75}>
-            <Lightformer
-              intensity={2}
-              color="white"
-              position={[0, -1, 5]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={3}
-              color="white"
-              position={[-1, -1, 1]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={3}
-              color="white"
-              position={[1, 1, 1]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={10}
-              color="white"
-              position={[-10, 0, 14]}
-              rotation={[0, Math.PI / 2, Math.PI / 3]}
-              scale={[100, 10, 1]}
-            />
-          </Environment>
+          {performanceMode ? (
+            <Environment blur={0.5}>
+              <Lightformer
+                intensity={4}
+                color="white"
+                position={[0, -1, 5]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={8}
+                color="white"
+                position={[-10, 0, 14]}
+                rotation={[0, Math.PI / 2, Math.PI / 3]}
+                scale={[100, 10, 1]}
+              />
+            </Environment>
+          ) : (
+            <Environment blur={0.75}>
+              <Lightformer
+                intensity={2}
+                color="white"
+                position={[0, -1, 5]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[-1, -1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[1, 1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={10}
+                color="white"
+                position={[-10, 0, 14]}
+                rotation={[0, Math.PI / 2, Math.PI / 3]}
+                scale={[100, 10, 1]}
+              />
+            </Environment>
+          )}
         </Suspense>
       </Canvas>
     </div>
   );
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
+function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, performanceMode = false }: BandProps) {
   const { gl } = useThree();
   const band = useRef<any>(null);
   const lineMaterial = useRef<any>(null);
@@ -367,7 +393,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
     curve.points[1].copy(j2.current.lerped);
     curve.points[2].copy(j1.current.lerped);
     curve.points[3].copy(fixed.current.translation());
-    band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+    band.current.geometry.setPoints(curve.getPoints(performanceMode ? 28 : isMobile ? 16 : 32));
 
     ang.copy(card.current.angvel());
     rot.copy(card.current.rotation());
@@ -470,7 +496,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           ref={lineMaterial}
           color="white"
           depthTest={false}
-          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
+          resolution={performanceMode ? [800, 800] : isMobile ? [1000, 2000] : [1000, 1000]}
           useMap
           map={lanyardBandTexture}
           repeat={[-2.5, 1]}

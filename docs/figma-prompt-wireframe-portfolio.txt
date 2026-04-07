@@ -1,0 +1,79 @@
+Crie um prototipo de baixa/media fidelidade no Figma para um portfolio pessoal de desenvolvedor web chamado Joao Pedro.
+
+O objetivo do portfolio e apresentar:
+- projetos/sites desenvolvidos
+- trajetoria academica e profissional
+- habilidades tecnicas
+- chamada final para contato
+
+Direcao geral:
+- portfolio em formato one-page
+- linguagem visual moderna, limpa e organizada
+- estrutura clara, com foco em UX e hierarquia
+- baixa/media fidelidade, sem detalhamento visual excessivo
+- usar tons de cinza com um acento verde suave para identidade
+
+Frames que devem ser criados:
+
+1. Capa do projeto
+- titulo do prototipo
+- subtitulo indicando que e um portfolio de desenvolvedor web
+
+2. Sitemap / fluxo
+- entrada
+- home
+- menu de projetos aberto
+- detalhe de projeto
+- contato
+
+3. Home desktop completa
+Secoes:
+- hero com nome, breve descricao e dois CTAs
+- showcase de projetos com varias capas de sites
+- bloco introdutorio sobre o trabalho
+- secao de trajetoria
+- timeline com tres etapas: estudos, graduacao e experiencia profissional
+- secao de skills
+- CTA final de contato com a mensagem "Eu resolvo isso"
+- footer
+
+4. Estado da home com menu lateral de projetos aberto
+- menu lateral com lista de projetos
+- fundo da home ainda visivel
+
+5. Estado de projeto aberto
+- pode ser um modal
+- deve conter nome do projeto, imagem placeholder, objetivo, stack e resultado
+
+6. Mobile principal
+- hero mobile
+- showcase de projetos mobile
+- timeline mobile resumida
+- CTA final mobile
+
+7. Mobile complementar
+- menu aberto ou secao de contato
+
+Conteudos sugeridos:
+- Hero: "Joao Pedro" e "Desenvolvedor web focado em experiencias digitais, interfaces e sites com impacto."
+- CTA 1: "Ver projetos"
+- CTA 2: "Entrar em contato"
+- Secao projetos: "Projetos em destaque"
+- Timeline: "Minha trajetoria"
+- Skills: HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind, Git, Figma, Vite
+- CTA final: "Eu resolvo isso"
+- Texto final: "Seu site precisa de mais clareza, impacto ou performance?"
+
+Observacoes de interacao para anotar no prototipo:
+- showcase de projetos com efeito parallax/zoom na versao final
+- timeline com rolagem mais dinamica na versao final
+- CTA final inspirado em uma experiencia interativa, mas simplificado no wireframe
+
+Evite:
+- visual de alta fidelidade
+- excesso de decoracao
+- paginas experimentais ou memes
+- elementos 3D complexos como foco do prototipo
+
+O resultado deve parecer um prototipo academico bem estruturado, com boa organizacao de layout, hierarquia de informacao e fluxo de navegacao.
+

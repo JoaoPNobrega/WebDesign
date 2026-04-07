@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type SVGProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import AetherFlowHero from "@/components/ui/aether-flow-hero";
 import VaporizeTextCycle, { Tag } from "@/components/ui/vaporize-text-cycle";
 import type { SiteLanguage } from "@/lib/site-language";
 
@@ -53,7 +55,7 @@ const destructionCopy = {
     ctaTitleFirst: "Voc\u00EA est\u00E1 enfrentando",
     ctaTitleSecond: "esses problemas?",
     ctaPrimary: "N\u00E3o aguento mais",
-    ctaSecondary: "Me contrate",
+    ctaSecondary: "Me contate",
   },
   "en-US": {
     finalKicker: "Definitive solution",
@@ -65,6 +67,28 @@ const destructionCopy = {
     ctaSecondary: "Hire me",
   },
 } as const;
+
+function GithubMark(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 .7C5.74.7.66 5.78.66 12.04c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55v-2c-3.16.69-3.83-1.36-3.83-1.36-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.52-2.52-.29-5.17-1.26-5.17-5.61 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16.91-.25 1.88-.38 2.85-.38s1.94.13 2.85.38c2.17-1.47 3.13-1.16 3.13-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.36-2.65 5.32-5.18 5.6.41.35.77 1.04.77 2.1v3.11c0 .31.21.66.78.55a11.35 11.35 0 0 0 7.76-10.76C23.34 5.78 18.26.7 12 .7Z" />
+    </svg>
+  );
+}
+
+function LinkedinMark(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z" />
+    </svg>
+  );
+}
+
+const finalContactItems = [
+  { label: "GitHub", icon: GithubMark },
+  { label: "LinkedIn", icon: LinkedinMark },
+  { label: "jpan@cesar.school", icon: Mail, href: "mailto:jpan@cesar.school" },
+] as const;
 
 function buildProblems(language: SiteLanguage): ProblemSpec[] {
   const texts = problemTexts[language];
@@ -202,11 +226,17 @@ function ProblemText({
   );
 }
 
-interface DestructionPageProps {
+interface DestructionSectionProps {
   language: SiteLanguage;
+  backgroundClassName?: string;
+  showAmbientBackground?: boolean;
 }
 
-export default function DestructionPage({ language }: DestructionPageProps) {
+export default function DestructionSection({
+  language,
+  backgroundClassName = "bg-black",
+  showAmbientBackground = true,
+}: DestructionSectionProps) {
   const copy = destructionCopy[language];
   const problems = useMemo(() => buildProblems(language), [language]);
   const [isMobile, setIsMobile] = useState(
@@ -306,8 +336,46 @@ export default function DestructionPage({ language }: DestructionPageProps) {
   }, [completedCount, isClearing, problems.length]);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
+    <section className={`relative min-h-screen overflow-hidden ${backgroundClassName}`}>
+      {showAmbientBackground && (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
+      )}
+      <AnimatePresence>
+        {showFinalMessage && (
+          <motion.div
+            key="aether-flow-background"
+            className="pointer-events-none absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.85, ease: "easeOut" }}
+          >
+            <AetherFlowHero />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showFinalMessage && (
+          <motion.p
+            key="final-footer-signature"
+            className="absolute inset-x-0 bottom-7 z-30 mx-auto w-[min(82vw,36rem)] text-center text-[8px] font-medium uppercase tracking-[0.24em] text-white/16 sm:bottom-8 sm:text-[9px]"
+            initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: 8, filter: "blur(8px)" }}
+            transition={{ delay: 4.2, duration: 1.1, ease: "easeOut" }}
+          >
+            Portf&#243;lio desenvolvido por Jo&#227;o Pedro. Todos os{" "}
+            <a
+              href="/67"
+              className="pointer-events-auto cursor-pointer text-white/24 transition hover:text-[#A7EF9E]/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/50"
+              aria-label="Abrir Projeto 67"
+            >
+              direitos
+            </a>{" "}
+            reservados.
+          </motion.p>
+        )}
+      </AnimatePresence>
       <div className="relative flex min-h-screen items-center justify-center px-6 pb-32 pt-16">
         <div className="relative h-[min(78vh,760px)] w-full max-w-7xl">
           {!showFinalMessage &&
@@ -339,6 +407,48 @@ export default function DestructionPage({ language }: DestructionPageProps) {
                   <h2 className="mt-4 bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-7xl">
                     {copy.finalTitle}
                   </h2>
+                  <motion.ul
+                    className="mt-10 flex flex-wrap items-center justify-center gap-4"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: {
+                          delayChildren: 0.24,
+                          staggerChildren: 0.14,
+                        },
+                      },
+                    }}
+                  >
+                    {finalContactItems.map((item) => {
+                      const Icon = item.icon;
+                      const content = <Icon className="h-7 w-7" aria-hidden="true" />;
+                      const itemClassName =
+                        "group inline-flex h-16 w-16 items-center justify-center rounded-[1.5rem] border border-white/12 bg-white/[0.06] text-white/70 shadow-[0_20px_70px_rgba(0,0,0,0.32)] transition duration-300 hover:-translate-y-1 hover:border-[#A7EF9E]/45 hover:bg-white/[0.12] hover:text-white hover:shadow-[0_26px_90px_rgba(167,239,158,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 sm:h-[4.5rem] sm:w-[4.5rem] sm:rounded-[1.7rem]";
+
+                      return (
+                        <motion.li
+                          key={item.label}
+                          variants={{
+                            hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+                            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                          }}
+                          transition={{ duration: 0.48, ease: "easeOut" }}
+                        >
+                          {"href" in item ? (
+                            <a href={item.href} className={itemClassName} aria-label={item.label}>
+                              {content}
+                            </a>
+                          ) : (
+                            <span className={itemClassName} aria-label={item.label}>
+                              {content}
+                            </span>
+                          )}
+                        </motion.li>
+                      );
+                    })}
+                  </motion.ul>
                 </motion.div>
               ) : (
                 <motion.div
