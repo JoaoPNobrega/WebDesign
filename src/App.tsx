@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
-import Page67 from "@/pages/Page67";
 import type { SiteLanguage } from "@/lib/site-language";
+
+const Page67 = lazy(() => import("@/pages/Page67"));
 
 function getCurrentPath() {
   if (typeof window === "undefined") {
@@ -51,7 +52,11 @@ export default function App() {
   const renderContent = () => {
     switch (pathname) {
       case "/67":
-        return <Page67 language={activeLanguage} />;
+        return (
+          <Suspense fallback={null}>
+            <Page67 language={activeLanguage} />
+          </Suspense>
+        );
       case "/":
       case "/portfolio":
         return <PortfolioLandingPage />;

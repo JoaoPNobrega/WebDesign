@@ -421,15 +421,7 @@ export default function DestructionSection({
             >
               Portf&#243;lio
             </button>{" "}
-            desenvolvido por Jo&#227;o Pedro. Todos os{" "}
-            <a
-              href="/67"
-              className="pointer-events-auto cursor-pointer text-white/24 transition hover:text-[#A7EF9E]/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/50"
-              aria-label="Abrir Projeto 67"
-            >
-              direitos
-            </a>{" "}
-            reservados.
+            desenvolvido por Jo&#227;o Pedro. Todos os direitos reservados.
           </motion.p>
         )}
       </AnimatePresence>

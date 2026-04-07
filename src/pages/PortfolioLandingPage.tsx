@@ -1,8 +1,7 @@
-import { type SVGProps, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, type SVGProps, useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, LayoutGroup, animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { Mail } from "lucide-react";
-import Lanyard from "@/components/Lanyard";
+import { ExternalLink, Mail, X } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
 import GlassSurface from "@/components/ui/GlassSurface";
 import OrbitingSkills from "@/components/ui/orbiting-skills";
@@ -11,11 +10,14 @@ import SplitText from "@/components/ui/SplitText";
 import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
 
+const Lanyard = lazy(() => import("@/components/Lanyard"));
+
 const HERO_MORPH_SCROLL_DISTANCE = 860;
 const FLOATING_NAV_SCROLL_OFFSET = 360;
 const FLOATING_NAV_SCROLL_THRESHOLD = HERO_MORPH_SCROLL_DISTANCE + FLOATING_NAV_SCROLL_OFFSET;
 const HERO_TEXT_EXIT_SCROLL_DELAY = 260;
 const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
+const GITHUB_URL = "https://github.com/JoaoPNobrega";
 
 function GithubMark(props: SVGProps<SVGSVGElement>) {
   return (
@@ -34,7 +36,7 @@ function LinkedinMark(props: SVGProps<SVGSVGElement>) {
 }
 
 const navContactItems = [
-  { label: "GitHub", icon: GithubMark, href: "https://github.com/JoaoPNobrega" },
+  { label: "GitHub", icon: GithubMark, href: GITHUB_URL },
   { label: "LinkedIn", icon: LinkedinMark, href: "https://linkedin.com/in/joaopedro-nobrega" },
   { label: "Email", icon: Mail, href: "mailto:jpan@cesar.school" },
 ] as const;
@@ -42,23 +44,27 @@ const navContactItems = [
 const navProjectItems = [
   {
     title: "Dr Guilherme Maia",
-    image: "/portfolio-sites/site-04-center-right-poster.jpg",
+    image: "/assets/dr-guilherme-preview.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
+    description: "Landing page médica com foco em autoridade, clareza de conversão e acabamento visual premium para uma presença digital mais confiável.",
     href: "https://drguilhermemaia.com.br/",
   },
   {
     title: "FlyHigh",
     image: "/assets/flyhigh.png",
+    description: "Projeto de interface com estética vertical, composição forte e direção visual pensada para destacar produto, ritmo e impacto.",
   },
   {
     title: "Dr Daniel Pianetti",
     image: "/portfolio-sites/site-02-top-left-poster.jpg",
+    description: "Experiência digital para presença médica, combinando estrutura objetiva, navegação direta e visual limpo para gerar confiança.",
     href: "https://daniel.webstar.studio/",
   },
   {
     title: "Stephanie Bolsoni",
     image: "/assets/stephanie-bolsoni.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
+    description: "Landing page elegante e editorial para nutrição, com atmosfera leve, hierarquia refinada e foco em apresentação profissional.",
     href: "https://stephaniebolsoni.com/",
   },
 ] as const;
@@ -83,7 +89,8 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   },
   {
     type: "image",
-    src: "/portfolio-sites/site-04-center-right-poster.jpg",
+    src: "/assets/parallax-dr-guilherme-preview.webp",
+    fallbackSrc: "/assets/dr-guilherme-preview.png",
     alt: "Preview do projeto Dr Guilherme Maia",
   },
   {
@@ -160,8 +167,10 @@ const experienceHighlights = [
 
 function JourneyHorizontalSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [isLanyardRequested, setIsLanyardRequested] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const isJourneyNearViewport = useInView(sectionRef, { margin: "700px 0px" });
+  const isJourneyVisible = useInView(sectionRef, { amount: 0.04 });
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -178,6 +187,13 @@ function JourneyHorizontalSection() {
   const graduationRightY = useTransform(smoothProgress, [0.3, 0.72, 1], shouldReduceMotion ? [0, 0, 0] : [44, -2, -2]);
   const overlayY = useTransform(smoothProgress, [0.3, 0.72, 1], shouldReduceMotion ? [0, 0, 0] : [36, -8, -8]);
   const graduationOpacity = useTransform(smoothProgress, [0.38, 0.6, 1], shouldReduceMotion ? [1, 1, 1] : [0.28, 1, 1]);
+  const shouldRenderLanyard = isLanyardRequested && isJourneyNearViewport && isJourneyVisible;
+
+  useEffect(() => {
+    if (!isJourneyVisible) {
+      setIsLanyardRequested(false);
+    }
+  }, [isJourneyVisible]);
 
   return (
     <section
@@ -263,9 +279,35 @@ function JourneyHorizontalSection() {
 
           <section aria-labelledby="graduation-heading" className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#050505] px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
             <div className="pointer-events-auto absolute inset-0 z-0 flex items-center justify-center">
-              {isJourneyNearViewport && (
-                <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} performanceMode />
-              )}
+              <AnimatePresence mode="wait">
+                {shouldRenderLanyard ? (
+                  <motion.div
+                    key="lanyard-canvas"
+                    className="absolute inset-0"
+                    initial={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
+                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <Suspense fallback={null}>
+                      <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} performanceMode />
+                    </Suspense>
+                  </motion.div>
+                ) : (
+                  <motion.button
+                    key="lanyard-trigger"
+                    type="button"
+                    onClick={() => setIsLanyardRequested(true)}
+                    className="pointer-events-auto relative z-20 inline-flex cursor-pointer items-center justify-center rounded-full border border-white/12 bg-white/[0.06] px-6 py-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/72 shadow-[0_22px_90px_rgba(0,0,0,0.42)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#A7EF9E]/45 hover:bg-white/[0.11] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                    initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
+                    transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    Ver crach&#225; 3D
+                  </motion.button>
+                )}
+              </AnimatePresence>
             </div>
 
             <motion.div
@@ -516,9 +558,11 @@ export default function PortfolioLandingPage() {
   const [notchProgress, setNotchProgress] = useState(0);
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
   const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
+  const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
   const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
+  const contactEasterEggClicksRef = useRef(0);
   const lastScrollYRef = useRef(0);
   const notchProgressRef = useRef(0);
   const autoMorphControlsRef = useRef<ReturnType<typeof animate> | null>(null);
@@ -573,7 +617,7 @@ export default function PortfolioLandingPage() {
   }, []);
 
   useEffect(() => {
-    if (!isContactDropdownOpen && !isProjectsDropdownOpen) {
+    if (!isContactDropdownOpen && !isProjectsDropdownOpen && !selectedProjectTitle) {
       return;
     }
 
@@ -586,8 +630,12 @@ export default function PortfolioLandingPage() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsContactDropdownOpen(false);
-        setIsProjectsDropdownOpen(false);
+        if (selectedProjectTitle) {
+          setSelectedProjectTitle(null);
+        } else {
+          setIsContactDropdownOpen(false);
+          setIsProjectsDropdownOpen(false);
+        }
       }
     };
 
@@ -598,7 +646,20 @@ export default function PortfolioLandingPage() {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isContactDropdownOpen, isProjectsDropdownOpen]);
+  }, [isContactDropdownOpen, isProjectsDropdownOpen, selectedProjectTitle]);
+
+  useEffect(() => {
+    if (!selectedProjectTitle) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedProjectTitle]);
 
   useEffect(() => {
     const scroller = projectsScrollerRef.current;
@@ -625,6 +686,15 @@ export default function PortfolioLandingPage() {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const openPage67EasterEgg = () => {
+    window.history.pushState(null, "", "/67");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
+  const selectedProject = navProjectItems.find((item) => item.title === selectedProjectTitle);
+  const selectedProjectHref = selectedProject && "href" in selectedProject ? selectedProject.href : GITHUB_URL;
+  const selectedProjectCtaLabel = selectedProject && "href" in selectedProject ? "Ver site" : "GitHub";
 
   const isHeroContactDropdownOpen = isContactDropdownOpen && !isNavDetached;
   const isHeroProjectsDropdownOpen = isProjectsDropdownOpen && !isNavDetached;
@@ -751,6 +821,15 @@ export default function PortfolioLandingPage() {
               <button
                 type="button"
                 onClick={() => {
+                  contactEasterEggClicksRef.current += 1;
+                  if (contactEasterEggClicksRef.current >= 5) {
+                    contactEasterEggClicksRef.current = 0;
+                    setIsProjectsDropdownOpen(false);
+                    setIsContactDropdownOpen(false);
+                    openPage67EasterEgg();
+                    return;
+                  }
+
                   setIsProjectsDropdownOpen(false);
                   setIsContactDropdownOpen((current) => !current);
                 }}
@@ -866,27 +945,13 @@ export default function PortfolioLandingPage() {
                             <h3 className="min-w-0 truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
                               {item.title}
                             </h3>
-                            {"href" in item ? (
-                              <a
-                                href={item.href}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
-                              >
-                                Ver
-                              </a>
-                            ) : (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setIsProjectsDropdownOpen(false);
-                                  scrollToSection("projects");
-                                }}
-                                className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
-                              >
-                                Ver
-                              </button>
-                            )}
+                            <button
+                              type="button"
+                              onClick={() => setSelectedProjectTitle(item.title)}
+                              className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                            >
+                              Ver
+                            </button>
                           </div>
                         </motion.article>
                       ))}
@@ -1042,6 +1107,89 @@ export default function PortfolioLandingPage() {
         </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedProject ? (
+          <motion.div
+            key="project-preview-modal"
+            className="fixed inset-0 z-[1400] flex items-center justify-center px-5 py-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.26, ease: "easeOut" }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-preview-title"
+            onClick={() => setSelectedProjectTitle(null)}
+          >
+            <motion.div
+              aria-hidden="true"
+              className="absolute inset-0 bg-black/78 backdrop-blur-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.article
+              className="relative z-10 w-full max-w-4xl overflow-hidden rounded-[2.4rem] border border-white/12 bg-[#080808]/96 p-3 shadow-[0_40px_160px_rgba(0,0,0,0.72)]"
+              initial={{ opacity: 0, y: 34, scale: 0.96, filter: "blur(14px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(12px)" }}
+              transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Fechar preview do projeto"
+                onClick={() => setSelectedProjectTitle(null)}
+                className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/12 bg-black/60 text-white/62 transition hover:border-white/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+
+              <div className="overflow-hidden rounded-[1.9rem] bg-white/[0.035]">
+                <img
+                  src={selectedProject.image}
+                  alt={`Preview ampliado do projeto ${selectedProject.title}`}
+                  className="h-[18rem] w-full object-cover object-center sm:h-[24rem] lg:h-[28rem]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <div className="grid gap-7 px-4 pb-6 pt-7 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-7">
+                <div>
+                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-white/36">
+                    Projeto selecionado
+                  </p>
+                  <h2
+                    id="project-preview-title"
+                    className="text-3xl font-black uppercase leading-[0.92] tracking-[-0.075em] text-white sm:text-5xl"
+                  >
+                    {selectedProject.title}
+                  </h2>
+                  <p className="mt-5 max-w-2xl text-base leading-7 text-white/56 sm:text-lg sm:leading-8">
+                    {selectedProject.description}
+                  </p>
+                </div>
+
+                <a
+                  href={selectedProjectHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-[3.25rem] cursor-pointer items-center justify-center gap-2 rounded-full border border-white/14 bg-white text-sm font-black uppercase tracking-[0.22em] text-black transition hover:-translate-y-0.5 hover:bg-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 lg:min-w-44"
+                >
+                  {selectedProjectCtaLabel === "GitHub" ? (
+                    <GithubMark className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                  )}
+                  {selectedProjectCtaLabel}
+                </a>
+              </div>
+            </motion.article>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <section
         aria-labelledby="profile-heading"

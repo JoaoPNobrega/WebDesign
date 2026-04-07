@@ -1,0 +1,16 @@
+﻿# Plano opcional: otimizar imagem da hero
+
+Status: nao aplicado.
+
+Ideia:
+- Manter a imagem original da hero intacta.
+- Gerar uma versao WebP/AVIF em qualidade alta, preferencialmente 90-92.
+- Preservar proporcao e resolucao suficiente para telas grandes.
+- Comparar visualmente antes de trocar no codigo.
+- Usar fallback para a imagem original, se necessario.
+
+Objetivo:
+Melhorar o carregamento inicial da hero sem perda perceptivel de qualidade visual.
+
+Observacao:
+Nao aplicar compressao agressiva, porque a hero tem ceu, folhas e detalhes finos que podem denunciar artefatos.
