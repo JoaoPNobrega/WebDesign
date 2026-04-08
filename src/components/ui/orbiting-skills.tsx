@@ -2,8 +2,18 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-type IconType = "html" | "css" | "javascript" | "react" | "node" | "tailwind";
-type GlowColor = "cyan" | "purple";
+type IconType =
+  | "html"
+  | "css"
+  | "javascript"
+  | "react"
+  | "node"
+  | "tailwind"
+  | "claude"
+  | "codex"
+  | "antigravity";
+
+type GlowColor = "cyan" | "purple" | "amber";
 
 interface SkillIconProps {
   type: IconType;
@@ -31,7 +41,16 @@ interface GlowingOrbitPathProps {
   animationDelay?: number;
 }
 
-const iconComponents: Record<IconType, { component: () => React.JSX.Element; color: string }> = {
+const iconComponents: Record<
+  IconType,
+  {
+    component?: () => React.JSX.Element;
+    imageSrc?: string;
+    color: string;
+    imageClassName?: string;
+    imagePadding?: string;
+  }
+> = {
   html: {
     component: () => (
       <svg viewBox="0 0 24 24" fill="currentColor" className="h-full w-full">
@@ -86,11 +105,49 @@ const iconComponents: Record<IconType, { component: () => React.JSX.Element; col
     ),
     color: "#06B6D4",
   },
+  claude: {
+    imageSrc: "/assets/claude-code-logo.png",
+    color: "#F97316",
+    imageClassName: "object-contain scale-[1.03]",
+    imagePadding: "p-2.5",
+  },
+  codex: {
+    imageSrc: "/assets/codexlogo.png",
+    color: "#6EE7F9",
+    imageClassName: "object-contain scale-[0.98]",
+    imagePadding: "p-2.5",
+  },
+  antigravity: {
+    imageSrc: "/assets/antigravity-logo.png",
+    color: "#FACC15",
+    imageClassName: "object-contain scale-[0.95]",
+    imagePadding: "p-3",
+  },
 };
 
 const SkillIcon = memo(({ type }: SkillIconProps) => {
-  const IconComponent = iconComponents[type]?.component;
-  return IconComponent ? <IconComponent /> : null;
+  const icon = iconComponents[type];
+
+  if (icon.component) {
+    const IconComponent = icon.component;
+    return <IconComponent />;
+  }
+
+  if (icon.imageSrc) {
+    return (
+      <img
+        src={icon.imageSrc}
+        alt=""
+        aria-hidden="true"
+        className={`h-full w-full ${icon.imageClassName ?? "object-contain"}`}
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+    );
+  }
+
+  return null;
 });
 SkillIcon.displayName = "SkillIcon";
 
@@ -101,6 +158,9 @@ const skillsConfig: SkillConfig[] = [
   { id: "react", orbitRadius: 180, size: 50, speed: -0.6, iconType: "react", phaseShift: 0, glowColor: "purple", label: "React" },
   { id: "node", orbitRadius: 180, size: 45, speed: -0.6, iconType: "node", phaseShift: (2 * Math.PI) / 3, glowColor: "purple", label: "Node.js" },
   { id: "tailwind", orbitRadius: 180, size: 40, speed: -0.6, iconType: "tailwind", phaseShift: (4 * Math.PI) / 3, glowColor: "purple", label: "Tailwind CSS" },
+  { id: "claude", orbitRadius: 192, size: 56, speed: 0.34, iconType: "claude", phaseShift: 0, glowColor: "amber", label: "Claude Code" },
+  { id: "codex", orbitRadius: 192, size: 56, speed: 0.34, iconType: "codex", phaseShift: (2 * Math.PI) / 3, glowColor: "amber", label: "Codex" },
+  { id: "antigravity", orbitRadius: 192, size: 56, speed: 0.34, iconType: "antigravity", phaseShift: (4 * Math.PI) / 3, glowColor: "amber", label: "Antigravity" },
 ];
 
 const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
@@ -108,6 +168,7 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
   const { orbitRadius, size, iconType, label } = config;
   const x = Math.cos(angle) * orbitRadius;
   const y = Math.sin(angle) * orbitRadius;
+  const icon = iconComponents[iconType];
 
   return (
     <div
@@ -122,10 +183,12 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`relative flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#101010]/95 p-2 shadow-lg ring-1 ring-white/10 transition-all duration-300 ${isHovered ? "scale-125 shadow-2xl" : "hover:shadow-xl"}`}
+        className={`relative flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#101010]/95 p-2 shadow-lg ring-1 ring-white/10 transition-all duration-300 ${
+          isHovered ? "scale-125 shadow-2xl" : "hover:shadow-xl"
+        } ${icon.imagePadding ?? ""}`}
         style={{
           boxShadow: isHovered
-            ? `0 0 30px ${iconComponents[iconType]?.color}40, 0 0 60px ${iconComponents[iconType]?.color}20`
+            ? `0 0 30px ${icon.color}40, 0 0 60px ${icon.color}20`
             : undefined,
         }}
       >
@@ -153,7 +216,13 @@ const GlowingOrbitPath = memo(({ radius, glowColor = "cyan", animationDelay = 0 
       secondary: "rgba(147, 51, 234, 0.2)",
       border: "rgba(147, 51, 234, 0.3)",
     },
+    amber: {
+      primary: "rgba(251, 191, 36, 0.34)",
+      secondary: "rgba(251, 191, 36, 0.16)",
+      border: "rgba(251, 191, 36, 0.26)",
+    },
   };
+
   const colors = glowColors[glowColor] || glowColors.cyan;
 
   return (
@@ -204,6 +273,7 @@ export default function OrbitingSkills() {
   const orbitConfigs: Array<{ radius: number; glowColor: GlowColor; delay: number }> = [
     { radius: 100, glowColor: "cyan", delay: 0 },
     { radius: 180, glowColor: "purple", delay: 1.5 },
+    { radius: 192, glowColor: "amber", delay: 0.8 },
   ];
 
   return (
@@ -219,7 +289,7 @@ export default function OrbitingSkills() {
       </div>
 
       <div
-        className="relative flex h-[calc(100vw-40px)] w-[calc(100vw-40px)] max-h-[450px] max-w-[450px] items-center justify-center"
+        className="relative flex h-[calc(100vw-40px)] w-[calc(100vw-40px)] max-h-[460px] max-w-[460px] items-center justify-center"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -241,7 +311,12 @@ export default function OrbitingSkills() {
         </div>
 
         {orbitConfigs.map((config) => (
-          <GlowingOrbitPath key={`path-${config.radius}`} radius={config.radius} glowColor={config.glowColor} animationDelay={config.delay} />
+          <GlowingOrbitPath
+            key={`path-${config.radius}`}
+            radius={config.radius}
+            glowColor={config.glowColor}
+            animationDelay={config.delay}
+          />
         ))}
 
         {skillsConfig.map((config) => {

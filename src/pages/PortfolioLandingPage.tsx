@@ -1,16 +1,47 @@
-import { Suspense, lazy, type MouseEvent, type SVGProps, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, type SVGProps, useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, LayoutGroup, animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ExternalLink, Mail, X } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
 import GlassSurface from "@/components/ui/GlassSurface";
 import OrbitingSkills from "@/components/ui/orbiting-skills";
-import { LiquidGlassCard } from "@/components/ui/liquid-glass";
 import ShinyText from "@/components/ui/ShinyText";
 import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
 
 const Lanyard = lazy(() => import("@/components/Lanyard"));
+const PROFILE_PANEL_VIEWBOX_WIDTH = 1000;
+const PROFILE_PANEL_VIEWBOX_HEIGHT = 680;
+
+const lerp = (from: number, to: number, progress: number) => from + (to - from) * progress;
+const roundPathValue = (value: number) => Number(value.toFixed(2));
+
+function buildRoundedRectPath(
+  width: number,
+  height: number,
+  insetX: number,
+  insetY: number,
+  radius: number,
+) {
+  const left = insetX;
+  const top = insetY;
+  const right = width - insetX;
+  const bottom = height - insetY;
+  const r = Math.min(radius, (right - left) / 2, (bottom - top) / 2);
+
+  return [
+    `M${roundPathValue(left + r)} ${roundPathValue(top)}`,
+    `H${roundPathValue(right - r)}`,
+    `C${roundPathValue(right - r * 0.42)} ${roundPathValue(top)} ${roundPathValue(right)} ${roundPathValue(top + r * 0.42)} ${roundPathValue(right)} ${roundPathValue(top + r)}`,
+    `V${roundPathValue(bottom - r)}`,
+    `C${roundPathValue(right)} ${roundPathValue(bottom - r * 0.42)} ${roundPathValue(right - r * 0.42)} ${roundPathValue(bottom)} ${roundPathValue(right - r)} ${roundPathValue(bottom)}`,
+    `H${roundPathValue(left + r)}`,
+    `C${roundPathValue(left + r * 0.42)} ${roundPathValue(bottom)} ${roundPathValue(left)} ${roundPathValue(bottom - r * 0.42)} ${roundPathValue(left)} ${roundPathValue(bottom - r)}`,
+    `V${roundPathValue(top + r)}`,
+    `C${roundPathValue(left)} ${roundPathValue(top + r * 0.42)} ${roundPathValue(left + r * 0.42)} ${roundPathValue(top)} ${roundPathValue(left + r)} ${roundPathValue(top)}`,
+    "Z",
+  ].join("");
+}
 
 const HERO_MORPH_SCROLL_DISTANCE = 860;
 const FLOATING_NAV_SCROLL_OFFSET = 360;
@@ -19,8 +50,10 @@ const HERO_TEXT_EXIT_SCROLL_DELAY = 260;
 const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
 const GITHUB_URL = "https://github.com/JoaoPNobrega";
 const HERO_INTRO_TEXT = "Olá, me chamo João Pedro";
-const HERO_DESCRIPTION_TEXT =
-  "Crio sites que transformam identidade visual em presença digital. Do layout ao front-end, foco em páginas responsivas, claras e bem acabadas.";
+const HERO_PANEL_EYEBROW = "Ciência da Computação + software";
+const HERO_PANEL_TITLE = "Software Developer";
+const HERO_PANEL_BODY =
+  "Sou estudante de Ciência da Computação na CESAR School e hoje atuo no desenvolvimento e manutenção de sites. Meu foco está em front-end, responsividade e em transformar identidade visual em páginas claras, funcionais e bem acabadas.";
 
 function HeroIntroCopy() {
   const [hasTypedRole, setHasTypedRole] = useState(false);
@@ -92,49 +125,20 @@ function HeroIntroCopy() {
   );
 }
 
-function HeroDescriptionCard() {
-  const shouldReduceMotion = useReducedMotion();
-  const magneticX = useMotionValue(0);
-  const magneticY = useMotionValue(0);
-  const smoothX = useSpring(magneticX, { stiffness: 170, damping: 22, mass: 0.55 });
-  const smoothY = useSpring(magneticY, { stiffness: 170, damping: 22, mass: 0.55 });
-
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    if (shouldReduceMotion) return;
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left - rect.width / 2;
-    const offsetY = event.clientY - rect.top - rect.height / 2;
-
-    magneticX.set(Math.max(-18, Math.min(18, offsetX * 0.06)));
-    magneticY.set(Math.max(-18, Math.min(18, offsetY * 0.06)));
-  };
-
-  const handleMouseLeave = () => {
-    magneticX.set(0);
-    magneticY.set(0);
-  };
-
+function HeroDescriptionPanel() {
   return (
-    <LiquidGlassCard
-      glowIntensity="sm"
-      shadowIntensity="sm"
-      borderRadius="2.6rem"
-      blurIntensity="sm"
-      className="hero-copy-glass flex min-h-[24rem] w-full max-w-[25rem] items-center px-7 py-10 text-center sm:min-h-[26rem] sm:px-9 sm:py-12 lg:min-h-[30rem] lg:px-10 lg:py-14"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: smoothX, y: smoothY }}
-    >
-      <div className="space-y-6">
-        <span className="font-mono text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-white/56">
-          Web design + código
-        </span>
-        <p className="text-xl font-medium leading-9 text-white/94 drop-shadow-[0_3px_18px_rgba(0,0,0,0.6)] sm:text-2xl sm:leading-10 lg:text-[1.72rem] lg:leading-[3.1rem]">
-          {HERO_DESCRIPTION_TEXT}
-        </p>
-      </div>
-    </LiquidGlassCard>
+    <div className="flex w-full max-w-[32rem] flex-col items-start text-left">
+      <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.3em] text-white/48">
+        {HERO_PANEL_EYEBROW}
+      </span>
+      <div className="mt-5 h-px w-24 bg-white/16" />
+      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.92] tracking-[-0.085em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.9rem]">
+        {HERO_PANEL_TITLE}
+      </h2>
+      <p className="mt-6 max-w-[29rem] text-lg leading-8 text-white/72 sm:text-xl sm:leading-9 lg:text-[1.12rem] lg:leading-9">
+        {HERO_PANEL_BODY}
+      </p>
+    </div>
   );
 }
 
@@ -296,11 +300,11 @@ function HeroEchoVisual() {
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 pb-12 pt-28 sm:px-8 lg:px-12 lg:pb-16 lg:pt-36">
           <div className="w-full">
             <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-              <div className="flex justify-center lg:-translate-x-24 xl:-translate-x-36">
+              <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
                 <HeroIntroCopy />
               </div>
-              <div className="flex justify-center lg:translate-x-24 lg:justify-self-end xl:translate-x-36 2xl:translate-x-44">
-                <HeroDescriptionCard />
+              <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
+                <HeroDescriptionPanel />
               </div>
             </div>
           </div>
@@ -309,33 +313,6 @@ function HeroEchoVisual() {
     </div>
   );
 }
-
-const profileHighlights = [
-  {
-    eyebrow: "01",
-    title: "Full stack com vis\u00e3o de produto",
-    description:
-      "Construo do front ao back com arquitetura, performance e clareza de entrega. A interface nasce bonita porque o produto tamb\u00e9m \u00e9 bem pensado.",
-  },
-  {
-    eyebrow: "02",
-    title: "Front-end como experi\u00eancia",
-    description:
-      "Meu foco est\u00e1 em transformar layout em percep\u00e7\u00e3o de qualidade: responsividade, hierarquia, ritmo visual e intera\u00e7\u00f5es precisas.",
-  },
-  {
-    eyebrow: "03",
-    title: "Motion e interatividade",
-    description:
-      "Uso anima\u00e7\u00f5es, microintera\u00e7\u00f5es e scroll storytelling para criar experi\u00eancias fluidas, imersivas e memor\u00e1veis.",
-  },
-  {
-    eyebrow: "04",
-    title: "Acabamento premium",
-    description:
-      "Cuido dos detalhes que separam uma tela comum de uma execu\u00e7\u00e3o de alto n\u00edvel: fluidez, contraste, estados, transi\u00e7\u00f5es e polimento.",
-  },
-];
 
 const experienceHighlights = [
   {
@@ -360,6 +337,48 @@ const experienceHighlights = [
       "Constru\u00e7\u00e3o de base s\u00f3lida em produto, l\u00f3gica, APIs e entrega completa do front ao back.",
   },
 ];
+
+const profilePrimaryBlocks = [
+  {
+    label: "Resumo profissional",
+    title: "Software Developer em forma\u00e7\u00e3o, com experi\u00eancia pr\u00e1tica em sites reais.",
+  },
+  {
+    label: "Foco atual",
+    title: "Front-end, responsividade e implementa\u00e7\u00e3o visual.",
+  },
+  {
+    label: "Objetivo / atua\u00e7\u00e3o",
+    title: "Construir experi\u00eancias web mais claras, bem acabadas e funcionais.",
+  },
+] as const;
+
+const profileSecondaryCards = [
+  {
+    label: "Atua\u00e7\u00e3o",
+    title: "Sites em produ\u00e7\u00e3o",
+    cardClassName: "bg-[#131313] text-white border-white/6",
+    labelClassName: "text-white/45",
+    titleClassName: "text-white",
+    descriptionClassName: "text-white/68",
+  },
+  {
+    label: "Diferenciais",
+    title: "Clareza visual e consist\u00eancia",
+    cardClassName: "bg-[#b9ff66] text-[#111111] border-[#a7ef9e]",
+    labelClassName: "text-black/45",
+    titleClassName: "text-[#111111]",
+    descriptionClassName: "text-black/62",
+  },
+  {
+    label: "Abordagem",
+    title: "Do briefing ao refinamento",
+    cardClassName: "bg-[#ff6b2c] text-white border-[#ff8757]",
+    labelClassName: "text-white/55",
+    titleClassName: "text-white",
+    descriptionClassName: "text-white/76",
+  },
+] as const;
 
 function JourneyHorizontalSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -443,19 +462,13 @@ function JourneyHorizontalSection() {
                   transition={{ duration: 0.85, ease: "easeOut", delay: 0.08 }}
                   className="relative overflow-hidden rounded-[3.25rem] border border-white/[0.08] bg-[#070707] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.42)] sm:p-8 lg:p-10"
                 >
-                  <div className="relative z-10 mb-6 flex items-center justify-between gap-6">
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.38em] text-white/35">
-                        Skills
-                      </p>
-                      <h3 className="mt-3 text-3xl font-black uppercase tracking-[-0.06em] text-white sm:text-5xl">
-                        Stack em movimento
-                      </h3>
-                    </div>
-                    <div className="hidden h-px flex-1 bg-white/12 sm:block" />
+                  <div className="relative z-10 mb-6 flex justify-center text-center">
+                    <h3 className="text-3xl font-black uppercase tracking-[-0.06em] text-white sm:text-5xl">
+                      Skills
+                    </h3>
                   </div>
 
-                  <div className="relative z-10 flex min-h-[360px] items-center justify-center rounded-[2.5rem] border border-white/[0.06] bg-[#050505] lg:min-h-[430px]">
+                  <div className="relative z-10 flex min-h-[330px] items-center justify-center rounded-[2.5rem] border border-white/[0.06] bg-[#050505] lg:min-h-[390px]">
                     <OrbitingSkills />
                   </div>
                 </motion.div>
@@ -758,6 +771,7 @@ export default function PortfolioLandingPage() {
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
   const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
+  const profileSectionRef = useRef<HTMLElement | null>(null);
   const contactEasterEggClicksRef = useRef(0);
   const lastScrollYRef = useRef(0);
   const notchProgressRef = useRef(0);
@@ -767,6 +781,39 @@ export default function PortfolioLandingPage() {
   const heroTextExitY = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [0, 0] : [0, -220]);
   const heroTextExitOpacity = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [1, 1] : [1, 0.04]);
   const heroTextExitBlur = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? ["blur(0px)", "blur(0px)"] : ["blur(0px)", "blur(20px)"]);
+  const { scrollYProgress: profileScrollProgress } = useScroll({
+    target: profileSectionRef,
+    offset: ["start 88%", "end 16%"],
+  });
+  const profileMorphProgress = useSpring(profileScrollProgress, {
+    stiffness: 116,
+    damping: 26,
+    mass: 0.72,
+  });
+  const profileOpenProgress = useTransform(profileMorphProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const profilePanelClipPath = useTransform(
+    profileOpenProgress,
+    [0, 1],
+    ["inset(17% 9% 17% 9% round 5rem)", "inset(0% 0% 0% 0% round 3.5rem)"],
+  );
+  const profilePanelScale = useTransform(profileOpenProgress, [0, 1], [0.94, 1]);
+  const profilePanelY = useTransform(profileMorphProgress, [0, 0.2, 0.8, 1], [72, 0, 0, -58]);
+  const profileContentOpacity = useTransform(profileMorphProgress, [0.08, 0.2, 0.8, 0.94], [0, 1, 1, 0]);
+  const profileContentY = useTransform(profileMorphProgress, [0.08, 0.2, 0.8, 0.94], [32, 0, 0, -18]);
+  const profileContentBlur = useTransform(
+    profileMorphProgress,
+    [0.08, 0.2, 0.8, 0.94],
+    ["blur(14px)", "blur(0px)", "blur(0px)", "blur(10px)"],
+  );
+  const profilePanelPath = useTransform(profileOpenProgress, (value) =>
+    buildRoundedRectPath(
+      PROFILE_PANEL_VIEWBOX_WIDTH,
+      PROFILE_PANEL_VIEWBOX_HEIGHT,
+      lerp(116, 0, value),
+      lerp(112, 0, value),
+      lerp(118, 56, value),
+    ),
+  );
 
   const setSyncedNotchProgress = (progress: number) => {
     notchProgressRef.current = progress;
@@ -1303,11 +1350,11 @@ export default function PortfolioLandingPage() {
               }}
               className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center"
             >
-            <div className="flex justify-center lg:-translate-x-24 xl:-translate-x-36">
+            <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
               <HeroIntroCopy />
             </div>
-            <div className="flex justify-center lg:translate-x-24 lg:justify-self-end xl:translate-x-36 2xl:translate-x-44">
-              <HeroDescriptionCard />
+            <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
+              <HeroDescriptionPanel />
             </div>
           </motion.div>
           </motion.div>
@@ -1423,6 +1470,7 @@ export default function PortfolioLandingPage() {
       </AnimatePresence>
 
       <section
+        ref={profileSectionRef}
         aria-labelledby="profile-heading"
         className="relative bg-[#050505] px-6 py-28 sm:px-8 lg:px-12 lg:py-36"
       >
@@ -1432,31 +1480,14 @@ export default function PortfolioLandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-120px" }}
             transition={{ duration: 0.75, ease: "easeOut" }}
-            className="grid gap-10 border-y border-white/[0.08] py-14 lg:grid-cols-[1fr_1.35fr] lg:items-end lg:py-20"
+            className="text-center"
           >
-            <div>
-              <p className="mb-5 text-xs font-medium uppercase tracking-[0.45em] text-white/40">
-                Perfil profissional
-              </p>
-              <h2
-                id="profile-heading"
-                className="max-w-3xl text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
-              >
-                Back-end s&#243;lido. Front-end que vira experi&#234;ncia.
-              </h2>
-            </div>
-
-            <div className="lg:pb-2">
-              <p className="max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
-                Sou desenvolvedor full stack com foco forte em front-end. Crio
-                interfaces de alta qualidade, experi&#234;ncias visuais imersivas,
-                anima&#231;&#245;es refinadas e produtos que impressionam pela fluidez,
-                execu&#231;&#227;o e aten&#231;&#227;o aos detalhes.
-              </p>
-              <p className="mt-8 text-xs font-medium uppercase tracking-[0.42em] text-white/35">
-                Engenharia + sensibilidade visual
-              </p>
-            </div>
+            <p
+              id="profile-heading"
+              className="text-[1.15rem] font-semibold uppercase tracking-[0.24em] text-white/48 sm:text-[1.4rem] lg:text-[1.8rem]"
+            >
+              Perfil profissional
+            </p>
           </motion.div>
 
           <motion.div
@@ -1464,32 +1495,72 @@ export default function PortfolioLandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-120px" }}
             transition={{ duration: 0.85, delay: 0.12, ease: "easeOut" }}
-            className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+            style={{ clipPath: profilePanelClipPath, scale: profilePanelScale, y: profilePanelY }}
+            className="relative mt-10 min-h-[30rem] overflow-hidden rounded-[3.5rem] border border-white/10 bg-[#faf7f2] px-6 py-8 shadow-[0_30px_120px_rgba(0,0,0,0.28)] sm:min-h-[35rem] sm:px-8 sm:py-10 lg:min-h-[38rem] lg:px-12 lg:py-12"
           >
-            {profileHighlights.map((item) => (
-              <article
-                key={item.eyebrow}
-                className="group relative min-h-[20rem] overflow-hidden rounded-[3.25rem] border border-white/[0.09] bg-[#050505] p-8 transition duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-[#090909]"
-              >
-                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/15" />
-                <div className="mb-16 flex items-center justify-between text-xs font-medium uppercase tracking-[0.34em] text-white/35">
-                  <span>{item.eyebrow}</span>
-                  <span className="h-px w-10 bg-white/18 transition-all duration-500 group-hover:w-16 group-hover:bg-white/40" />
-                </div>
-                <h3 className="text-2xl font-semibold leading-tight tracking-[-0.055em] text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-5 text-sm leading-7 text-white/58">
-                  {item.description}
-                </p>
-              </article>
-            ))}
-          </motion.div>
+            <svg
+              aria-hidden="true"
+              viewBox={`0 0 ${PROFILE_PANEL_VIEWBOX_WIDTH} ${PROFILE_PANEL_VIEWBOX_HEIGHT}`}
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+            >
+              <motion.path
+                d={profilePanelPath}
+                fill="#faf7f2"
+                stroke="rgba(17,17,17,0.08)"
+                strokeWidth="2"
+              />
+            </svg>
 
-          <div className="mt-14 flex flex-col gap-4 border-t border-white/[0.08] pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
-            <p>Uma ponte entre engenharia, interface e dire&#231;&#227;o visual.</p>
-            <p className="uppercase tracking-[0.34em]">Projetos abaixo</p>
-          </div>
+            <motion.div
+              style={{ opacity: profileContentOpacity, y: profileContentY, filter: profileContentBlur }}
+              className="relative z-10 flex h-full flex-col"
+            >
+              <div className="mb-6 text-center sm:mb-8">
+                <h3 className="text-[2.35rem] font-bold leading-[0.92] tracking-[-0.09em] text-[#111111] sm:text-[3.2rem] lg:text-[4.1rem]">
+                  O que estou construindo agora.
+                </h3>
+              </div>
+
+              <article className="rounded-[2.8rem] border border-black/10 bg-white px-6 py-6 shadow-[0_18px_50px_rgba(0,0,0,0.08)] sm:px-8 sm:py-7 lg:px-10 lg:py-7">
+                <div className="grid gap-8 lg:grid-cols-3 lg:gap-8">
+                  {profilePrimaryBlocks.map((item, index) => (
+                    <div
+                      key={item.label}
+                      className={`flex min-h-[13.75rem] flex-col items-center justify-center text-center ${
+                        index < profilePrimaryBlocks.length - 1
+                          ? "lg:border-r lg:border-black/8 lg:pr-8"
+                          : ""
+                      }`}
+                    >
+                      <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#111111]">
+                        {item.label}
+                      </p>
+                      <h3 className="mt-6 max-w-[14ch] text-[1.7rem] font-bold leading-[1.02] tracking-[-0.06em] text-[#101010] sm:text-[1.9rem] lg:text-[2.05rem]">
+                        {item.title}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
+              </article>
+
+              <div className="mt-4 grid gap-4 lg:grid-cols-3">
+                {profileSecondaryCards.map((item) => (
+                  <article
+                    key={item.label}
+                    className={`flex min-h-[10.75rem] flex-col items-center justify-center text-center rounded-[2.35rem] border px-6 py-6 shadow-[0_14px_36px_rgba(0,0,0,0.07)] transition duration-300 hover:-translate-y-1 sm:px-7 ${item.cardClassName}`}
+                  >
+                    <p className={`text-[0.68rem] font-semibold uppercase tracking-[0.28em] ${item.labelClassName}`}>
+                      {item.label}
+                    </p>
+                    <h3 className={`mt-4 max-w-[13ch] text-[1.72rem] font-bold leading-[0.95] tracking-[-0.07em] sm:text-[1.95rem] ${item.titleClassName}`}>
+                      {item.title}
+                    </h3>
+                  </article>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
