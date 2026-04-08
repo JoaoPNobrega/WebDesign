@@ -1,12 +1,12 @@
-import { Suspense, lazy, type SVGProps, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, type MouseEvent, type SVGProps, useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, LayoutGroup, animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ExternalLink, Mail, X } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
 import GlassSurface from "@/components/ui/GlassSurface";
 import OrbitingSkills from "@/components/ui/orbiting-skills";
+import { LiquidGlassCard } from "@/components/ui/liquid-glass";
 import ShinyText from "@/components/ui/ShinyText";
-import SplitText from "@/components/ui/SplitText";
 import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
 
@@ -18,6 +18,125 @@ const FLOATING_NAV_SCROLL_THRESHOLD = HERO_MORPH_SCROLL_DISTANCE + FLOATING_NAV_
 const HERO_TEXT_EXIT_SCROLL_DELAY = 260;
 const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
 const GITHUB_URL = "https://github.com/JoaoPNobrega";
+const HERO_INTRO_TEXT = "Olá, me chamo João Pedro";
+const HERO_DESCRIPTION_TEXT =
+  "Crio sites que transformam identidade visual em presença digital. Do layout ao front-end, foco em páginas responsivas, claras e bem acabadas.";
+
+function HeroIntroCopy() {
+  const [hasTypedRole, setHasTypedRole] = useState(false);
+
+  return (
+    <div className="flex w-full max-w-2xl flex-col items-center text-center">
+        <TextType
+          as="p"
+          text={HERO_INTRO_TEXT}
+        typingSpeed={78}
+        initialDelay={760}
+        variableSpeed={{ min: 62, max: 118 }}
+        loop={false}
+          showCursor={false}
+          cursorCharacter="_"
+        cursorBlinkDuration={0.58}
+        startOnVisible
+        reserveSpace
+        className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.94] tracking-[-0.075em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+        cursorClassName="text-white/48"
+        style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+      />
+      <motion.div
+        initial={{ opacity: 0, y: 16, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 1.05, delay: 3.45, ease: [0.16, 1, 0.3, 1] }}
+        className="relative mt-6 min-h-16 w-full text-center text-sm font-medium uppercase tracking-[0.24em] text-white/60 sm:text-base lg:min-h-24 lg:text-lg"
+      >
+        <TextType
+          as="p"
+          text="e eu sou Software Developer"
+          typingSpeed={54}
+          initialDelay={0}
+          variableSpeed={{ min: 42, max: 84 }}
+          loop={false}
+          showCursor={false}
+          cursorCharacter="_"
+          cursorBlinkDuration={0.58}
+          startOnVisible
+          reserveSpace
+          onSentenceComplete={() => setHasTypedRole(true)}
+          className={`relative block w-full transition-opacity duration-500 ${
+            hasTypedRole ? "opacity-0" : "opacity-100"
+          }`}
+          cursorClassName="text-white/48"
+        />
+        <motion.p
+          aria-hidden={!hasTypedRole}
+          initial={false}
+          animate={{
+            opacity: hasTypedRole ? 1 : 0,
+            y: hasTypedRole ? 0 : 8,
+            filter: hasTypedRole ? "blur(0px)" : "blur(8px)",
+          }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute inset-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+        >
+          <span>e eu sou</span>
+          <ShinyText
+            as="span"
+            speed="2.05s"
+            className="hero-role-shiny whitespace-nowrap text-2xl font-black tracking-[0.13em] drop-shadow-[0_0_34px_rgba(255,255,255,0.42)] sm:text-4xl lg:text-5xl"
+          >
+            Software Developer
+          </ShinyText>
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+}
+
+function HeroDescriptionCard() {
+  const shouldReduceMotion = useReducedMotion();
+  const magneticX = useMotionValue(0);
+  const magneticY = useMotionValue(0);
+  const smoothX = useSpring(magneticX, { stiffness: 170, damping: 22, mass: 0.55 });
+  const smoothY = useSpring(magneticY, { stiffness: 170, damping: 22, mass: 0.55 });
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left - rect.width / 2;
+    const offsetY = event.clientY - rect.top - rect.height / 2;
+
+    magneticX.set(Math.max(-18, Math.min(18, offsetX * 0.06)));
+    magneticY.set(Math.max(-18, Math.min(18, offsetY * 0.06)));
+  };
+
+  const handleMouseLeave = () => {
+    magneticX.set(0);
+    magneticY.set(0);
+  };
+
+  return (
+    <LiquidGlassCard
+      glowIntensity="sm"
+      shadowIntensity="sm"
+      borderRadius="2.6rem"
+      blurIntensity="sm"
+      className="hero-copy-glass flex min-h-[24rem] w-full max-w-[25rem] items-center px-7 py-10 text-center sm:min-h-[26rem] sm:px-9 sm:py-12 lg:min-h-[30rem] lg:px-10 lg:py-14"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: smoothX, y: smoothY }}
+    >
+      <div className="space-y-6">
+        <span className="font-mono text-[0.66rem] font-semibold uppercase tracking-[0.32em] text-white/56">
+          Web design + código
+        </span>
+        <p className="text-xl font-medium leading-9 text-white/94 drop-shadow-[0_3px_18px_rgba(0,0,0,0.6)] sm:text-2xl sm:leading-10 lg:text-[1.72rem] lg:leading-[3.1rem]">
+          {HERO_DESCRIPTION_TEXT}
+        </p>
+      </div>
+    </LiquidGlassCard>
+  );
+}
 
 function GithubMark(props: SVGProps<SVGSVGElement>) {
   return (
@@ -127,6 +246,70 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   },
 ];
 
+function HeroEchoVisual() {
+  return (
+    <div className="relative h-full w-full overflow-visible">
+      <div
+        className="absolute left-1/2 top-1/2 h-screen w-screen origin-center overflow-hidden bg-[#050505] text-white"
+        style={{ transform: "translate(-50%, -50%) scale(0.25)" }}
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-5 z-10 h-20 w-[96vw] max-w-[58rem] -translate-x-1/2 overflow-visible sm:top-6 lg:top-8"
+        >
+          <svg viewBox="0 0 460 392" preserveAspectRatio="none" className="h-full w-full overflow-visible">
+            <path
+              d="M0 0H92C111 0 123 22.79 131 72.93C140 132.22 145 196.05 148 259.87C152 341.86 164 382.85 182 382.85H278C296 382.85 308 341.86 312 259.87C315 196.05 320 132.22 329 72.93C337 22.79 349 0 368 0H460V0H0Z"
+              fill="#050505"
+            />
+          </svg>
+        </div>
+
+        <div
+          className="absolute inset-y-5 left-4 right-4 overflow-hidden border border-black/35 sm:inset-y-6 sm:left-6 sm:right-6 lg:inset-y-8 lg:left-10 lg:right-10"
+          style={{
+            borderTopLeftRadius: "3rem",
+            borderTopRightRadius: "3rem",
+            borderBottomLeftRadius: "3rem",
+            borderBottomRightRadius: "3rem",
+          }}
+        >
+          <img
+            src="/portfolio/hero-risk-radar.png"
+            alt="Hero do portfólio de João Pedro"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
+          <div className="absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 sm:left-8 sm:top-8">
+            Meu portfólio
+          </div>
+          <div className="absolute right-6 top-6 z-10 text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8">
+            Recife, Brasil
+          </div>
+        </div>
+
+        <div className="absolute inset-x-4 bottom-5 h-40 bg-[linear-gradient(180deg,_rgba(5,5,5,0)_0%,_rgba(5,5,5,0.82)_100%)] sm:inset-x-6 sm:bottom-6 lg:inset-x-10 lg:bottom-8" />
+
+        <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 pb-12 pt-28 sm:px-8 lg:px-12 lg:pb-16 lg:pt-36">
+          <div className="w-full">
+            <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+              <div className="flex justify-center lg:-translate-x-24 xl:-translate-x-36">
+                <HeroIntroCopy />
+              </div>
+              <div className="flex justify-center lg:translate-x-24 lg:justify-self-end xl:translate-x-36 2xl:translate-x-44">
+                <HeroDescriptionCard />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const profileHighlights = [
   {
     eyebrow: "01",
@@ -158,7 +341,7 @@ const experienceHighlights = [
   {
     role: "Desenvolvedor de software",
     company: "AJ Solu\u00e7\u00f5es & Sistemas \u00b7 Est\u00e1gio",
-    period: "Agosto \u2014 Novembro 2025",
+    period: "Setembro \u2014 Dezembro 2025",
     description:
       "Desenvolvimento de software, automa\u00e7\u00f5es N8N e planilhas VBA.",
   },
@@ -167,7 +350,7 @@ const experienceHighlights = [
     company: "Web Star Studio \u00b7 Est\u00e1gio",
     period: "Fevereiro 2026 \u2014 Hoje",
     description:
-      "Atua\u00e7\u00e3o full stack em experi\u00eancias digitais, com foco em \nfront-end, integra\u00e7\u00f5es e interfaces de alto acabamento.",
+      "Desenvolvimento e manuten\u00e7\u00e3o de sites, com foco em \nlayouts responsivos, front-end e identidade visual.",
   },
   {
     role: "Full stack foundation",
@@ -240,17 +423,16 @@ function JourneyHorizontalSection() {
                     id="about-heading"
                     className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
                   >
-                    Construo interfaces que parecem produto de alto n&#237;vel.
+                    Eu construo sites com presença, clareza e acabamento.
                   </h2>
                   <p className="mt-8 text-base leading-8 text-white/68 sm:text-lg">
-                    Sou um desenvolvedor full stack com foco forte em front-end, unindo
-                    base t&#233;cnica, sensibilidade visual e obsess&#227;o por acabamento. Meu
-                    trabalho &#233; transformar ideias em experi&#234;ncias digitais fluidas,
-                    responsivas e marcantes.
+                    Sou desenvolvedor de software com foco em experiências web. Hoje atuo no desenvolvimento
+                    e manutenção de sites, criando páginas responsivas, ajustando front-end e traduzindo
+                    identidade visual em interfaces claras, funcionais e bem acabadas.
                   </p>
                   <p className="mt-6 text-sm leading-7 text-white/48 sm:text-base">
-                    Da arquitetura ao motion, eu penso cada detalhe para que o produto
-                    funcione bem, comunique valor e impressione pela execu&#231;&#227;o.
+                    Gosto de unir código, direção visual e senso de produto para entregar páginas que funcionam,
+                    comunicam bem e passam confiança desde o primeiro contato.
                   </p>
                 </motion.div>
 
@@ -311,7 +493,7 @@ function JourneyHorizontalSection() {
                     key="lanyard-trigger"
                     type="button"
                     onClick={() => setIsLanyardRequested(true)}
-                    className="pointer-events-auto relative z-20 inline-flex cursor-pointer items-center justify-center rounded-full border border-white/12 bg-white/[0.06] px-6 py-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/72 shadow-[0_22px_90px_rgba(0,0,0,0.42)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#A7EF9E]/45 hover:bg-white/[0.11] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                    className="pointer-events-auto relative z-20 inline-flex cursor-pointer items-center justify-center rounded-full border border-white/12 bg-white/[0.06] px-6 py-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/72 shadow-[0_22px_90px_rgba(0,0,0,0.42),0_0_48px_rgba(249,115,22,0.18)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#F97316]/55 hover:bg-white/[0.11] hover:text-white hover:shadow-[0_22px_90px_rgba(0,0,0,0.42),0_0_68px_rgba(249,115,22,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]/65"
                     initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
@@ -1095,6 +1277,12 @@ export default function PortfolioLandingPage() {
 
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
+          <div className="absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 sm:left-8 sm:top-8">
+            Meu portfólio
+          </div>
+          <div className="absolute right-6 top-6 z-10 text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8">
+            Recife, Brasil
+          </div>
         </div>
 
         <div className="absolute inset-x-4 bottom-5 h-40 bg-[linear-gradient(180deg,_rgba(5,5,5,0)_0%,_rgba(5,5,5,0.82)_100%)] sm:inset-x-6 sm:bottom-6 lg:inset-x-10 lg:bottom-8" />
@@ -1113,51 +1301,13 @@ export default function PortfolioLandingPage() {
                 filter: heroTextExitBlur,
                 willChange: "transform, opacity, filter",
               }}
-              className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+              className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center"
             >
-            <h1
-              aria-label="Joao Pedro"
-              className="max-w-2xl text-6xl font-black uppercase leading-[1.02] tracking-[-0.08em] text-white sm:text-7xl lg:-translate-x-24 lg:-translate-y-28 lg:text-[8.5rem] lg:leading-[0.98] xl:-translate-x-32"
-            >
-              <SplitText
-                text={"J O Ã O\nP E D R O"}
-                tag="span"
-                splitType="chars"
-                delay={34}
-                duration={1.05}
-                from={{ opacity: 0, y: 54, filter: "blur(12px)" }}
-                to={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                threshold={0.1}
-                rootMargin="-80px"
-                textAlign="left"
-                className="block [&>span:first-child]:-translate-x-10 [&>span:last-child]:translate-x-3 sm:[&>span:first-child]:-translate-x-16 sm:[&>span:last-child]:translate-x-6"
-              />
-            </h1>
-            <div className="flex w-full max-w-2xl flex-col items-center text-center lg:translate-x-12 lg:translate-y-16 lg:justify-self-end xl:translate-x-20 2xl:translate-x-28">
-              <ShinyText
-                as="p"
-                speed="3s"
-                className="text-sm font-medium uppercase tracking-[0.34em] sm:text-base lg:text-lg"
-              >
-                Full Stack Developer
-                <br />
-                focused on Front-end
-              </ShinyText>
-              <div className="mt-6 flex w-full items-start justify-center overflow-visible">
-              <TextType
-                as="p"
-                text="Desenvolvo experiências digitais com foco em interfaces de alto impacto, animações refinadas e execução visual de alta qualidade."
-                typingSpeed={34}
-                initialDelay={900}
-                loop={false}
-                showCursor
-                cursorCharacter="_"
-                startOnVisible
-                reserveSpace
-                className="relative block min-h-48 w-full max-w-2xl text-lg leading-9 text-white/86 sm:min-h-44 sm:text-xl lg:min-h-40 lg:text-2xl lg:leading-10"
-                cursorClassName="text-[#A7EF9E]/80"
-              />
-              </div>
+            <div className="flex justify-center lg:-translate-x-24 xl:-translate-x-36">
+              <HeroIntroCopy />
+            </div>
+            <div className="flex justify-center lg:translate-x-24 lg:justify-self-end xl:translate-x-36 2xl:translate-x-44">
+              <HeroDescriptionCard />
             </div>
           </motion.div>
           </motion.div>
@@ -1360,7 +1510,7 @@ export default function PortfolioLandingPage() {
         </motion.div>
       </section>
 
-      <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} endBlend />
+      <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} centerVisual={<HeroEchoVisual />} endBlend />
 
       <JourneyHorizontalSection />
       <ExperienceStackSection />

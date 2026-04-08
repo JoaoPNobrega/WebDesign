@@ -9,7 +9,7 @@ import {
 	useSpring,
 	useTransform,
 } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 export interface ZoomMediaAsset {
 	type?: 'image' | 'video';
@@ -23,6 +23,8 @@ export interface ZoomMediaAsset {
 interface ZoomParallaxProps {
 	/** Array of images to be displayed in the parallax effect max 7 images */
 	images: ZoomMediaAsset[];
+	/** Optional visual replacement for the central media. */
+	centerVisual?: ReactNode;
 	/** How many "scroll units" (pixels of wheel delta) needed to go from 0 to 1 (default 3000) */
 	scrollBudget?: number;
 	/** Intersection ratio that locks the section into place (default 0.9) */
@@ -88,6 +90,7 @@ function ZoomMedia({
 
 export function ZoomParallax({
 	images,
+	centerVisual,
 	scrollBudget = 3000,
 	lockThreshold = 0.9,
 	endBlend = false,
@@ -185,7 +188,7 @@ export function ZoomParallax({
 								className={`absolute top-0 flex h-full w-full transform-gpu items-center justify-center [backface-visibility:hidden] [will-change:transform] ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
 							>
 								<div className="relative h-[25vh] w-[25vw] transform-gpu [backface-visibility:hidden]">
-									<ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />
+									{index === 0 && centerVisual ? centerVisual : <ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />}
 								</div>
 							</motion.div>
 						);

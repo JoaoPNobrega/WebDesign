@@ -1,4 +1,14 @@
-import { type ElementType, type HTMLAttributes, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  type ElementType,
+  type HTMLAttributes,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useReducedMotion } from "framer-motion";
 
 interface TextTypeProps extends HTMLAttributes<HTMLElement> {
@@ -11,9 +21,14 @@ interface TextTypeProps extends HTMLAttributes<HTMLElement> {
   loop?: boolean;
   showCursor?: boolean;
   hideCursorWhileTyping?: boolean;
-  cursorCharacter?: string;
+  cursorCharacter?: ReactNode;
+  cursorBlinkDuration?: number;
   cursorClassName?: string;
+  textColors?: string[];
+  variableSpeed?: { min: number; max: number };
+  onSentenceComplete?: (sentence: string, index: number) => void;
   startOnVisible?: boolean;
+  reverseMode?: boolean;
   reserveSpace?: boolean;
 }
 
@@ -29,8 +44,13 @@ export default function TextType({
   showCursor = true,
   hideCursorWhileTyping = false,
   cursorCharacter = "|",
+  cursorBlinkDuration = 0.5,
   cursorClassName = "",
+  textColors = [],
+  variableSpeed,
+  onSentenceComplete,
   startOnVisible = false,
+  reverseMode = false,
   reserveSpace = false,
   ...props
 }: TextTypeProps) {
@@ -43,6 +63,12 @@ export default function TextType({
   const containerRef = useRef<HTMLElement | null>(null);
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
   const currentText = textArray[currentTextIndex] ?? "";
+  const processedText = reverseMode ? currentText.split("").reverse().join("") : currentText;
+
+  const getTypingDelay = useCallback(() => {
+    if (!variableSpeed) return typingSpeed;
+    return Math.random() * (variableSpeed.max - variableSpeed.min) + variableSpeed.min;
+  }, [typingSpeed, variableSpeed]);
 
   useEffect(() => {
     if (!startOnVisible || !containerRef.current) return;
@@ -79,6 +105,7 @@ export default function TextType({
           return;
         }
 
+        onSentenceComplete?.(textArray[currentTextIndex] ?? "", currentTextIndex);
         setCurrentTextIndex((current) => (current + 1) % textArray.length);
         setCurrentCharIndex(0);
         return;
@@ -87,15 +114,15 @@ export default function TextType({
       timeout = setTimeout(() => {
         setDisplayedText((current) => current.slice(0, -1));
       }, deletingSpeed);
-    } else if (currentCharIndex < currentText.length) {
+    } else if (currentCharIndex < processedText.length) {
       timeout = setTimeout(
         () => {
-          setDisplayedText((current) => current + currentText[currentCharIndex]);
+          setDisplayedText((current) => current + processedText[currentCharIndex]);
           setCurrentCharIndex((current) => current + 1);
         },
-        currentCharIndex === 0 && displayedText === "" ? initialDelay : typingSpeed,
+        currentCharIndex === 0 && displayedText === "" ? initialDelay : getTypingDelay(),
       );
-    } else if (loop && textArray.length > 1) {
+    } else if (loop && textArray.length >= 1) {
       timeout = setTimeout(() => {
         setIsDeleting(true);
       }, pauseDuration);
@@ -108,20 +135,33 @@ export default function TextType({
     currentTextIndex,
     deletingSpeed,
     displayedText,
+    getTypingDelay,
     initialDelay,
     isDeleting,
     isVisible,
     loop,
+    onSentenceComplete,
     pauseDuration,
+    processedText,
     shouldReduceMotion,
     textArray,
-    typingSpeed,
   ]);
 
-  const shouldHideCursor = hideCursorWhileTyping && currentCharIndex < currentText.length && !isDeleting;
+  const shouldHideCursor = hideCursorWhileTyping && (currentCharIndex < processedText.length || isDeleting);
+  const cursorStyle = { "--text-type-cursor-speed": `${cursorBlinkDuration}s` } as CSSProperties;
+  const currentTextColor = textColors.length > 0 ? textColors[currentTextIndex % textColors.length] : undefined;
+  const cursorElement =
+    showCursor && !shouldReduceMotion ? (
+      <span
+        className={`ml-1 inline-block animate-[text-type-cursor-blink_var(--text-type-cursor-speed)_ease-in-out_infinite] opacity-100 ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}
+        style={cursorStyle}
+      >
+        {cursorCharacter}
+      </span>
+    ) : null;
 
   return (
-    <Component ref={containerRef} className={`whitespace-pre-wrap ${className}`} {...props}>
+    <Component ref={containerRef} className={`inline-block whitespace-pre-wrap tracking-tight ${className}`} {...props}>
       {reserveSpace ? (
         <>
           <span aria-hidden="true" className="invisible block">
@@ -129,22 +169,14 @@ export default function TextType({
             {showCursor ? cursorCharacter : ""}
           </span>
           <span className="absolute inset-0 block">
-            <span>{displayedText}</span>
-            {showCursor && !shouldReduceMotion ? (
-              <span className={`ml-1 inline-block animate-pulse ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}>
-                {cursorCharacter}
-              </span>
-            ) : null}
+            <span style={{ color: currentTextColor }}>{displayedText}</span>
+            {cursorElement}
           </span>
         </>
       ) : (
         <>
-          <span>{displayedText}</span>
-          {showCursor && !shouldReduceMotion ? (
-            <span className={`ml-1 inline-block animate-pulse ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}>
-              {cursorCharacter}
-            </span>
-          ) : null}
+          <span style={{ color: currentTextColor }}>{displayedText}</span>
+          {cursorElement}
         </>
       )}
     </Component>
