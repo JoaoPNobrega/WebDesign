@@ -1,0 +1,93 @@
+/* Indicador "scroll" — mouse + chevrons.
+   Convertido de um snippet styled-components para CSS escopado. */
+
+.sd-scroll {
+  --sd-color: rgba(255, 255, 255, 0.55);
+  --sd-x: 30px;
+  --sd-y: 50px;
+  position: relative;
+  width: var(--sd-x);
+  height: var(--sd-y);
+  border: calc(var(--sd-x) / 10) solid var(--sd-color);
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+
+.sd-scroll::before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background-color: var(--sd-color);
+  border-radius: 100%;
+  box-sizing: border-box;
+  animation: sd-scroll-anim 2s infinite;
+}
+
+@keyframes sd-scroll-anim {
+  0% {
+    opacity: 0;
+    height: 6px;
+  }
+  40% {
+    opacity: 1;
+    height: 10px;
+  }
+  80% {
+    transform: translate(0, 20px);
+    height: 10px;
+    opacity: 0;
+  }
+  100% {
+    height: 3px;
+    opacity: 0;
+  }
+}
+
+.sd-chevrons {
+  padding: 6px 0 0 0;
+  margin-left: -3px;
+  margin-top: 48px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sd-chevron {
+  margin-top: -6px;
+  position: relative;
+  border: solid var(--sd-color);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+.sd-chevron:nth-child(odd) {
+  animation: sd-pulse 500ms ease infinite alternate;
+}
+
+.sd-chevron:nth-child(even) {
+  animation: sd-pulse 500ms ease infinite alternate 250ms;
+}
+
+@keyframes sd-pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-scroll::before,
+  .sd-chevron {
+    animation: none;
+  }
+}

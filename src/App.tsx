@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
+import PortfolioLandingPageMobile from "@/pages/PortfolioLandingPageMobile";
 import IntroLogo from "@/components/IntroLogo";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { LanguageProvider } from "@/lib/i18n";
 
 function getCurrentPath() {
@@ -15,6 +17,7 @@ function getCurrentPath() {
 const INTRO_SEEN_KEY = "jp-intro-seen";
 
 export default function App() {
+  const isMobile = useIsMobile();
   const [pathname, setPathname] = useState(getCurrentPath);
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === "undefined") {
@@ -68,7 +71,7 @@ export default function App() {
   return (
     <LanguageProvider>
       <main className="app-shell overflow-visible">
-        <PortfolioLandingPage />
+        {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage />}
       </main>
       {showIntro ? <IntroLogo onDone={handleIntroDone} /> : null}
     </LanguageProvider>

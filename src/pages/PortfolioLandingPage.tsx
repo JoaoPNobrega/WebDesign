@@ -1,13 +1,13 @@
 import { type SVGProps, useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
-import { Mail } from "lucide-react";
+import { ExternalLink, Mail } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
 import SkillsSection from "@/components/SkillsSection";
 import BlurText from "@/components/ui/BlurText";
 import CvButton from "@/components/ui/CvButton";
 import CvModal from "@/components/ui/CvModal";
-import ProjectDetailModal from "@/components/ui/ProjectDetailModal";
+import ScrollDownIndicator from "@/components/ui/ScrollDownIndicator";
 import GlassSurface from "@/components/ui/GlassSurface";
 import ShinyText from "@/components/ui/ShinyText";
 import TextType from "@/components/ui/TextType";
@@ -23,6 +23,10 @@ const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
 const GITHUB_URL = "https://github.com/JoaoPNobrega";
 const CV_PDF_URL = "/curriculo-joao-pedro.pdf";
 const CV_DOWNLOAD_NAME = "Curriculo_Joao_Pedro.pdf";
+const PARTNER_URLS: Record<string, string> = {
+  "Web Star Studio": "https://www.webstar.studio/",
+  "CESAR School": "https://www.cesar.school/",
+};
 
 function HeroIntroCopy({ onOpenCv }: { onOpenCv?: () => void }) {
   const { lang, tx } = useLang();
@@ -406,8 +410,9 @@ function DestructionStackSection() {
   );
 }
 
-const workHistory: { role: LocalizedText; company: LocalizedText; period: LocalizedText; description: LocalizedText }[] = [
+const workHistory: { role: LocalizedText; company: LocalizedText; period: LocalizedText; description: LocalizedText; isCurrent: boolean }[] = [
   {
+    isCurrent: true,
     role: { "pt-BR": "Desenvolvedor full stack", "en-US": "Full stack developer" },
     company: { "pt-BR": "Web Star Studio · Estágio", "en-US": "Web Star Studio · Internship" },
     period: { "pt-BR": "Fevereiro 2026 — Hoje", "en-US": "February 2026 — Present" },
@@ -417,6 +422,7 @@ const workHistory: { role: LocalizedText; company: LocalizedText; period: Locali
     },
   },
   {
+    isCurrent: true,
     role: { "pt-BR": "Desenvolvedor web freelancer", "en-US": "Freelance web developer" },
     company: { "pt-BR": "Autônomo", "en-US": "Self-employed" },
     period: { "pt-BR": "Abril 2026 — Hoje", "en-US": "April 2026 — Present" },
@@ -426,6 +432,7 @@ const workHistory: { role: LocalizedText; company: LocalizedText; period: Locali
     },
   },
   {
+    isCurrent: false,
     role: { "pt-BR": "Desenvolvedor de software", "en-US": "Software developer" },
     company: { "pt-BR": "AJ Soluções & Sistemas · Estágio", "en-US": "AJ Soluções & Sistemas · Internship" },
     period: { "pt-BR": "Setembro — Dezembro 2025", "en-US": "September — December 2025" },
@@ -436,82 +443,172 @@ const workHistory: { role: LocalizedText; company: LocalizedText; period: Locali
   },
 ];
 
+function LivePulse({ reduce }: { reduce: boolean }) {
+  return (
+    <span className="relative inline-flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+      {!reduce ? (
+        <motion.span
+          className="absolute inset-0 rounded-full bg-[#A7EF9E]"
+          animate={{ scale: [1, 2.4, 1], opacity: [0.55, 0, 0.55] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : null}
+      <span className="relative h-1.5 w-1.5 rounded-full bg-[#A7EF9E] shadow-[0_0_8px_rgba(167,239,158,0.75)]" />
+    </span>
+  );
+}
+
+function ExperienceCard({
+  item,
+  current,
+  index,
+}: {
+  item: (typeof workHistory)[number];
+  current: boolean;
+  index: number;
+}) {
+  const { tx } = useLang();
+  const reduce = useReducedMotion() ?? false;
+
+  return (
+    <motion.div
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
+      className="[perspective:1000px]"
+    >
+      <article
+        className={`group relative h-full overflow-hidden rounded-[8px] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(-1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10 ${
+          current ? "bg-white/[0.055]" : "bg-white/[0.028]"
+        }`}
+      >
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 opacity-80 transition duration-300 group-hover:opacity-100 ${
+            current
+              ? "bg-[radial-gradient(circle_at_18%_12%,rgba(167,239,158,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.035)_38%,rgba(255,255,255,0.015))]"
+              : "bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)_42%,transparent)]"
+          }`}
+        />
+        {current ? (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#A7EF9E]/18 blur-3xl transition duration-500 group-hover:-translate-x-7 group-hover:translate-y-8"
+          />
+        ) : null}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-10 h-px w-36 bg-gradient-to-r from-transparent via-white/26 to-transparent transition duration-500 group-hover:translate-x-12 group-hover:opacity-80"
+        />
+
+        <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
+          <p
+            className={`font-mono text-[11px] font-semibold uppercase tracking-[0.3em] ${
+              current ? "text-[#A7EF9E]" : "text-white/45"
+            }`}
+          >
+            {tx(item.company)}
+            <span className="sr-only">, {tx(current ? copy.experience.srLive : copy.experience.srPast)}</span>
+          </p>
+          <p
+            className={`mt-2 font-mono text-xs uppercase tracking-[0.15em] ${
+              current ? "text-white/55" : "text-white/40"
+            }`}
+          >
+            {tx(item.period)}
+          </p>
+          <h3
+            className={`mt-6 leading-tight tracking-[-0.025em] ${
+              current ? "text-2xl text-white sm:text-[1.7rem]" : "text-xl text-white/55 sm:text-[1.4rem]"
+            }`}
+            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+          >
+            {tx(item.role)}
+          </h3>
+          <p
+            className={`mt-3 leading-relaxed ${current ? "text-sm text-white/72" : "text-[0.82rem] text-white/45"}`}
+          >
+            {tx(item.description)}
+          </p>
+        </div>
+      </article>
+    </motion.div>
+  );
+}
+
 function ExperienceTimelineSection() {
   const { tx } = useLang();
+  const reduce = useReducedMotion() ?? false;
+  const currentRoles = workHistory.filter((item) => item.isCurrent);
+  const pastRoles = workHistory.filter((item) => !item.isCurrent);
 
   return (
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="relative overflow-hidden bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
+      className="relative bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-16 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      <div className="pointer-events-none absolute right-8 top-28 h-64 w-64 rounded-full bg-[#A7EF9E]/[0.06] blur-3xl" />
-
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-start lg:gap-16">
+      <div className="mx-auto max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-120px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="lg:sticky lg:top-24"
+          className="mb-14 text-center"
         >
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.48em] text-white/38">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/40">
             {tx(copy.experience.eyebrow)}
           </p>
           <h2
             id="experience-heading"
-            className="max-w-[11ch] text-5xl font-black uppercase leading-[0.88] tracking-[-0.085em] text-white sm:text-7xl lg:text-8xl"
+            className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl"
           >
             {tx(copy.experience.title)}
           </h2>
-          <div className="mt-8 flex items-end gap-4 border-l border-[#A7EF9E]/45 pl-5">
-            <span className="font-mono text-5xl font-semibold leading-none tracking-[-0.05em] text-[#A7EF9E]">
-              03
-            </span>
-            <span className="pb-1 font-mono text-[11px] font-semibold uppercase leading-5 tracking-[0.28em] text-white/42">
-              {tx(copy.experience.eyebrow)}
-            </span>
-          </div>
         </motion.div>
 
-        <div className="relative pl-7 sm:pl-10">
-          <div className="absolute bottom-8 left-[0.34rem] top-2 w-px bg-gradient-to-b from-[#A7EF9E]/75 via-white/18 to-transparent sm:left-[0.58rem]" />
-          <div className="flex flex-col gap-5 sm:gap-6">
-            {workHistory.map((item, index) => (
-              <motion.article
-                key={item.company["pt-BR"]}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-                className="group relative overflow-hidden rounded-[8px] border border-white/[0.09] bg-white/[0.035] p-5 shadow-[0_22px_70px_rgba(0,0,0,0.22)] transition duration-300 hover:border-[#A7EF9E]/35 hover:bg-white/[0.055] sm:p-6 lg:p-7"
-              >
-                <span className="absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b from-[#A7EF9E] via-[#A7EF9E]/45 to-transparent opacity-65 transition group-hover:opacity-100" />
-                <span className="absolute -left-[1.92rem] top-7 h-3.5 w-3.5 rounded-full border-2 border-[#A7EF9E] bg-[#050505] shadow-[0_0_30px_rgba(167,239,158,0.45)] sm:-left-[2.38rem]" />
-                <span className="absolute right-5 top-5 font-mono text-[2.55rem] font-semibold leading-none tracking-[-0.08em] text-white/[0.035] transition group-hover:text-[#A7EF9E]/10 sm:right-6 sm:top-6">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+        {/* Em curso — rótulo centralizado + os 2 papéis em paralelo */}
+        <motion.div
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-8 flex items-center justify-center gap-2.5"
+        >
+          <LivePulse reduce={reduce} />
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
+            {tx(copy.experience.statusLive)}
+          </p>
+        </motion.div>
 
-                <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <p className="max-w-[20rem] font-mono text-[12px] font-semibold uppercase leading-5 tracking-[0.26em] text-[#A7EF9E]/85">
-                    {tx(item.company)}
-                  </p>
-                  <p className="w-fit border border-white/10 bg-black/20 px-3 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">
-                    {tx(item.period)}
-                  </p>
-                </div>
-
-                <h3 className="relative mt-5 max-w-[32rem] text-2xl font-black uppercase leading-[0.96] tracking-[-0.055em] text-white sm:text-[2rem] lg:text-[2.25rem]">
-                  {tx(item.role)}
-                </h3>
-                <p className="relative mt-5 max-w-[35rem] text-base leading-7 text-white/62">
-                  {tx(item.description)}
-                </p>
-              </motion.article>
-            ))}
-          </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {currentRoles.map((item, index) => (
+            <ExperienceCard key={item.company["pt-BR"]} item={item} current index={index} />
+          ))}
         </div>
+
+        {/* Anteriores — card único, menor e mais apagado */}
+        {pastRoles.length > 0 ? (
+          <>
+            <motion.div
+              initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-90px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="mb-8 mt-16 text-center lg:mt-20"
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-white/35">
+                {tx(copy.experience.pastGroup)}
+              </p>
+            </motion.div>
+            <div className="mx-auto max-w-md">
+              {pastRoles.map((item, index) => (
+                <ExperienceCard key={item.company["pt-BR"]} item={item} current={false} index={index} />
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </section>
   );
@@ -796,6 +893,13 @@ export default function PortfolioLandingPage() {
       scroller.removeEventListener("scroll", updateProjectsScrollEdges);
       window.removeEventListener("resize", updateProjectsScrollEdges);
     };
+  }, [isProjectsDropdownOpen, selectedProjectTitle]);
+
+  // Ao fechar o dropdown de Projetos, volta para a lista (limpa o detalhe).
+  useEffect(() => {
+    if (!isProjectsDropdownOpen) {
+      setSelectedProjectTitle(null);
+    }
   }, [isProjectsDropdownOpen]);
 
   const scrollToSection = (sectionId: string) => {
@@ -810,13 +914,15 @@ export default function PortfolioLandingPage() {
   const selectedProjectPartnerLogoClassName =
     selectedProject && "partnerLogoClassName" in selectedProject
       ? selectedProject.partnerLogoClassName
-      : "h-8 w-auto object-contain [filter:brightness(1.28)_contrast(1.25)_drop-shadow(0_0_10px_rgba(255,255,255,0.18))] sm:h-9";
+      : "h-[0.95rem] w-auto object-contain opacity-95 sm:h-4";
+  const selectedProjectPartnerUrl = selectedProjectPartner ? PARTNER_URLS[selectedProjectPartner] : undefined;
   const projectsCarouselMaskImage = `linear-gradient(90deg, ${
     projectsScrollEdges.left ? "transparent 0%, black 7%" : "black 0%, black 7%"
   }, black 93%, ${projectsScrollEdges.right ? "transparent 100%" : "black 100%"})`;
 
   const isHeroContactDropdownOpen = isContactDropdownOpen && !isNavDetached;
   const isHeroProjectsDropdownOpen = isProjectsDropdownOpen && !isNavDetached;
+  const isHeroProjectDetailOpen = isHeroProjectsDropdownOpen && !!selectedProject;
   const notchDepth = 1 - notchProgress;
   const isHeroDropdownOpen = isHeroContactDropdownOpen || isHeroProjectsDropdownOpen;
   const visibleNotchDepth = isHeroDropdownOpen ? 1 : notchDepth;
@@ -830,7 +936,7 @@ export default function PortfolioLandingPage() {
   const notchPath = isHeroProjectsDropdownOpen
     ? `M0 0H6C38 0 62 ${projectNotchY(2)} 82 ${projectNotchY(8)}C101 ${projectNotchY(14)} 114 ${projectNotchY(28)} 126 ${projectNotchY(46)}C138 ${projectNotchY(63)} 154 ${projectNotchY(70)} 178 ${projectNotchY(70)}H282C306 ${projectNotchY(70)} 322 ${projectNotchY(63)} 334 ${projectNotchY(46)}C346 ${projectNotchY(28)} 359 ${projectNotchY(14)} 378 ${projectNotchY(8)}C398 ${projectNotchY(2)} 422 0 454 0H460V0H0Z`
     : `M0 0H92C111 0 123 ${notchY(5)} 131 ${notchY(16)}C140 ${notchY(29)} 145 ${notchY(43)} 148 ${notchY(57)}C152 ${notchY(75)} 164 ${notchY(84)} 182 ${notchY(84)}H278C296 ${notchY(84)} 308 ${notchY(75)} 312 ${notchY(57)}C315 ${notchY(43)} 320 ${notchY(29)} 329 ${notchY(16)}C337 ${notchY(5)} 349 0 368 0H460V0H0Z`;
-  const notchVisualHeight = isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "5rem";
+  const notchVisualHeight = isHeroProjectDetailOpen ? "28rem" : isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "5rem";
   const notchVisualWidth = isHeroProjectsDropdownOpen ? "142vw" : isHeroContactDropdownOpen ? "94vw" : "96vw";
   const notchVisualMaxWidth = isHeroProjectsDropdownOpen ? "112rem" : isHeroContactDropdownOpen ? "52rem" : "58rem";
   const navExitProgress = Math.min(Math.max((notchProgress - 0.04) / 0.42, 0), 1);
@@ -1027,52 +1133,155 @@ export default function PortfolioLandingPage() {
                   style={{ maxWidth: isNavDetached ? "82vw" : undefined }}
                   className="overflow-hidden"
                 >
-                  <div
-                    ref={projectsScrollerRef}
-                    className={`w-[min(82vw,40rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-                      isHeroProjectsDropdownOpen ? "mt-2" : "mt-2 border-t border-white/10"
-                    }`}
-                    style={{
-                      WebkitMaskImage: projectsCarouselMaskImage,
-                      maskImage: projectsCarouselMaskImage,
-                    }}
-                  >
-                    <div className="flex w-max gap-2.5 pr-2">
-                      {navProjectItems.map((item, index) => (
-                        <motion.article
-                          key={item.title}
-                          initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.96, y: -8 }}
-                          transition={{ duration: 0.34, delay: index * 0.045, ease: "easeOut" }}
-                          className="group relative w-[calc((min(82vw,40rem)-0.625rem)/2)] flex-none overflow-hidden rounded-[1.15rem] border border-white/10 bg-white/[0.045] p-2 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:border-white/20 hover:bg-white/[0.075]"
+                  <AnimatePresence mode="wait" initial={false}>
+                    {selectedProject ? (
+                      <motion.div
+                        key="project-detail"
+                        initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
+                        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-[min(86vw,44rem)] pt-3"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProjectTitle(null)}
+                          className="mb-3 inline-flex items-center gap-1.5 rounded-full px-1 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50"
                         >
-                          <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
+                          <span aria-hidden="true">&#8592;</span>
+                          {tx(copy.nav.projects)}
+                        </button>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-[14rem_minmax(0,1fr)] sm:items-stretch">
+                          <div className="overflow-hidden rounded-[1rem] bg-white/[0.04]">
                             <img
-                              src={item.image}
-                              alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
-                              className={`h-full w-full object-cover transition duration-500 ${
-                                "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
-                              }`}
+                              src={selectedProject.image}
+                              alt={`${tx(copy.projects.previewAlt)} ${selectedProject.title}`}
+                              className="h-40 w-full object-cover object-center sm:h-full sm:min-h-[12.5rem]"
                               loading="lazy"
                             />
                           </div>
-                          <div className="mt-2.5 flex items-center justify-between gap-3">
-                            <h3 className="min-w-0 truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
-                              {item.title}
-                            </h3>
-                            <button
-                              type="button"
-                              onClick={() => setSelectedProjectTitle(item.title)}
-                              className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                          <div className="flex min-w-0 flex-col text-left">
+                            <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]/80">
+                              {tx(copy.projects.selected)}
+                            </p>
+                            <div className="mt-2 flex flex-wrap items-center gap-2.5">
+                              <h3 className="text-xl font-black uppercase leading-[0.95] tracking-[-0.055em] text-white sm:text-[1.65rem]">
+                                {selectedProject.title}
+                              </h3>
+                              {selectedProjectPartner ? (
+                                selectedProjectPartnerUrl ? (
+                                  <a
+                                    href={selectedProjectPartnerUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    title={`${tx(copy.projects.partnership)} ${selectedProjectPartner}`}
+                                    className="group/partner inline-flex h-7 cursor-pointer items-center gap-2 rounded-full bg-white/[0.04] pl-2.5 pr-3 ring-1 ring-white/10 transition hover:bg-white/[0.08] hover:ring-[#A7EF9E]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                                  >
+                                    <span className="font-mono text-[0.52rem] font-semibold uppercase tracking-[0.18em] text-white/35 transition group-hover/partner:text-[#A7EF9E]/80">
+                                      {tx(copy.projects.partnership)}
+                                    </span>
+                                    <img
+                                      src={selectedProjectPartnerLogo}
+                                      alt={selectedProjectPartner}
+                                      className={selectedProjectPartnerLogoClassName}
+                                      loading="lazy"
+                                    />
+                                  </a>
+                                ) : (
+                                  <span
+                                    className="inline-flex h-7 items-center gap-2 rounded-full bg-white/[0.04] pl-2.5 pr-3 ring-1 ring-white/10"
+                                    title={`${tx(copy.projects.partnership)} ${selectedProjectPartner}`}
+                                  >
+                                    <span className="font-mono text-[0.52rem] font-semibold uppercase tracking-[0.18em] text-white/35">
+                                      {tx(copy.projects.partnership)}
+                                    </span>
+                                    <img
+                                      src={selectedProjectPartnerLogo}
+                                      alt={selectedProjectPartner}
+                                      className={selectedProjectPartnerLogoClassName}
+                                      loading="lazy"
+                                    />
+                                  </span>
+                                )
+                              ) : null}
+                            </div>
+                            <p className="mt-2.5 text-[0.82rem] leading-6 text-white/55">
+                              {tx(selectedProject.description)}
+                            </p>
+                            <a
+                              href={selectedProjectHref}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="mt-4 inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-white px-5 text-[0.66rem] font-black uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:bg-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 sm:mt-auto"
                             >
-                              {tx(copy.nav.view)}
-                            </button>
+                              {selectedProjectCtaLabel === "GitHub" ? (
+                                <GithubMark className="h-3.5 w-3.5" aria-hidden="true" />
+                              ) : (
+                                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                              )}
+                              {selectedProjectCtaLabel}
+                            </a>
                           </div>
-                        </motion.article>
-                      ))}
-                    </div>
-                  </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="project-carousel"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      >
+                        <div
+                          ref={projectsScrollerRef}
+                          className="mt-2 w-[min(82vw,40rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                          style={{
+                            WebkitMaskImage: projectsCarouselMaskImage,
+                            maskImage: projectsCarouselMaskImage,
+                          }}
+                        >
+                          <div className="flex w-max gap-2.5 pr-2">
+                            {navProjectItems.map((item, index) => (
+                              <motion.article
+                                key={item.title}
+                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.96, y: -8 }}
+                                transition={{ duration: 0.34, delay: index * 0.045, ease: "easeOut" }}
+                                className="group relative w-[calc((min(82vw,40rem)-0.625rem)/2)] flex-none overflow-hidden rounded-[1.15rem] bg-white/[0.04] p-2 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.07]"
+                              >
+                                <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
+                                  <img
+                                    src={item.image}
+                                    alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
+                                    className={`h-full w-full object-cover transition duration-500 ${
+                                      "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
+                                    }`}
+                                    loading="lazy"
+                                  />
+                                </div>
+                                <div className="mt-2.5 flex items-center justify-between gap-3">
+                                  <h3 className="min-w-0 truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
+                                    {item.title}
+                                  </h3>
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedProjectTitle(item.title)}
+                                    className="shrink-0 rounded-full bg-white/[0.07] px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                                  >
+                                    {tx(copy.nav.view)}
+                                  </button>
+                                </div>
+                              </motion.article>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="mt-4 flex justify-center pb-1">
+                          <ScrollDownIndicator />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ) : null}
 
@@ -1151,6 +1360,19 @@ export default function PortfolioLandingPage() {
               maskImage: heroImageMask,
             }}
           />
+          <motion.img
+            aria-hidden="true"
+            initial={{ scale: 1.06, opacity: 0 }}
+            animate={{ scale: heroImageScale, opacity: isHeroProjectsDropdownOpen ? 1 : 0 }}
+            transition={{ scale: { duration: 0.18, ease: "linear" }, opacity: { duration: 0.36, ease: "easeOut" } }}
+            src="/portfolio/hero-risk-radar-blur.png"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            style={{
+              WebkitMaskImage: heroImageMask,
+              maskImage: heroImageMask,
+            }}
+          />
 
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
@@ -1180,37 +1402,28 @@ export default function PortfolioLandingPage() {
               }}
               className="w-full"
             >
-              <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+              <motion.div
+                animate={{
+                  filter: isHeroProjectsDropdownOpen ? "blur(10px)" : "blur(0px)",
+                  opacity: isHeroProjectsDropdownOpen ? 0.42 : 1,
+                  y: isHeroProjectsDropdownOpen ? 10 : 0,
+                }}
+                transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center"
+                style={{ pointerEvents: isHeroProjectsDropdownOpen ? "none" : "auto" }}
+              >
                 <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
                   <HeroIntroCopy onOpenCv={() => setIsCvOpen(true)} />
                 </div>
                 <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
                   <HeroDescriptionPanel />
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
         </div>
       </section>
-
-      <AnimatePresence>
-        {selectedProject ? (
-          <ProjectDetailModal
-            key="project-detail"
-            onClose={() => setSelectedProjectTitle(null)}
-            title={selectedProject.title}
-            image={selectedProject.image}
-            description={selectedProject.description}
-            href={selectedProjectHref}
-            ctaLabel={selectedProjectCtaLabel}
-            ctaIsGithub={selectedProjectCtaLabel === "GitHub"}
-            partner={selectedProjectPartner}
-            partnerLogo={selectedProjectPartnerLogo}
-            partnerLogoClassName={selectedProjectPartnerLogoClassName}
-          />
-        ) : null}
-      </AnimatePresence>
 
       <section
         id="projects"

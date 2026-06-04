@@ -55,20 +55,21 @@ export const copy = {
     ),
   },
   skills: {
-    eyebrow: t("Ferramentas & tecnologias", "Tools & technologies"),
-    title: t("Skills", "Skills"),
+    eyebrow: t("// EXPERTISE", "// EXPERTISE"),
+    title: t("Habilidades & Tecnologias", "Skills & Technologies"),
     subtitle: t(
-      "Tecnologias, linguagens e práticas que uso para projetar, construir e entregar.",
-      "Technologies, languages and practices I use to design, build and ship.",
+      "As ferramentas e tecnologias que uso para projetar, construir e entregar produtos web full-stack.",
+      "The tools and technologies I use to design, build and ship full-stack web products.",
     ),
-    hint: t(
-      "Passe o mouse pelos pontos do cérebro para explorar minhas skills.",
-      "Hover the brain's nodes to explore my skills.",
-    ),
+    hint: t("arraste a nuvem para girar", "drag the cloud to spin"),
   },
   experience: {
     eyebrow: t("Mercado de trabalho", "Work experience"),
     title: t("Experiência", "Experience"),
+    statusLive: t("Em curso", "Ongoing"),
+    pastGroup: t("Anteriores", "Previously"),
+    srLive: t("Em andamento atualmente", "Currently ongoing"),
+    srPast: t("Concluído", "Completed"),
   },
   education: {
     eyebrow: t("Formação", "Education"),
