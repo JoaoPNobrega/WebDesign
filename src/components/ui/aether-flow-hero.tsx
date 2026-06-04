@@ -5,6 +5,8 @@ import { useReducedMotion } from "framer-motion";
 
 type AetherFlowHeroProps = {
   className?: string;
+  /** RGB triple (e.g. "0, 199, 167") used for particles + links. Defaults to the purple aether. */
+  colorRgb?: string;
 };
 
 type PointerState = {
@@ -24,7 +26,7 @@ type Particle = {
 
 const cn = (...classes: Array<string | false | null | undefined>) => classes.filter(Boolean).join(" ");
 
-export default function AetherFlowHero({ className }: AetherFlowHeroProps) {
+export default function AetherFlowHero({ className, colorRgb }: AetherFlowHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -35,6 +37,9 @@ export default function AetherFlowHero({ className }: AetherFlowHeroProps) {
     if (!canvas || !context) {
       return;
     }
+
+    const particleColor = colorRgb ? `rgba(${colorRgb}, 0.82)` : "rgba(191, 128, 255, 0.82)";
+    const lineRgb = colorRgb ?? "200, 150, 255";
 
     let animationFrameId = 0;
     let particles: Particle[] = [];
@@ -90,7 +95,7 @@ export default function AetherFlowHero({ className }: AetherFlowHeroProps) {
           directionX: (Math.random() * 0.42 - 0.21) * pixelRatio,
           directionY: (Math.random() * 0.42 - 0.21) * pixelRatio,
           size: size * pixelRatio,
-          color: "rgba(191, 128, 255, 0.82)",
+          color: particleColor,
         });
       }
     };
@@ -123,7 +128,7 @@ export default function AetherFlowHero({ className }: AetherFlowHeroProps) {
             context.strokeStyle =
               pointer.x !== null && mouseDistance < pointer.radius
                 ? `rgba(255, 255, 255, ${opacity * 0.72})`
-                : `rgba(200, 150, 255, ${opacity * 0.38})`;
+                : `rgba(${lineRgb}, ${opacity * 0.38})`;
             context.lineWidth = pixelRatio;
             context.beginPath();
             context.moveTo(particles[a].x, particles[a].y);
@@ -171,7 +176,7 @@ export default function AetherFlowHero({ className }: AetherFlowHeroProps) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseout", handleMouseOut);
     };
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, colorRgb]);
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden bg-[#070707]", className)}>

@@ -56,6 +56,9 @@ const destructionCopy = {
     ctaTitleSecond: "esses problemas?",
     ctaPrimary: "N\u00E3o aguento mais",
     ctaSecondary: "Me contate",
+    footerLink: "Portf\u00F3lio",
+    footerText: "desenvolvido por Jo\u00E3o Pedro. Todos os direitos reservados.",
+    backToTopAria: "Voltar ao topo do portf\u00F3lio",
   },
   "en-US": {
     finalKicker: "Definitive solution",
@@ -65,6 +68,9 @@ const destructionCopy = {
     ctaTitleSecond: "these problems?",
     ctaPrimary: "I am done with this",
     ctaSecondary: "Hire me",
+    footerLink: "Portfolio",
+    footerText: "developed by Jo\u00E3o Pedro. All rights reserved.",
+    backToTopAria: "Back to top of portfolio",
   },
 } as const;
 
@@ -417,11 +423,11 @@ export default function DestructionSection({
               type="button"
               onClick={scrollToPortfolioTop}
               className="pointer-events-auto cursor-pointer uppercase text-white/16 transition hover:text-white/34 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
-              aria-label="Voltar ao topo do portf&#243;lio"
+              aria-label={copy.backToTopAria}
             >
-              Portf&#243;lio
+              {copy.footerLink}
             </button>{" "}
-            desenvolvido por Jo&#227;o Pedro. Todos os direitos reservados.
+            {copy.footerText}
           </motion.p>
         )}
       </AnimatePresence>

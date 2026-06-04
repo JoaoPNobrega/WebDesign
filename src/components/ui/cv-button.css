@@ -1,0 +1,105 @@
+/* CV "docs → download" button.
+   Adapted from Uiverse (barisdogansutcu / little-penguin-13, MIT),
+   re-themed to the portfolio's black + mint (#A7EF9E) palette. */
+
+.cv-download-button {
+  position: relative;
+  border-width: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 999px;
+  z-index: 1;
+  font-family: inherit;
+}
+
+.cv-download-button .cv-docs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  z-index: 1;
+  background-color: #0b0b0d;
+  border: solid 1px rgba(255, 255, 255, 0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.cv-download-button .cv-docs svg {
+  color: #a7ef9e;
+}
+
+.cv-download-button:hover .cv-docs {
+  border-color: rgba(167, 239, 158, 0.5);
+}
+
+.cv-download-button:hover {
+  box-shadow:
+    rgba(0, 0, 0, 0.35) 0px 30px 45px,
+    rgba(167, 239, 158, 0.1) 0px 8px 30px;
+}
+
+.cv-download-button .cv-download {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 84%;
+  margin: 0 auto;
+  z-index: -1;
+  border-radius: 999px;
+  color: #062c14;
+  transform: translateY(0%);
+  background-color: #a7ef9e;
+  border: solid 1px rgba(167, 239, 158, 0.6);
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.cv-download-button:hover .cv-download {
+  transform: translateY(118%);
+}
+
+.cv-download svg polyline,
+.cv-download svg line {
+  animation: cv-docs-bounce 1s infinite;
+}
+
+@keyframes cv-docs-bounce {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(-15%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.cv-download-button:focus-visible {
+  outline: none;
+}
+
+.cv-download-button:focus-visible .cv-docs {
+  border-color: rgba(167, 239, 158, 0.7);
+  box-shadow: 0 0 0 3px rgba(167, 239, 158, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-download-button .cv-docs,
+  .cv-download-button .cv-download {
+    transition: none;
+  }
+  .cv-download svg polyline,
+  .cv-download svg line {
+    animation: none;
+  }
+}

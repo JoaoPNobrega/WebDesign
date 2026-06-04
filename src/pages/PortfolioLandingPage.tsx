@@ -1,47 +1,19 @@
-import { Suspense, lazy, type SVGProps, useEffect, useRef, useState } from "react";
+import { type SVGProps, useEffect, useRef, useState } from "react";
 
-import { AnimatePresence, LayoutGroup, animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ExternalLink, Mail, X } from "lucide-react";
+import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
+import { Mail } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
+import SkillsSection from "@/components/SkillsSection";
+import BlurText from "@/components/ui/BlurText";
+import CvButton from "@/components/ui/CvButton";
+import CvModal from "@/components/ui/CvModal";
+import ProjectDetailModal from "@/components/ui/ProjectDetailModal";
 import GlassSurface from "@/components/ui/GlassSurface";
-import OrbitingSkills from "@/components/ui/orbiting-skills";
 import ShinyText from "@/components/ui/ShinyText";
 import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
-
-const Lanyard = lazy(() => import("@/components/Lanyard"));
-const PROFILE_PANEL_VIEWBOX_WIDTH = 1000;
-const PROFILE_PANEL_VIEWBOX_HEIGHT = 680;
-
-const lerp = (from: number, to: number, progress: number) => from + (to - from) * progress;
-const roundPathValue = (value: number) => Number(value.toFixed(2));
-
-function buildRoundedRectPath(
-  width: number,
-  height: number,
-  insetX: number,
-  insetY: number,
-  radius: number,
-) {
-  const left = insetX;
-  const top = insetY;
-  const right = width - insetX;
-  const bottom = height - insetY;
-  const r = Math.min(radius, (right - left) / 2, (bottom - top) / 2);
-
-  return [
-    `M${roundPathValue(left + r)} ${roundPathValue(top)}`,
-    `H${roundPathValue(right - r)}`,
-    `C${roundPathValue(right - r * 0.42)} ${roundPathValue(top)} ${roundPathValue(right)} ${roundPathValue(top + r * 0.42)} ${roundPathValue(right)} ${roundPathValue(top + r)}`,
-    `V${roundPathValue(bottom - r)}`,
-    `C${roundPathValue(right)} ${roundPathValue(bottom - r * 0.42)} ${roundPathValue(right - r * 0.42)} ${roundPathValue(bottom)} ${roundPathValue(right - r)} ${roundPathValue(bottom)}`,
-    `H${roundPathValue(left + r)}`,
-    `C${roundPathValue(left + r * 0.42)} ${roundPathValue(bottom)} ${roundPathValue(left)} ${roundPathValue(bottom - r * 0.42)} ${roundPathValue(left)} ${roundPathValue(bottom - r)}`,
-    `V${roundPathValue(top + r)}`,
-    `C${roundPathValue(left)} ${roundPathValue(top + r * 0.42)} ${roundPathValue(left + r * 0.42)} ${roundPathValue(top)} ${roundPathValue(left + r)} ${roundPathValue(top)}`,
-    "Z",
-  ].join("");
-}
+import { useLang, type LocalizedText } from "@/lib/i18n";
+import { copy } from "@/lib/portfolio-copy";
 
 const HERO_MORPH_SCROLL_DISTANCE = 860;
 const FLOATING_NAV_SCROLL_OFFSET = 360;
@@ -49,20 +21,23 @@ const FLOATING_NAV_SCROLL_THRESHOLD = HERO_MORPH_SCROLL_DISTANCE + FLOATING_NAV_
 const HERO_TEXT_EXIT_SCROLL_DELAY = 260;
 const HERO_TEXT_EXIT_SCROLL_DISTANCE = 420;
 const GITHUB_URL = "https://github.com/JoaoPNobrega";
-const HERO_INTRO_TEXT = "Olá, me chamo João Pedro";
-const HERO_PANEL_EYEBROW = "Ciência da Computação + software";
-const HERO_PANEL_TITLE = "Software Developer";
-const HERO_PANEL_BODY =
-  "Sou estudante de Ciência da Computação na CESAR School e hoje atuo no desenvolvimento e manutenção de sites. Meu foco está em front-end, responsividade e em transformar identidade visual em páginas claras, funcionais e bem acabadas.";
+const CV_PDF_URL = "/curriculo-joao-pedro.pdf";
+const CV_DOWNLOAD_NAME = "Curriculo_Joao_Pedro.pdf";
 
-function HeroIntroCopy() {
+function HeroIntroCopy({ onOpenCv }: { onOpenCv?: () => void }) {
+  const { lang, tx } = useLang();
   const [hasTypedRole, setHasTypedRole] = useState(false);
+
+  useEffect(() => {
+    setHasTypedRole(false);
+  }, [lang]);
 
   return (
     <div className="flex w-full max-w-2xl flex-col items-center text-center">
         <TextType
+          key={`intro-${lang}`}
           as="p"
-          text={HERO_INTRO_TEXT}
+          text={tx(copy.hero.intro)}
         typingSpeed={78}
         initialDelay={760}
         variableSpeed={{ min: 62, max: 118 }}
@@ -83,8 +58,9 @@ function HeroIntroCopy() {
         className="relative mt-6 min-h-16 w-full text-center text-sm font-medium uppercase tracking-[0.24em] text-white/60 sm:text-base lg:min-h-24 lg:text-lg"
       >
         <TextType
+          key={`role-${lang}`}
           as="p"
-          text="e eu sou Software Developer"
+          text={tx(copy.hero.roleTyped)}
           typingSpeed={54}
           initialDelay={0}
           variableSpeed={{ min: 42, max: 84 }}
@@ -111,32 +87,45 @@ function HeroIntroCopy() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="pointer-events-none absolute inset-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
         >
-          <span>e eu sou</span>
+          <span>{tx(copy.hero.rolePrefix)}</span>
           <ShinyText
             as="span"
             speed="2.05s"
             className="hero-role-shiny whitespace-nowrap text-2xl font-black tracking-[0.13em] drop-shadow-[0_0_34px_rgba(255,255,255,0.42)] sm:text-4xl lg:text-5xl"
           >
-            Software Developer
+            {tx(copy.hero.roleTitle)}
           </ShinyText>
         </motion.p>
       </motion.div>
+
+      {onOpenCv ? (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 4.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-28 flex w-full translate-y-8 justify-center sm:mt-32 lg:mt-36"
+        >
+          <CvButton label={tx(copy.hero.resumeCta)} onClick={onOpenCv} />
+        </motion.div>
+      ) : null}
     </div>
   );
 }
 
 function HeroDescriptionPanel() {
+  const { tx } = useLang();
+
   return (
     <div className="flex w-full max-w-[32rem] flex-col items-start text-left">
       <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.3em] text-white/48">
-        {HERO_PANEL_EYEBROW}
+        {tx(copy.hero.eyebrow)}
       </span>
       <div className="mt-5 h-px w-24 bg-white/16" />
       <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.92] tracking-[-0.085em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.9rem]">
-        {HERO_PANEL_TITLE}
+        {tx(copy.hero.panelTitle)}
       </h2>
       <p className="mt-6 max-w-[29rem] text-lg leading-8 text-white/72 sm:text-xl sm:leading-9 lg:text-[1.12rem] lg:leading-9">
-        {HERO_PANEL_BODY}
+        {tx(copy.hero.panelBody)}
       </p>
     </div>
   );
@@ -169,19 +158,28 @@ const navProjectItems = [
     title: "Dr Guilherme Maia",
     image: "/assets/dr-guilherme-preview.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: "Site desenvolvido para o urologista Dr. Guilherme Maia durante meu estágio na Web Star Studio. Uma landing page médica com foco em storytelling, atendimento ao público e simplicidade, fortalecendo a autoridade profissional.",
+    description: {
+      "pt-BR": "Site desenvolvido para o urologista Dr. Guilherme Maia durante meu estágio na Web Star Studio. Uma landing page médica com foco em storytelling, atendimento ao público e simplicidade, fortalecendo a autoridade profissional.",
+      "en-US": "Website built for urologist Dr. Guilherme Maia during my internship at Web Star Studio. A medical landing page focused on storytelling, patient care and simplicity, reinforcing professional authority.",
+    },
     partner: "Web Star Studio",
     href: "https://drguilhermemaia.com.br/",
   },
   {
     title: "FlyHigh",
     image: "/assets/flynotch.png",
-    description: "App web mobile feito para gerenciar partidas e acompanhar estatísticas. Criei para ajudar no vôlei que jogo com meus primos, com inspiração no anime Haikyu!!.",
+    description: {
+      "pt-BR": "App web mobile feito para gerenciar partidas e acompanhar estatísticas. Criei para ajudar no vôlei que jogo com meus primos, com inspiração no anime Haikyu!!.",
+      "en-US": "A mobile web app to manage matches and track statistics. I built it for the volleyball games I play with my cousins, inspired by the anime Haikyu!!.",
+    },
   },
   {
     title: "PetFeeder",
     image: "/assets/petfeeder-preview.webp",
-    description: "Alimentador automático inteligente para pets, desenvolvido com ESP32, sensores e atuadores. O projeto integra um dashboard web em tempo real via Firebase, controle local por Access Point e API Gemini para sugerir rotinas de alimentação personalizadas.",
+    description: {
+      "pt-BR": "Alimentador automático inteligente para pets, desenvolvido com ESP32, sensores e atuadores. O projeto integra um dashboard web em tempo real via Firebase, controle local por Access Point e API Gemini para sugerir rotinas de alimentação personalizadas.",
+      "en-US": "A smart automatic pet feeder built with ESP32, sensors and actuators. The project integrates a real-time web dashboard via Firebase, local control through an Access Point and the Gemini API to suggest personalized feeding routines.",
+    },
     href: "https://github.com/JoaoPNobrega/PetFeeder-Front",
     ctaLabel: "GitHub",
     partner: "CESAR School",
@@ -191,7 +189,10 @@ const navProjectItems = [
   {
     title: "Dr Daniel Pianetti",
     image: "/assets/daniel-notch.png",
-    description: "Site desenvolvido para o urologista Dr. Daniel Pianetti durante meu estágio na Web Star Studio. A experiência combina logo animada, objeto 3D e uma narrativa visual voltada para cirurgia robótica, tecnologia e confiança.",
+    description: {
+      "pt-BR": "Site desenvolvido para o urologista Dr. Daniel Pianetti durante meu estágio na Web Star Studio. A experiência combina logo animada, objeto 3D e uma narrativa visual voltada para cirurgia robótica, tecnologia e confiança.",
+      "en-US": "Website built for urologist Dr. Daniel Pianetti during my internship at Web Star Studio. The experience combines an animated logo, a 3D object and a visual narrative centered on robotic surgery, technology and trust.",
+    },
     partner: "Web Star Studio",
     href: "https://daniel.webstar.studio/",
   },
@@ -199,9 +200,42 @@ const navProjectItems = [
     title: "Stephanie Bolsoni",
     image: "/assets/stephanie-bolsoni.png",
     imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: "Site desenvolvido para a nutricionista Stephanie Bolsoni durante meu estágio na Web Star Studio. O projeto destaca avaliações em tempo real e uma presença internacional, com atendimento em Dublin e online.",
+    description: {
+      "pt-BR": "Site desenvolvido para a nutricionista Stephanie Bolsoni durante meu estágio na Web Star Studio. O projeto destaca avaliações em tempo real e uma presença internacional, com atendimento em Dublin e online.",
+      "en-US": "Website built for nutritionist Stephanie Bolsoni during my internship at Web Star Studio. The project highlights real-time reviews and an international presence, with appointments in Dublin and online.",
+    },
     partner: "Web Star Studio",
     href: "https://stephaniebolsoni.com/",
+  },
+  {
+    title: "Izi Solutions",
+    image: "/assets/izi-solutions-preview.png",
+    description: {
+      "pt-BR": "Site desenvolvido para a Izi Solutions durante meu estágio na Web Star Studio. A landing page apresenta serviços de limpeza em São Paulo com uma experiência objetiva, moderna e voltada para conversão.",
+      "en-US": "Website built for Izi Solutions during my internship at Web Star Studio. The landing page presents cleaning services in São Paulo with an objective, modern and conversion-focused experience.",
+    },
+    partner: "Web Star Studio",
+    href: "https://izisolutions.com.br/",
+  },
+  {
+    title: "Ines Knoden",
+    image: "/assets/ines-preview.png",
+    description: {
+      "pt-BR": "Site desenvolvido para a coach Inês Knoden durante meu estágio na Web Star Studio. O projeto comunica acolhimento, carreira e bem-estar para mulheres, com uma identidade visual elegante e internacional.",
+      "en-US": "Website built for coach Inês Knoden during my internship at Web Star Studio. The project conveys warmth, career and well-being for women, with an elegant, international visual identity.",
+    },
+    partner: "Web Star Studio",
+    href: "https://ines.webstarstudio.site/",
+  },
+  {
+    title: "Dr Dimas Antunes",
+    image: "/assets/dimas-preview.png",
+    description: {
+      "pt-BR": "Site desenvolvido para o urologista Dr. Dimas Antunes durante meu estágio na Web Star Studio. A experiência reforça autoridade médica, cuidado e clareza para pacientes em Recife.",
+      "en-US": "Website built for urologist Dr. Dimas Antunes during my internship at Web Star Studio. The experience reinforces medical authority, care and clarity for patients in Recife.",
+    },
+    partner: "Web Star Studio",
+    href: "https://dimas.webstarstudio.site/",
   },
 ] as const;
 
@@ -215,7 +249,7 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   {
     type: "image",
     src: "/assets/daniel-parallax.png",
-    alt: "Preview do projeto Dr Daniel Pianetti",
+    alt: "Dr Daniel Pianetti project preview",
   },
   {
     type: "image",
@@ -227,30 +261,32 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
     type: "image",
     src: "/assets/parallax-dr-guilherme-preview.webp",
     fallbackSrc: "/assets/dr-guilherme-preview.png",
-    alt: "Preview do projeto Dr Guilherme Maia",
+    alt: "Dr Guilherme Maia project preview",
   },
   {
     type: "image",
     src: "/assets/parallax-delusional-preview.webp",
     fallbackSrc: "/assets/delusional-preview.jpg",
-    alt: "Preview do projeto Delusional",
+    alt: "Delusional project preview",
   },
   {
     type: "image",
     src: "/assets/parallax-stephanie-bolsoni.webp",
     fallbackSrc: "/assets/stephanie-bolsoni.png",
-    alt: "Preview do projeto Stephanie Bolsoni",
+    alt: "Stephanie Bolsoni project preview",
   },
   {
     type: "image",
     src: "/assets/parallax-ouroverde-preview.webp",
     fallbackSrc: "/assets/ouroverde-preview.png",
-    alt: "Preview do projeto Ouroverde",
+    alt: "Ouroverde project preview",
     objectPosition: "top",
   },
 ];
 
 function HeroEchoVisual() {
+  const { tx } = useLang();
+
   return (
     <div className="relative h-full w-full overflow-visible">
       <div
@@ -280,7 +316,7 @@ function HeroEchoVisual() {
         >
           <img
             src="/portfolio/hero-risk-radar.png"
-            alt="Hero do portfólio de João Pedro"
+            alt={tx(copy.hero.imageAlt)}
             className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
             decoding="async"
@@ -288,10 +324,10 @@ function HeroEchoVisual() {
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
           <div className="absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 sm:left-8 sm:top-8">
-            Meu portfólio
+            {tx(copy.hero.badgePortfolio)}
           </div>
-          <div className="absolute right-6 top-6 z-10 text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8">
-            Recife, Brasil
+          <div className="absolute right-6 top-6 z-10 hidden text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8 sm:block">
+            {tx(copy.hero.badgeLocation)}
           </div>
         </div>
 
@@ -314,456 +350,293 @@ function HeroEchoVisual() {
   );
 }
 
-const experienceHighlights = [
-  {
-    role: "Desenvolvedor de software",
-    company: "AJ Solu\u00e7\u00f5es & Sistemas \u00b7 Est\u00e1gio",
-    period: "Setembro \u2014 Dezembro 2025",
-    description:
-      "Desenvolvimento de software, automa\u00e7\u00f5es N8N e planilhas VBA.",
-  },
-  {
-    role: "Desenvolvedor full stack",
-    company: "Web Star Studio \u00b7 Est\u00e1gio",
-    period: "Fevereiro 2026 \u2014 Hoje",
-    description:
-      "Desenvolvimento e manuten\u00e7\u00e3o de sites, com foco em \nlayouts responsivos, front-end e identidade visual.",
-  },
-  {
-    role: "Full stack foundation",
-    company: "Base t\u00e9cnica",
-    period: "2022 \u2014 Presente",
-    description:
-      "Constru\u00e7\u00e3o de base s\u00f3lida em produto, l\u00f3gica, APIs e entrega completa do front ao back.",
-  },
-];
-
-const profilePrimaryBlocks = [
-  {
-    label: "Resumo profissional",
-    title: "Software Developer em forma\u00e7\u00e3o, com experi\u00eancia pr\u00e1tica em sites reais.",
-  },
-  {
-    label: "Foco atual",
-    title: "Front-end, responsividade e implementa\u00e7\u00e3o visual.",
-  },
-  {
-    label: "Objetivo / atua\u00e7\u00e3o",
-    title: "Construir experi\u00eancias web mais claras, bem acabadas e funcionais.",
-  },
-] as const;
-
-const profileSecondaryCards = [
-  {
-    label: "Atua\u00e7\u00e3o",
-    title: "Sites em produ\u00e7\u00e3o",
-    cardClassName: "bg-[#131313] text-white border-white/6",
-    labelClassName: "text-white/45",
-    titleClassName: "text-white",
-    descriptionClassName: "text-white/68",
-  },
-  {
-    label: "Diferenciais",
-    title: "Clareza visual e consist\u00eancia",
-    cardClassName: "bg-[#b9ff66] text-[#111111] border-[#a7ef9e]",
-    labelClassName: "text-black/45",
-    titleClassName: "text-[#111111]",
-    descriptionClassName: "text-black/62",
-  },
-  {
-    label: "Abordagem",
-    title: "Do briefing ao refinamento",
-    cardClassName: "bg-[#ff6b2c] text-white border-[#ff8757]",
-    labelClassName: "text-white/55",
-    titleClassName: "text-white",
-    descriptionClassName: "text-white/76",
-  },
-] as const;
-
 function JourneyHorizontalSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [isLanyardRequested, setIsLanyardRequested] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-  const isJourneyNearViewport = useInView(sectionRef, { margin: "700px 0px" });
-  const isJourneyVisible = useInView(sectionRef, { amount: 0.04 });
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 96,
-    damping: 28,
-    mass: 0.7,
-  });
-
-  const trackX = useTransform(smoothProgress, [0, 0.72, 1], shouldReduceMotion ? ["0%", "0%", "0%"] : ["0%", "-50%", "-50%"]);
-  const aboutScale = useTransform(smoothProgress, [0, 0.72, 1], shouldReduceMotion ? [1, 1, 1] : [1, 0.965, 0.965]);
-  const graduationLeftY = useTransform(smoothProgress, [0.3, 0.72, 1], shouldReduceMotion ? [0, 0, 0] : [58, -8, -8]);
-  const graduationRightY = useTransform(smoothProgress, [0.3, 0.72, 1], shouldReduceMotion ? [0, 0, 0] : [44, -2, -2]);
-  const overlayY = useTransform(smoothProgress, [0.3, 0.72, 1], shouldReduceMotion ? [0, 0, 0] : [36, -8, -8]);
-  const graduationOpacity = useTransform(smoothProgress, [0.38, 0.6, 1], shouldReduceMotion ? [1, 1, 1] : [0.28, 1, 1]);
-  const shouldRenderLanyard = isLanyardRequested && isJourneyNearViewport && isJourneyVisible;
-
-  useEffect(() => {
-    if (!isJourneyVisible) {
-      setIsLanyardRequested(false);
-    }
-  }, [isJourneyVisible]);
+  const { lang, tx } = useLang();
 
   return (
     <section
       id="contact"
-      ref={sectionRef}
-      aria-label="Sobre mim e gradua&#231;&#227;o"
-      className="relative h-[320vh] bg-[#050505]"
-    >
-      <div className="sticky top-0 h-screen overflow-hidden bg-[#050505]">
-        <motion.div
-          style={{ x: trackX }}
-          className="flex h-full w-[200vw] will-change-transform"
-        >
-          <section aria-labelledby="about-heading" className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#050505] px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
-            <motion.div
-              style={{ scale: aboutScale }}
-              className="relative mx-auto flex h-full max-w-7xl flex-col justify-center"
-            >
-              <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 36 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-120px" }}
-                  transition={{ duration: 0.75, ease: "easeOut" }}
-                  className="max-w-2xl"
-                >
-                  <p className="mb-5 text-xs font-medium uppercase tracking-[0.45em] text-white/40">
-                    Sobre mim
-                  </p>
-                  <h2
-                    id="about-heading"
-                    className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
-                  >
-                    Eu construo sites com presença, clareza e acabamento.
-                  </h2>
-                  <p className="mt-8 text-base leading-8 text-white/68 sm:text-lg">
-                    Sou desenvolvedor de software com foco em experiências web. Hoje atuo no desenvolvimento
-                    e manutenção de sites, criando páginas responsivas, ajustando front-end e traduzindo
-                    identidade visual em interfaces claras, funcionais e bem acabadas.
-                  </p>
-                  <p className="mt-6 text-sm leading-7 text-white/48 sm:text-base">
-                    Gosto de unir código, direção visual e senso de produto para entregar páginas que funcionam,
-                    comunicam bem e passam confiança desde o primeiro contato.
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 48 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-120px" }}
-                  transition={{ duration: 0.85, ease: "easeOut", delay: 0.08 }}
-                  className="relative overflow-hidden rounded-[3.25rem] border border-white/[0.08] bg-[#070707] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.42)] sm:p-8 lg:p-10"
-                >
-                  <div className="relative z-10 mb-6 flex justify-center text-center">
-                    <h3 className="text-3xl font-black uppercase tracking-[-0.06em] text-white sm:text-5xl">
-                      Skills
-                    </h3>
-                  </div>
-
-                  <div className="relative z-10 flex min-h-[330px] items-center justify-center rounded-[2.5rem] border border-white/[0.06] bg-[#050505] lg:min-h-[390px]">
-                    <OrbitingSkills />
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="relative ml-auto mt-10 flex w-fit items-center gap-5 text-white/45 lg:mt-14">
-                <span className="text-xs font-medium uppercase tracking-[0.5em]">
-                  Meu trajeto
-                </span>
-                <span className="relative h-px w-24 bg-gradient-to-r from-white/45 to-white/0">
-                  <span className="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 border-r border-t border-white/45" />
-                </span>
-              </div>
-            </motion.div>
-          </section>
-
-          <section aria-labelledby="graduation-heading" className="relative h-full w-screen flex-shrink-0 overflow-hidden bg-[#050505] px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
-            <div className="pointer-events-auto absolute inset-0 z-0 flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                {shouldRenderLanyard ? (
-                  <motion.div
-                    key="lanyard-canvas"
-                    className="absolute inset-0"
-                    initial={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
-                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <Suspense fallback={null}>
-                      <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} performanceMode />
-                    </Suspense>
-                  </motion.div>
-                ) : (
-                  <motion.button
-                    key="lanyard-trigger"
-                    type="button"
-                    onClick={() => setIsLanyardRequested(true)}
-                    className="pointer-events-auto relative z-20 inline-flex cursor-pointer items-center justify-center rounded-full border border-white/12 bg-white/[0.06] px-6 py-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/72 shadow-[0_22px_90px_rgba(0,0,0,0.42),0_0_48px_rgba(249,115,22,0.18)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-[#F97316]/55 hover:bg-white/[0.11] hover:text-white hover:shadow-[0_22px_90px_rgba(0,0,0,0.42),0_0_68px_rgba(249,115,22,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]/65"
-                    initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                    transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    Ver crach&#225; 3D
-                  </motion.button>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <motion.div
-              style={{ opacity: graduationOpacity }}
-              className="pointer-events-none relative z-10 mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[1fr_0.85fr] lg:items-center"
-            >
-              <motion.div
-                style={{ y: graduationLeftY }}
-                className="pointer-events-none relative mx-auto flex w-full max-w-[26rem] flex-col items-start lg:mx-0 lg:-translate-x-16 xl:-translate-x-28 2xl:-translate-x-36"
-              >
-                <div className="relative h-[25rem] w-full sm:h-[29rem]">
-                  <div className="absolute bottom-0 right-0 h-72 w-56 overflow-hidden border border-zinc-600/50 shadow-[0_24px_64px_rgba(0,0,0,0.7)] sm:h-80 sm:w-64">
-                    <img
-                      src="/assets/graduacao-photo.jpg"
-                      alt="Foto da gradua&#231;&#227;o"
-                      className="h-full w-full object-cover object-center [image-orientation:from-image]"
-                      loading="lazy"
-                    />
-                  </div>
-                  <motion.div style={{ y: overlayY }} className="absolute -left-2 top-0 z-10 w-48 sm:-left-4 sm:-top-10 sm:w-56">
-                    <img
-                      src="/assets/graduacao-overlay.png"
-                      alt="Moldura da semana de imers&#227;o"
-                      className="h-auto w-full -rotate-[6deg] object-contain drop-shadow-[16px_18px_20px_rgba(0,0,0,0.8)]"
-                      loading="lazy"
-                    />
-                  </motion.div>
-                </div>
-                <p className="ml-auto mt-4 w-64 text-center font-mono text-[10px] uppercase leading-relaxed tracking-widest text-zinc-600">
-                  fotos tiradas durante a semana<br />de imers&#227;o em 2022
-                </p>
-              </motion.div>
-
-              <motion.div
-                style={{ y: graduationRightY }}
-                className="pointer-events-none relative z-10 flex flex-col items-center gap-6 lg:translate-x-16 xl:translate-x-28 2xl:translate-x-36"
-              >
-                <h2
-                  id="graduation-heading"
-                  className="font-black uppercase italic tracking-[-0.04em] text-white"
-                  style={{ fontSize: "clamp(1.6rem,3vw,2.6rem)" }}
-                >
-                  Gradua&#231;&#227;o
-                </h2>
-                <img
-                  src="/assets/cesar-school-logo.png"
-                  alt="CESAR School logo"
-                  className="w-32 object-contain md:w-40"
-                  loading="lazy"
-                />
-                <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500">
-                  2022 &#8212; andamento...
-                </p>
-              </motion.div>
-            </motion.div>
-          </section>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function ExperienceStackSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start start"],
-  });
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 110,
-    damping: 30,
-    mass: 0.72,
-  });
-
-  const cardY = useTransform(smoothProgress, [0, 0.2, 1], shouldReduceMotion ? [0, 0, 0] : [220, 160, 0]);
-  const cardScale = useTransform(smoothProgress, [0, 0.2, 1], shouldReduceMotion ? [1, 1, 1] : [0.94, 0.955, 1]);
-  const cardRadius = useTransform(smoothProgress, [0, 0.2, 1], shouldReduceMotion ? [40, 40, 40] : [96, 88, 40]);
-  const mainLineProgress = useTransform(smoothProgress, [0.28, 0.72], [0, 1]);
-  const firstBranchProgress = useTransform(smoothProgress, [0.38, 0.56], [0, 1]);
-  const secondBranchProgress = useTransform(smoothProgress, [0.58, 0.78], [0, 1]);
-  const leftArrowOpacity = useTransform(smoothProgress, [0.5, 0.58], [0, 1]);
-  const rightArrowOpacity = useTransform(smoothProgress, [0.72, 0.82], [0, 1]);
-  const firstItemOpacity = useTransform(smoothProgress, [0.48, 0.6], [0, 1]);
-  const secondItemOpacity = useTransform(smoothProgress, [0.72, 0.86], [0, 1]);
-  const firstItemX = useTransform(smoothProgress, [0.48, 0.62], shouldReduceMotion ? [0, 0] : [-18, 0]);
-  const secondItemX = useTransform(smoothProgress, [0.72, 0.88], shouldReduceMotion ? [0, 0] : [18, 0]);
-
-  return (
-    <section
-      id="experience"
-      ref={sectionRef}
-      aria-labelledby="experience-heading"
-      className="relative z-50 -mt-[65vh] h-[210vh] bg-[#070707]"
-    >
-      <motion.section
-        style={{ y: cardY, scale: cardScale, borderTopLeftRadius: cardRadius, borderTopRightRadius: cardRadius }}
-        className="sticky top-0 h-screen overflow-hidden border-t border-white/[0.08] bg-[#070707] px-6 py-24 text-white shadow-[0_-70px_160px_rgba(0,0,0,0.88)] sm:px-8 lg:px-12 lg:py-28"
-      >
-        <div className="relative mx-auto h-full max-w-7xl">
-          <div className="relative z-10 mx-auto max-w-4xl text-center">
-            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.48em] text-white/36">
-              Linha do tempo
-            </p>
-            <h2
-              id="experience-heading"
-              className="max-w-4xl text-6xl font-black uppercase leading-[0.9] tracking-[-0.085em] text-white sm:text-8xl lg:text-[7rem]"
-            >
-              Experi&#234;ncia
-            </h2>
-          </div>
-
-          <div className="absolute inset-x-0 bottom-12 top-[18rem] hidden md:block">
-            <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
-            <motion.div
-              style={{ scaleY: mainLineProgress, transformOrigin: "top center" }}
-              className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 bg-[#7c3cff]"
-            />
-
-            <div className="absolute left-1/2 top-[28%] h-12 w-12 -translate-x-1/2 -translate-y-1/2">
-              <motion.div
-                style={{ opacity: leftArrowOpacity }}
-                className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#7c3cff] bg-[#050505] shadow-[0_0_30px_rgba(124,60,255,0.35)]"
-              />
-              <motion.div
-                style={{ scaleX: firstBranchProgress, transformOrigin: "right center" }}
-                className="absolute right-1/2 top-1/2 h-[2px] w-44 -translate-y-1/2 bg-[#7c3cff]"
-              />
-              <motion.span
-                style={{ opacity: leftArrowOpacity }}
-                className="absolute right-[calc(50%+11rem)] top-1/2 h-4 w-4 -translate-y-1/2 -rotate-[135deg] border-r-2 border-t-2 border-[#7c3cff]"
-              />
-            </div>
-
-            <div className="absolute left-1/2 top-[68%] h-12 w-12 -translate-x-1/2 -translate-y-1/2">
-              <motion.div
-                style={{ opacity: rightArrowOpacity }}
-                className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#7c3cff] bg-[#050505] shadow-[0_0_30px_rgba(124,60,255,0.35)]"
-              />
-              <motion.div
-                style={{ scaleX: secondBranchProgress, transformOrigin: "left center" }}
-                className="absolute left-1/2 top-1/2 h-[2px] w-44 -translate-y-1/2 bg-[#7c3cff]"
-              />
-              <motion.span
-                style={{ opacity: rightArrowOpacity }}
-                className="absolute left-[calc(50%+11rem)] top-1/2 h-4 w-4 -translate-y-1/2 rotate-45 border-r-2 border-t-2 border-[#7c3cff]"
-              />
-            </div>
-
-            <motion.article
-              style={{ opacity: firstItemOpacity, x: firstItemX }}
-              className="absolute right-[calc(50%+14.5rem)] top-[20%] max-w-[24rem] text-center"
-            >
-              <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.3em] text-white/55">
-                {experienceHighlights[0].company}
-              </p>
-              <h3 className="mt-3 text-2xl font-black uppercase leading-[0.96] tracking-[-0.065em] text-white lg:text-[2.15rem]">
-                {experienceHighlights[0].role}
-              </h3>
-              <p className="mx-auto mt-4 inline-flex rounded-full border border-white/10 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/42">
-                {experienceHighlights[0].period}
-              </p>
-              <p className="mx-auto mt-5 max-w-[20rem] text-base leading-7 text-white/52">
-                {experienceHighlights[0].description}
-              </p>
-            </motion.article>
-
-            <motion.article
-              style={{ opacity: secondItemOpacity, x: secondItemX }}
-              className="absolute left-[calc(50%+14.5rem)] top-[60%] max-w-[24rem] text-center"
-            >
-              <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.3em] text-white/55">
-                {experienceHighlights[1].company}
-              </p>
-              <h3 className="mt-3 text-2xl font-black uppercase leading-[0.96] tracking-[-0.065em] text-white lg:text-[2.15rem]">
-                {experienceHighlights[1].role}
-              </h3>
-              <p className="mx-auto mt-4 inline-flex rounded-full border border-white/10 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/42">
-                {experienceHighlights[1].period}
-              </p>
-              <p className="mx-auto mt-5 max-w-[21rem] whitespace-pre-line text-base leading-7 text-white/52">
-                {experienceHighlights[1].description}
-              </p>
-            </motion.article>
-          </div>
-
-          <div className="mt-10 grid gap-4 md:hidden">
-            {experienceHighlights.map((item) => (
-              <article key={item.company} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
-                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/42">
-                  {item.company}
-                </p>
-                <h3 className="mt-3 text-3xl font-black uppercase leading-[0.95] tracking-[-0.065em] text-white">
-                  {item.role}
-                </h3>
-                <p className="mt-4 inline-flex rounded-full border border-white/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                  {item.period}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-    </section>
-  );
-}
-
-function DestructionStackSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start start"],
-  });
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 96,
-    damping: 30,
-    mass: 0.78,
-  });
-
-  const cardY = useTransform(smoothProgress, [0, 0.32, 1], shouldReduceMotion ? [0, 0, 0] : [260, 150, 0]);
-  const cardScale = useTransform(smoothProgress, [0, 0.42, 1], shouldReduceMotion ? [1, 1, 1] : [0.955, 0.975, 1]);
-  const cardRadius = useTransform(smoothProgress, [0, 0.55, 1], shouldReduceMotion ? [40, 40, 40] : [92, 64, 34]);
-
-  return (
-    <section
-      ref={sectionRef}
-      aria-label="Problemas que resolvo"
-      className="relative z-[60] -mt-[54vh] h-[170vh] bg-[#070707]"
+      aria-labelledby="about-heading"
+      className="relative bg-transparent px-6 py-24 sm:px-8 lg:px-12 lg:py-32"
     >
       <motion.div
-        style={{
-          y: cardY,
-          scale: cardScale,
-          borderTopLeftRadius: cardRadius,
-          borderTopRightRadius: cardRadius,
-        }}
-        className="sticky top-0 h-screen overflow-hidden border-t border-white/[0.08] bg-[#070707] shadow-[0_-80px_180px_rgba(0,0,0,0.82)]"
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-120px" }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+        className="mx-auto max-w-3xl text-center"
       >
-        <DestructionSection language="pt-BR" backgroundClassName="bg-[#070707]" showAmbientBackground={false} />
+        <p className="mb-5 text-xs font-medium uppercase tracking-[0.45em] text-white/40">
+          {tx(copy.about.eyebrow)}
+        </p>
+        <BlurText
+          key={`about-title-${lang}`}
+          tag="h2"
+          text={tx(copy.about.title)}
+          id="about-heading"
+          className="justify-center text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
+          animateBy="words"
+          direction="top"
+          delay={130}
+          stepDuration={0.35}
+          threshold={0.2}
+          rootMargin="-80px"
+        />
+        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
+          {tx(copy.about.paragraphOne)}
+        </p>
+        <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/48 sm:text-base">
+          {tx(copy.about.paragraphTwo)}
+        </p>
       </motion.div>
     </section>
   );
 }
 
+function DestructionStackSection() {
+  const { lang } = useLang();
+
+  return (
+    <section
+      aria-label="Problemas que resolvo"
+      className="relative bg-transparent"
+    >
+      <DestructionSection language={lang} backgroundClassName="bg-transparent" showAmbientBackground={false} />
+    </section>
+  );
+}
+
+const workHistory: { role: LocalizedText; company: LocalizedText; period: LocalizedText; description: LocalizedText }[] = [
+  {
+    role: { "pt-BR": "Desenvolvedor full stack", "en-US": "Full stack developer" },
+    company: { "pt-BR": "Web Star Studio · Estágio", "en-US": "Web Star Studio · Internship" },
+    period: { "pt-BR": "Fevereiro 2026 — Hoje", "en-US": "February 2026 — Present" },
+    description: {
+      "pt-BR": "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual.",
+      "en-US": "Building and maintaining websites, focused on responsive layouts, front-end and visual identity.",
+    },
+  },
+  {
+    role: { "pt-BR": "Desenvolvedor web freelancer", "en-US": "Freelance web developer" },
+    company: { "pt-BR": "Autônomo", "en-US": "Self-employed" },
+    period: { "pt-BR": "Abril 2026 — Hoje", "en-US": "April 2026 — Present" },
+    description: {
+      "pt-BR": "Criação de sites e landing pages sob demanda para clientes, do briefing à entrega — direção visual, front-end e acabamento.",
+      "en-US": "Building websites and landing pages on demand for clients, from briefing to delivery — visual direction, front-end and polish.",
+    },
+  },
+  {
+    role: { "pt-BR": "Desenvolvedor de software", "en-US": "Software developer" },
+    company: { "pt-BR": "AJ Soluções & Sistemas · Estágio", "en-US": "AJ Soluções & Sistemas · Internship" },
+    period: { "pt-BR": "Setembro — Dezembro 2025", "en-US": "September — December 2025" },
+    description: {
+      "pt-BR": "Desenvolvimento de software, automações N8N e planilhas VBA.",
+      "en-US": "Software development, N8N automations and VBA spreadsheets.",
+    },
+  },
+];
+
+function ExperienceTimelineSection() {
+  const { tx } = useLang();
+
+  return (
+    <section
+      id="experience"
+      aria-labelledby="experience-heading"
+      className="relative overflow-hidden bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="pointer-events-none absolute right-8 top-28 h-64 w-64 rounded-full bg-[#A7EF9E]/[0.06] blur-3xl" />
+
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-start lg:gap-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="lg:sticky lg:top-24"
+        >
+          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.48em] text-white/38">
+            {tx(copy.experience.eyebrow)}
+          </p>
+          <h2
+            id="experience-heading"
+            className="max-w-[11ch] text-5xl font-black uppercase leading-[0.88] tracking-[-0.085em] text-white sm:text-7xl lg:text-8xl"
+          >
+            {tx(copy.experience.title)}
+          </h2>
+          <div className="mt-8 flex items-end gap-4 border-l border-[#A7EF9E]/45 pl-5">
+            <span className="font-mono text-5xl font-semibold leading-none tracking-[-0.05em] text-[#A7EF9E]">
+              03
+            </span>
+            <span className="pb-1 font-mono text-[11px] font-semibold uppercase leading-5 tracking-[0.28em] text-white/42">
+              {tx(copy.experience.eyebrow)}
+            </span>
+          </div>
+        </motion.div>
+
+        <div className="relative pl-7 sm:pl-10">
+          <div className="absolute bottom-8 left-[0.34rem] top-2 w-px bg-gradient-to-b from-[#A7EF9E]/75 via-white/18 to-transparent sm:left-[0.58rem]" />
+          <div className="flex flex-col gap-5 sm:gap-6">
+            {workHistory.map((item, index) => (
+              <motion.article
+                key={item.company["pt-BR"]}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+                className="group relative overflow-hidden rounded-[8px] border border-white/[0.09] bg-white/[0.035] p-5 shadow-[0_22px_70px_rgba(0,0,0,0.22)] transition duration-300 hover:border-[#A7EF9E]/35 hover:bg-white/[0.055] sm:p-6 lg:p-7"
+              >
+                <span className="absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b from-[#A7EF9E] via-[#A7EF9E]/45 to-transparent opacity-65 transition group-hover:opacity-100" />
+                <span className="absolute -left-[1.92rem] top-7 h-3.5 w-3.5 rounded-full border-2 border-[#A7EF9E] bg-[#050505] shadow-[0_0_30px_rgba(167,239,158,0.45)] sm:-left-[2.38rem]" />
+                <span className="absolute right-5 top-5 font-mono text-[2.55rem] font-semibold leading-none tracking-[-0.08em] text-white/[0.035] transition group-hover:text-[#A7EF9E]/10 sm:right-6 sm:top-6">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <p className="max-w-[20rem] font-mono text-[12px] font-semibold uppercase leading-5 tracking-[0.26em] text-[#A7EF9E]/85">
+                    {tx(item.company)}
+                  </p>
+                  <p className="w-fit border border-white/10 bg-black/20 px-3 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">
+                    {tx(item.period)}
+                  </p>
+                </div>
+
+                <h3 className="relative mt-5 max-w-[32rem] text-2xl font-black uppercase leading-[0.96] tracking-[-0.055em] text-white sm:text-[2rem] lg:text-[2.25rem]">
+                  {tx(item.role)}
+                </h3>
+                <p className="relative mt-5 max-w-[35rem] text-base leading-7 text-white/62">
+                  {tx(item.description)}
+                </p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const educationInfo: { degree: LocalizedText; school: string; location: LocalizedText; period: LocalizedText } = {
+  degree: { "pt-BR": "Bacharelado em Ciência da Computação", "en-US": "Bachelor's in Computer Science" },
+  school: "CESAR School",
+  location: { "pt-BR": "Recife, PE · Brasil", "en-US": "Recife, PE · Brazil" },
+  period: { "pt-BR": "2022 — em andamento", "en-US": "2022 — in progress" },
+};
+
+const spokenLanguages: { name: LocalizedText; level: LocalizedText }[] = [
+  { name: { "pt-BR": "Português", "en-US": "Portuguese" }, level: { "pt-BR": "Nativo", "en-US": "Native" } },
+  { name: { "pt-BR": "Inglês", "en-US": "English" }, level: { "pt-BR": "Avançado", "en-US": "Advanced" } },
+];
+
+function EducationLanguagesSection() {
+  const { tx } = useLang();
+
+  return (
+    <section
+      id="education"
+      aria-labelledby="education-heading"
+      className="relative bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
+    >
+      <div className="mx-auto max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-120px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-14 text-center"
+        >
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/40">
+            {tx(copy.education.eyebrow)}
+          </p>
+          <h2
+            id="education-heading"
+            className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl"
+          >
+            {tx(copy.education.title)}
+          </h2>
+        </motion.div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, y: 36 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="[perspective:1000px]"
+          >
+            <article className="group relative h-full cursor-pointer overflow-hidden rounded-[8px] bg-white/[0.055] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(-1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(167,239,158,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.035)_38%,rgba(255,255,255,0.015))] opacity-80 transition duration-300 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#A7EF9E]/18 blur-3xl transition duration-500 group-hover:-translate-x-7 group-hover:translate-y-8" />
+              <div className="pointer-events-none absolute bottom-0 left-10 h-px w-36 bg-gradient-to-r from-transparent via-white/26 to-transparent transition duration-500 group-hover:translate-x-12 group-hover:opacity-80" />
+
+              <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between gap-4">
+                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
+                    {tx(copy.education.educationLabel)}
+                  </p>
+                  <img
+                    src="/assets/cesar-school-logo.png"
+                    alt="CESAR School logo"
+                    className="h-7 w-auto object-contain opacity-85 transition duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="mt-6 text-2xl font-bold leading-tight tracking-[-0.03em] text-white sm:text-[1.7rem]">
+                  {tx(educationInfo.degree)}
+                </h3>
+                <p className="mt-3 font-mono text-sm text-white/76">{educationInfo.school}</p>
+                <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-white/46">
+                  {tx(educationInfo.location)} &#183; {tx(educationInfo.period)}
+                </p>
+              </div>
+            </article>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 36 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            className="[perspective:1000px]"
+          >
+            <article className="group relative h-full cursor-pointer overflow-hidden rounded-[8px] bg-white/[0.055] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_8%,rgba(167,239,158,0.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035)_42%,rgba(255,255,255,0.014))] opacity-80 transition duration-300 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute -bottom-14 -left-12 h-44 w-44 rounded-full bg-white/10 blur-3xl transition duration-500 group-hover:translate-x-7 group-hover:-translate-y-8" />
+              <div className="pointer-events-none absolute right-10 top-0 h-px w-32 bg-gradient-to-r from-transparent via-[#A7EF9E]/50 to-transparent transition duration-500 group-hover:-translate-x-10 group-hover:opacity-90" />
+
+              <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
+                  {tx(copy.education.languagesLabel)}
+                </p>
+                <ul className="mt-7 flex flex-col gap-3">
+                  {spokenLanguages.map((language, index) => (
+                    <li
+                      key={language.name["pt-BR"]}
+                      className="flex items-center justify-between rounded-[8px] bg-black/18 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 group-hover:bg-black/24"
+                      style={{ transform: `translateZ(${20 + index * 10}px)` }}
+                    >
+                      <span className="text-lg font-semibold text-white sm:text-xl">{tx(language.name)}</span>
+                      <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/58">
+                        {tx(language.level)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function PortfolioLandingPage() {
+  const { tx } = useLang();
   const [isNavDetached, setIsNavDetached] = useState(false);
   const [notchProgress, setNotchProgress] = useState(0);
+  const [isCvOpen, setIsCvOpen] = useState(false);
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
   const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
   const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | null>(null);
@@ -771,8 +644,6 @@ export default function PortfolioLandingPage() {
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
   const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
-  const profileSectionRef = useRef<HTMLElement | null>(null);
-  const contactEasterEggClicksRef = useRef(0);
   const lastScrollYRef = useRef(0);
   const notchProgressRef = useRef(0);
   const autoMorphControlsRef = useRef<ReturnType<typeof animate> | null>(null);
@@ -781,39 +652,6 @@ export default function PortfolioLandingPage() {
   const heroTextExitY = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [0, 0] : [0, -220]);
   const heroTextExitOpacity = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? [1, 1] : [1, 0.04]);
   const heroTextExitBlur = useTransform(heroTextExitProgress, [0, 1], shouldReduceHeroTextMotion ? ["blur(0px)", "blur(0px)"] : ["blur(0px)", "blur(20px)"]);
-  const { scrollYProgress: profileScrollProgress } = useScroll({
-    target: profileSectionRef,
-    offset: ["start 88%", "end 16%"],
-  });
-  const profileMorphProgress = useSpring(profileScrollProgress, {
-    stiffness: 116,
-    damping: 26,
-    mass: 0.72,
-  });
-  const profileOpenProgress = useTransform(profileMorphProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const profilePanelClipPath = useTransform(
-    profileOpenProgress,
-    [0, 1],
-    ["inset(17% 9% 17% 9% round 5rem)", "inset(0% 0% 0% 0% round 3.5rem)"],
-  );
-  const profilePanelScale = useTransform(profileOpenProgress, [0, 1], [0.94, 1]);
-  const profilePanelY = useTransform(profileMorphProgress, [0, 0.2, 0.8, 1], [72, 0, 0, -58]);
-  const profileContentOpacity = useTransform(profileMorphProgress, [0.08, 0.2, 0.8, 0.94], [0, 1, 1, 0]);
-  const profileContentY = useTransform(profileMorphProgress, [0.08, 0.2, 0.8, 0.94], [32, 0, 0, -18]);
-  const profileContentBlur = useTransform(
-    profileMorphProgress,
-    [0.08, 0.2, 0.8, 0.94],
-    ["blur(14px)", "blur(0px)", "blur(0px)", "blur(10px)"],
-  );
-  const profilePanelPath = useTransform(profileOpenProgress, (value) =>
-    buildRoundedRectPath(
-      PROFILE_PANEL_VIEWBOX_WIDTH,
-      PROFILE_PANEL_VIEWBOX_HEIGHT,
-      lerp(116, 0, value),
-      lerp(112, 0, value),
-      lerp(118, 56, value),
-    ),
-  );
 
   const setSyncedNotchProgress = (progress: number) => {
     notchProgressRef.current = progress;
@@ -964,14 +802,9 @@ export default function PortfolioLandingPage() {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const openPage67EasterEgg = () => {
-    window.history.pushState(null, "", "/67");
-    window.dispatchEvent(new PopStateEvent("popstate"));
-  };
-
   const selectedProject = navProjectItems.find((item) => item.title === selectedProjectTitle);
   const selectedProjectHref = selectedProject && "href" in selectedProject ? selectedProject.href : GITHUB_URL;
-  const selectedProjectCtaLabel = selectedProject && "ctaLabel" in selectedProject ? selectedProject.ctaLabel : selectedProject && "href" in selectedProject ? "Ver site" : "GitHub";
+  const selectedProjectCtaLabel = selectedProject && "ctaLabel" in selectedProject ? selectedProject.ctaLabel : selectedProject && "href" in selectedProject ? tx(copy.projects.viewSite) : "GitHub";
   const selectedProjectPartner = selectedProject && "partner" in selectedProject ? selectedProject.partner : null;
   const selectedProjectPartnerLogo = selectedProject && "partnerLogo" in selectedProject ? selectedProject.partnerLogo : "/assets/webstar-logo-white.png";
   const selectedProjectPartnerLogoClassName =
@@ -1012,6 +845,12 @@ export default function PortfolioLandingPage() {
 
   return (
     <div className="bg-[#050505] text-white">
+      <CvModal
+        open={isCvOpen}
+        onClose={() => setIsCvOpen(false)}
+        pdfUrl={CV_PDF_URL}
+        downloadName={CV_DOWNLOAD_NAME}
+      />
       <section
         ref={heroRef}
         className="relative"
@@ -1102,20 +941,11 @@ export default function PortfolioLandingPage() {
                     </motion.span>
                   ) : null}
                 </AnimatePresence>
-                <span className="relative z-10">Projetos</span>
+                <span className="relative z-10">{tx(copy.nav.projects)}</span>
               </button>
               <button
                 type="button"
                 onClick={() => {
-                  contactEasterEggClicksRef.current += 1;
-                  if (contactEasterEggClicksRef.current >= 5) {
-                    contactEasterEggClicksRef.current = 0;
-                    setIsProjectsDropdownOpen(false);
-                    setIsContactDropdownOpen(false);
-                    openPage67EasterEgg();
-                    return;
-                  }
-
                   setIsProjectsDropdownOpen(false);
                   setIsContactDropdownOpen((current) => !current);
                 }}
@@ -1157,7 +987,7 @@ export default function PortfolioLandingPage() {
                     </motion.span>
                   ) : null}
                 </AnimatePresence>
-                <span className="relative z-10">Contato</span>
+                <span className="relative z-10">{tx(copy.nav.contact)}</span>
               </button>
             </motion.div>
 
@@ -1220,7 +1050,7 @@ export default function PortfolioLandingPage() {
                           <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
                             <img
                               src={item.image}
-                              alt={`Preview do projeto ${item.title}`}
+                              alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
                               className={`h-full w-full object-cover transition duration-500 ${
                                 "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
                               }`}
@@ -1236,7 +1066,7 @@ export default function PortfolioLandingPage() {
                               onClick={() => setSelectedProjectTitle(item.title)}
                               className="shrink-0 rounded-full border border-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/62 transition hover:border-[#A7EF9E]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                             >
-                              Ver
+                              {tx(copy.nav.view)}
                             </button>
                           </div>
                         </motion.article>
@@ -1314,7 +1144,7 @@ export default function PortfolioLandingPage() {
             animate={{ scale: heroImageScale, opacity: 1 }}
             transition={{ scale: { duration: 0.18, ease: "linear" }, opacity: { duration: 1.1, ease: "easeOut" } }}
             src="/portfolio/hero-risk-radar.png"
-            alt="Hero do portf&#243;lio de Jo&#227;o Pedro"
+            alt={tx(copy.hero.imageAlt)}
             className="absolute inset-0 h-full w-full object-cover object-center"
             style={{
               WebkitMaskImage: heroImageMask,
@@ -1325,10 +1155,10 @@ export default function PortfolioLandingPage() {
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
           <div className="absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 sm:left-8 sm:top-8">
-            Meu portfólio
+            {tx(copy.hero.badgePortfolio)}
           </div>
-          <div className="absolute right-6 top-6 z-10 text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8">
-            Recife, Brasil
+          <div className="absolute right-6 top-6 z-10 hidden text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8 sm:block">
+            {tx(copy.hero.badgeLocation)}
           </div>
         </div>
 
@@ -1348,15 +1178,17 @@ export default function PortfolioLandingPage() {
                 filter: heroTextExitBlur,
                 willChange: "transform, opacity, filter",
               }}
-              className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center"
+              className="w-full"
             >
-            <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
-              <HeroIntroCopy />
-            </div>
-            <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
-              <HeroDescriptionPanel />
-            </div>
-          </motion.div>
+              <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+                <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
+                  <HeroIntroCopy onOpenCv={() => setIsCvOpen(true)} />
+                </div>
+                <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
+                  <HeroDescriptionPanel />
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
         </div>
@@ -1364,205 +1196,21 @@ export default function PortfolioLandingPage() {
 
       <AnimatePresence>
         {selectedProject ? (
-          <motion.div
-            key="project-preview-modal"
-            className="fixed inset-0 z-[1400] flex items-center justify-center px-5 py-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.26, ease: "easeOut" }}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-preview-title"
-            onClick={() => setSelectedProjectTitle(null)}
-          >
-            <motion.div
-              aria-hidden="true"
-              className="absolute inset-0 bg-black/78 backdrop-blur-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
-            <motion.article
-              className="relative z-10 w-full max-w-4xl overflow-hidden rounded-[2.4rem] border border-white/12 bg-[#080808]/96 p-3 shadow-[0_40px_160px_rgba(0,0,0,0.72)]"
-              initial={{ opacity: 0, y: 34, scale: 0.96, filter: "blur(14px)" }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(12px)" }}
-              transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                aria-label="Fechar preview do projeto"
-                onClick={() => setSelectedProjectTitle(null)}
-                className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/12 bg-black/60 text-white/62 transition hover:border-white/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              >
-                <X className="h-5 w-5" aria-hidden="true" />
-              </button>
-
-              <div className="overflow-hidden rounded-[1.9rem] bg-white/[0.035]">
-                <img
-                  src={selectedProject.image}
-                  alt={`Preview ampliado do projeto ${selectedProject.title}`}
-                  className={`h-[18rem] w-full object-center sm:h-[24rem] lg:h-[28rem] ${
-                    "object-cover"
-                  }`}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              <div className="grid gap-7 px-4 pb-6 pt-7 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-end lg:px-7">
-                <div>
-                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-white/36">
-                    Projeto selecionado
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2
-                      id="project-preview-title"
-                      className="text-3xl font-black uppercase leading-[0.92] tracking-[-0.075em] text-white sm:text-5xl"
-                    >
-                      {selectedProject.title}
-                    </h2>
-                    {selectedProjectPartner ? (
-                    <div className="group relative inline-flex">
-                      <div
-                        className="inline-flex cursor-help items-center rounded-full border border-white/20 bg-black/55 px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_16px_45px_rgba(0,0,0,0.36)] transition duration-300 hover:border-[#A7EF9E]/45 hover:bg-black/70"
-                        aria-label={`Projeto em parceria com ${selectedProjectPartner}`}
-                      >
-                        <img
-                          src={selectedProjectPartnerLogo}
-                          alt=""
-                          aria-hidden="true"
-                          className={selectedProjectPartnerLogoClassName}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-                      <div className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-1/2 w-max -translate-x-1/2 rounded-full border border-white/10 bg-black/90 px-3 py-1.5 text-[0.68rem] font-medium text-white/72 opacity-0 shadow-[0_16px_50px_rgba(0,0,0,0.42)] transition duration-200 group-hover:-translate-y-1 group-hover:opacity-100">
-                        Parceria com {selectedProjectPartner}
-                      </div>
-                    </div>
-                    ) : null}
-                  </div>
-                  <p className="mt-5 max-w-2xl text-base leading-7 text-white/56 sm:text-lg sm:leading-8">
-                    {selectedProject.description}
-                  </p>
-                </div>
-
-                <a
-                  href={selectedProjectHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-[3.25rem] cursor-pointer items-center justify-center gap-2 rounded-full border border-white/14 bg-white text-sm font-black uppercase tracking-[0.22em] text-black transition hover:-translate-y-0.5 hover:bg-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 lg:min-w-44"
-                >
-                  {selectedProjectCtaLabel === "GitHub" ? (
-                    <GithubMark className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                  )}
-                  {selectedProjectCtaLabel}
-                </a>
-              </div>
-            </motion.article>
-          </motion.div>
+          <ProjectDetailModal
+            key="project-detail"
+            onClose={() => setSelectedProjectTitle(null)}
+            title={selectedProject.title}
+            image={selectedProject.image}
+            description={selectedProject.description}
+            href={selectedProjectHref}
+            ctaLabel={selectedProjectCtaLabel}
+            ctaIsGithub={selectedProjectCtaLabel === "GitHub"}
+            partner={selectedProjectPartner}
+            partnerLogo={selectedProjectPartnerLogo}
+            partnerLogoClassName={selectedProjectPartnerLogoClassName}
+          />
         ) : null}
       </AnimatePresence>
-
-      <section
-        ref={profileSectionRef}
-        aria-labelledby="profile-heading"
-        className="relative bg-[#050505] px-6 py-28 sm:px-8 lg:px-12 lg:py-36"
-      >
-        <div className="mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-120px" }}
-            transition={{ duration: 0.75, ease: "easeOut" }}
-            className="text-center"
-          >
-            <p
-              id="profile-heading"
-              className="text-[1.15rem] font-semibold uppercase tracking-[0.24em] text-white/48 sm:text-[1.4rem] lg:text-[1.8rem]"
-            >
-              Perfil profissional
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 36 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-120px" }}
-            transition={{ duration: 0.85, delay: 0.12, ease: "easeOut" }}
-            style={{ clipPath: profilePanelClipPath, scale: profilePanelScale, y: profilePanelY }}
-            className="relative mt-10 min-h-[30rem] overflow-hidden rounded-[3.5rem] border border-white/10 bg-[#faf7f2] px-6 py-8 shadow-[0_30px_120px_rgba(0,0,0,0.28)] sm:min-h-[35rem] sm:px-8 sm:py-10 lg:min-h-[38rem] lg:px-12 lg:py-12"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox={`0 0 ${PROFILE_PANEL_VIEWBOX_WIDTH} ${PROFILE_PANEL_VIEWBOX_HEIGHT}`}
-              preserveAspectRatio="none"
-              className="pointer-events-none absolute inset-0 h-full w-full"
-            >
-              <motion.path
-                d={profilePanelPath}
-                fill="#faf7f2"
-                stroke="rgba(17,17,17,0.08)"
-                strokeWidth="2"
-              />
-            </svg>
-
-            <motion.div
-              style={{ opacity: profileContentOpacity, y: profileContentY, filter: profileContentBlur }}
-              className="relative z-10 flex h-full flex-col"
-            >
-              <div className="mb-6 text-center sm:mb-8">
-                <h3 className="text-[2.35rem] font-bold leading-[0.92] tracking-[-0.09em] text-[#111111] sm:text-[3.2rem] lg:text-[4.1rem]">
-                  O que estou construindo agora.
-                </h3>
-              </div>
-
-              <article className="rounded-[2.8rem] border border-black/10 bg-white px-6 py-6 shadow-[0_18px_50px_rgba(0,0,0,0.08)] sm:px-8 sm:py-7 lg:px-10 lg:py-7">
-                <div className="grid gap-8 lg:grid-cols-3 lg:gap-8">
-                  {profilePrimaryBlocks.map((item, index) => (
-                    <div
-                      key={item.label}
-                      className={`flex min-h-[13.75rem] flex-col items-center justify-center text-center ${
-                        index < profilePrimaryBlocks.length - 1
-                          ? "lg:border-r lg:border-black/8 lg:pr-8"
-                          : ""
-                      }`}
-                    >
-                      <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#111111]">
-                        {item.label}
-                      </p>
-                      <h3 className="mt-6 max-w-[14ch] text-[1.7rem] font-bold leading-[1.02] tracking-[-0.06em] text-[#101010] sm:text-[1.9rem] lg:text-[2.05rem]">
-                        {item.title}
-                      </h3>
-                    </div>
-                  ))}
-                </div>
-              </article>
-
-              <div className="mt-4 grid gap-4 lg:grid-cols-3">
-                {profileSecondaryCards.map((item) => (
-                  <article
-                    key={item.label}
-                    className={`flex min-h-[10.75rem] flex-col items-center justify-center text-center rounded-[2.35rem] border px-6 py-6 shadow-[0_14px_36px_rgba(0,0,0,0.07)] transition duration-300 hover:-translate-y-1 sm:px-7 ${item.cardClassName}`}
-                  >
-                    <p className={`text-[0.68rem] font-semibold uppercase tracking-[0.28em] ${item.labelClassName}`}>
-                      {item.label}
-                    </p>
-                    <h3 className={`mt-4 max-w-[13ch] text-[1.72rem] font-bold leading-[0.95] tracking-[-0.07em] sm:text-[1.95rem] ${item.titleClassName}`}>
-                      {item.title}
-                    </h3>
-                  </article>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
       <section
         id="projects"
@@ -1576,16 +1224,20 @@ export default function PortfolioLandingPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="font-sans text-4xl font-bold tracking-tighter text-white drop-shadow-xl md:text-6xl lg:text-7xl">
-            conhe&#231;a meu <span className="text-[#A7EF9E]">trabalho</span>
+            {tx(copy.projects.headingLead)} <span className="text-[#A7EF9E]">{tx(copy.projects.headingAccent)}</span>
           </h2>
         </motion.div>
       </section>
 
       <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} centerVisual={<HeroEchoVisual />} endBlend />
 
-      <JourneyHorizontalSection />
-      <ExperienceStackSection />
-      <DestructionStackSection />
+      <div className="relative bg-[linear-gradient(180deg,#050505_0%,#08080d_22%,#0d0e16_48%,#0a0c0b_72%,#050505_100%)]">
+        <JourneyHorizontalSection />
+        <SkillsSection />
+        <ExperienceTimelineSection />
+        <EducationLanguagesSection />
+        <DestructionStackSection />
+      </div>
     </div>
   );
 }

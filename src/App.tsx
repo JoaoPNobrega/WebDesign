@@ -1,9 +1,8 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
-import type { SiteLanguage } from "@/lib/site-language";
-
-const Page67 = lazy(() => import("@/pages/Page67"));
+import IntroLogo from "@/components/IntroLogo";
+import { LanguageProvider } from "@/lib/i18n";
 
 function getCurrentPath() {
   if (typeof window === "undefined") {
@@ -13,9 +12,23 @@ function getCurrentPath() {
   return window.location.pathname;
 }
 
+const INTRO_SEEN_KEY = "jp-intro-seen";
+
 export default function App() {
   const [pathname, setPathname] = useState(getCurrentPath);
-  const activeLanguage: SiteLanguage = "pt-BR";
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+    return window.sessionStorage.getItem(INTRO_SEEN_KEY) !== "1";
+  });
+
+  const handleIntroDone = () => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    }
+    setShowIntro(false);
+  };
 
   useEffect(() => {
     const syncPath = () => setPathname(getCurrentPath());
@@ -23,14 +36,21 @@ export default function App() {
 
     const handleGlobalClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
-      if (target && target.href && target.href.startsWith(window.location.origin)) {
-        if (target.getAttribute("target") !== "_blank") {
-          e.preventDefault();
-          const url = new URL(target.href);
-          window.history.pushState(null, "", url.pathname);
-          syncPath();
-        }
+      if (!target || !target.href || !target.href.startsWith(window.location.origin)) {
+        return;
       }
+      // Let downloads, new-tab links and static assets (e.g. the CV PDF) behave natively.
+      if (
+        target.hasAttribute("download") ||
+        target.getAttribute("target") === "_blank" ||
+        /\.[a-z0-9]+($|\?)/i.test(new URL(target.href).pathname.split("/").pop() ?? "")
+      ) {
+        return;
+      }
+      e.preventDefault();
+      const url = new URL(target.href);
+      window.history.pushState(null, "", url.pathname);
+      syncPath();
     };
 
     document.addEventListener("click", handleGlobalClick);
@@ -42,32 +62,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = pathname === "/67" ? "Projeto 67 | Jo\u00E3o Pedro" : "Portf\u00F3lio | Jo\u00E3o Pedro";
+    document.title = "Portfólio | João Pedro";
   }, [pathname]);
 
-  useEffect(() => {
-    document.documentElement.lang = activeLanguage;
-  }, []);
-
-  const renderContent = () => {
-    switch (pathname) {
-      case "/67":
-        return (
-          <Suspense fallback={null}>
-            <Page67 language={activeLanguage} />
-          </Suspense>
-        );
-      case "/":
-      case "/portfolio":
-        return <PortfolioLandingPage />;
-      default:
-        return <PortfolioLandingPage />;
-    }
-  };
-
   return (
-    <main className={`app-shell ${pathname !== "/67" ? "overflow-visible" : ""}`}>
-      {renderContent()}
-    </main>
+    <LanguageProvider>
+      <main className="app-shell overflow-visible">
+        <PortfolioLandingPage />
+      </main>
+      {showIntro ? <IntroLogo onDone={handleIntroDone} /> : null}
+    </LanguageProvider>
   );
 }
