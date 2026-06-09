@@ -10,6 +10,7 @@ import BlurText from "@/components/ui/BlurText";
 import CvButton from "@/components/ui/CvButton";
 import CvModal from "@/components/ui/CvModal";
 import ScrollDownIndicator from "@/components/ui/ScrollDownIndicator";
+import ParallaxPhoto from "@/components/ui/ParallaxPhoto";
 import GlassSurface from "@/components/ui/GlassSurface";
 import ShinyText from "@/components/ui/ShinyText";
 import TextType from "@/components/ui/TextType";
@@ -392,11 +393,11 @@ function JourneyHorizontalSection() {
         {/* Foto */}
         <div className="group relative mx-auto w-full max-w-[22rem] lg:mx-0">
           {/* moldura deslocada (outline) atrás, em acento */}
-          <div className="pointer-events-none absolute -bottom-3 -left-3 -z-10 h-full w-full rounded-[1.75rem] border border-[#A7EF9E]/35 transition-transform duration-500 ease-out group-hover:-bottom-2 group-hover:-left-2" />
+          <div className="pointer-events-none absolute -bottom-3 -left-3 -z-10 h-full w-full rounded-[1.75rem] border border-[#A7EF9E]/35 transition-[bottom,left] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-bottom-2 group-hover:-left-2" />
           {/* moldura com borda em gradiente */}
           <div className="relative rounded-[1.85rem] bg-gradient-to-br from-white/25 via-white/5 to-transparent p-px shadow-[0_40px_100px_-28px_rgba(0,0,0,0.8)]">
             <div className="relative overflow-hidden rounded-[1.8rem] ring-1 ring-white/10">
-              <img
+              <ParallaxPhoto
                 src="/assets/joao-pedro-about.jpeg"
                 alt="João Pedro"
                 loading="lazy"
