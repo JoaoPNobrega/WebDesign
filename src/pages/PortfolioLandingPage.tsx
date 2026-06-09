@@ -360,10 +360,10 @@ function HeroEchoVisual() {
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 pb-12 pt-28 sm:px-8 lg:px-12 lg:pb-16 lg:pt-36">
           <div className="w-full">
             <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-              <div className="flex justify-center lg:-translate-x-16 lg:-translate-y-10 xl:-translate-x-28 xl:-translate-y-14 2xl:-translate-x-44 2xl:-translate-y-20">
+              <div className="flex justify-center lg:-translate-y-10 xl:-translate-y-14 2xl:-translate-x-24 2xl:-translate-y-20">
                 <HeroIntroCopy staticDisplay />
               </div>
-              <div className="flex justify-center lg:translate-x-14 lg:translate-y-10 lg:justify-self-end xl:translate-x-24 xl:translate-y-16 2xl:translate-x-48 2xl:translate-y-24">
+              <div className="flex justify-center lg:translate-y-10 lg:justify-self-end xl:translate-y-16 2xl:translate-x-28 2xl:translate-y-24">
                 <HeroDescriptionPanel />
               </div>
             </div>
@@ -1169,10 +1169,10 @@ export default function PortfolioLandingPage() {
                   willChange: "transform, opacity, filter",
                 }}
               >
-                <div className="flex justify-center lg:-translate-x-16 lg:-translate-y-10 xl:-translate-x-28 xl:-translate-y-14 2xl:-translate-x-44 2xl:-translate-y-20">
+                <div className="flex justify-center lg:-translate-y-10 xl:-translate-y-14 2xl:-translate-x-24 2xl:-translate-y-20">
                   <HeroIntroCopy onOpenCv={() => setIsCvOpen(true)} />
                 </div>
-                <div className="flex justify-center lg:translate-x-14 lg:translate-y-10 lg:justify-self-end xl:translate-x-24 xl:translate-y-16 2xl:translate-x-48 2xl:translate-y-24">
+                <div className="flex justify-center lg:translate-y-10 lg:justify-self-end xl:translate-y-16 2xl:translate-x-28 2xl:translate-y-24">
                   <HeroDescriptionPanel />
                 </div>
               </motion.div>
