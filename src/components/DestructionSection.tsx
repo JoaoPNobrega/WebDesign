@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import AetherFlowHero from "@/components/ui/aether-flow-hero";
 import VaporizeTextCycle, { Tag } from "@/components/ui/vaporize-text-cycle";
 import WetPaintButton from "@/components/ui/wet-paint-button";
+import ImmersiveBadge from "@/components/ImmersiveBadge";
 import type { SiteLanguage } from "@/lib/site-language";
 
 type ProblemLayout = {
@@ -59,6 +60,7 @@ const destructionCopy = {
     footerLink: "Portf\u00F3lio",
     footerText: "desenvolvido por Jo\u00E3o Pedro. Todos os direitos reservados.",
     backToTopAria: "Voltar ao topo do portf\u00F3lio",
+    backToTopLabel: "Voltar ao topo",
   },
   "en-US": {
     finalKicker: "Definitive solution",
@@ -71,6 +73,7 @@ const destructionCopy = {
     footerLink: "Portfolio",
     footerText: "developed by Jo\u00E3o Pedro. All rights reserved.",
     backToTopAria: "Back to top of portfolio",
+    backToTopLabel: "Back to top",
   },
 } as const;
 
@@ -260,6 +263,23 @@ export default function DestructionSection({
   const [showFinalMessage, setShowFinalMessage] = useState(false);
   const revealTimeoutRef = useRef<number | null>(null);
   const activeRunRef = useRef(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isSectionInView, setIsSectionInView] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionInView(entry.isIntersecting),
+      { threshold: 0.35 },
+    );
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -365,7 +385,7 @@ export default function DestructionSection({
   }, [completedCount, isClearing, problems.length]);
 
   return (
-    <section className={`relative min-h-screen overflow-hidden ${backgroundClassName}`}>
+    <section ref={sectionRef} className={`relative min-h-screen overflow-hidden ${backgroundClassName}`}>
       {showAmbientBackground && (
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
       )}
@@ -411,26 +431,40 @@ export default function DestructionSection({
       </AnimatePresence>
       <AnimatePresence>
         {showFinalMessage && (
-          <motion.p
+          <motion.div
             key="final-footer-signature"
-            className="absolute inset-x-0 bottom-7 z-30 mx-auto w-[min(82vw,36rem)] text-center text-[8px] font-medium uppercase tracking-[0.24em] text-white/16 sm:bottom-8 sm:text-[9px]"
+            className="absolute inset-x-0 bottom-7 z-30 mx-auto flex w-[min(82vw,36rem)] flex-col items-center gap-5 sm:bottom-8"
             initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 8, filter: "blur(8px)" }}
-            transition={{ delay: 4.2, duration: 1.1, ease: "easeOut" }}
+            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
           >
             <button
               type="button"
               onClick={scrollToPortfolioTop}
-              className="pointer-events-auto cursor-pointer uppercase text-white/16 transition hover:text-white/34 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
+              className="to-top pointer-events-auto"
               aria-label={copy.backToTopAria}
             >
-              {copy.footerLink}
-            </button>{" "}
-            {copy.footerText}
-          </motion.p>
+              <svg className="svgIcon" viewBox="0 0 384 512" aria-hidden="true">
+                <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" />
+              </svg>
+              <span className="to-top__label">{copy.backToTopLabel}</span>
+            </button>
+            <p className="text-center text-[8px] font-medium uppercase tracking-[0.24em] text-white/16 sm:text-[9px]">
+              <button
+                type="button"
+                onClick={scrollToPortfolioTop}
+                className="pointer-events-auto cursor-pointer uppercase text-white/16 transition hover:text-white/34 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
+                aria-label={copy.backToTopAria}
+              >
+                {copy.footerLink}
+              </button>{" "}
+              {copy.footerText}
+            </p>
+          </motion.div>
         )}
       </AnimatePresence>
+      {showFinalMessage && <ImmersiveBadge visible={isSectionInView} />}
       <div className="relative flex min-h-screen items-center justify-center px-6 pb-32 pt-16">
         <div className="relative h-[min(78vh,760px)] w-full max-w-7xl">
           {!showFinalMessage &&
@@ -479,9 +513,8 @@ export default function DestructionSection({
                   >
                     {finalContactItems.map((item) => {
                       const Icon = item.icon;
-                      const content = <Icon className="h-7 w-7" aria-hidden="true" />;
-                      const itemClassName =
-                        "group inline-flex h-16 w-16 items-center justify-center rounded-[1.5rem] border border-white/12 bg-white/[0.06] text-white/70 shadow-[0_20px_70px_rgba(0,0,0,0.32)] transition duration-300 hover:-translate-y-1 hover:border-[#A7EF9E]/45 hover:bg-white/[0.12] hover:text-white hover:shadow-[0_26px_90px_rgba(167,239,158,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 sm:h-[4.5rem] sm:w-[4.5rem] sm:rounded-[1.7rem]";
+                      const content = <Icon className="fx-icon h-7 w-7" aria-hidden="true" />;
+                      const itemClassName = "fx-contact";
 
                       return (
                         <motion.li

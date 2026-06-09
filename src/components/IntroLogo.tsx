@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, type CSSProperties } from "react";
+import { useState, useEffect, useCallback, useRef, type CSSProperties } from "react";
 
 import DragaoLogoAnimada, {
   DRAGAO_CENTER_TEAL,
@@ -18,7 +18,17 @@ const INTRO_DONE_MS = 1500;
 
 type Lang = "pt-br" | "en";
 
-export default function IntroLogo({ onDone }: { onDone: () => void }) {
+export default function IntroLogo({
+  onDone,
+  loaderMode = false,
+  canReveal = true,
+}: {
+  onDone: () => void;
+  /** Modo "tela de carregamento": esconde os botões de idioma e revela sozinho. */
+  loaderMode?: boolean;
+  /** Em loaderMode, só dispara o zoom de saída quando isto for true (ex.: 3D pronto). */
+  canReveal?: boolean;
+}) {
   const { setLang } = useLang();
   const [replayKey] = useState(0);
   const [ready, setReady] = useState(false); // animação concluída → botões
@@ -43,26 +53,40 @@ export default function IntroLogo({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(t);
   }, [replayKey]);
 
+  // Dispara a saída: colchetes voam, dragão dá zoom e revela o que está por baixo.
+  const triggerExit = useCallback(() => {
+    setReady(false);
+    setExiting(true);
+    const tGrow = setTimeout(() => setGrown(true), 350);
+    const tNav = setTimeout(() => onDone(), 2050);
+    return () => {
+      clearTimeout(tGrow);
+      clearTimeout(tNav);
+    };
+  }, [onDone]);
+
   const handleChoose = useCallback(
     (lang: Lang) => {
-      setReady(false);
-      setExiting(true); // colchetes saem da tela
       // aplica o idioma escolhido no portfólio
       const siteLang: SiteLanguage = lang === "en" ? "en-US" : "pt-BR";
       setLang(siteLang);
-      // dispara o zoom do dragão logo depois que os colchetes começam a sair
-      const tGrow = setTimeout(() => setGrown(true), 350);
-      // ao fim do zoom, revela o portfólio de fato
-      const tNav = setTimeout(() => {
-        onDone();
-      }, 2050);
-      return () => {
-        clearTimeout(tGrow);
-        clearTimeout(tNav);
-      };
+      return triggerExit();
     },
-    [onDone, setLang]
+    [setLang, triggerExit]
   );
+
+  // Em modo loader não há escolha de idioma: assim que a animação termina e o
+  // conteúdo está pronto (canReveal), revela sozinho — apenas uma vez.
+  // (Importante NÃO retornar o cleanup do triggerExit aqui: como ele muda
+  // `exiting`, o effect re-rodaria e o cleanup limparia os timeouts do zoom/onDone,
+  // travando a intro no meio da saída.)
+  const autoRevealedRef = useRef(false);
+  useEffect(() => {
+    if (loaderMode && ready && canReveal && !exiting && !autoRevealedRef.current) {
+      autoRevealedRef.current = true;
+      triggerExit();
+    }
+  }, [loaderMode, ready, canReveal, exiting, triggerExit]);
 
   // Buraco em forma de dragão que CRESCE recortado da própria intro:
   // (campo sólido) XOR (dragão) = tudo visível, menos o dragão → janela
@@ -115,8 +139,9 @@ export default function IntroLogo({ onDone }: { onDone: () => void }) {
         />
       </div>
 
-      {/* Botões de idioma — aparecem ao fim da animação, somem ao clicar */}
-      {ready && !exiting && (
+      {/* Botões de idioma — aparecem ao fim da animação, somem ao clicar.
+          Em modo loader (ex.: tela de carregamento do 3D) não aparecem. */}
+      {ready && !exiting && !loaderMode && (
         <div
           style={{
             position: "fixed",

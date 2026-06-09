@@ -67,6 +67,162 @@
   }
 }
 
+/* Botão "Voltar ao topo" — círculo glass que se expande no hover revelando o
+   texto (estilo uiverse), adaptado ao tema escuro + acento verde. Sem borda. */
+.to-top {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
+}
+.to-top .svgIcon {
+  width: 13px;
+  transition: transform 0.3s ease;
+}
+.to-top .svgIcon path {
+  fill: rgba(255, 255, 255, 0.72);
+  transition: fill 0.3s ease;
+}
+.to-top__label {
+  position: absolute;
+  font-size: 0;
+  opacity: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #06120a;
+  transition: font-size 0.3s ease, opacity 0.3s ease;
+}
+.to-top:hover,
+.to-top:focus-visible {
+  width: 180px;
+  background-color: #a7ef9e;
+  outline: none;
+}
+.to-top:hover .svgIcon,
+.to-top:focus-visible .svgIcon {
+  transform: translateY(-220%);
+}
+.to-top:hover .svgIcon path,
+.to-top:focus-visible .svgIcon path {
+  fill: #06120a;
+}
+.to-top:hover .to-top__label,
+.to-top:focus-visible .to-top__label {
+  font-size: 14px;
+  opacity: 1;
+}
+
+/* Botões de contato da mensagem final — efeito "insano" no hover: halo verde
+   girando atrás, levitação + escala, ícone com giro/pop. Sem borda. */
+.fx-contact {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.72);
+  isolation: isolate;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease,
+    color 0.4s ease, box-shadow 0.45s ease;
+}
+@media (min-width: 640px) {
+  .fx-contact {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 1.7rem;
+  }
+}
+/* halo conic girando */
+.fx-contact::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0;
+  filter: blur(9px);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(167, 239, 158, 0.95) 18%,
+    transparent 38%,
+    rgba(167, 239, 158, 0.6) 62%,
+    transparent 82%,
+    rgba(167, 239, 158, 0.95) 100%
+  );
+  transition: opacity 0.4s ease;
+}
+/* brilho radial interno */
+.fx-contact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(167, 239, 158, 0.35), transparent 70%);
+  transition: opacity 0.4s ease;
+}
+.fx-contact .fx-icon {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.fx-contact:hover,
+.fx-contact:focus-visible {
+  transform: translateY(-3px) scale(1.04);
+  background-color: rgba(167, 239, 158, 0.1);
+  color: #ffffff;
+  box-shadow: 0 12px 28px -22px rgba(167, 239, 158, 0.3);
+  outline: none;
+}
+.fx-contact:hover::before,
+.fx-contact:focus-visible::before {
+  opacity: 0.28;
+  animation: fx-spin 6s linear infinite;
+}
+.fx-contact:hover::after,
+.fx-contact:focus-visible::after {
+  opacity: 0.32;
+}
+.fx-contact:hover .fx-icon,
+.fx-contact:focus-visible .fx-icon {
+  transform: scale(1.08);
+}
+.fx-contact:active {
+  transform: translateY(-1px) scale(1.02);
+}
+@keyframes fx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-contact,
+  .fx-contact .fx-icon {
+    transition: none;
+  }
+  .fx-contact:hover::before,
+  .fx-contact:focus-visible::before {
+    animation: none;
+  }
+  .fx-contact:hover .fx-icon,
+  .fx-contact:focus-visible .fx-icon {
+    transform: none;
+  }
+}
+
 .hero-role-shiny {
   background-image: linear-gradient(
     110deg,

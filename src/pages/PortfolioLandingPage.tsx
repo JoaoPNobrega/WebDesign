@@ -30,58 +30,69 @@ const PARTNER_URLS: Record<string, string> = {
   "CESAR School": "https://www.cesar.school/",
 };
 
-function HeroIntroCopy({ onOpenCv }: { onOpenCv?: () => void }) {
+function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => void; staticDisplay?: boolean }) {
   const { lang, tx } = useLang();
-  const [hasTypedRole, setHasTypedRole] = useState(false);
+  const [hasTypedRole, setHasTypedRole] = useState(staticDisplay);
 
   useEffect(() => {
-    setHasTypedRole(false);
-  }, [lang]);
+    setHasTypedRole(staticDisplay);
+  }, [lang, staticDisplay]);
 
   return (
     <div className="flex w-full max-w-2xl flex-col items-center text-center">
-        <TextType
-          key={`intro-${lang}`}
-          as="p"
-          text={tx(copy.hero.intro)}
-        typingSpeed={78}
-        initialDelay={760}
-        variableSpeed={{ min: 62, max: 118 }}
-        loop={false}
-          showCursor={false}
-          cursorCharacter="_"
-        cursorBlinkDuration={0.58}
-        startOnVisible
-        reserveSpace
-        className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
-        cursorClassName="text-white/48"
-        style={{ fontFamily: "var(--font-sans)" }}
-      />
+        {staticDisplay ? (
+          <p
+            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            {tx(copy.hero.intro)}
+          </p>
+        ) : (
+          <TextType
+            key={`intro-${lang}`}
+            as="p"
+            text={tx(copy.hero.intro)}
+            typingSpeed={78}
+            initialDelay={760}
+            variableSpeed={{ min: 62, max: 118 }}
+            loop={false}
+            showCursor={false}
+            cursorCharacter="_"
+            cursorBlinkDuration={0.58}
+            startOnVisible
+            reserveSpace
+            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+            cursorClassName="text-white/48"
+            style={{ fontFamily: "var(--font-sans)" }}
+          />
+        )}
       <motion.div
         initial={{ opacity: 0, y: 16, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1.05, delay: 3.45, ease: [0.16, 1, 0.3, 1] }}
         className="relative mt-6 min-h-16 w-full text-center text-sm font-medium uppercase tracking-[0.24em] text-white/60 sm:text-base lg:min-h-24 lg:text-lg"
       >
-        <TextType
-          key={`role-${lang}`}
-          as="p"
-          text={tx(copy.hero.roleTyped)}
-          typingSpeed={54}
-          initialDelay={0}
-          variableSpeed={{ min: 42, max: 84 }}
-          loop={false}
-          showCursor={false}
-          cursorCharacter="_"
-          cursorBlinkDuration={0.58}
-          startOnVisible
-          reserveSpace
-          onSentenceComplete={() => setHasTypedRole(true)}
-          className={`relative block w-full transition-opacity duration-500 ${
-            hasTypedRole ? "opacity-0" : "opacity-100"
-          }`}
-          cursorClassName="text-white/48"
-        />
+        {!staticDisplay && (
+          <TextType
+            key={`role-${lang}`}
+            as="p"
+            text={tx(copy.hero.roleTyped)}
+            typingSpeed={54}
+            initialDelay={0}
+            variableSpeed={{ min: 42, max: 84 }}
+            loop={false}
+            showCursor={false}
+            cursorCharacter="_"
+            cursorBlinkDuration={0.58}
+            startOnVisible
+            reserveSpace
+            onSentenceComplete={() => setHasTypedRole(true)}
+            className={`relative block w-full transition-opacity duration-500 ${
+              hasTypedRole ? "opacity-0" : "opacity-100"
+            }`}
+            cursorClassName="text-white/48"
+          />
+        )}
         <motion.p
           aria-hidden={!hasTypedRole}
           initial={false}
@@ -326,6 +337,12 @@ function HeroEchoVisual() {
             className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
             decoding="async"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.45) 82%, transparent 100%)",
+              maskImage:
+                "linear-gradient(180deg, #000 0%, #000 55%, rgba(0,0,0,0.45) 82%, transparent 100%)",
+            }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
@@ -342,10 +359,10 @@ function HeroEchoVisual() {
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 pb-12 pt-28 sm:px-8 lg:px-12 lg:pb-16 lg:pt-36">
           <div className="w-full">
             <div className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-              <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
-                <HeroIntroCopy />
+              <div className="flex justify-center lg:-translate-x-16 lg:-translate-y-10 xl:-translate-x-28 xl:-translate-y-14 2xl:-translate-x-44 2xl:-translate-y-20">
+                <HeroIntroCopy staticDisplay />
               </div>
-              <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
+              <div className="flex justify-center lg:translate-x-14 lg:translate-y-10 lg:justify-self-end xl:translate-x-24 xl:translate-y-16 2xl:translate-x-48 2xl:translate-y-24">
                 <HeroDescriptionPanel />
               </div>
             </div>
@@ -613,6 +630,28 @@ export default function PortfolioLandingPage() {
     }
   }, [isProjectsDropdownOpen]);
 
+  // Pré-carrega (e pré-decodifica) as miniaturas dos projetos assim que o
+  // navegador fica ocioso, para que a abertura do dropdown não trave
+  // decodificando imagens no meio da animação.
+  useEffect(() => {
+    const preload = () => {
+      for (const item of navProjectItems) {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = item.image;
+      }
+    };
+    const ric = (window as typeof window & {
+      requestIdleCallback?: (cb: () => void) => number;
+    }).requestIdleCallback;
+    if (ric) {
+      ric(preload);
+    } else {
+      const timeout = window.setTimeout(preload, 600);
+      return () => window.clearTimeout(timeout);
+    }
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -841,8 +880,11 @@ export default function PortfolioLandingPage() {
                     y: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
                     filter: { duration: 0.34, ease: "easeOut" },
                   }}
-                  style={{ maxWidth: isNavDetached ? "82vw" : undefined }}
-                  className="overflow-hidden"
+                  style={{
+                    maxWidth: isNavDetached ? "82vw" : undefined,
+                    willChange: "height, opacity, filter, transform",
+                  }}
+                  className="overflow-hidden [contain:layout_paint]"
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     {selectedProject ? (
@@ -1121,12 +1163,15 @@ export default function PortfolioLandingPage() {
                 }}
                 transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
                 className="grid w-full gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center"
-                style={{ pointerEvents: isHeroProjectsDropdownOpen ? "none" : "auto" }}
+                style={{
+                  pointerEvents: isHeroProjectsDropdownOpen ? "none" : "auto",
+                  willChange: "transform, opacity, filter",
+                }}
               >
-                <div className="flex justify-center lg:-translate-x-32 lg:-translate-y-14 xl:-translate-x-44 xl:-translate-y-20">
+                <div className="flex justify-center lg:-translate-x-16 lg:-translate-y-10 xl:-translate-x-28 xl:-translate-y-14 2xl:-translate-x-44 2xl:-translate-y-20">
                   <HeroIntroCopy onOpenCv={() => setIsCvOpen(true)} />
                 </div>
-                <div className="flex justify-center lg:translate-x-28 lg:translate-y-16 lg:justify-self-end xl:translate-x-40 xl:translate-y-24 2xl:translate-x-48">
+                <div className="flex justify-center lg:translate-x-14 lg:translate-y-10 lg:justify-self-end xl:translate-x-24 xl:translate-y-16 2xl:translate-x-48 2xl:translate-y-24">
                   <HeroDescriptionPanel />
                 </div>
               </motion.div>

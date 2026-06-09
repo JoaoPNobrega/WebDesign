@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
 import PortfolioLandingPageMobile from "@/pages/PortfolioLandingPageMobile";
+import BadgePage from "@/pages/BadgePage";
 import IntroLogo from "@/components/IntroLogo";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { LanguageProvider } from "@/lib/i18n";
@@ -67,6 +68,16 @@ export default function App() {
   useEffect(() => {
     document.title = "Portfólio | João Pedro";
   }, [pathname]);
+
+  if (pathname === "/3d") {
+    return (
+      <LanguageProvider>
+        <main className="app-shell overflow-visible">
+          <BadgePage />
+        </main>
+      </LanguageProvider>
+    );
+  }
 
   return (
     <LanguageProvider>
