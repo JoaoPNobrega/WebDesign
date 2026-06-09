@@ -132,7 +132,7 @@ export default function ProjectDetailModal({
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3.5">
             <h2
               id="project-detail-title"
-              className="text-3xl font-black uppercase leading-[0.92] tracking-[-0.075em] text-white sm:text-[2.85rem]"
+              className="text-3xl font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-white sm:text-[2.85rem]"
             >
               {title}
             </h2>

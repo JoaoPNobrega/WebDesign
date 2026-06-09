@@ -157,7 +157,7 @@ function LangButton({ label, sub, onClick }: { label: string; sub: string; onCli
         boxShadow: "0 8px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
         color: "#fff",
         cursor: "pointer",
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: "var(--font-sans)",
         minWidth: 140,
         transition: "background 0.25s, transform 0.25s",
       }}

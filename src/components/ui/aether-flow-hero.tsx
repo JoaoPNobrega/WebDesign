@@ -7,6 +7,8 @@ type AetherFlowHeroProps = {
   className?: string;
   /** RGB triple (e.g. "0, 199, 167") used for particles + links. Defaults to the purple aether. */
   colorRgb?: string;
+  /** When true, the canvas is cleared each frame (no opaque fill, no vignette) so it can sit subtly over any background. */
+  transparent?: boolean;
 };
 
 type PointerState = {
@@ -26,7 +28,7 @@ type Particle = {
 
 const cn = (...classes: Array<string | false | null | undefined>) => classes.filter(Boolean).join(" ");
 
-export default function AetherFlowHero({ className, colorRgb }: AetherFlowHeroProps) {
+export default function AetherFlowHero({ className, colorRgb, transparent = false }: AetherFlowHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -140,8 +142,12 @@ export default function AetherFlowHero({ className, colorRgb }: AetherFlowHeroPr
     };
 
     const render = () => {
-      context.fillStyle = "#070707";
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      if (transparent) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+      } else {
+        context.fillStyle = "#070707";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       for (const particle of particles) {
         updateParticle(particle);
@@ -179,9 +185,11 @@ export default function AetherFlowHero({ className, colorRgb }: AetherFlowHeroPr
   }, [shouldReduceMotion, colorRgb]);
 
   return (
-    <div className={cn("absolute inset-0 overflow-hidden bg-[#070707]", className)}>
+    <div className={cn("absolute inset-0 overflow-hidden", transparent ? "" : "bg-[#070707]", className)}>
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(7,7,7,0.18)_46%,rgba(7,7,7,0.82)_100%)]" />
+      {!transparent && (
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(7,7,7,0.18)_46%,rgba(7,7,7,0.82)_100%)]" />
+      )}
     </div>
   );
 }

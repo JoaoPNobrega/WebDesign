@@ -4,6 +4,8 @@ import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReduc
 import { ExternalLink, Mail } from "lucide-react";
 import DestructionSection from "@/components/DestructionSection";
 import SkillsSection from "@/components/SkillsSection";
+import StoryTimeline from "@/components/StoryTimeline";
+import AetherFlowHero from "@/components/ui/aether-flow-hero";
 import BlurText from "@/components/ui/BlurText";
 import CvButton from "@/components/ui/CvButton";
 import CvModal from "@/components/ui/CvModal";
@@ -12,7 +14,7 @@ import GlassSurface from "@/components/ui/GlassSurface";
 import ShinyText from "@/components/ui/ShinyText";
 import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
-import { useLang, type LocalizedText } from "@/lib/i18n";
+import { useLang } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
 
 const HERO_MORPH_SCROLL_DISTANCE = 860;
@@ -51,9 +53,9 @@ function HeroIntroCopy({ onOpenCv }: { onOpenCv?: () => void }) {
         cursorBlinkDuration={0.58}
         startOnVisible
         reserveSpace
-        className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.94] tracking-[-0.075em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+        className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
         cursorClassName="text-white/48"
-        style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+        style={{ fontFamily: "var(--font-sans)" }}
       />
       <motion.div
         initial={{ opacity: 0, y: 16, filter: "blur(10px)" }}
@@ -95,7 +97,7 @@ function HeroIntroCopy({ onOpenCv }: { onOpenCv?: () => void }) {
           <ShinyText
             as="span"
             speed="2.05s"
-            className="hero-role-shiny whitespace-nowrap text-2xl font-black tracking-[0.13em] drop-shadow-[0_0_34px_rgba(255,255,255,0.42)] sm:text-4xl lg:text-5xl"
+            className="hero-role-shiny whitespace-nowrap text-2xl font-extrabold tracking-[0.1em] drop-shadow-[0_0_34px_rgba(255,255,255,0.42)] sm:text-4xl lg:text-5xl"
           >
             {tx(copy.hero.roleTitle)}
           </ShinyText>
@@ -125,7 +127,7 @@ function HeroDescriptionPanel() {
         {tx(copy.hero.eyebrow)}
       </span>
       <div className="mt-5 h-px w-24 bg-white/16" />
-      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.92] tracking-[-0.085em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.9rem]">
+      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.95] tracking-[-0.035em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.9rem]">
         {tx(copy.hero.panelTitle)}
       </h2>
       <p className="mt-6 max-w-[29rem] text-lg leading-8 text-white/72 sm:text-xl sm:leading-9 lg:text-[1.12rem] lg:leading-9">
@@ -368,30 +370,58 @@ function JourneyHorizontalSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.75, ease: "easeOut" }}
-        className="mx-auto max-w-3xl text-center"
+        className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16"
       >
-        <p className="mb-5 text-xs font-medium uppercase tracking-[0.45em] text-white/40">
-          {tx(copy.about.eyebrow)}
-        </p>
-        <BlurText
-          key={`about-title-${lang}`}
-          tag="h2"
-          text={tx(copy.about.title)}
-          id="about-heading"
-          className="justify-center text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
-          animateBy="words"
-          direction="top"
-          delay={130}
-          stepDuration={0.35}
-          threshold={0.2}
-          rootMargin="-80px"
-        />
-        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
-          {tx(copy.about.paragraphOne)}
-        </p>
-        <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/48 sm:text-base">
-          {tx(copy.about.paragraphTwo)}
-        </p>
+        {/* Foto */}
+        <div className="group relative mx-auto w-full max-w-[22rem] lg:mx-0">
+          {/* moldura deslocada (outline) atrás, em acento */}
+          <div className="pointer-events-none absolute -bottom-3 -left-3 -z-10 h-full w-full rounded-[1.75rem] border border-[#A7EF9E]/35 transition-transform duration-500 ease-out group-hover:-bottom-2 group-hover:-left-2" />
+          {/* moldura com borda em gradiente */}
+          <div className="relative rounded-[1.85rem] bg-gradient-to-br from-white/25 via-white/5 to-transparent p-px shadow-[0_40px_100px_-28px_rgba(0,0,0,0.8)]">
+            <div className="relative overflow-hidden rounded-[1.8rem] ring-1 ring-white/10">
+              <img
+                src="/assets/joao-pedro-about.jpeg"
+                alt="João Pedro"
+                loading="lazy"
+                className="aspect-[4/5] w-full object-cover object-[center_28%]"
+              />
+              {/* borda interna fininha */}
+              <div className="pointer-events-none absolute inset-0 rounded-[1.8rem] ring-1 ring-inset ring-white/[0.08]" />
+            </div>
+          </div>
+          {/* cantos de acento */}
+          <span className="pointer-events-none absolute -left-2 -top-2 h-6 w-6 rounded-tl-lg border-l-2 border-t-2 border-[#A7EF9E]/70" />
+          <span className="pointer-events-none absolute -right-2 -bottom-2 h-6 w-6 rounded-br-lg border-b-2 border-r-2 border-[#A7EF9E]/70" />
+        </div>
+
+        {/* Texto */}
+        <div className="text-left">
+          <ShinyText
+            as="p"
+            text={tx(copy.about.eyebrow)}
+            speed="2.6s"
+            className="mb-5 text-xs font-medium uppercase tracking-[0.45em] [filter:drop-shadow(0_0_8px_rgba(167,239,158,0.45))]"
+          />
+          <BlurText
+            key={`about-title-${lang}`}
+            tag="h2"
+            text={tx(copy.about.title)}
+            id="about-heading"
+            className="justify-start text-4xl font-extrabold uppercase tracking-[-0.01em] text-white sm:text-5xl lg:text-6xl"
+            animateBy="words"
+            direction="top"
+            delay={130}
+            stepDuration={0.35}
+            threshold={0.2}
+            rootMargin="-80px"
+          />
+          <p className="mt-8 max-w-xl text-base leading-8 text-white/68 sm:text-lg">
+            {tx(copy.about.paragraphOne)}
+          </p>
+          <p className="mt-6 max-w-xl text-sm leading-7 text-white/48 sm:text-base">
+            {tx(copy.about.paragraphTwo)}
+          </p>
+        </div>
       </motion.div>
     </section>
   );
@@ -406,325 +436,6 @@ function DestructionStackSection() {
       className="relative bg-transparent"
     >
       <DestructionSection language={lang} backgroundClassName="bg-transparent" showAmbientBackground={false} />
-    </section>
-  );
-}
-
-const workHistory: { role: LocalizedText; company: LocalizedText; period: LocalizedText; description: LocalizedText; isCurrent: boolean }[] = [
-  {
-    isCurrent: true,
-    role: { "pt-BR": "Desenvolvedor full stack", "en-US": "Full stack developer" },
-    company: { "pt-BR": "Web Star Studio · Estágio", "en-US": "Web Star Studio · Internship" },
-    period: { "pt-BR": "Fevereiro 2026 — Hoje", "en-US": "February 2026 — Present" },
-    description: {
-      "pt-BR": "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual.",
-      "en-US": "Building and maintaining websites, focused on responsive layouts, front-end and visual identity.",
-    },
-  },
-  {
-    isCurrent: true,
-    role: { "pt-BR": "Desenvolvedor web freelancer", "en-US": "Freelance web developer" },
-    company: { "pt-BR": "Autônomo", "en-US": "Self-employed" },
-    period: { "pt-BR": "Abril 2026 — Hoje", "en-US": "April 2026 — Present" },
-    description: {
-      "pt-BR": "Criação de sites e landing pages sob demanda para clientes, do briefing à entrega — direção visual, front-end e acabamento.",
-      "en-US": "Building websites and landing pages on demand for clients, from briefing to delivery — visual direction, front-end and polish.",
-    },
-  },
-  {
-    isCurrent: false,
-    role: { "pt-BR": "Desenvolvedor de software", "en-US": "Software developer" },
-    company: { "pt-BR": "AJ Soluções & Sistemas · Estágio", "en-US": "AJ Soluções & Sistemas · Internship" },
-    period: { "pt-BR": "Setembro — Dezembro 2025", "en-US": "September — December 2025" },
-    description: {
-      "pt-BR": "Desenvolvimento de software, automações N8N e planilhas VBA.",
-      "en-US": "Software development, N8N automations and VBA spreadsheets.",
-    },
-  },
-];
-
-function LivePulse({ reduce }: { reduce: boolean }) {
-  return (
-    <span className="relative inline-flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-      {!reduce ? (
-        <motion.span
-          className="absolute inset-0 rounded-full bg-[#A7EF9E]"
-          animate={{ scale: [1, 2.4, 1], opacity: [0.55, 0, 0.55] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ) : null}
-      <span className="relative h-1.5 w-1.5 rounded-full bg-[#A7EF9E] shadow-[0_0_8px_rgba(167,239,158,0.75)]" />
-    </span>
-  );
-}
-
-function ExperienceCard({
-  item,
-  current,
-  index,
-}: {
-  item: (typeof workHistory)[number];
-  current: boolean;
-  index: number;
-}) {
-  const { tx } = useLang();
-  const reduce = useReducedMotion() ?? false;
-
-  return (
-    <motion.div
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
-      className="[perspective:1000px]"
-    >
-      <article
-        className={`group relative h-full overflow-hidden rounded-[8px] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(-1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10 ${
-          current ? "bg-white/[0.055]" : "bg-white/[0.028]"
-        }`}
-      >
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 opacity-80 transition duration-300 group-hover:opacity-100 ${
-            current
-              ? "bg-[radial-gradient(circle_at_18%_12%,rgba(167,239,158,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.035)_38%,rgba(255,255,255,0.015))]"
-              : "bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)_42%,transparent)]"
-          }`}
-        />
-        {current ? (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#A7EF9E]/18 blur-3xl transition duration-500 group-hover:-translate-x-7 group-hover:translate-y-8"
-          />
-        ) : null}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-10 h-px w-36 bg-gradient-to-r from-transparent via-white/26 to-transparent transition duration-500 group-hover:translate-x-12 group-hover:opacity-80"
-        />
-
-        <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
-          <p
-            className={`font-mono text-[11px] font-semibold uppercase tracking-[0.3em] ${
-              current ? "text-[#A7EF9E]" : "text-white/45"
-            }`}
-          >
-            {tx(item.company)}
-            <span className="sr-only">, {tx(current ? copy.experience.srLive : copy.experience.srPast)}</span>
-          </p>
-          <p
-            className={`mt-2 font-mono text-xs uppercase tracking-[0.15em] ${
-              current ? "text-white/55" : "text-white/40"
-            }`}
-          >
-            {tx(item.period)}
-          </p>
-          <h3
-            className={`mt-6 leading-tight tracking-[-0.025em] ${
-              current ? "text-2xl text-white sm:text-[1.7rem]" : "text-xl text-white/55 sm:text-[1.4rem]"
-            }`}
-            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
-          >
-            {tx(item.role)}
-          </h3>
-          <p
-            className={`mt-3 leading-relaxed ${current ? "text-sm text-white/72" : "text-[0.82rem] text-white/45"}`}
-          >
-            {tx(item.description)}
-          </p>
-        </div>
-      </article>
-    </motion.div>
-  );
-}
-
-function ExperienceTimelineSection() {
-  const { tx } = useLang();
-  const reduce = useReducedMotion() ?? false;
-  const currentRoles = workHistory.filter((item) => item.isCurrent);
-  const pastRoles = workHistory.filter((item) => !item.isCurrent);
-
-  return (
-    <section
-      id="experience"
-      aria-labelledby="experience-heading"
-      className="relative bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
-    >
-      <div className="mx-auto max-w-5xl">
-        <motion.div
-          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-14 text-center"
-        >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/40">
-            {tx(copy.experience.eyebrow)}
-          </p>
-          <h2
-            id="experience-heading"
-            className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl"
-          >
-            {tx(copy.experience.title)}
-          </h2>
-        </motion.div>
-
-        {/* Em curso — rótulo centralizado + os 2 papéis em paralelo */}
-        <motion.div
-          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8 flex items-center justify-center gap-2.5"
-        >
-          <LivePulse reduce={reduce} />
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
-            {tx(copy.experience.statusLive)}
-          </p>
-        </motion.div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          {currentRoles.map((item, index) => (
-            <ExperienceCard key={item.company["pt-BR"]} item={item} current index={index} />
-          ))}
-        </div>
-
-        {/* Anteriores — card único, menor e mais apagado */}
-        {pastRoles.length > 0 ? (
-          <>
-            <motion.div
-              initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-90px" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="mb-8 mt-16 text-center lg:mt-20"
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-white/35">
-                {tx(copy.experience.pastGroup)}
-              </p>
-            </motion.div>
-            <div className="mx-auto max-w-md">
-              {pastRoles.map((item, index) => (
-                <ExperienceCard key={item.company["pt-BR"]} item={item} current={false} index={index} />
-              ))}
-            </div>
-          </>
-        ) : null}
-      </div>
-    </section>
-  );
-}
-
-const educationInfo: { degree: LocalizedText; school: string; location: LocalizedText; period: LocalizedText } = {
-  degree: { "pt-BR": "Bacharelado em Ciência da Computação", "en-US": "Bachelor's in Computer Science" },
-  school: "CESAR School",
-  location: { "pt-BR": "Recife, PE · Brasil", "en-US": "Recife, PE · Brazil" },
-  period: { "pt-BR": "2022 — em andamento", "en-US": "2022 — in progress" },
-};
-
-const spokenLanguages: { name: LocalizedText; level: LocalizedText }[] = [
-  { name: { "pt-BR": "Português", "en-US": "Portuguese" }, level: { "pt-BR": "Nativo", "en-US": "Native" } },
-  { name: { "pt-BR": "Inglês", "en-US": "English" }, level: { "pt-BR": "Avançado", "en-US": "Advanced" } },
-];
-
-function EducationLanguagesSection() {
-  const { tx } = useLang();
-
-  return (
-    <section
-      id="education"
-      aria-labelledby="education-heading"
-      className="relative bg-transparent px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
-    >
-      <div className="mx-auto max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-14 text-center"
-        >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/40">
-            {tx(copy.education.eyebrow)}
-          </p>
-          <h2
-            id="education-heading"
-            className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl"
-          >
-            {tx(copy.education.title)}
-          </h2>
-        </motion.div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 36 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="[perspective:1000px]"
-          >
-            <article className="group relative h-full cursor-pointer overflow-hidden rounded-[8px] bg-white/[0.055] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(-1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(167,239,158,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.035)_38%,rgba(255,255,255,0.015))] opacity-80 transition duration-300 group-hover:opacity-100" />
-              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#A7EF9E]/18 blur-3xl transition duration-500 group-hover:-translate-x-7 group-hover:translate-y-8" />
-              <div className="pointer-events-none absolute bottom-0 left-10 h-px w-36 bg-gradient-to-r from-transparent via-white/26 to-transparent transition duration-500 group-hover:translate-x-12 group-hover:opacity-80" />
-
-              <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
-                <div className="flex items-start justify-between gap-4">
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
-                    {tx(copy.education.educationLabel)}
-                  </p>
-                  <img
-                    src="/assets/cesar-school-logo.png"
-                    alt="CESAR School logo"
-                    className="h-7 w-auto object-contain opacity-85 transition duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-6 text-2xl font-bold leading-tight tracking-[-0.03em] text-white sm:text-[1.7rem]">
-                  {tx(educationInfo.degree)}
-                </h3>
-                <p className="mt-3 font-mono text-sm text-white/76">{educationInfo.school}</p>
-                <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-white/46">
-                  {tx(educationInfo.location)} &#183; {tx(educationInfo.period)}
-                </p>
-              </div>
-            </article>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 36 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-            className="[perspective:1000px]"
-          >
-            <article className="group relative h-full cursor-pointer overflow-hidden rounded-[8px] bg-white/[0.055] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 ease-out [transform-style:preserve-3d] hover:[transform:translateY(-8px)_rotateX(1.4deg)_rotateY(1.4deg)] hover:shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:p-10">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_8%,rgba(167,239,158,0.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035)_42%,rgba(255,255,255,0.014))] opacity-80 transition duration-300 group-hover:opacity-100" />
-              <div className="pointer-events-none absolute -bottom-14 -left-12 h-44 w-44 rounded-full bg-white/10 blur-3xl transition duration-500 group-hover:translate-x-7 group-hover:-translate-y-8" />
-              <div className="pointer-events-none absolute right-10 top-0 h-px w-32 bg-gradient-to-r from-transparent via-[#A7EF9E]/50 to-transparent transition duration-500 group-hover:-translate-x-10 group-hover:opacity-90" />
-
-              <div className="relative z-10 transition duration-500 group-hover:-translate-y-1">
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]">
-                  {tx(copy.education.languagesLabel)}
-                </p>
-                <ul className="mt-7 flex flex-col gap-3">
-                  {spokenLanguages.map((language, index) => (
-                    <li
-                      key={language.name["pt-BR"]}
-                      className="flex items-center justify-between rounded-[8px] bg-black/18 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 group-hover:bg-black/24"
-                      style={{ transform: `translateZ(${20 + index * 10}px)` }}
-                    >
-                      <span className="text-lg font-semibold text-white sm:text-xl">{tx(language.name)}</span>
-                      <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/58">
-                        {tx(language.level)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          </motion.div>
-        </div>
-      </div>
     </section>
   );
 }
@@ -1165,7 +876,7 @@ export default function PortfolioLandingPage() {
                               {tx(copy.projects.selected)}
                             </p>
                             <div className="mt-2 flex flex-wrap items-center gap-2.5">
-                              <h3 className="text-xl font-black uppercase leading-[0.95] tracking-[-0.055em] text-white sm:text-[1.65rem]">
+                              <h3 className="text-xl font-extrabold uppercase leading-[0.95] tracking-[-0.005em] text-white sm:text-[1.65rem]">
                                 {selectedProject.title}
                               </h3>
                               {selectedProjectPartner ? (
@@ -1303,7 +1014,7 @@ export default function PortfolioLandingPage() {
                     {navContactItems.map((item, index) => {
                       const Icon = item.icon;
                       const className =
-                        "inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-[1rem] border border-white/10 bg-white/[0.055] text-white/62 transition duration-300 hover:-translate-y-0.5 hover:border-[#A7EF9E]/45 hover:bg-white/[0.105] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60";
+                        "group/contact inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/[0.06] text-white/60 transition-colors duration-300 hover:bg-[#A7EF9E]/[0.18] hover:text-[#A7EF9E] focus-visible:outline-none";
 
                       return (
                         <motion.div
@@ -1436,7 +1147,7 @@ export default function PortfolioLandingPage() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="font-sans text-4xl font-bold tracking-tighter text-white drop-shadow-xl md:text-6xl lg:text-7xl">
+          <h2 className="font-sans text-4xl font-bold tracking-[-0.03em] text-white drop-shadow-xl md:text-6xl lg:text-7xl">
             {tx(copy.projects.headingLead)} <span className="text-[#A7EF9E]">{tx(copy.projects.headingAccent)}</span>
           </h2>
         </motion.div>
@@ -1445,11 +1156,18 @@ export default function PortfolioLandingPage() {
       <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} centerVisual={<HeroEchoVisual />} endBlend />
 
       <div className="relative bg-[linear-gradient(180deg,#050505_0%,#08080d_22%,#0d0e16_48%,#0a0c0b_72%,#050505_100%)]">
-        <JourneyHorizontalSection />
-        <SkillsSection />
-        <ExperienceTimelineSection />
-        <EducationLanguagesSection />
-        <DestructionStackSection />
+        {/* Campo de partículas bem sutil (mesmo efeito da intro), atrás das seções */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+          <div className="sticky top-0 h-screen w-full opacity-[0.35]">
+            <AetherFlowHero transparent colorRgb="167, 239, 158" />
+          </div>
+        </div>
+        <div className="relative z-10">
+          <JourneyHorizontalSection />
+          <SkillsSection />
+          <StoryTimeline />
+          <DestructionStackSection />
+        </div>
       </div>
     </div>
   );

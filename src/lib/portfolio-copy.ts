@@ -55,7 +55,7 @@ export const copy = {
     ),
   },
   skills: {
-    eyebrow: t("// EXPERTISE", "// EXPERTISE"),
+    eyebrow: t("Ferramentas & Stack", "Tools & Stack"),
     title: t("Habilidades & Tecnologias", "Skills & Technologies"),
     subtitle: t(
       "As ferramentas e tecnologias que uso para projetar, construir e entregar produtos web full-stack.",

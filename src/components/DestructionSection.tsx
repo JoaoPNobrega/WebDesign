@@ -202,7 +202,7 @@ function ProblemText({
           <VaporizeTextCycle
             texts={[problem.text]}
             font={{
-              fontFamily: "Inter, system-ui, sans-serif",
+              fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
               fontSize: layout.fontSize,
               fontWeight: 600,
             }}
@@ -396,7 +396,7 @@ export default function DestructionSection({
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {showFinalMessage && (
+        {showFinalMessage && showAmbientBackground && (
           <motion.div
             key="aether-flow-background"
             className="pointer-events-none absolute inset-0"

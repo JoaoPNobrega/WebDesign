@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Cloud, Monitor, Server, type LucideIcon } from "lucide-react";
 
 import TagSphere, { type Accent } from "@/components/ui/TagSphere";
+import ShinyText from "@/components/ui/ShinyText";
 import { useLang } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
 
@@ -115,12 +116,15 @@ export default function SkillsSection() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="mb-12 flex flex-col items-center text-center"
         >
-          <p className="mb-4 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.4em] text-[#A7EF9E]">
-            {tx(copy.skills.eyebrow)}
-          </p>
+          <ShinyText
+            as="p"
+            text={tx(copy.skills.eyebrow)}
+            speed="2.6s"
+            className="mb-4 text-xs font-medium uppercase tracking-[0.45em] [filter:drop-shadow(0_0_8px_rgba(167,239,158,0.45))]"
+          />
           <h2
             id="skills-heading"
-            className="text-4xl font-black uppercase tracking-[-0.075em] text-white sm:text-6xl"
+            className="text-4xl font-extrabold uppercase tracking-[-0.01em] text-white sm:text-6xl"
           >
             {tx(copy.skills.title)}
           </h2>

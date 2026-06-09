@@ -191,7 +191,7 @@ const spokenLanguages: { name: LocalizedText; level: LocalizedText }[] = [
   { name: L("Inglês", "English"), level: L("Avançado", "Advanced") },
 ];
 
-const SERIF = 'Georgia, "Times New Roman", serif';
+const SERIF = "var(--font-sans)";
 
 // ── Building blocks ─────────────────────────────────────────────────────────
 
@@ -311,7 +311,7 @@ function MobileNav({ onOpenCv }: { onOpenCv: () => void }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.05 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => go(link.id)}
-                  className="border-b border-white/[0.06] py-4 text-left text-[2rem] font-black uppercase leading-none tracking-[-0.04em] text-white/90 transition active:text-[#A7EF9E]"
+                  className="border-b border-white/[0.06] py-4 text-left text-[2rem] font-extrabold uppercase leading-none tracking-[-0.005em] text-white/90 transition active:text-[#A7EF9E]"
                   style={{ fontFamily: SERIF }}
                 >
                   {tx(link.label)}
@@ -340,7 +340,7 @@ function MobileNav({ onOpenCv }: { onOpenCv: () => void }) {
                       target={item.href.startsWith("mailto:") ? undefined : "_blank"}
                       rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
                       aria-label={item.label}
-                      className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.04] text-white/70 transition active:border-[#A7EF9E]/50 active:text-white"
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/[0.06] text-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition active:bg-[#A7EF9E]/[0.16] active:text-[#A7EF9E]"
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </a>
@@ -374,7 +374,7 @@ function SectionHeading({
       <p className="mb-3 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.38em] text-[#A7EF9E]">
         {tx(eyebrow)}
       </p>
-      <h2 className="text-[2rem] font-black uppercase leading-[0.95] tracking-[-0.06em] text-white">
+      <h2 className="text-[2rem] font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-white">
         {tx(title)}
       </h2>
     </motion.div>
@@ -404,7 +404,7 @@ function MobileHero({ onOpenCv }: { onOpenCv: () => void }) {
         </h1>
         <p className="mt-5 text-sm font-medium uppercase tracking-[0.2em] text-white/55">
           {tx(copy.hero.rolePrefix)}{" "}
-          <span className="font-black tracking-[0.1em] text-[#A7EF9E]">{tx(copy.hero.roleTitle)}</span>
+          <span className="font-extrabold tracking-[0.1em] text-[#A7EF9E]">{tx(copy.hero.roleTitle)}</span>
         </p>
         <p className="mt-6 max-w-prose text-[0.98rem] leading-7 text-white/70">{tx(copy.hero.panelBody)}</p>
 
@@ -461,6 +461,31 @@ function MobileAbout() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.65, ease: "easeOut" }}
+        className="relative mx-auto mb-7 mt-6 w-full max-w-[16rem]"
+      >
+        {/* moldura deslocada (outline) atrás, em acento */}
+        <div className="pointer-events-none absolute -bottom-2.5 -left-2.5 -z-10 h-full w-full rounded-[1.5rem] border border-[#A7EF9E]/35" />
+        {/* moldura com borda em gradiente */}
+        <div className="relative rounded-[1.6rem] bg-gradient-to-br from-white/25 via-white/5 to-transparent p-px shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)]">
+          <div className="relative overflow-hidden rounded-[1.55rem] ring-1 ring-white/10">
+            <img
+              src="/assets/joao-pedro-about.jpeg"
+              alt="João Pedro"
+              loading="lazy"
+              className="aspect-[4/5] w-full object-cover object-[center_28%]"
+            />
+            <div className="pointer-events-none absolute inset-0 rounded-[1.55rem] ring-1 ring-inset ring-white/[0.08]" />
+          </div>
+        </div>
+        {/* cantos de acento */}
+        <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-5 w-5 rounded-tl-lg border-l-2 border-t-2 border-[#A7EF9E]/70" />
+        <span className="pointer-events-none absolute -bottom-1.5 -right-1.5 h-5 w-5 rounded-br-lg border-b-2 border-r-2 border-[#A7EF9E]/70" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.65, ease: "easeOut" }}
         className="mx-auto max-w-prose text-center"
       >
         <p className="text-[0.98rem] leading-7 text-white/70">{tx(copy.about.paragraphOne)}</p>
@@ -491,7 +516,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-black uppercase leading-tight tracking-[-0.03em] text-white">
+          <h3 className="text-lg font-extrabold uppercase leading-tight tracking-[-0.005em] text-white">
             {project.title}
           </h3>
           {project.partner ? (
@@ -810,7 +835,7 @@ function MobileFooter() {
               target={item.href.startsWith("mailto:") ? undefined : "_blank"}
               rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
               aria-label={item.label}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 active:text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition active:bg-[#A7EF9E]/[0.16] active:text-[#A7EF9E]"
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
             </a>
