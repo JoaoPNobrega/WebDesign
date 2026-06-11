@@ -239,6 +239,56 @@ function ProblemText({
   );
 }
 
+function HoverBlurSwapButton({
+  primaryText,
+  secondaryText,
+  disabled,
+  onClick,
+}: {
+  primaryText: string;
+  secondaryText: string;
+  disabled?: boolean;
+  onClick?: () => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <WetPaintButton
+      type="button"
+      className="mt-8 bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-all duration-500 ease-out hover:bg-white/90 hover:px-20 hover:py-7 disabled:cursor-not-allowed disabled:opacity-60"
+      disabled={disabled}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <span className="relative z-10 inline-flex h-8 min-w-[13rem] items-center justify-center transition-all duration-500 group-hover:min-w-[16rem]">
+        {/* Primary text */}
+        <motion.span
+          className="absolute inset-0 flex items-center justify-center whitespace-nowrap"
+          animate={{
+            opacity: isHovered ? 0 : 1,
+            filter: isHovered ? "blur(10px)" : "blur(0px)",
+          }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {primaryText}
+        </motion.span>
+        {/* Secondary text — morphs in */}
+        <motion.span
+          className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-xl font-black tracking-[0.22em] sm:text-2xl"
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            filter: isHovered ? "blur(0px)" : "blur(10px)",
+          }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {secondaryText}
+        </motion.span>
+      </span>
+    </WetPaintButton>
+  );
+}
+
 interface DestructionSectionProps {
   language: SiteLanguage;
   backgroundClassName?: string;
@@ -554,30 +604,18 @@ export default function DestructionSection({
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="flex flex-col items-center"
                 >
-                  <div className="mb-6 flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-white/70 shadow-lg backdrop-blur-md">
-                    <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#A7EF9E]"></span>
-                    {copy.ctaKicker}
-                  </div>
+
                   <h1 className="max-w-4xl bg-gradient-to-b from-white via-white to-white/40 bg-clip-text pb-4 text-center text-4xl font-bold leading-[1.1] tracking-tighter text-transparent sm:text-6xl md:text-7xl">
                     {copy.ctaTitleFirst}
                     <br />
                     {copy.ctaTitleSecond}
                   </h1>
-                  <WetPaintButton
-                    type="button"
-                    className="mt-8 bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-all duration-500 ease-out hover:bg-white/90 hover:px-20 hover:py-7 disabled:cursor-not-allowed disabled:opacity-60"
+                  <HoverBlurSwapButton
+                    primaryText={copy.ctaPrimary}
+                    secondaryText={copy.ctaSecondary}
                     disabled={isClearing}
                     onClick={handleActivate}
-                  >
-                    <span className="relative z-10 inline-flex h-8 min-w-[13rem] items-center justify-center overflow-hidden transition-all duration-500 group-hover:min-w-[16rem]">
-                      <span className="transition-all duration-500 group-hover:-translate-y-10 group-hover:opacity-0 group-hover:blur-sm">
-                        {copy.ctaPrimary}
-                      </span>
-                      <span className="absolute inset-0 flex translate-y-10 items-center justify-center text-xl font-black tracking-[0.22em] opacity-0 blur-sm transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-hover:blur-0 sm:text-2xl">
-                        {copy.ctaSecondary}
-                      </span>
-                    </span>
-                  </WetPaintButton>
+                  />
                 </motion.div>
               )}
             </AnimatePresence>

@@ -469,7 +469,7 @@ function MobileAbout() {
         <div className="relative rounded-[1.6rem] bg-gradient-to-br from-white/25 via-white/5 to-transparent p-px shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)]">
           <div className="relative overflow-hidden rounded-[1.55rem] ring-1 ring-white/10">
             <img
-              src="/assets/joao-pedro-about.jpeg"
+              src="/assets/joao-pedro-about-clean.webp"
               alt="João Pedro"
               loading="lazy"
               className="aspect-[4/5] w-full object-cover object-[center_28%]"
@@ -743,7 +743,7 @@ const skillGroups: { key: string; label: string; icon: LucideIcon; items: string
   },
   {
     key: "devops",
-    label: "DevOps",
+    label: "Tools",
     icon: Cloud,
     items: ["AWS", "Cloud", "Git", "Vite", "IoT", "n8n", "Power Automate", "Lovable", "Claude Code", "Codex", "Antigravity", "Scrum", "Kanban", "Metodologias Ágeis", "BPM", "LGPD"],
   },

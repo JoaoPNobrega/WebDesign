@@ -24,6 +24,8 @@ export const copy = {
     projects: t("Projetos", "Projects"),
     contact: t("Contato", "Contact"),
     view: t("Ver", "View"),
+    cvOpen: t("Abrir", "Open"),
+    cvDownload: t("Baixar", "Download"),
   },
   language: {
     label: t("Idioma", "Language"),

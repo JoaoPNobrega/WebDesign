@@ -1,4 +1,5 @@
 import { type SVGProps, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import { ExternalLink, Mail } from "lucide-react";
@@ -29,6 +30,7 @@ const CV_DOWNLOAD_NAME = "Curriculo_Joao_Pedro.pdf";
 const PARTNER_URLS: Record<string, string> = {
   "Web Star Studio": "https://www.webstar.studio/",
   "CESAR School": "https://www.cesar.school/",
+  "Delusional": "https://delusionalstudio.vercel.app/",
 };
 
 function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => void; staticDisplay?: boolean }) {
@@ -43,7 +45,7 @@ function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => v
     <div className="flex w-full max-w-2xl flex-col items-center text-center">
         {staticDisplay ? (
           <p
-            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-20 lg:text-[4.2rem] xl:min-h-24 xl:text-[5rem] 2xl:text-[5.45rem]"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {tx(copy.hero.intro)}
@@ -62,7 +64,7 @@ function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => v
             cursorBlinkDuration={0.58}
             startOnVisible
             reserveSpace
-            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-24 lg:text-[5rem] xl:text-[5.45rem]"
+            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-20 lg:text-[4.2rem] xl:min-h-24 xl:text-[5rem] 2xl:text-[5.45rem]"
             cursorClassName="text-white/48"
             style={{ fontFamily: "var(--font-sans)" }}
           />
@@ -116,16 +118,6 @@ function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => v
         </motion.p>
       </motion.div>
 
-      {onOpenCv ? (
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 4.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-28 flex w-full translate-y-8 justify-center sm:mt-32 lg:mt-36"
-        >
-          <CvButton label={tx(copy.hero.resumeCta)} onClick={onOpenCv} />
-        </motion.div>
-      ) : null}
     </div>
   );
 }
@@ -139,13 +131,38 @@ function HeroDescriptionPanel() {
         {tx(copy.hero.eyebrow)}
       </span>
       <div className="mt-5 h-px w-24 bg-white/16" />
-      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.95] tracking-[-0.035em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.9rem]">
+      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.95] tracking-[-0.035em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.1rem] xl:text-[3.9rem]">
         {tx(copy.hero.panelTitle)}
       </h2>
       <p className="mt-6 max-w-[29rem] text-lg leading-8 text-white/72 sm:text-xl sm:leading-9 lg:text-[1.12rem] lg:leading-9">
         {tx(copy.hero.panelBody)}
       </p>
     </div>
+  );
+}
+
+const CV_ICON_MASK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='16' y1='13' x2='8' y2='13'/%3E%3Cline x1='16' y1='17' x2='8' y2='17'/%3E%3Cpolyline points='10 9 9 9 8 9'/%3E%3C/svg%3E")`;
+const LANG_ICON_MASK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E")`;
+
+function ShinyIcon({ maskUrl, size = 18, speed = "2.6s" }: { maskUrl: string; size?: number; speed?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-block flex-shrink-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.54)_0%,rgba(255,255,255,0.96)_38%,rgba(167,239,158,0.92)_50%,rgba(255,255,255,0.96)_62%,rgba(255,255,255,0.54)_100%)] bg-[length:240%_100%] motion-safe:animate-[shiny-text_var(--shiny-speed)_linear_infinite]"
+      style={{
+        width: size,
+        height: size,
+        WebkitMaskImage: maskUrl,
+        maskImage: maskUrl,
+        WebkitMaskSize: "contain",
+        maskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+        "--shiny-speed": speed,
+      } as React.CSSProperties}
+    />
   );
 }
 
@@ -255,6 +272,75 @@ const navProjectItems = [
     partner: "Web Star Studio",
     href: "https://dimas.webstarstudio.site/",
   },
+  {
+    title: "Dr Cristiano Berardo",
+    images: [
+      "/assets/drcristiano-preview.png",
+      "/assets/drcristiano-1.png",
+      "/assets/drcristiano-2.png",
+      "/assets/drcristiano-3.png",
+      "/assets/drcristiano-4.png"
+    ],
+    description: {
+      "pt-BR": "Landing page institucional para o cirurgião cardiovascular Dr. Cristiano Berardo, desenvolvida durante meu estágio na Web Star Studio. Um site premium que transmite autoridade médica, trajetória acadêmica e cuidado humanizado para pacientes e médicos.",
+      "en-US": "Institutional landing page for cardiovascular surgeon Dr. Cristiano Berardo, built during my internship at Web Star Studio. A premium site conveying medical authority, academic background and humanized care for patients and physicians.",
+    },
+    partner: "Web Star Studio",
+    href: "https://drcristiano.webstar.studio",
+  },
+  {
+    title: "Keeping House",
+    images: [
+      "/assets/keepinghouse-preview.png",
+      "/assets/keepinghouse-1.png",
+      "/assets/keepinghouse-2.png",
+      "/assets/keepinghouse-3.png",
+      "/assets/keepinghouse-4.png"
+    ],
+    description: {
+      "pt-BR": "Site desenvolvido para a Keeping House, empresa de serviços de limpeza e organização residencial. Landing page com foco em conversão, apresentando planos, depoimentos e agendamento direto pelo WhatsApp.",
+      "en-US": "Website built for Keeping House, a residential cleaning and organization company. A conversion-focused landing page featuring service plans, testimonials and direct WhatsApp booking.",
+    },
+    partner: "Delusional",
+    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    href: "https://keepinghouse.com.br/",
+  },
+  {
+    title: "Delusional Studio",
+    images: [
+      "/assets/delusional-studio-preview.png",
+      "/assets/delusional-studio-1.png",
+      "/assets/delusional-studio-2.png",
+      "/assets/delusional-studio-3.png",
+      "/assets/delusional-studio-4.png"
+    ],
+    description: {
+      "pt-BR": "Portfólio e site institucional da Delusional, minha empresa de desenvolvimento web freelance. Design imersivo com animações interativas, showcases de projetos e identidade visual marcante.",
+      "en-US": "Portfolio and institutional website for Delusional, my freelance web development company. Immersive design with interactive animations, project showcases and a bold visual identity.",
+    },
+    partner: "Delusional",
+    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    href: "https://delusionalstudio.vercel.app/",
+  },
+  {
+    title: "Delulu Painel",
+    images: [
+      "/assets/delulu-painel-preview.png",
+      "/assets/delulu-painel-1.png",
+      "/assets/delulu-painel-2.png",
+      "/assets/delulu-painel-3.png"
+    ],
+    description: {
+      "pt-BR": "Dashboard exclusivo para organizar a rotina do time na nossa iniciativa freelancer, a Delusional. Desenvolvido com uma estética Neumorphism, o painel conta com Kanban pessoal, gestão financeira e de projetos, cofre de contratos assinados e monitoramento de status (uptime) dos sites no ar.",
+      "en-US": "Exclusive dashboard to organize the team's routine in our freelance initiative, Delusional. Built with a Neumorphism aesthetic, the panel features a personal Kanban, financial and project management, a vault for signed contracts, and uptime status monitoring for live websites.",
+    },
+    partner: "Delusional",
+    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    href: "https://delulu-painel.vercel.app/",
+  },
 ] as const;
 
 const portfolioZoomImages: ZoomMediaAsset[] = [
@@ -317,7 +403,7 @@ function HeroEchoVisual() {
         >
           <svg viewBox="0 0 460 392" preserveAspectRatio="none" className="h-full w-full overflow-visible">
             <path
-              d="M0 0H92C111 0 123 22.79 131 72.93C140 132.22 145 196.05 148 259.87C152 341.86 164 382.85 182 382.85H278C296 382.85 308 341.86 312 259.87C315 196.05 320 132.22 329 72.93C337 22.79 349 0 368 0H460V0H0Z"
+              d="M0 0H72C91 0 103 22.79 111 72.93C120 132.22 125 196.05 128 259.87C132 341.86 144 382.85 162 382.85H298C316 382.85 328 341.86 332 259.87C335 196.05 340 132.22 349 72.93C357 22.79 369 0 388 0H460V0H0Z"
               fill="#050505"
             />
           </svg>
@@ -398,7 +484,7 @@ function JourneyHorizontalSection() {
           <div className="relative rounded-[1.85rem] bg-gradient-to-br from-white/25 via-white/5 to-transparent p-px shadow-[0_40px_100px_-28px_rgba(0,0,0,0.8)]">
             <div className="relative overflow-hidden rounded-[1.8rem] ring-1 ring-white/10">
               <ParallaxPhoto
-                src="/assets/joao-pedro-about.jpeg"
+                src="/assets/joao-pedro-about-clean.webp"
                 alt="João Pedro"
                 loading="lazy"
                 className="aspect-[4/5] w-full object-cover object-[center_28%]"
@@ -458,17 +544,89 @@ function DestructionStackSection() {
   );
 }
 
+function ProjectImageCarousel({ images, title }: { images: readonly string[], title: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  return (
+    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-white/[0.04] group/carousel">
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          alt={`${title} - view ${currentIndex + 1}`}
+          className="absolute inset-0 h-full w-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          loading="lazy"
+        />
+      </AnimatePresence>
+
+      {/* Navigation Arrows */}
+      <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-2 opacity-0 transition-opacity duration-300 group-hover/carousel:opacity-100">
+        <button
+          type="button"
+          aria-label="Previous image"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+          }}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-colors hover:bg-black/60"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button
+          type="button"
+          aria-label="Next image"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+          }}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-colors hover:bg-black/60"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 z-10">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Go to image ${i + 1}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentIndex(i);
+            }}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? "w-4 bg-white" : "w-1.5 bg-white/40 hover:bg-white/60"}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function PortfolioLandingPage() {
-  const { tx } = useLang();
+  const { tx, lang, toggle } = useLang();
   const [isNavDetached, setIsNavDetached] = useState(false);
   const [notchProgress, setNotchProgress] = useState(0);
   const [isCvOpen, setIsCvOpen] = useState(false);
+  const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
   const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [isProjectsNotchExpanded, setIsProjectsNotchExpanded] = useState(false);
+  const [carouselActiveIdx, setCarouselActiveIdx] = useState(0);
+  // trackX = vw * (0.32 - activeIdx * 0.40): centers card at activeIdx
+  const carouselTrackX = useMotionValue(typeof window !== "undefined" ? window.innerWidth * 0.32 : 0);
+  const carouselAnimating = useRef(false);
   const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | null>(null);
   const [projectsScrollEdges, setProjectsScrollEdges] = useState({ left: false, right: true });
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
+  const projectsOverlayRef = useRef<HTMLDivElement | null>(null);
   const projectsScrollerRef = useRef<HTMLDivElement | null>(null);
   const lastScrollYRef = useRef(0);
   const notchProgressRef = useRef(0);
@@ -524,14 +682,20 @@ export default function PortfolioLandingPage() {
   }, []);
 
   useEffect(() => {
-    if (!isContactDropdownOpen && !isProjectsDropdownOpen && !selectedProjectTitle) {
+    if (!isCvDropdownOpen && !isContactDropdownOpen && !isProjectsDropdownOpen && !isLangDropdownOpen && !selectedProjectTitle) {
       return;
     }
 
+    const closeAll = () => {
+      setIsCvDropdownOpen(false);
+      setIsContactDropdownOpen(false);
+      setIsProjectsDropdownOpen(false);
+      setIsLangDropdownOpen(false);
+    };
+
     const handlePointerDown = (event: PointerEvent) => {
-      if (!navRef.current?.contains(event.target as Node)) {
-        setIsContactDropdownOpen(false);
-        setIsProjectsDropdownOpen(false);
+      if (!navRef.current?.contains(event.target as Node) && !projectsOverlayRef.current?.contains(event.target as Node)) {
+        closeAll();
       }
     };
 
@@ -540,8 +704,7 @@ export default function PortfolioLandingPage() {
         if (selectedProjectTitle) {
           setSelectedProjectTitle(null);
         } else {
-          setIsContactDropdownOpen(false);
-          setIsProjectsDropdownOpen(false);
+          closeAll();
         }
       }
     };
@@ -553,10 +716,10 @@ export default function PortfolioLandingPage() {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isContactDropdownOpen, isProjectsDropdownOpen, selectedProjectTitle]);
+  }, [isCvDropdownOpen, isContactDropdownOpen, isProjectsDropdownOpen, isLangDropdownOpen, selectedProjectTitle]);
 
   useEffect(() => {
-    if (!selectedProjectTitle) {
+    if (!isProjectsDropdownOpen || isNavDetached) {
       return;
     }
 
@@ -566,7 +729,7 @@ export default function PortfolioLandingPage() {
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [selectedProjectTitle]);
+  }, [isProjectsDropdownOpen, isNavDetached]);
 
   useEffect(() => {
     const scroller = projectsScrollerRef.current;
@@ -653,43 +816,83 @@ export default function PortfolioLandingPage() {
     }
   }, []);
 
+  // Notch expansion state: opens immediately, closes only after content fade (320ms delay)
+  useEffect(() => {
+    const isOpen = isProjectsDropdownOpen && !isNavDetached;
+    if (isOpen) {
+      setIsProjectsNotchExpanded(true);
+    } else {
+      const t = setTimeout(() => setIsProjectsNotchExpanded(false), 300);
+      return () => clearTimeout(t);
+    }
+  }, [isProjectsDropdownOpen, isNavDetached]);
+
+  // Reset carousel when fullscreen overlay closes
+  useEffect(() => {
+    if (!isProjectsDropdownOpen || isNavDetached) {
+      setCarouselActiveIdx(0);
+      carouselTrackX.set(window.innerWidth * 0.32);
+      carouselAnimating.current = false;
+    }
+  }, [isProjectsDropdownOpen, isNavDetached, carouselTrackX]);
+
+  const carouselGoNext = () => {
+    if (carouselAnimating.current) return;
+    carouselAnimating.current = true;
+    const newIdx = carouselActiveIdx + 1;
+    setCarouselActiveIdx(newIdx);
+    animate(carouselTrackX, window.innerWidth * (0.32 - newIdx * 0.40), {
+      type: "spring",
+      stiffness: 340,
+      damping: 38,
+      mass: 0.8,
+      onComplete: () => { carouselAnimating.current = false; },
+    });
+  };
+
+  const carouselGoPrev = () => {
+    if (carouselAnimating.current) return;
+    carouselAnimating.current = true;
+    const newIdx = carouselActiveIdx - 1;
+    setCarouselActiveIdx(newIdx);
+    animate(carouselTrackX, window.innerWidth * (0.32 - newIdx * 0.40), {
+      type: "spring",
+      stiffness: 340,
+      damping: 38,
+      mass: 0.8,
+      onComplete: () => { carouselAnimating.current = false; },
+    });
+  };
+
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const selectedProject = navProjectItems.find((item) => item.title === selectedProjectTitle);
-  const selectedProjectHref = selectedProject && "href" in selectedProject ? selectedProject.href : GITHUB_URL;
-  const selectedProjectCtaLabel = selectedProject && "ctaLabel" in selectedProject ? selectedProject.ctaLabel : selectedProject && "href" in selectedProject ? tx(copy.projects.viewSite) : "GitHub";
-  const selectedProjectPartner = selectedProject && "partner" in selectedProject ? selectedProject.partner : null;
-  const selectedProjectPartnerLogo = selectedProject && "partnerLogo" in selectedProject ? selectedProject.partnerLogo : "/assets/webstar-logo-white.png";
-  const selectedProjectPartnerLogoClassName =
-    selectedProject && "partnerLogoClassName" in selectedProject
-      ? selectedProject.partnerLogoClassName
-      : "h-[0.95rem] w-auto object-contain opacity-95 sm:h-4";
-  const selectedProjectPartnerUrl = selectedProjectPartner ? PARTNER_URLS[selectedProjectPartner] : undefined;
   const projectsCarouselMaskImage = `linear-gradient(90deg, ${
     projectsScrollEdges.left ? "transparent 0%, black 7%" : "black 0%, black 7%"
   }, black 93%, ${projectsScrollEdges.right ? "transparent 100%" : "black 100%"})`;
 
+  const isHeroCvDropdownOpen = isCvDropdownOpen && !isNavDetached;
   const isHeroContactDropdownOpen = isContactDropdownOpen && !isNavDetached;
   const isHeroProjectsDropdownOpen = isProjectsDropdownOpen && !isNavDetached;
-  const isHeroProjectDetailOpen = isHeroProjectsDropdownOpen && !!selectedProject;
+  const isHeroLangDropdownOpen = isLangDropdownOpen && !isNavDetached;
   const notchDepth = 1 - notchProgress;
-  const isHeroDropdownOpen = isHeroContactDropdownOpen || isHeroProjectsDropdownOpen;
+  const isHeroDropdownOpen = isHeroCvDropdownOpen || isHeroContactDropdownOpen || isHeroProjectsDropdownOpen || isHeroLangDropdownOpen;
+  const isHeroSubDropdownOpen = isHeroCvDropdownOpen || isHeroContactDropdownOpen || isHeroLangDropdownOpen;
   const visibleNotchDepth = isHeroDropdownOpen ? 1 : notchDepth;
-  const notchDropdownExtraDepth = isHeroProjectsDropdownOpen ? 308 : isHeroContactDropdownOpen ? 54 : 0;
-  const notchSourceHeight = isHeroContactDropdownOpen ? 142 : 86;
+  const notchDropdownExtraDepth = isHeroSubDropdownOpen ? 54 : 0;
+  const notchSourceHeight = isHeroSubDropdownOpen ? 142 : 86;
   const scaleNotchY = (value: number, sourceHeight: number) => ((value / sourceHeight) * 392).toFixed(2);
   const notchYValue = (value: number) => value * visibleNotchDepth + (value / 84) * notchDropdownExtraDepth;
-  const projectNotchYValue = (value: number) => value * visibleNotchDepth + (value / 70) * 256;
   const notchY = (value: number) => scaleNotchY(notchYValue(value), notchSourceHeight);
-  const projectNotchY = (value: number) => scaleNotchY(projectNotchYValue(value), 392);
-  const notchPath = isHeroProjectsDropdownOpen
-    ? `M0 0H6C38 0 62 ${projectNotchY(2)} 82 ${projectNotchY(8)}C101 ${projectNotchY(14)} 114 ${projectNotchY(28)} 126 ${projectNotchY(46)}C138 ${projectNotchY(63)} 154 ${projectNotchY(70)} 178 ${projectNotchY(70)}H282C306 ${projectNotchY(70)} 322 ${projectNotchY(63)} 334 ${projectNotchY(46)}C346 ${projectNotchY(28)} 359 ${projectNotchY(14)} 378 ${projectNotchY(8)}C398 ${projectNotchY(2)} 422 0 454 0H460V0H0Z`
-    : `M0 0H92C111 0 123 ${notchY(5)} 131 ${notchY(16)}C140 ${notchY(29)} 145 ${notchY(43)} 148 ${notchY(57)}C152 ${notchY(75)} 164 ${notchY(84)} 182 ${notchY(84)}H278C296 ${notchY(84)} 308 ${notchY(75)} 312 ${notchY(57)}C315 ${notchY(43)} 320 ${notchY(29)} 329 ${notchY(16)}C337 ${notchY(5)} 349 0 368 0H460V0H0Z`;
-  const notchVisualHeight = isHeroProjectDetailOpen ? "28rem" : isHeroProjectsDropdownOpen ? "23.8rem" : isHeroContactDropdownOpen ? "7.35rem" : "5rem";
-  const notchVisualWidth = isHeroProjectsDropdownOpen ? "142vw" : isHeroContactDropdownOpen ? "94vw" : "96vw";
-  const notchVisualMaxWidth = isHeroProjectsDropdownOpen ? "112rem" : isHeroContactDropdownOpen ? "52rem" : "58rem";
+  // Fullscreen: walls sweep outward (left x→0, right x→460) while pocket deepens to y=392.
+  // Same 14-command topology — Framer Motion interpolates every coordinate for a smooth morph.
+  const notchPath = isProjectsNotchExpanded
+    ? `M0 0H0C0 0 0 23.33 0 74.67C0 135.33 0 200.57 0 265.90C0 350 0 392 0 392H460C460 392 460 350 460 265.90C460 200.57 460 135.33 460 74.67C460 23.33 460 0 460 0H460V0H0V0Z`
+    : `M0 0H72C91 0 103 ${notchY(5)} 111 ${notchY(16)}C120 ${notchY(29)} 125 ${notchY(43)} 128 ${notchY(57)}C132 ${notchY(75)} 144 ${notchY(84)} 162 ${notchY(84)}H298C316 ${notchY(84)} 328 ${notchY(75)} 332 ${notchY(57)}C335 ${notchY(43)} 340 ${notchY(29)} 349 ${notchY(16)}C357 ${notchY(5)} 369 0 388 0H460V0H0V0Z`;
+  const notchVisualHeight = isProjectsNotchExpanded ? "100vh" : isHeroSubDropdownOpen ? "7.35rem" : "5rem";
+  const notchVisualWidth = isProjectsNotchExpanded ? "100vw" : isHeroSubDropdownOpen ? "94vw" : "96vw";
+  const notchVisualMaxWidth = isProjectsNotchExpanded ? "100vw" : isHeroSubDropdownOpen ? "52rem" : "58rem";
   const navExitProgress = Math.min(Math.max((notchProgress - 0.04) / 0.42, 0), 1);
   const shouldKeepNavTextVisible = isNavDetached || isHeroDropdownOpen;
   const navTextOpacity = shouldKeepNavTextVisible ? "1" : (1 - navExitProgress).toFixed(2);
@@ -724,7 +927,7 @@ export default function PortfolioLandingPage() {
           <svg
             viewBox="0 0 460 392"
             preserveAspectRatio="none"
-            className="h-full w-full overflow-visible"
+            className="absolute inset-0 h-full w-full overflow-visible"
           >
             <motion.path
               initial={false}
@@ -733,6 +936,174 @@ export default function PortfolioLandingPage() {
               fill="#050505"
             />
           </svg>
+
+          <AnimatePresence>
+            {isHeroProjectsDropdownOpen && (
+              <motion.div
+                key="projects-carousel"
+                ref={projectsOverlayRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.28, ease: "easeOut" } }}
+                exit={{ opacity: 0, transition: { duration: 0.28, ease: "easeOut" } }}
+                className="pointer-events-auto absolute inset-0 overflow-hidden"
+                onWheel={(e) => {
+                  e.preventDefault();
+                  const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+                  if (Math.abs(delta) < 15) return;
+                  if (delta > 0) carouselGoNext();
+                  else carouselGoPrev();
+                }}
+              >
+                {/* Nav arrow — prev */}
+                <button
+                  onClick={carouselGoPrev}
+                  aria-label="Projeto anterior"
+                  className="absolute left-[calc(50%-18vw-1.25rem)] bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M10 13L5 8l5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsProjectsDropdownOpen(false)}
+                  aria-label="Fechar projetos"
+                  className="group absolute left-1/2 -translate-x-1/2 bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition-all duration-300 hover:scale-110 hover:bg-white/[0.14] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:rotate-90">
+                    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                  </svg>
+                </button>
+
+                {/* Nav arrow — next */}
+                <button
+                  onClick={carouselGoNext}
+                  aria-label="Próximo projeto"
+                  className="absolute right-[calc(50%-18vw-1.25rem)] bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+
+                {/* Infinite track: cards at absolute position pos*40vw. Track x never resets.
+                    trackX = vw*(0.32 - activeIdx*0.40) centers the active card. */}
+                <motion.div
+                  className="absolute inset-0"
+                  style={{ x: carouselTrackX }}
+                >
+                  {[-2, -1, 0, 1, 2].map((offset) => {
+                    const pos = carouselActiveIdx + offset;
+                    const n = navProjectItems.length;
+                    const projectIdx = ((pos % n) + n) % n;
+                    const dist = Math.abs(offset);
+                    const isCenterSlot = offset === 0;
+                    const item = navProjectItems[projectIdx];
+                    const partnerLogo = "partnerLogo" in item ? item.partnerLogo : "/assets/webstar-logo-white.png";
+                    const partnerLogoClass = "partnerLogoClassName" in item ? item.partnerLogoClassName : "h-[0.85rem] w-auto object-contain opacity-90";
+                    const hasHref = "href" in item;
+                    const isGithub = "ctaLabel" in item && item.ctaLabel === "GitHub";
+                    const ctaLabel = "ctaLabel" in item ? item.ctaLabel : tx(copy.projects.viewSite);
+                    const partnerUrl = "partner" in item ? PARTNER_URLS[item.partner] : undefined;
+
+                    return (
+                      <motion.div
+                        key={pos}
+                        style={{
+                          position: "absolute",
+                          top: "3.75rem",
+                          bottom: "3.5rem",
+                          width: "36vw",
+                          left: `${pos * 40}vw`,
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                        animate={{
+                          scale: dist === 0 ? 1 : dist === 1 ? 0.88 : 0.76,
+                          opacity: dist === 0 ? 1 : dist === 1 ? 0.45 : 0,
+                        }}
+                        transition={{ type: "spring", stiffness: 340, damping: 38, mass: 0.8 }}
+                      >
+                        <div
+                          className="flex w-full flex-col gap-3"
+                          onClick={dist > 0 ? (offset < 0 ? carouselGoPrev : carouselGoNext) : undefined}
+                          style={{ cursor: isCenterSlot ? "default" : "pointer" }}
+                        >
+                          {/* Image */}
+                          {"images" in item && Array.isArray(item.images) ? (
+                            <ProjectImageCarousel images={item.images} title={item.title} />
+                          ) : (
+                            <div className="aspect-video w-full overflow-hidden rounded-2xl bg-white/[0.04]">
+                              <img
+                                src={"image" in item ? item.image : ""}
+                                alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                          )}
+
+                          {/* Content */}
+                          <div className="flex flex-col gap-2 px-1 sm:flex-row sm:items-end sm:gap-6">
+                            <div className="flex flex-1 flex-col gap-2">
+                              {"partner" in item && (
+                                partnerUrl ? (
+                                  <a
+                                    href={partnerUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 ring-1 ring-white/10 transition hover:ring-[#A7EF9E]/40"
+                                  >
+                                    <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/40">{tx(copy.projects.partnership)}</span>
+                                    <img src={partnerLogo} alt={item.partner} className={partnerLogoClass} loading="lazy" />
+                                  </a>
+                                ) : (
+                                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 ring-1 ring-white/10">
+                                    <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/40">{tx(copy.projects.partnership)}</span>
+                                    <img src={partnerLogo} alt={item.partner} className={partnerLogoClass} loading="lazy" />
+                                  </span>
+                                )
+                              )}
+                              <h2 className="text-base font-extrabold uppercase tracking-[0.11em] text-white sm:text-lg lg:text-xl">{item.title}</h2>
+                              <p className="text-xs leading-[1.7] text-white/55 sm:text-[0.8rem] lg:text-sm">{tx(item.description)}</p>
+                            </div>
+                            {hasHref && isCenterSlot && (
+                              <a
+                                href={(item as { href: string }).href}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex h-9 w-fit flex-shrink-0 items-center gap-2 rounded-full bg-white/[0.08] px-5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/70 ring-1 ring-white/10 transition hover:bg-[#A7EF9E] hover:text-black hover:ring-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                              >
+                                {isGithub ? <GithubMark className="h-3 w-3" aria-hidden="true" /> : <ExternalLink className="h-3 w-3" aria-hidden="true" />}
+                                {ctaLabel}
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+
+                {/* Dot counter */}
+                <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+                  {navProjectItems.map((_, i) => {
+                    const n = navProjectItems.length;
+                    const activeProjectIdx = ((carouselActiveIdx % n) + n) % n;
+                    return (
+                      <div
+                        key={i}
+                        className={`rounded-full transition-all duration-300 ${i === activeProjectIdx ? "h-1.5 w-4 bg-white/70" : "h-1.5 w-1.5 bg-white/20"}`}
+                      />
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         <div
@@ -758,6 +1129,25 @@ export default function PortfolioLandingPage() {
                 type="button"
                 onClick={() => {
                   setIsContactDropdownOpen(false);
+                  setIsProjectsDropdownOpen(false);
+                  setIsLangDropdownOpen(false);
+                  setIsCvDropdownOpen((current) => !current);
+                }}
+                aria-expanded={isCvDropdownOpen}
+                aria-label="Currículo"
+                className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                  isCvDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
+                }`}
+                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+              >
+                <ShinyIcon maskUrl={CV_ICON_MASK} />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCvDropdownOpen(false);
+                  setIsContactDropdownOpen(false);
+                  setIsLangDropdownOpen(false);
                   setIsProjectsDropdownOpen((current) => !current);
                 }}
                 aria-expanded={isProjectsDropdownOpen}
@@ -803,7 +1193,9 @@ export default function PortfolioLandingPage() {
               <button
                 type="button"
                 onClick={() => {
+                  setIsCvDropdownOpen(false);
                   setIsProjectsDropdownOpen(false);
+                  setIsLangDropdownOpen(false);
                   setIsContactDropdownOpen((current) => !current);
                 }}
                 aria-expanded={isContactDropdownOpen}
@@ -846,30 +1238,47 @@ export default function PortfolioLandingPage() {
                 </AnimatePresence>
                 <span className="relative z-10">{tx(copy.nav.contact)}</span>
               </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCvDropdownOpen(false);
+                  setIsContactDropdownOpen(false);
+                  setIsProjectsDropdownOpen(false);
+                  setIsLangDropdownOpen((current) => !current);
+                }}
+                aria-expanded={isLangDropdownOpen}
+                aria-label="Mudar idioma"
+                className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                  isLangDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
+                }`}
+                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+              >
+                <ShinyIcon maskUrl={LANG_ICON_MASK} />
+              </button>
             </motion.div>
 
             <AnimatePresence>
-              {isProjectsDropdownOpen ? (
+              {isProjectsDropdownOpen && isNavDetached ? (
                 <motion.div
                   layout
                   key="projects-dropdown"
                   initial={{
                     height: 0,
-                    width: isNavDetached ? "18.5rem" : "auto",
+                    width: "18.5rem",
                     opacity: 0,
                     y: -10,
                     filter: "blur(10px)",
                   }}
                   animate={{
                     height: "auto",
-                    width: isNavDetached ? "40rem" : "auto",
+                    width: "40rem",
                     opacity: 1,
                     y: 0,
                     filter: "blur(0px)",
                   }}
                   exit={{
                     height: 0,
-                    width: isNavDetached ? "18.5rem" : "auto",
+                    width: "18.5rem",
                     opacity: 0,
                     y: -8,
                     filter: "blur(10px)",
@@ -881,161 +1290,141 @@ export default function PortfolioLandingPage() {
                     y: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
                     filter: { duration: 0.34, ease: "easeOut" },
                   }}
-                  style={{
-                    maxWidth: isNavDetached ? "82vw" : undefined,
-                    willChange: "height, opacity, filter, transform",
-                  }}
+                  style={{ maxWidth: "82vw", willChange: "height, opacity, filter, transform" }}
                   className="overflow-hidden [contain:layout_paint]"
                 >
-                  <AnimatePresence mode="wait" initial={false}>
-                    {selectedProject ? (
-                      <motion.div
-                        key="project-detail"
-                        initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-[min(86vw,44rem)] pt-3"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => setSelectedProjectTitle(null)}
-                          className="mb-3 inline-flex items-center gap-1.5 rounded-full px-1 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50"
+                  <div
+                    ref={projectsScrollerRef}
+                    className="mt-2 w-[min(82vw,40rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    style={{
+                      WebkitMaskImage: projectsCarouselMaskImage,
+                      maskImage: projectsCarouselMaskImage,
+                    }}
+                  >
+                    <div className="flex w-max gap-2.5 pr-2">
+                      {navProjectItems.map((item, index) => (
+                        <motion.article
+                          key={item.title}
+                          initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.96, y: -8 }}
+                          transition={{ duration: 0.34, delay: index * 0.045, ease: "easeOut" }}
+                          className="group relative w-[calc((min(82vw,40rem)-0.625rem)/2)] flex-none overflow-hidden rounded-[1.15rem] bg-white/[0.04] p-2 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.07]"
                         >
-                          <span aria-hidden="true">&#8592;</span>
-                          {tx(copy.nav.projects)}
-                        </button>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-[14rem_minmax(0,1fr)] sm:items-stretch">
-                          <div className="overflow-hidden rounded-[1rem] bg-white/[0.04]">
+                          <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
                             <img
-                              src={selectedProject.image}
-                              alt={`${tx(copy.projects.previewAlt)} ${selectedProject.title}`}
-                              className="h-40 w-full object-cover object-center sm:h-full sm:min-h-[12.5rem]"
+                              src={item.image}
+                              alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
+                              className={`h-full w-full object-cover transition duration-500 ${
+                                "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
+                              }`}
                               loading="lazy"
                             />
                           </div>
-                          <div className="flex min-w-0 flex-col text-left">
-                            <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]/80">
-                              {tx(copy.projects.selected)}
+                          <div className="mt-2.5 px-1 pb-1">
+                            <h3 className="truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
+                              {item.title}
+                            </h3>
+                            {"partner" in item && (
+                              <p className="mt-1 truncate font-mono text-[0.56rem] uppercase tracking-[0.18em] text-white/36">
+                                {item.partner}
+                              </p>
+                            )}
+                            <p className="mt-1.5 line-clamp-2 text-[0.65rem] leading-4 text-white/45">
+                              {tx(item.description)}
                             </p>
-                            <div className="mt-2 flex flex-wrap items-center gap-2.5">
-                              <h3 className="text-xl font-extrabold uppercase leading-[0.95] tracking-[-0.005em] text-white sm:text-[1.65rem]">
-                                {selectedProject.title}
-                              </h3>
-                              {selectedProjectPartner ? (
-                                selectedProjectPartnerUrl ? (
-                                  <a
-                                    href={selectedProjectPartnerUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    title={`${tx(copy.projects.partnership)} ${selectedProjectPartner}`}
-                                    className="group/partner inline-flex h-7 cursor-pointer items-center gap-2 rounded-full bg-white/[0.04] pl-2.5 pr-3 ring-1 ring-white/10 transition hover:bg-white/[0.08] hover:ring-[#A7EF9E]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
-                                  >
-                                    <span className="font-mono text-[0.52rem] font-semibold uppercase tracking-[0.18em] text-white/35 transition group-hover/partner:text-[#A7EF9E]/80">
-                                      {tx(copy.projects.partnership)}
-                                    </span>
-                                    <img
-                                      src={selectedProjectPartnerLogo}
-                                      alt={selectedProjectPartner}
-                                      className={selectedProjectPartnerLogoClassName}
-                                      loading="lazy"
-                                    />
-                                  </a>
-                                ) : (
-                                  <span
-                                    className="inline-flex h-7 items-center gap-2 rounded-full bg-white/[0.04] pl-2.5 pr-3 ring-1 ring-white/10"
-                                    title={`${tx(copy.projects.partnership)} ${selectedProjectPartner}`}
-                                  >
-                                    <span className="font-mono text-[0.52rem] font-semibold uppercase tracking-[0.18em] text-white/35">
-                                      {tx(copy.projects.partnership)}
-                                    </span>
-                                    <img
-                                      src={selectedProjectPartnerLogo}
-                                      alt={selectedProjectPartner}
-                                      className={selectedProjectPartnerLogoClassName}
-                                      loading="lazy"
-                                    />
-                                  </span>
-                                )
-                              ) : null}
-                            </div>
-                            <p className="mt-2.5 text-[0.82rem] leading-6 text-white/55">
-                              {tx(selectedProject.description)}
-                            </p>
-                            <a
-                              href={selectedProjectHref}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="mt-4 inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-white px-5 text-[0.66rem] font-black uppercase tracking-[0.18em] text-black transition hover:-translate-y-0.5 hover:bg-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/70 sm:mt-auto"
-                            >
-                              {selectedProjectCtaLabel === "GitHub" ? (
-                                <GithubMark className="h-3.5 w-3.5" aria-hidden="true" />
-                              ) : (
-                                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                              )}
-                              {selectedProjectCtaLabel}
-                            </a>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="project-carousel"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      >
-                        <div
-                          ref={projectsScrollerRef}
-                          className="mt-2 w-[min(82vw,40rem)] overflow-x-auto overflow-y-hidden overscroll-x-contain pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                          style={{
-                            WebkitMaskImage: projectsCarouselMaskImage,
-                            maskImage: projectsCarouselMaskImage,
-                          }}
-                        >
-                          <div className="flex w-max gap-2.5 pr-2">
-                            {navProjectItems.map((item, index) => (
-                              <motion.article
-                                key={item.title}
-                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.96, y: -8 }}
-                                transition={{ duration: 0.34, delay: index * 0.045, ease: "easeOut" }}
-                                className="group relative w-[calc((min(82vw,40rem)-0.625rem)/2)] flex-none overflow-hidden rounded-[1.15rem] bg-white/[0.04] p-2 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.07]"
+                            {"href" in item && (
+                              <a
+                                href={item.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/[0.07] px-2.5 py-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-white/60 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                               >
-                                <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
-                                  <img
-                                    src={item.image}
-                                    alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
-                                    className={`h-full w-full object-cover transition duration-500 ${
-                                      "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
-                                    }`}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div className="mt-2.5 flex items-center justify-between gap-3">
-                                  <h3 className="min-w-0 truncate text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-white/74">
-                                    {item.title}
-                                  </h3>
-                                  <button
-                                    type="button"
-                                    onClick={() => setSelectedProjectTitle(item.title)}
-                                    className="shrink-0 rounded-full bg-white/[0.07] px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
-                                  >
-                                    {tx(copy.nav.view)}
-                                  </button>
-                                </div>
-                              </motion.article>
-                            ))}
+                                {"ctaLabel" in item && item.ctaLabel === "GitHub"
+                                  ? <GithubMark className="h-2.5 w-2.5" aria-hidden="true" />
+                                  : <ExternalLink className="h-2.5 w-2.5" aria-hidden="true" />}
+                                {"ctaLabel" in item ? item.ctaLabel : tx(copy.projects.viewSite)}
+                              </a>
+                            )}
                           </div>
-                        </div>
-                        <div className="mt-4 flex justify-center pb-1">
-                          <ScrollDownIndicator />
-                        </div>
+                        </motion.article>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-4 flex justify-center pb-1">
+                    <ScrollDownIndicator />
+                  </div>
+                </motion.div>
+              ) : null}
+
+              {isCvDropdownOpen ? (
+                <motion.div
+                  layout
+                  key="cv-dropdown"
+                  initial={{ height: 0, opacity: 0, y: -8, filter: "blur(8px)" }}
+                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ height: 0, opacity: 0, y: -6, filter: "blur(8px)" }}
+                  transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    className={`flex items-center justify-center gap-2 ${
+                      isHeroCvDropdownOpen ? "mt-3 pt-0" : "mt-2 border-t border-white/10 pt-2"
+                    }`}
+                  >
+                    {([
+                      {
+                        key: "open",
+                        label: tx(copy.nav.cvOpen),
+                        icon: (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                          </svg>
+                        ),
+                        onClick: () => { setIsCvOpen(true); setIsCvDropdownOpen(false); },
+                      },
+                      {
+                        key: "download",
+                        label: tx(copy.nav.cvDownload),
+                        icon: (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                          </svg>
+                        ),
+                        href: CV_PDF_URL,
+                        download: CV_DOWNLOAD_NAME,
+                      },
+                    ] as const).map((item, index) => (
+                      <motion.div
+                        key={item.key}
+                        initial={{ opacity: 0, scale: 0.84, y: -6 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.88, y: -4 }}
+                        transition={{ duration: 0.28, delay: index * 0.06, ease: "easeOut" }}
+                      >
+                        {"href" in item ? (
+                          <a
+                            href={item.href}
+                            download={item.download}
+                            className="inline-flex h-11 items-center gap-2 rounded-full bg-white/[0.06] px-5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white/60 ring-1 ring-white/10 transition-colors duration-300 hover:bg-[#A7EF9E]/[0.18] hover:text-[#A7EF9E] focus-visible:outline-none"
+                          >
+                            {item.icon}
+                            {item.label}
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={item.onClick}
+                            className="inline-flex h-11 items-center gap-2 rounded-full bg-white/[0.06] px-5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white/60 ring-1 ring-white/10 transition-colors duration-300 hover:bg-[#A7EF9E]/[0.18] hover:text-[#A7EF9E] focus-visible:outline-none"
+                          >
+                            {item.icon}
+                            {item.label}
+                          </button>
+                        )}
                       </motion.div>
-                    )}
-                  </AnimatePresence>
+                    ))}
+                  </div>
                 </motion.div>
               ) : null}
 
@@ -1088,10 +1477,61 @@ export default function PortfolioLandingPage() {
                   </div>
                 </motion.div>
               ) : null}
+
+              {isLangDropdownOpen ? (
+                <motion.div
+                  layout
+                  key="lang-dropdown"
+                  initial={{ height: 0, opacity: 0, y: -8, filter: "blur(8px)" }}
+                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ height: 0, opacity: 0, y: -6, filter: "blur(8px)" }}
+                  transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    className={`flex items-center justify-center ${
+                      isHeroLangDropdownOpen ? "mt-3 pt-0" : "mt-2 border-t border-white/10 pt-2"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 rounded-full bg-white/[0.06] p-1 ring-1 ring-white/10">
+                      {(["pt-BR", "en-US"] as const).map((code, index) => {
+                        const isActive = lang === code;
+                        const label = code === "pt-BR" ? "PT-BR" : "EN";
+                        return (
+                          <motion.button
+                            key={code}
+                            type="button"
+                            onClick={!isActive ? toggle : undefined}
+                            initial={{ opacity: 0, scale: 0.84, y: -6 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.88, y: -4 }}
+                            transition={{ duration: 0.28, delay: index * 0.06, ease: "easeOut" }}
+                            className={`relative h-9 rounded-full px-5 text-[0.7rem] font-bold uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60 ${
+                              isActive
+                                ? "bg-[#A7EF9E]/[0.16] text-[#A7EF9E] cursor-default"
+                                : "cursor-pointer text-white/50 hover:text-white"
+                            }`}
+                          >
+                            {isActive && (
+                              <motion.span
+                                layoutId="lang-active-pill"
+                                className="pointer-events-none absolute inset-0 rounded-full bg-[#A7EF9E]/[0.12]"
+                                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                              />
+                            )}
+                            <span className="relative z-10">{label}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </motion.div>
+              ) : null}
             </AnimatePresence>
           </motion.nav>
           </LayoutGroup>
         </div>
+
 
         <div
           className="absolute inset-y-5 left-4 right-4 overflow-hidden border border-black/35 sm:inset-y-6 sm:left-6 sm:right-6 lg:inset-y-8 lg:left-10 lg:right-10"

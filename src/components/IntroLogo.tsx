@@ -123,8 +123,6 @@ export default function IntroLogo({
         ...exitMaskStyle,
       }}
     >
-      {/* Fundo: constelação de partículas na cor da logo (teal). */}
-      <AetherFlowHero colorRgb="0, 199, 167" />
 
       {/* Logo (entra; na saída os colchetes voam pra fora e o miolo some) */}
       <div style={{ position: "relative", zIndex: 1 }}>

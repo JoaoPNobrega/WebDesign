@@ -52,7 +52,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     key: "devops",
-    label: "DevOps",
+    label: "Tools",
     icon: Cloud,
     items: [
       "AWS",

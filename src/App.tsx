@@ -84,7 +84,7 @@ export default function App() {
       <main className="app-shell overflow-visible">
         {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage />}
       </main>
-      {showIntro ? <IntroLogo onDone={handleIntroDone} /> : null}
+      {showIntro ? <IntroLogo onDone={handleIntroDone} loaderMode /> : null}
     </LanguageProvider>
   );
 }

@@ -174,7 +174,7 @@ function AnimatedStoryLine() {
           </linearGradient>
         </defs>
         <motion.path
-          d="M -180 135 L 355 135 C 720 135, 890 380, 805 720 C 725 1040, 220 1140, 220 1480 C 220 1840, 790 1930, 770 2260 C 750 2580, 355 2700, 430 3300"
+          d="M -500 135 L 355 135 C 720 135, 890 380, 805 720 C 725 1040, 220 1140, 220 1480 C 220 1840, 790 1930, 770 2260 C 750 2580, 355 2700, 430 3300"
           stroke="url(#story-line-grad)"
           strokeWidth="13"
           strokeLinecap="round"
@@ -200,7 +200,7 @@ function AnimatedStoryLine() {
           </linearGradient>
         </defs>
         <motion.path
-          d="M -40 90 C 280 90, 360 240, 310 520 C 260 800, 60 850, 80 1140 C 100 1430, 340 1500, 305 1790 C 270 2080, 90 2170, 150 2690"
+          d="M -200 90 C 280 90, 360 240, 310 520 C 260 800, 60 850, 80 1140 C 100 1430, 340 1500, 305 1790 C 270 2080, 90 2170, 150 2690"
           stroke="url(#story-line-grad-m)"
           strokeWidth="9"
           strokeLinecap="round"
