@@ -1,0 +1,211 @@
+import type { LocalizedText } from "@/lib/i18n";
+
+const t = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en });
+
+// Papel padrão: projeto solo, de ponta a ponta.
+const soloRole = t(
+  "Projeto solo: design, front-end, responsividade e entrega — tudo feito por mim, do briefing ao deploy.",
+  "Solo project: design, front-end, responsiveness and delivery — all done by me, from briefing to deploy.",
+);
+
+export type ProjectShot = {
+  src: string;
+  title: LocalizedText;
+  text?: LocalizedText;
+};
+
+export type ProjectDetail = {
+  tags: string[];
+  role: LocalizedText;
+  /** Prints extras para a galeria do "Saiba mais". A primeira é a capa. */
+  images?: string[];
+  /** Prints com legenda — quando presente, a página do projeto vira galeria masonry. */
+  shots?: ProjectShot[];
+};
+
+export const projectDetails: Record<string, ProjectDetail> = {
+  "Dr Guilherme Maia": {
+    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+    role: soloRole,
+  },
+  FlyHigh: {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: soloRole,
+  },
+  PetFeeder: {
+    tags: ["ESP32", "Firebase", "Gemini API", "React"],
+    role: t(
+      "Projeto acadêmico na CESAR School: desenvolvi o dashboard web em tempo real e a integração com o hardware.",
+      "Academic project at CESAR School: I built the real-time web dashboard and the hardware integration.",
+    ),
+  },
+  "Dr Daniel Pianetti": {
+    tags: ["React", "Vite", "Tailwind CSS", "Three.js"],
+    role: soloRole,
+  },
+  "Stephanie Bolsoni": {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: soloRole,
+  },
+  "Izi Solutions": {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: soloRole,
+  },
+  "Ines Knoden": {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: soloRole,
+  },
+  "Dr Dimas Antunes": {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: soloRole,
+  },
+  "Dr Cristiano Berardo": {
+    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+    role: soloRole,
+    images: [
+      "/assets/drcristiano-preview.png",
+      "/assets/drcristiano-1.png",
+      "/assets/drcristiano-2.png",
+      "/assets/drcristiano-3.png",
+      "/assets/drcristiano-4.png",
+    ],
+    shots: [
+      {
+        src: "/assets/drcristiano-preview.png",
+        title: t("Hero institucional", "Institutional hero"),
+        text: t("Primeira dobra com posicionamento premium e autoridade médica.", "Above the fold with premium positioning and medical authority."),
+      },
+      {
+        src: "/assets/drcristiano-1.png",
+        title: t("Trajetória", "Background"),
+        text: t("Seção que conta a formação e a carreira do cirurgião.", "Section telling the surgeon's education and career."),
+      },
+      {
+        src: "/assets/drcristiano-2.png",
+        title: t("Especialidades", "Specialties"),
+        text: t("Procedimentos e áreas de atuação apresentados com clareza.", "Procedures and practice areas presented clearly."),
+      },
+      {
+        src: "/assets/drcristiano-3.png",
+        title: t("Cuidado humanizado", "Humanized care"),
+        text: t("Narrativa visual voltada para o paciente.", "Patient-focused visual narrative."),
+      },
+      {
+        src: "/assets/drcristiano-4.png",
+        title: t("Contato", "Contact"),
+        text: t("Fechamento com canais de agendamento.", "Closing with booking channels."),
+      },
+    ],
+  },
+  "Keeping House": {
+    tags: ["React", "Vite", "Tailwind CSS"],
+    role: t(
+      "Atuei no front-end: implementei toda a interface e a responsividade. O restante do projeto ficou com o time da Delusional.",
+      "I handled the front-end: I built the entire interface and responsiveness. The rest of the project was done by the Delusional team.",
+    ),
+    images: [
+      "/assets/keepinghouse-preview.png",
+      "/assets/keepinghouse-1.png",
+      "/assets/keepinghouse-2.png",
+      "/assets/keepinghouse-3.png",
+      "/assets/keepinghouse-4.png",
+    ],
+    shots: [
+      {
+        src: "/assets/keepinghouse-preview.png",
+        title: t("Hero", "Hero"),
+        text: t("Primeira dobra com proposta de valor e CTA direto.", "Above the fold with value proposition and direct CTA."),
+      },
+      {
+        src: "/assets/keepinghouse-1.png",
+        title: t("Serviços", "Services"),
+        text: t("Apresentação dos serviços de limpeza e organização.", "Showcase of cleaning and organization services."),
+      },
+      {
+        src: "/assets/keepinghouse-2.png",
+        title: t("Planos", "Plans"),
+        text: t("Planos e pacotes com foco em conversão.", "Plans and packages built for conversion."),
+      },
+      {
+        src: "/assets/keepinghouse-3.png",
+        title: t("Depoimentos", "Testimonials"),
+        text: t("Prova social de clientes reais.", "Social proof from real clients."),
+      },
+      {
+        src: "/assets/keepinghouse-4.png",
+        title: t("Agendamento", "Booking"),
+        text: t("Fluxo de agendamento direto pelo WhatsApp.", "Direct WhatsApp booking flow."),
+      },
+    ],
+  },
+  "Delusional Studio": {
+    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+    role: soloRole,
+    images: [
+      "/assets/delusional-studio-preview.png",
+      "/assets/delusional-studio-1.png",
+      "/assets/delusional-studio-2.png",
+      "/assets/delusional-studio-3.png",
+      "/assets/delusional-studio-4.png",
+    ],
+    shots: [
+      {
+        src: "/assets/delusional-studio-preview.png",
+        title: t("Home imersiva", "Immersive home"),
+        text: t("Entrada do site com identidade visual marcante.", "Site entrance with a bold visual identity."),
+      },
+      {
+        src: "/assets/delusional-studio-1.png",
+        title: t("Showcase de projetos", "Project showcase"),
+        text: t("Vitrine dos trabalhos entregues pelo estúdio.", "Display of the studio's delivered work."),
+      },
+      {
+        src: "/assets/delusional-studio-2.png",
+        title: t("Animações interativas", "Interactive animations"),
+        text: t("Microinterações e movimento guiando a navegação.", "Microinteractions and motion guiding navigation."),
+      },
+      {
+        src: "/assets/delusional-studio-3.png",
+        title: t("Serviços", "Services"),
+        text: t("O que o estúdio entrega, do design ao deploy.", "What the studio delivers, from design to deploy."),
+      },
+      {
+        src: "/assets/delusional-studio-4.png",
+        title: t("Contato", "Contact"),
+        text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
+      },
+    ],
+  },
+  "Delulu Painel": {
+    tags: ["React", "Vite", "Tailwind CSS", "Firebase"],
+    role: soloRole,
+    images: [
+      "/assets/delulu-painel-preview.png",
+      "/assets/delulu-painel-1.png",
+      "/assets/delulu-painel-2.png",
+      "/assets/delulu-painel-3.png",
+    ],
+    shots: [
+      {
+        src: "/assets/delulu-painel-preview.png",
+        title: t("Visão geral", "Overview"),
+        text: t("Dashboard principal com estética Neumorphism.", "Main dashboard with a Neumorphism aesthetic."),
+      },
+      {
+        src: "/assets/delulu-painel-1.png",
+        title: t("Kanban pessoal", "Personal Kanban"),
+        text: t("Organização da rotina e das tarefas do time.", "Organizing the team's routine and tasks."),
+      },
+      {
+        src: "/assets/delulu-painel-2.png",
+        title: t("Gestão financeira", "Financial management"),
+        text: t("Controle de projetos, valores e contratos assinados.", "Tracking projects, payments and signed contracts."),
+      },
+      {
+        src: "/assets/delulu-painel-3.png",
+        title: t("Monitoramento", "Monitoring"),
+        text: t("Status e uptime dos sites no ar, em tempo real.", "Live status and uptime of deployed websites."),
+      },
+    ],
+  },
+};

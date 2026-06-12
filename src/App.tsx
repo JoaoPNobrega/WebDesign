@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
 import PortfolioLandingPageMobile from "@/pages/PortfolioLandingPageMobile";
 import BadgePage from "@/pages/BadgePage";
+import ProjectPage from "@/pages/ProjectPage";
 import IntroLogo from "@/components/IntroLogo";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { LanguageProvider } from "@/lib/i18n";
@@ -68,6 +69,17 @@ export default function App() {
   useEffect(() => {
     document.title = "Portfólio | João Pedro";
   }, [pathname]);
+
+  const projectMatch = pathname.match(/^\/projeto\/([^/]+)\/?$/);
+  if (projectMatch) {
+    return (
+      <LanguageProvider>
+        <main className="app-shell overflow-visible">
+          <ProjectPage slug={decodeURIComponent(projectMatch[1])} />
+        </main>
+      </LanguageProvider>
+    );
+  }
 
   if (pathname === "/3d") {
     return (

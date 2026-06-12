@@ -405,3 +405,22 @@ body {
   background: rgba(167, 239, 158, 0.5);
 }
 
+
+/* Viewport da janela de navegador nas paginas de projeto */
+.jp-browser-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 239, 158, 0.35) transparent;
+}
+.jp-browser-viewport::-webkit-scrollbar {
+  width: 6px;
+}
+.jp-browser-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+.jp-browser-viewport::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(167, 239, 158, 0.28);
+}
+.jp-browser-viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 239, 158, 0.5);
+}

@@ -1,77 +1,27 @@
-import { type SVGProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { type SVGProps, useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Mail } from "lucide-react";
 
 import AetherFlowHero from "@/components/ui/aether-flow-hero";
-import VaporizeTextCycle, { Tag } from "@/components/ui/vaporize-text-cycle";
-import WetPaintButton from "@/components/ui/wet-paint-button";
 import ImmersiveBadge from "@/components/ImmersiveBadge";
 import type { SiteLanguage } from "@/lib/site-language";
 
-type ProblemLayout = {
-  top: string;
-  left: string;
-  width: number;
-  height: number;
-  rotation: number;
-  fontSize: string;
-};
-
-type ProblemSpec = {
-  id: string;
-  text: string;
-  color: string;
-  desktop: ProblemLayout;
-  mobile: ProblemLayout;
-};
-
-const problemTexts: Record<SiteLanguage, string[]> = {
-  "pt-BR": [
-    "header bugada",
-    "layout quebrando no mobile",
-    "site lento",
-    "anima\u00E7\u00E3o travando",
-    "visual sem impacto",
-    "falta de convers\u00E3o",
-    "c\u00F3digo bagun\u00E7ado",
-    "UX confusa",
-  ],
-  "en-US": [
-    "broken header",
-    "mobile layout breaking",
-    "slow website",
-    "laggy animation",
-    "low visual impact",
-    "poor conversion",
-    "messy code",
-    "confusing UX",
-  ],
-};
-
 const destructionCopy = {
   "pt-BR": {
-    finalKicker: "Solu\u00E7\u00E3o definitiva",
-    finalTitle: "Eu resolvo isso.",
-    ctaKicker: "O fim da frustra\u00E7\u00E3o",
-    ctaTitleFirst: "Voc\u00EA est\u00E1 enfrentando",
-    ctaTitleSecond: "esses problemas?",
-    ctaPrimary: "N\u00E3o aguento mais",
-    ctaSecondary: "Me contate",
-    footerLink: "Portf\u00F3lio",
-    footerText: "desenvolvido por Jo\u00E3o Pedro. Todos os direitos reservados.",
-    backToTopAria: "Voltar ao topo do portf\u00F3lio",
+    futureTitleFirst: "Faça parte",
+    futureTitleSecond: "do meu futuro.",
+    futureSub: "Vamos construir a próxima etapa juntos.",
+    footerName: "João Pedro — Software Developer",
+    footerText: "Portfólio desenvolvido por João Pedro. Todos os direitos reservados.",
+    backToTopAria: "Voltar ao topo do portfólio",
     backToTopLabel: "Voltar ao topo",
   },
   "en-US": {
-    finalKicker: "Definitive solution",
-    finalTitle: "I fix this.",
-    ctaKicker: "The end of frustration",
-    ctaTitleFirst: "Are you dealing with",
-    ctaTitleSecond: "these problems?",
-    ctaPrimary: "I am done with this",
-    ctaSecondary: "Hire me",
-    footerLink: "Portfolio",
-    footerText: "developed by Jo\u00E3o Pedro. All rights reserved.",
+    futureTitleFirst: "Be part",
+    futureTitleSecond: "of my future.",
+    futureSub: "Let's build what comes next, together.",
+    footerName: "João Pedro — Software Developer",
+    footerText: "Portfolio developed by João Pedro. All rights reserved.",
     backToTopAria: "Back to top of portfolio",
     backToTopLabel: "Back to top",
   },
@@ -99,195 +49,7 @@ const finalContactItems = [
   { label: "jpan@cesar.school", icon: Mail, href: "mailto:jpan@cesar.school" },
 ] as const;
 
-function buildProblems(language: SiteLanguage): ProblemSpec[] {
-  const texts = problemTexts[language];
-
-  return [
-    {
-      id: "header",
-      text: texts[0],
-      color: "rgb(255, 255, 255)",
-      desktop: { top: "15%", left: "15%", width: 440, height: 70, rotation: 0, fontSize: "56px" },
-      mobile: { top: "12%", left: "28%", width: 240, height: 50, rotation: 0, fontSize: "24px" },
-    },
-    {
-      id: "mobile",
-      text: texts[1],
-      color: "rgb(202, 255, 202)",
-      desktop: { top: "38%", left: "92%", width: 340, height: 50, rotation: 0, fontSize: "20px" },
-      mobile: { top: "24%", left: "85%", width: 170, height: 40, rotation: 0, fontSize: "12px" },
-    },
-    {
-      id: "slow",
-      text: texts[2],
-      color: "rgb(214, 255, 214)",
-      desktop: { top: "38%", left: "8%", width: 200, height: 50, rotation: 0, fontSize: "24px" },
-      mobile: { top: "24%", left: "15%", width: 120, height: 40, rotation: 0, fontSize: "16px" },
-    },
-    {
-      id: "animation",
-      text: texts[3],
-      color: "rgb(241, 245, 249)",
-      desktop: { top: "61%", left: "92%", width: 320, height: 70, rotation: 0, fontSize: "28px" },
-      mobile: { top: "76%", left: "85%", width: 200, height: 46, rotation: 0, fontSize: "16px" },
-    },
-    {
-      id: "impact",
-      text: texts[4],
-      color: "rgb(228, 255, 228)",
-      desktop: { top: "61%", left: "8%", width: 300, height: 70, rotation: 0, fontSize: "28px" },
-      mobile: { top: "76%", left: "15%", width: 180, height: 46, rotation: 0, fontSize: "18px" },
-    },
-    {
-      id: "conversion",
-      text: texts[5],
-      color: "rgb(255, 255, 255)",
-      desktop: { top: "84%", left: "85%", width: 240, height: 50, rotation: 0, fontSize: "22px" },
-      mobile: { top: "88%", left: "72%", width: 150, height: 40, rotation: 0, fontSize: "14px" },
-    },
-    {
-      id: "code",
-      text: texts[6],
-      color: "rgb(214, 255, 214)",
-      desktop: { top: "84%", left: "15%", width: 240, height: 50, rotation: 0, fontSize: "22px" },
-      mobile: { top: "88%", left: "28%", width: 150, height: 40, rotation: 0, fontSize: "14px" },
-    },
-    {
-      id: "ux",
-      text: texts[7],
-      color: "rgb(241, 245, 249)",
-      desktop: { top: "15%", left: "85%", width: 440, height: 70, rotation: 0, fontSize: "56px" },
-      mobile: { top: "12%", left: "72%", width: 240, height: 50, rotation: 0, fontSize: "24px" },
-    },
-  ];
-}
-
-function ProblemText({
-  problem,
-  isMobile,
-  activationKey,
-  isClearing,
-  onComplete,
-  shouldReduceMotion,
-}: {
-  problem: ProblemSpec;
-  isMobile: boolean;
-  activationKey: number;
-  isClearing: boolean;
-  onComplete: (activationKey: number) => void;
-  shouldReduceMotion: boolean | null;
-}) {
-  const layout = isMobile ? problem.mobile : problem.desktop;
-  const vaporizeDirection = Number.parseFloat(layout.left) > 50 ? "right-to-left" : "left-to-right";
-
-  return (
-    <motion.div
-      className="pointer-events-none absolute"
-      style={{
-        top: layout.top,
-        left: layout.left,
-        width: `${layout.width}px`,
-        height: `${layout.height}px`,
-      }}
-      initial={{ opacity: 0, scale: 0.82, filter: "blur(12px)", x: "-50%", y: "-50%" }}
-      animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: "-50%", y: "-50%" }}
-      exit={{ opacity: 0, scale: 0.88, filter: "blur(18px)", x: "-50%", y: "-50%" }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
-    >
-      <div
-        className="h-full w-full"
-        style={{
-          transform: `rotate(${layout.rotation}deg)`,
-          transformOrigin: "center",
-        }}
-      >
-        {isClearing && !shouldReduceMotion ? (
-          <VaporizeTextCycle
-            texts={[problem.text]}
-            font={{
-              fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
-              fontSize: layout.fontSize,
-              fontWeight: 600,
-            }}
-            color={problem.color}
-            spread={isMobile ? 1.65 : 2.1}
-            density={isMobile ? 2.1 : 2.35}
-            animation={{
-              vaporizeDuration: isMobile ? 0.62 : 0.68,
-            }}
-            direction={vaporizeDirection}
-            alignment="center"
-            tag={Tag.P}
-            activationKey={activationKey}
-            onComplete={onComplete}
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <p
-              className="whitespace-nowrap text-center font-semibold tracking-tight"
-              style={{
-                color: problem.color,
-                fontSize: layout.fontSize,
-              }}
-            >
-              {problem.text}
-            </p>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-function HoverBlurSwapButton({
-  primaryText,
-  secondaryText,
-  disabled,
-  onClick,
-}: {
-  primaryText: string;
-  secondaryText: string;
-  disabled?: boolean;
-  onClick?: () => void;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <WetPaintButton
-      type="button"
-      className="mt-8 bg-white px-10 py-6 text-sm uppercase tracking-[0.3em] text-black shadow-[0_18px_50px_rgba(255,255,255,0.12)] transition-all duration-500 ease-out hover:bg-white/90 hover:px-20 hover:py-7 disabled:cursor-not-allowed disabled:opacity-60"
-      disabled={disabled}
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <span className="relative z-10 inline-flex h-8 min-w-[13rem] items-center justify-center transition-all duration-500 group-hover:min-w-[16rem]">
-        {/* Primary text */}
-        <motion.span
-          className="absolute inset-0 flex items-center justify-center whitespace-nowrap"
-          animate={{
-            opacity: isHovered ? 0 : 1,
-            filter: isHovered ? "blur(10px)" : "blur(0px)",
-          }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {primaryText}
-        </motion.span>
-        {/* Secondary text — morphs in */}
-        <motion.span
-          className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-xl font-black tracking-[0.22em] sm:text-2xl"
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            filter: isHovered ? "blur(0px)" : "blur(10px)",
-          }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {secondaryText}
-        </motion.span>
-      </span>
-    </WetPaintButton>
-  );
-}
+const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 interface DestructionSectionProps {
   language: SiteLanguage;
@@ -301,18 +63,7 @@ export default function DestructionSection({
   showAmbientBackground = true,
 }: DestructionSectionProps) {
   const copy = destructionCopy[language];
-  const problems = useMemo(() => buildProblems(language), [language]);
   const shouldReduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth < 768,
-  );
-  const [visibleCount, setVisibleCount] = useState(0);
-  const [activationKey, setActivationKey] = useState(0);
-  const [completedCount, setCompletedCount] = useState(0);
-  const [isClearing, setIsClearing] = useState(false);
-  const [showFinalMessage, setShowFinalMessage] = useState(false);
-  const revealTimeoutRef = useRef<number | null>(null);
-  const activeRunRef = useRef(0);
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isSectionInView, setIsSectionInView] = useState(false);
 
@@ -324,171 +75,142 @@ export default function DestructionSection({
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsSectionInView(entry.isIntersecting),
-      { threshold: 0.35 },
+      { threshold: 0.2 },
     );
     observer.observe(node);
 
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (showFinalMessage || isClearing || visibleCount >= problems.length) {
-      return;
-    }
-
-    revealTimeoutRef.current = window.setTimeout(() => {
-      setVisibleCount((current) => Math.min(current + 1, problems.length));
-    }, visibleCount === 0 ? 260 : 140);
-
-    return () => {
-      if (revealTimeoutRef.current) {
-        window.clearTimeout(revealTimeoutRef.current);
-      }
-    };
-  }, [isClearing, problems.length, showFinalMessage, visibleCount]);
-
-  useEffect(() => {
-    return () => {
-      if (revealTimeoutRef.current) {
-        window.clearTimeout(revealTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const visibleProblems = useMemo(
-    () => problems.slice(0, visibleCount),
-    [problems, visibleCount],
-  );
-
-  const handleActivate = () => {
-    if (isClearing || showFinalMessage) {
-      return;
-    }
-
-    const trigger = () => {
-      setCompletedCount(0);
-      setIsClearing(true);
-      setActivationKey((current) => {
-        const next = current + 1;
-        activeRunRef.current = next;
-        return next;
-      });
-    };
-
-    if (visibleCount < problems.length) {
-      setVisibleCount(problems.length);
-      window.setTimeout(trigger, 120);
-      return;
-    }
-
-    trigger();
-  };
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 22, mass: 0.5 });
+  const titleY = useTransform(smoothProgress, [0, 0.55], ["90px", "0px"]);
+  const subY = useTransform(smoothProgress, [0, 0.55], ["130px", "0px"]);
+  const titleScale = useTransform(smoothProgress, [0, 0.55], [0.94, 1]);
+  const parallaxStyle = shouldReduceMotion ? undefined : { y: titleY, scale: titleScale };
+  const subParallaxStyle = shouldReduceMotion ? undefined : { y: subY };
 
   const scrollToPortfolioTop = () => {
     window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
   };
 
-  useEffect(() => {
-    if (!isClearing || !shouldReduceMotion) {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => {
-      setShowFinalMessage(true);
-    }, 320);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
-  }, [isClearing, shouldReduceMotion]);
-
-  const handleProblemComplete = useCallback((finishedRun: number) => {
-    if (finishedRun !== activeRunRef.current) {
-      return;
-    }
-
-    setCompletedCount((current) => current + 1);
-  }, []);
-
-  useEffect(() => {
-    if (!isClearing || completedCount < problems.length) {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => {
-      setShowFinalMessage(true);
-    }, 180);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
-  }, [completedCount, isClearing, problems.length]);
-
   return (
-    <section ref={sectionRef} className={`relative min-h-screen overflow-hidden ${backgroundClassName}`}>
+    <section ref={sectionRef} className={`relative overflow-hidden ${backgroundClassName}`}>
       {showAmbientBackground && (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
-      )}
-      <AnimatePresence>
-        {isClearing && !showFinalMessage && !shouldReduceMotion && (
-          <motion.div
-            key="snap-flash"
-            className="pointer-events-none absolute inset-0 z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0.34, 0] }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.78, times: [0, 0.12, 0.42, 1], ease: "easeOut" }}
-          >
-            <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/16 blur-3xl" />
-            <motion.div
-              className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#A7EF9E]/45"
-              initial={{ scale: 0.28, opacity: 0.92 }}
-              animate={{ scale: 9.5, opacity: 0 }}
-              transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
-            />
-            <motion.div
-              className="absolute left-1/2 top-1/2 h-px w-[min(78vw,52rem)] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-white/70 to-transparent"
-              initial={{ scaleX: 0.08, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: [0, 0.8, 0] }}
-              transition={{ duration: 0.58, ease: "easeOut" }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {showFinalMessage && showAmbientBackground && (
-          <motion.div
-            key="aether-flow-background"
-            className="pointer-events-none absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.85, ease: "easeOut" }}
-          >
+        <>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_bottom,rgba(167,239,158,0.09),transparent_26%)]" />
+          <div className="pointer-events-none absolute inset-0">
             <AetherFlowHero />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {showFinalMessage && (
-          <motion.div
-            key="final-footer-signature"
-            className="absolute inset-x-0 bottom-7 z-30 mx-auto flex w-[min(82vw,36rem)] flex-col items-center gap-5 sm:bottom-8"
-            initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 8, filter: "blur(8px)" }}
-            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+          </div>
+        </>
+      )}
+
+      <ImmersiveBadge visible={isSectionInView} />
+
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-10 sm:pt-12">
+        {/* ── Convite: o futuro ─────────────────────────────────────────── */}
+        <motion.div
+          className="pb-12 text-center sm:pb-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          <motion.h2
+            style={parallaxStyle}
+            className="text-4xl font-extrabold uppercase leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl md:text-7xl"
           >
+            <span className="block overflow-hidden pb-1">
+              <motion.span
+                className="block"
+                variants={{
+                  hidden: { y: "110%", opacity: 0, rotate: 2 },
+                  visible: { y: "0%", opacity: 1, rotate: 0 },
+                }}
+                transition={{ duration: 0.9, ease: easeOutExpo }}
+              >
+                {copy.futureTitleFirst}
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden pb-2">
+              <motion.span
+                className="block bg-gradient-to-r from-[#A7EF9E] via-[#d8ffd0] to-[#A7EF9E] bg-clip-text text-transparent"
+                variants={{
+                  hidden: { y: "110%", opacity: 0, rotate: -2 },
+                  visible: { y: "0%", opacity: 1, rotate: 0 },
+                }}
+                transition={{ duration: 0.9, delay: 0.12, ease: easeOutExpo }}
+              >
+                {copy.futureTitleSecond}
+              </motion.span>
+            </span>
+          </motion.h2>
+          <motion.p
+            style={subParallaxStyle}
+            variants={{
+              hidden: { opacity: 0, filter: "blur(8px)" },
+              visible: { opacity: 1, filter: "blur(0px)" },
+            }}
+            transition={{ duration: 0.8, delay: 0.32, ease: "easeOut" }}
+            className="mx-auto mt-6 max-w-md text-sm leading-7 text-white/50 sm:text-base"
+          >
+            {copy.futureSub}
+          </motion.p>
+
+          <motion.ul
+            style={subParallaxStyle}
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  delayChildren: 0.24,
+                  staggerChildren: 0.14,
+                },
+              },
+            }}
+          >
+            {finalContactItems.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.li
+                  key={item.label}
+                  variants={{
+                    hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+                    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                  }}
+                  transition={{ duration: 0.48, ease: "easeOut" }}
+                >
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                    className="fx-contact"
+                    aria-label={item.label}
+                  >
+                    <Icon className="fx-icon h-7 w-7" aria-hidden="true" />
+                  </a>
+                </motion.li>
+              );
+            })}
+          </motion.ul>
+        </motion.div>
+
+        {/* ── Ato 3: footer integrado ───────────────────────────────────── */}
+        <motion.footer
+          initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full border-t border-white/[0.06] pb-8 pt-8 sm:pb-9"
+        >
+          <div className="flex flex-col items-center gap-6">
             <button
               type="button"
               onClick={scrollToPortfolioTop}
@@ -500,127 +222,31 @@ export default function DestructionSection({
               </svg>
               <span className="to-top__label">{copy.backToTopLabel}</span>
             </button>
-            <p className="text-center text-[8px] font-medium uppercase tracking-[0.24em] text-white/16 sm:text-[9px]">
-              <button
-                type="button"
-                onClick={scrollToPortfolioTop}
-                className="pointer-events-auto cursor-pointer uppercase text-white/16 transition hover:text-white/34 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
-                aria-label={copy.backToTopAria}
-              >
-                {copy.footerLink}
-              </button>{" "}
-              {copy.footerText}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {showFinalMessage && <ImmersiveBadge visible={isSectionInView} />}
-      <div className="relative flex min-h-screen items-center justify-center px-6 pb-32 pt-16">
-        <div className="relative h-[min(78vh,760px)] w-full max-w-7xl">
-          {!showFinalMessage &&
-            visibleProblems.map((problem) => (
-              <ProblemText
-                key={problem.id}
-                problem={problem}
-                isMobile={isMobile}
-                activationKey={activationKey}
-                isClearing={isClearing}
-                onComplete={handleProblemComplete}
-                shouldReduceMotion={shouldReduceMotion}
-              />
-            ))}
 
-          <div className="absolute left-1/2 top-1/2 z-20 flex w-full max-w-4xl -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6 text-center">
-            <AnimatePresence mode="wait">
-              {showFinalMessage ? (
-                <motion.div
-                  key="final-message"
-                  initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
-                  transition={{ duration: 0.45, ease: "easeOut" }}
-                  className="text-center"
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              {finalContactItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                  className="font-mono text-[0.62rem] uppercase tracking-[0.24em] text-white/35 transition hover:text-[#A7EF9E] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.45em] text-[#A7EF9E] drop-shadow-sm">
-                    {copy.finalKicker}
-                  </p>
-                  <h2 className="mt-4 bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-7xl">
-                    {copy.finalTitle}
-                  </h2>
-                  <motion.ul
-                    className="mt-10 flex flex-wrap items-center justify-center gap-4"
-                    initial="hidden"
-                    animate="visible"
-                    variants={{
-                      hidden: {},
-                      visible: {
-                        transition: {
-                          delayChildren: 0.24,
-                          staggerChildren: 0.14,
-                        },
-                      },
-                    }}
-                  >
-                    {finalContactItems.map((item) => {
-                      const Icon = item.icon;
-                      const content = <Icon className="fx-icon h-7 w-7" aria-hidden="true" />;
-                      const itemClassName = "fx-contact";
+                  {item.label}
+                </a>
+              ))}
+            </div>
 
-                      return (
-                        <motion.li
-                          key={item.label}
-                          variants={{
-                            hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
-                            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-                          }}
-                          transition={{ duration: 0.48, ease: "easeOut" }}
-                        >
-                          {"href" in item ? (
-                            <a
-                              href={item.href}
-                              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-                              rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                              className={itemClassName}
-                              aria-label={item.label}
-                            >
-                              {content}
-                            </a>
-                          ) : (
-                            <span className={itemClassName} aria-label={item.label}>
-                              {content}
-                            </span>
-                          )}
-                        </motion.li>
-                      );
-                    })}
-                  </motion.ul>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="cta"
-                  initial={{ opacity: 0, y: 18, scale: 0.92 }}
-                  animate={{ opacity: isClearing ? 0.28 : 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -14, scale: 0.94 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="flex flex-col items-center"
-                >
-
-                  <h1 className="max-w-4xl bg-gradient-to-b from-white via-white to-white/40 bg-clip-text pb-4 text-center text-4xl font-bold leading-[1.1] tracking-tighter text-transparent sm:text-6xl md:text-7xl">
-                    {copy.ctaTitleFirst}
-                    <br />
-                    {copy.ctaTitleSecond}
-                  </h1>
-                  <HoverBlurSwapButton
-                    primaryText={copy.ctaPrimary}
-                    secondaryText={copy.ctaSecondary}
-                    disabled={isClearing}
-                    onClick={handleActivate}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="text-center">
+              <p className="font-mono text-[0.6rem] uppercase tracking-[0.28em] text-white/40">
+                {copy.footerName}
+              </p>
+              <p className="mt-2 text-[8px] font-medium uppercase tracking-[0.24em] text-white/16 sm:text-[9px]">
+                {copy.footerText}
+              </p>
+            </div>
           </div>
-        </div>
+        </motion.footer>
       </div>
     </section>
   );

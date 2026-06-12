@@ -4,15 +4,12 @@ const t = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en
 
 export const copy = {
   hero: {
-    intro: t("Olá, me chamo João Pedro", "Hi, I'm João Pedro"),
-    roleTyped: t("e eu sou Software Developer", "and I'm a Software Developer"),
-    rolePrefix: t("e eu sou", "and I'm"),
+    intro: t("João Pedro", "João Pedro"),
     roleTitle: t("Software Developer", "Software Developer"),
     eyebrow: t("Ciência da Computação + software", "Computer Science + software"),
-    panelTitle: t("Software Developer", "Software Developer"),
     panelBody: t(
-      "Sou estudante de Ciência da Computação na CESAR School e hoje atuo no desenvolvimento e manutenção de sites. Meu foco está em front-end, responsividade e em transformar identidade visual em páginas claras, funcionais e bem acabadas.",
-      "I'm a Computer Science student at CESAR School and currently build and maintain websites. My focus is front-end, responsiveness and turning visual identity into clear, functional and well-finished pages.",
+      "Sites e interfaces do briefing à entrega — front-end sólido, responsividade real e identidade visual virando páginas que comunicam e convertem.",
+      "Websites and interfaces from briefing to delivery — solid front-end, true responsiveness and visual identity turned into pages that communicate and convert.",
     ),
     badgePortfolio: t("Meu portfólio", "My portfolio"),
     badgeLocation: t("Recife, Brasil", "Recife, Brazil"),
@@ -36,6 +33,9 @@ export const copy = {
     headingAccent: t("trabalho", "work"),
     selected: t("Projeto selecionado", "Selected project"),
     viewSite: t("Ver site", "View site"),
+    learnMore: t("Saiba mais", "Learn more"),
+    myRole: t("Como participei", "My role"),
+    stackLabel: t("Tecnologias", "Stack"),
     partnership: t("Parceria com", "Partnership with"),
     closePreview: t("Fechar preview do projeto", "Close project preview"),
     thumbAlt: t("Preview do projeto", "Preview of project"),

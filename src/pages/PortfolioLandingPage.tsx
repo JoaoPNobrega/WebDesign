@@ -14,10 +14,10 @@ import ScrollDownIndicator from "@/components/ui/ScrollDownIndicator";
 import ParallaxPhoto from "@/components/ui/ParallaxPhoto";
 import GlassSurface from "@/components/ui/GlassSurface";
 import ShinyText from "@/components/ui/ShinyText";
-import TextType from "@/components/ui/TextType";
 import { ZoomParallax, type ZoomMediaAsset } from "@/components/ui/zoom-parallax";
 import { useLang } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
+import { navProjectItems, projectSlug } from "@/lib/projects";
 
 const HERO_MORPH_SCROLL_DISTANCE = 860;
 const FLOATING_NAV_SCROLL_OFFSET = 360;
@@ -35,11 +35,6 @@ const PARTNER_URLS: Record<string, string> = {
 
 function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => void; staticDisplay?: boolean }) {
   const { lang, tx } = useLang();
-  const [hasTypedRole, setHasTypedRole] = useState(staticDisplay);
-
-  useEffect(() => {
-    setHasTypedRole(staticDisplay);
-  }, [lang, staticDisplay]);
 
   return (
     <div className="flex w-full max-w-2xl flex-col items-center text-center">
@@ -51,72 +46,39 @@ function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => v
             {tx(copy.hero.intro)}
           </p>
         ) : (
-          <TextType
+          <BlurText
             key={`intro-${lang}`}
-            as="p"
+            tag="p"
             text={tx(copy.hero.intro)}
-            typingSpeed={78}
-            initialDelay={760}
-            variableSpeed={{ min: 62, max: 118 }}
-            loop={false}
-            showCursor={false}
-            cursorCharacter="_"
-            cursorBlinkDuration={0.58}
-            startOnVisible
-            reserveSpace
-            className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-20 lg:text-[4.2rem] xl:min-h-24 xl:text-[5rem] 2xl:text-[5.45rem]"
-            cursorClassName="text-white/48"
+            animateBy="letters"
+            direction="top"
+            delay={70}
+            stepDuration={0.4}
+            className="relative min-h-16 w-full justify-center text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-20 lg:text-[4.2rem] xl:min-h-24 xl:text-[5rem] 2xl:text-[5.45rem]"
             style={{ fontFamily: "var(--font-sans)" }}
           />
         )}
-      <motion.div
-        initial={{ opacity: 0, y: 16, filter: "blur(10px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1.05, delay: 3.45, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mt-6 min-h-16 w-full text-center text-sm font-medium uppercase tracking-[0.24em] text-white/60 sm:text-base lg:min-h-24 lg:text-lg"
-      >
-        {!staticDisplay && (
-          <TextType
-            key={`role-${lang}`}
-            as="p"
-            text={tx(copy.hero.roleTyped)}
-            typingSpeed={54}
-            initialDelay={0}
-            variableSpeed={{ min: 42, max: 84 }}
-            loop={false}
-            showCursor={false}
-            cursorCharacter="_"
-            cursorBlinkDuration={0.58}
-            startOnVisible
-            reserveSpace
-            onSentenceComplete={() => setHasTypedRole(true)}
-            className={`relative block w-full transition-opacity duration-500 ${
-              hasTypedRole ? "opacity-0" : "opacity-100"
-            }`}
-            cursorClassName="text-white/48"
-          />
-        )}
-        <motion.p
-          aria-hidden={!hasTypedRole}
-          initial={false}
-          animate={{
-            opacity: hasTypedRole ? 1 : 0,
-            y: hasTypedRole ? 0 : 8,
-            filter: hasTypedRole ? "blur(0px)" : "blur(8px)",
-          }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute inset-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
-        >
-          <span>{tx(copy.hero.rolePrefix)}</span>
-          <ShinyText
-            as="span"
-            speed="2.05s"
-            className="hero-role-shiny whitespace-nowrap text-2xl font-extrabold tracking-[0.1em] drop-shadow-[0_0_34px_rgba(255,255,255,0.42)] sm:text-4xl lg:text-5xl"
-          >
-            {tx(copy.hero.roleTitle)}
-          </ShinyText>
-        </motion.p>
-      </motion.div>
+      {staticDisplay ? (
+        <p className="mt-5 w-full text-center text-lg font-light uppercase tracking-[0.42em] text-white/75 sm:text-2xl lg:text-3xl">
+          {tx(copy.hero.roleTitle)}
+        </p>
+      ) : (
+        <BlurText
+          key={`role-${lang}`}
+          tag="p"
+          text={tx(copy.hero.roleTitle)}
+          animateBy="words"
+          direction="bottom"
+          delay={220}
+          stepDuration={0.45}
+          animationFrom={{ filter: "blur(10px)", opacity: 0, y: 24 }}
+          animationTo={[
+            { filter: "blur(4px)", opacity: 0.6, y: -4 },
+            { filter: "blur(0px)", opacity: 1, y: 0 },
+          ]}
+          className="mt-5 w-full justify-center text-lg font-light uppercase tracking-[0.42em] text-white/75 sm:text-2xl lg:text-3xl"
+        />
+      )}
 
     </div>
   );
@@ -126,15 +88,9 @@ function HeroDescriptionPanel() {
   const { tx } = useLang();
 
   return (
-    <div className="flex w-full max-w-[32rem] flex-col items-start text-left">
-      <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.3em] text-white/48">
-        {tx(copy.hero.eyebrow)}
-      </span>
-      <div className="mt-5 h-px w-24 bg-white/16" />
-      <h2 className="mt-7 max-w-[12ch] text-[2.25rem] font-semibold leading-[0.95] tracking-[-0.035em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.34)] sm:text-[2.9rem] lg:text-[3.1rem] xl:text-[3.9rem]">
-        {tx(copy.hero.panelTitle)}
-      </h2>
-      <p className="mt-6 max-w-[29rem] text-lg leading-8 text-white/72 sm:text-xl sm:leading-9 lg:text-[1.12rem] lg:leading-9">
+    <div className="flex w-full max-w-[26rem] items-stretch gap-5 text-left">
+      <div className="w-px shrink-0 self-stretch bg-gradient-to-b from-[#A7EF9E]/70 via-white/25 to-transparent" />
+      <p className="text-base leading-8 text-white/72 lg:text-[1.05rem]">
         {tx(copy.hero.panelBody)}
       </p>
     </div>
@@ -186,161 +142,6 @@ const navContactItems = [
   { label: "GitHub", icon: GithubMark, href: GITHUB_URL },
   { label: "LinkedIn", icon: LinkedinMark, href: "https://linkedin.com/in/joaopedro-nobrega" },
   { label: "Email", icon: Mail, href: "mailto:jpan@cesar.school" },
-] as const;
-
-const navProjectItems = [
-  {
-    title: "Dr Guilherme Maia",
-    image: "/assets/dr-guilherme-preview.png",
-    imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: {
-      "pt-BR": "Site desenvolvido para o urologista Dr. Guilherme Maia durante meu estágio na Web Star Studio. Uma landing page médica com foco em storytelling, atendimento ao público e simplicidade, fortalecendo a autoridade profissional.",
-      "en-US": "Website built for urologist Dr. Guilherme Maia during my internship at Web Star Studio. A medical landing page focused on storytelling, patient care and simplicity, reinforcing professional authority.",
-    },
-    partner: "Web Star Studio",
-    href: "https://drguilhermemaia.com.br/",
-  },
-  {
-    title: "FlyHigh",
-    image: "/assets/flynotch.png",
-    description: {
-      "pt-BR": "App web mobile feito para gerenciar partidas e acompanhar estatísticas. Criei para ajudar no vôlei que jogo com meus primos, com inspiração no anime Haikyu!!.",
-      "en-US": "A mobile web app to manage matches and track statistics. I built it for the volleyball games I play with my cousins, inspired by the anime Haikyu!!.",
-    },
-  },
-  {
-    title: "PetFeeder",
-    image: "/assets/petfeeder-preview.webp",
-    description: {
-      "pt-BR": "Alimentador automático inteligente para pets, desenvolvido com ESP32, sensores e atuadores. O projeto integra um dashboard web em tempo real via Firebase, controle local por Access Point e API Gemini para sugerir rotinas de alimentação personalizadas.",
-      "en-US": "A smart automatic pet feeder built with ESP32, sensors and actuators. The project integrates a real-time web dashboard via Firebase, local control through an Access Point and the Gemini API to suggest personalized feeding routines.",
-    },
-    href: "https://github.com/JoaoPNobrega/PetFeeder-Front",
-    ctaLabel: "GitHub",
-    partner: "CESAR School",
-    partnerLogo: "/assets/cesar-school-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-  },
-  {
-    title: "Dr Daniel Pianetti",
-    image: "/assets/daniel-notch.png",
-    description: {
-      "pt-BR": "Site desenvolvido para o urologista Dr. Daniel Pianetti durante meu estágio na Web Star Studio. A experiência combina logo animada, objeto 3D e uma narrativa visual voltada para cirurgia robótica, tecnologia e confiança.",
-      "en-US": "Website built for urologist Dr. Daniel Pianetti during my internship at Web Star Studio. The experience combines an animated logo, a 3D object and a visual narrative centered on robotic surgery, technology and trust.",
-    },
-    partner: "Web Star Studio",
-    href: "https://daniel.webstar.studio/",
-  },
-  {
-    title: "Stephanie Bolsoni",
-    image: "/assets/stephanie-bolsoni.png",
-    imageScale: "scale-[1.2] group-hover:scale-[1.28]",
-    description: {
-      "pt-BR": "Site desenvolvido para a nutricionista Stephanie Bolsoni durante meu estágio na Web Star Studio. O projeto destaca avaliações em tempo real e uma presença internacional, com atendimento em Dublin e online.",
-      "en-US": "Website built for nutritionist Stephanie Bolsoni during my internship at Web Star Studio. The project highlights real-time reviews and an international presence, with appointments in Dublin and online.",
-    },
-    partner: "Web Star Studio",
-    href: "https://stephaniebolsoni.com/",
-  },
-  {
-    title: "Izi Solutions",
-    image: "/assets/izi-solutions-preview.png",
-    description: {
-      "pt-BR": "Site desenvolvido para a Izi Solutions durante meu estágio na Web Star Studio. A landing page apresenta serviços de limpeza em São Paulo com uma experiência objetiva, moderna e voltada para conversão.",
-      "en-US": "Website built for Izi Solutions during my internship at Web Star Studio. The landing page presents cleaning services in São Paulo with an objective, modern and conversion-focused experience.",
-    },
-    partner: "Web Star Studio",
-    href: "https://izisolutions.com.br/",
-  },
-  {
-    title: "Ines Knoden",
-    image: "/assets/ines-preview.png",
-    description: {
-      "pt-BR": "Site desenvolvido para a coach Inês Knoden durante meu estágio na Web Star Studio. O projeto comunica acolhimento, carreira e bem-estar para mulheres, com uma identidade visual elegante e internacional.",
-      "en-US": "Website built for coach Inês Knoden during my internship at Web Star Studio. The project conveys warmth, career and well-being for women, with an elegant, international visual identity.",
-    },
-    partner: "Web Star Studio",
-    href: "https://ines.webstarstudio.site/",
-  },
-  {
-    title: "Dr Dimas Antunes",
-    image: "/assets/dimas-preview.png",
-    description: {
-      "pt-BR": "Site desenvolvido para o urologista Dr. Dimas Antunes durante meu estágio na Web Star Studio. A experiência reforça autoridade médica, cuidado e clareza para pacientes em Recife.",
-      "en-US": "Website built for urologist Dr. Dimas Antunes during my internship at Web Star Studio. The experience reinforces medical authority, care and clarity for patients in Recife.",
-    },
-    partner: "Web Star Studio",
-    href: "https://dimas.webstarstudio.site/",
-  },
-  {
-    title: "Dr Cristiano Berardo",
-    images: [
-      "/assets/drcristiano-preview.png",
-      "/assets/drcristiano-1.png",
-      "/assets/drcristiano-2.png",
-      "/assets/drcristiano-3.png",
-      "/assets/drcristiano-4.png"
-    ],
-    description: {
-      "pt-BR": "Landing page institucional para o cirurgião cardiovascular Dr. Cristiano Berardo, desenvolvida durante meu estágio na Web Star Studio. Um site premium que transmite autoridade médica, trajetória acadêmica e cuidado humanizado para pacientes e médicos.",
-      "en-US": "Institutional landing page for cardiovascular surgeon Dr. Cristiano Berardo, built during my internship at Web Star Studio. A premium site conveying medical authority, academic background and humanized care for patients and physicians.",
-    },
-    partner: "Web Star Studio",
-    href: "https://drcristiano.webstar.studio",
-  },
-  {
-    title: "Keeping House",
-    images: [
-      "/assets/keepinghouse-preview.png",
-      "/assets/keepinghouse-1.png",
-      "/assets/keepinghouse-2.png",
-      "/assets/keepinghouse-3.png",
-      "/assets/keepinghouse-4.png"
-    ],
-    description: {
-      "pt-BR": "Site desenvolvido para a Keeping House, empresa de serviços de limpeza e organização residencial. Landing page com foco em conversão, apresentando planos, depoimentos e agendamento direto pelo WhatsApp.",
-      "en-US": "Website built for Keeping House, a residential cleaning and organization company. A conversion-focused landing page featuring service plans, testimonials and direct WhatsApp booking.",
-    },
-    partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-    href: "https://keepinghouse.com.br/",
-  },
-  {
-    title: "Delusional Studio",
-    images: [
-      "/assets/delusional-studio-preview.png",
-      "/assets/delusional-studio-1.png",
-      "/assets/delusional-studio-2.png",
-      "/assets/delusional-studio-3.png",
-      "/assets/delusional-studio-4.png"
-    ],
-    description: {
-      "pt-BR": "Portfólio e site institucional da Delusional, minha empresa de desenvolvimento web freelance. Design imersivo com animações interativas, showcases de projetos e identidade visual marcante.",
-      "en-US": "Portfolio and institutional website for Delusional, my freelance web development company. Immersive design with interactive animations, project showcases and a bold visual identity.",
-    },
-    partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-    href: "https://delusionalstudio.vercel.app/",
-  },
-  {
-    title: "Delulu Painel",
-    images: [
-      "/assets/delulu-painel-preview.png",
-      "/assets/delulu-painel-1.png",
-      "/assets/delulu-painel-2.png",
-      "/assets/delulu-painel-3.png"
-    ],
-    description: {
-      "pt-BR": "Dashboard exclusivo para organizar a rotina do time na nossa iniciativa freelancer, a Delusional. Desenvolvido com uma estética Neumorphism, o painel conta com Kanban pessoal, gestão financeira e de projetos, cofre de contratos assinados e monitoramento de status (uptime) dos sites no ar.",
-      "en-US": "Exclusive dashboard to organize the team's routine in our freelance initiative, Delusional. Built with a Neumorphism aesthetic, the panel features a personal Kanban, financial and project management, a vault for signed contracts, and uptime status monitoring for live websites.",
-    },
-    partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-    href: "https://delulu-painel.vercel.app/",
-  },
 ] as const;
 
 const portfolioZoomImages: ZoomMediaAsset[] = [
@@ -622,7 +423,6 @@ export default function PortfolioLandingPage() {
   // trackX = vw * (0.32 - activeIdx * 0.40): centers card at activeIdx
   const carouselTrackX = useMotionValue(typeof window !== "undefined" ? window.innerWidth * 0.32 : 0);
   const carouselAnimating = useRef(false);
-  const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | null>(null);
   const [projectsScrollEdges, setProjectsScrollEdges] = useState({ left: false, right: true });
   const heroRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
@@ -682,7 +482,7 @@ export default function PortfolioLandingPage() {
   }, []);
 
   useEffect(() => {
-    if (!isCvDropdownOpen && !isContactDropdownOpen && !isProjectsDropdownOpen && !isLangDropdownOpen && !selectedProjectTitle) {
+    if (!isCvDropdownOpen && !isContactDropdownOpen && !isProjectsDropdownOpen && !isLangDropdownOpen) {
       return;
     }
 
@@ -701,11 +501,7 @@ export default function PortfolioLandingPage() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (selectedProjectTitle) {
-          setSelectedProjectTitle(null);
-        } else {
-          closeAll();
-        }
+        closeAll();
       }
     };
 
@@ -716,7 +512,7 @@ export default function PortfolioLandingPage() {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isCvDropdownOpen, isContactDropdownOpen, isProjectsDropdownOpen, isLangDropdownOpen, selectedProjectTitle]);
+  }, [isCvDropdownOpen, isContactDropdownOpen, isProjectsDropdownOpen, isLangDropdownOpen]);
 
   useEffect(() => {
     if (!isProjectsDropdownOpen || isNavDetached) {
@@ -785,13 +581,6 @@ export default function PortfolioLandingPage() {
       scroller.removeEventListener("scroll", updateProjectsScrollEdges);
       window.removeEventListener("resize", updateProjectsScrollEdges);
     };
-  }, [isProjectsDropdownOpen, selectedProjectTitle]);
-
-  // Ao fechar o dropdown de Projetos, volta para a lista (limpa o detalhe).
-  useEffect(() => {
-    if (!isProjectsDropdownOpen) {
-      setSelectedProjectTitle(null);
-    }
   }, [isProjectsDropdownOpen]);
 
   // Pré-carrega (e pré-decodifica) as miniaturas dos projetos assim que o
@@ -1002,9 +791,6 @@ export default function PortfolioLandingPage() {
                     const item = navProjectItems[projectIdx];
                     const partnerLogo = "partnerLogo" in item ? item.partnerLogo : "/assets/webstar-logo-white.png";
                     const partnerLogoClass = "partnerLogoClassName" in item ? item.partnerLogoClassName : "h-[0.85rem] w-auto object-contain opacity-90";
-                    const hasHref = "href" in item;
-                    const isGithub = "ctaLabel" in item && item.ctaLabel === "GitHub";
-                    const ctaLabel = "ctaLabel" in item ? item.ctaLabel : tx(copy.projects.viewSite);
                     const partnerUrl = "partner" in item ? PARTNER_URLS[item.partner] : undefined;
 
                     return (
@@ -1069,16 +855,16 @@ export default function PortfolioLandingPage() {
                               <h2 className="text-base font-extrabold uppercase tracking-[0.11em] text-white sm:text-lg lg:text-xl">{item.title}</h2>
                               <p className="text-xs leading-[1.7] text-white/55 sm:text-[0.8rem] lg:text-sm">{tx(item.description)}</p>
                             </div>
-                            {hasHref && isCenterSlot && (
+                            {isCenterSlot && (
                               <a
-                                href={(item as { href: string }).href}
-                                target="_blank"
-                                rel="noreferrer"
+                                href={`/projeto/${projectSlug(item.title)}`}
                                 onClick={(e) => e.stopPropagation()}
                                 className="inline-flex h-9 w-fit flex-shrink-0 items-center gap-2 rounded-full bg-white/[0.08] px-5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/70 ring-1 ring-white/10 transition hover:bg-[#A7EF9E] hover:text-black hover:ring-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                               >
-                                {isGithub ? <GithubMark className="h-3 w-3" aria-hidden="true" /> : <ExternalLink className="h-3 w-3" aria-hidden="true" />}
-                                {ctaLabel}
+                                {tx(copy.projects.learnMore)}
+                                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                  <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
                               </a>
                             )}
                           </div>
@@ -1333,20 +1119,13 @@ export default function PortfolioLandingPage() {
                             <p className="mt-1.5 line-clamp-2 text-[0.65rem] leading-4 text-white/45">
                               {tx(item.description)}
                             </p>
-                            {"href" in item && (
-                              <a
-                                href={item.href}
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/[0.07] px-2.5 py-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-white/60 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
-                              >
-                                {"ctaLabel" in item && item.ctaLabel === "GitHub"
-                                  ? <GithubMark className="h-2.5 w-2.5" aria-hidden="true" />
-                                  : <ExternalLink className="h-2.5 w-2.5" aria-hidden="true" />}
-                                {"ctaLabel" in item ? item.ctaLabel : tx(copy.projects.viewSite)}
-                              </a>
-                            )}
+                            <a
+                              href={`/projeto/${projectSlug(item.title)}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/[0.07] px-2.5 py-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-white/60 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
+                            >
+                              {tx(copy.projects.learnMore)}
+                            </a>
                           </div>
                         </motion.article>
                       ))}

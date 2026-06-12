@@ -4,6 +4,7 @@ import { Cloud, ExternalLink, Mail, Menu, Monitor, Server, X, type LucideIcon } 
 
 import DestructionSection from "@/components/DestructionSection";
 import CvModal from "@/components/ui/CvModal";
+import { projectSlug } from "@/lib/projects";
 import TagSphere, { type Accent } from "@/components/ui/TagSphere";
 import { useLang, type LocalizedText } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
@@ -619,9 +620,8 @@ function MobileHero({ onOpenCv }: { onOpenCv: () => void }) {
         >
           {tx(copy.hero.intro)}
         </h1>
-        <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-white/55">
-          {tx(copy.hero.rolePrefix)}{" "}
-          <span className="font-extrabold tracking-[0.1em] text-[#A7EF9E]">{tx(copy.hero.roleTitle)}</span>
+        <p className="mt-3 text-base font-light uppercase tracking-[0.3em] text-white/70">
+          {tx(copy.hero.roleTitle)}
         </p>
         <p className="mt-5 text-[0.92rem] leading-7 text-white/68">{tx(copy.hero.panelBody)}</p>
 
@@ -669,8 +669,6 @@ function MobileAbout() {
 // ── Projects ──────────────────────────────────────────────────────────────────
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { tx } = useLang();
-  const href = project.href ?? GITHUB_URL;
-  const ctaLabel = project.ctaLabel ?? (project.href ? tx(copy.projects.viewSite) : "GitHub");
   const partnerUrl = project.partner ? PARTNER_URLS[project.partner] : undefined;
   const partnerLogo = project.partnerLogo ?? "/assets/webstar-logo-white.png";
 
@@ -710,17 +708,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
         <p className="mt-2.5 text-[0.85rem] leading-6 text-white/55">{tx(project.description)}</p>
         <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
+          href={`/projeto/${projectSlug(project.title)}`}
           className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-white py-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-black transition active:bg-[#A7EF9E]"
         >
-          {ctaLabel === "GitHub" ? (
-            <GithubMark className="h-3.5 w-3.5" aria-hidden="true" />
-          ) : (
-            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-          )}
-          {ctaLabel}
+          {tx(copy.projects.learnMore)}
         </a>
       </div>
     </motion.article>
@@ -729,6 +720,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 function MobileProjects() {
   const { tx } = useLang();
+
   return (
     <section id="projects" className="scroll-mt-20 px-6 py-20">
       <motion.h2
@@ -956,34 +948,6 @@ function MobileEducation() {
   );
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
-function MobileFooter() {
-  return (
-    <footer className="border-t border-white/[0.06] px-6 py-10 text-center">
-      <p className="font-mono text-[0.6rem] uppercase tracking-[0.28em] text-white/40">
-        João Pedro — Software Developer
-      </p>
-      <div className="mt-4 flex items-center justify-center gap-3">
-        {contactItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <a
-              key={item.label}
-              href={item.href}
-              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
-              aria-label={item.label}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition active:bg-[#A7EF9E]/[0.16] active:text-[#A7EF9E]"
-            >
-              <Icon className="h-4 w-4" aria-hidden="true" />
-            </a>
-          );
-        })}
-      </div>
-    </footer>
-  );
-}
-
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function PortfolioLandingPageMobile() {
   const { lang } = useLang();
@@ -1013,8 +977,6 @@ export default function PortfolioLandingPageMobile() {
           <DestructionSection language={lang} backgroundClassName="bg-transparent" showAmbientBackground={false} />
         </section>
       </div>
-
-      <MobileFooter />
     </div>
   );
 }
