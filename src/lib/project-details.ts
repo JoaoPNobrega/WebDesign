@@ -64,6 +64,12 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "Dr Guilherme Maia": {
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     role: webstarRole,
+    images: [
+      "/assets/guilherme-1.jpg",
+      "/assets/guilherme-2.jpg",
+      "/assets/guilherme-4.jpg",
+      "/assets/guilherme-5.jpg",
+    ],
   },
   FlyHigh: {
     tags: ["React", "Vite", "Tailwind CSS"],
@@ -79,22 +85,57 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "Dr Daniel Pianetti": {
     tags: ["React", "Vite", "Tailwind CSS", "Three.js"],
     role: webstarRole,
+    images: [
+      "/assets/daniel-1.jpg",
+      "/assets/daniel-2.jpg",
+      "/assets/daniel-3.jpg",
+      "/assets/daniel-4.jpg",
+      "/assets/daniel-5.jpg",
+    ],
   },
   "Stephanie Bolsoni": {
     tags: ["React", "Vite", "Tailwind CSS"],
     role: webstarRole,
+    images: [
+      "/assets/stephanie-1.jpg",
+      "/assets/stephanie-2.jpg",
+      "/assets/stephanie-3.jpg",
+      "/assets/stephanie-4.jpg",
+      "/assets/stephanie-5.jpg",
+    ],
   },
   "Izi Solutions": {
     tags: ["React", "Vite", "Tailwind CSS"],
     role: webstarRole,
+    images: [
+      "/assets/izi-1.jpg",
+      "/assets/izi-2.jpg",
+      "/assets/izi-3.jpg",
+      "/assets/izi-4.jpg",
+      "/assets/izi-5.jpg",
+    ],
   },
   "Ines Knoden": {
     tags: ["React", "Vite", "Tailwind CSS"],
     role: webstarRole,
+    images: [
+      "/assets/ines-1.jpg",
+      "/assets/ines-2.jpg",
+      "/assets/ines-3.jpg",
+      "/assets/ines-4.jpg",
+      "/assets/ines-5.jpg",
+    ],
   },
   "Dr Dimas Antunes": {
     tags: ["React", "Vite", "Tailwind CSS"],
     role: webstarRole,
+    images: [
+      "/assets/dimas-1.jpg",
+      "/assets/dimas-2.jpg",
+      "/assets/dimas-3.jpg",
+      "/assets/dimas-4.jpg",
+      "/assets/dimas-5.jpg",
+    ],
   },
   "Dr Cristiano Berardo": {
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
