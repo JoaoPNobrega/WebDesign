@@ -54,6 +54,68 @@ function hostFromUrl(url?: string): string | null {
   }
 }
 
+// Qualidades de thumbnail do YouTube, da melhor p/ a pior. Nem todo vídeo tem
+// maxres (só quando enviado em ≥720p), então caímos para a próxima disponível.
+const YT_THUMB_QUALITIES = ["maxresdefault", "sddefault", "hqdefault"];
+
+// Player do YouTube com facade "clica-pra-tocar": mostra a thumbnail + botão e só
+// carrega o iframe (e o JS do YouTube) depois do clique — mais rápido e sem cookies.
+function VideoEmbed({
+  id,
+  poster,
+  label,
+  title,
+}: {
+  id: string;
+  poster?: string;
+  label: string;
+  title: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const [quality, setQuality] = useState(0);
+  const thumbSrc = poster ?? `https://i.ytimg.com/vi/${id}/${YT_THUMB_QUALITIES[quality]}.jpg`;
+
+  if (playing) {
+    return (
+      <div className="relative aspect-video w-full">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}
+          title={`${title} — ${label}`}
+          className="absolute inset-0 h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setPlaying(true)}
+      aria-label={`${label} — ${title}`}
+      className="group relative block aspect-video w-full cursor-pointer overflow-hidden"
+    >
+      <img
+        src={thumbSrc}
+        onError={poster ? undefined : () => setQuality((index) => Math.min(index + 1, YT_THUMB_QUALITIES.length - 1))}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+      />
+      <span className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25 transition group-hover:from-black/40" aria-hidden="true" />
+      <span className="absolute inset-0 grid place-items-center">
+        <span className="flex h-[4.2rem] w-[4.2rem] items-center justify-center rounded-full bg-[#A7EF9E] text-black shadow-[0_10px_50px_rgba(167,239,158,0.45)] transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
+          <svg viewBox="0 0 24 24" fill="currentColor" className="ml-1 h-7 w-7 sm:h-9 sm:w-9" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+      </span>
+    </button>
+  );
+}
+
 function ProjectView({ slug }: { slug: string }) {
   const { tx, lang } = useLang();
   const [activeShot, setActiveShot] = useState(0);
@@ -201,6 +263,33 @@ function ProjectView({ slug }: { slug: string }) {
             </motion.a>
           ) : null}
         </div>
+
+        {/* ── Demonstração em vídeo (quando há) ─────────────────────────────── */}
+        {detail?.video ? (
+          <motion.section
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-16 max-w-5xl sm:mt-20"
+          >
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#A7EF9E]/40" aria-hidden="true" />
+              <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#A7EF9E]/80">
+                {tx(copy.projects.videoLabel)}
+              </p>
+              <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#A7EF9E]/40" aria-hidden="true" />
+            </div>
+            <div className="overflow-hidden rounded-[1.1rem] bg-black shadow-[0_40px_120px_-30px_rgba(0,0,0,0.8)] ring-1 ring-white/[0.08]">
+              <VideoEmbed
+                id={detail.video}
+                poster={detail.videoPoster}
+                label={tx(copy.projects.videoLabel)}
+                title={project.title}
+              />
+            </div>
+          </motion.section>
+        ) : null}
 
         {/* ── Detalhes: info (esquerda) + showcase em navegador (direita) ───── */}
         <motion.section

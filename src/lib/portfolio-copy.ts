@@ -38,6 +38,8 @@ export const copy = {
     myRole: t("Como participei", "My role"),
     stackLabel: t("Tecnologias", "Stack"),
     toolsLabel: t("Ferramentas", "Tools"),
+    videoLabel: t("Demonstração", "Demo"),
+    videoPlay: t("Assistir à demonstração", "Watch the demo"),
     partnership: t("Parceria com", "Partnership with"),
     closePreview: t("Fechar preview do projeto", "Close project preview"),
     thumbAlt: t("Preview do projeto", "Preview of project"),

@@ -28,6 +28,10 @@ export type ProjectDetail = {
   tags: string[];
   /** Ferramentas/IA usadas na produção (ex.: Claude, Gemini…). */
   tools?: string[];
+  /** ID do vídeo do YouTube p/ a seção de demonstração (ex.: "A1_detLyOCI"). */
+  video?: string;
+  /** Capa do vídeo (quando o YouTube não tem thumbnail em alta resolução). */
+  videoPoster?: string;
   role: LocalizedText;
   /** Prints extras para a galeria do "Saiba mais". A primeira é a capa. */
   images?: string[];
@@ -76,11 +80,18 @@ export const projectDetails: Record<string, ProjectDetail> = {
     role: soloRole,
   },
   PetFeeder: {
-    tags: ["ESP32", "Firebase", "Gemini API", "React"],
+    tags: ["ESP32", "C++ / Arduino", "Firebase", "Gemini AI", "Vanilla JS"],
+    video: "A1_detLyOCI",
+    videoPoster: "/assets/petfeeder-video-poster.jpg",
     role: t(
-      "Projeto acadêmico na CESAR School: desenvolvi o dashboard web em tempo real e a integração com o hardware.",
-      "Academic project at CESAR School: I built the real-time web dashboard and the hardware integration.",
+      "Projeto acadêmico de Sistemas Embarcados na CESAR School. Um alimentador automático de pets com ESP32 — sensor ultrassônico, servo motor, potenciômetro e botão físico — conectado em tempo real ao Firebase e a uma dashboard web, com a API Gemini sugerindo rotinas de alimentação. Atuei na dashboard web (configuração do pet, monitoramento ao vivo, relatórios e rotinas) e na integração com o hardware via Firebase.",
+      "Academic Embedded Systems project at CESAR School. An automatic pet feeder powered by an ESP32 — ultrasonic sensor, servo motor, potentiometer and a physical button — connected in real time to Firebase and a web dashboard, with the Gemini API suggesting feeding routines. I worked on the web dashboard (pet setup, live monitoring, reports and routines) and the hardware integration via Firebase.",
     ),
+    images: [
+      "/assets/petfeeder-welcome.png",
+      "/assets/petfeeder-app.png",
+      "/assets/petfeeder-firebase.png",
+    ],
   },
   "Dr Daniel Pianetti": {
     tags: ["React", "Vite", "Tailwind CSS", "Three.js"],
