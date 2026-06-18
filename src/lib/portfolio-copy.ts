@@ -8,8 +8,8 @@ export const copy = {
     roleTitle: t("Software Developer", "Software Developer"),
     eyebrow: t("Ciência da Computação + software", "Computer Science + software"),
     panelBody: t(
-      "Sites e interfaces do briefing à entrega — front-end sólido, responsividade real e identidade visual virando páginas que comunicam e convertem.",
-      "Websites and interfaces from briefing to delivery — solid front-end, true responsiveness and visual identity turned into pages that communicate and convert.",
+      "Crio sites e produtos digitais do design ao deploy. Front-end caprichado, full-stack quando precisa — interfaces rápidas, com movimento e acabamento, feitas pra comunicar e converter.",
+      "I craft websites and digital products from design to deploy. Polished front-end, full-stack when needed — fast, well-finished interfaces with real motion, made to communicate and convert.",
     ),
     badgePortfolio: t("Meu portfólio", "My portfolio"),
     badgeLocation: t("Recife, Brasil", "Recife, Brazil"),

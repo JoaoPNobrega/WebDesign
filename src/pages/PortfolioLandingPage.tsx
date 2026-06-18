@@ -10,7 +10,6 @@ import AetherFlowHero from "@/components/ui/aether-flow-hero";
 import BlurText from "@/components/ui/BlurText";
 import CvButton from "@/components/ui/CvButton";
 import CvModal from "@/components/ui/CvModal";
-import ScrollDownIndicator from "@/components/ui/ScrollDownIndicator";
 import ParallaxPhoto from "@/components/ui/ParallaxPhoto";
 import GlassSurface from "@/components/ui/GlassSurface";
 import ShinyText from "@/components/ui/ShinyText";
@@ -88,9 +87,9 @@ function HeroDescriptionPanel() {
   const { tx } = useLang();
 
   return (
-    <div className="flex w-full max-w-[26rem] items-stretch gap-5 text-left">
-      <div className="w-px shrink-0 self-stretch bg-gradient-to-b from-[#A7EF9E]/70 via-white/25 to-transparent" />
-      <p className="text-base leading-8 text-white/72 lg:text-[1.05rem]">
+    <div className="flex w-full max-w-[27rem] items-stretch gap-4 rounded-2xl bg-black/25 p-5 text-left ring-1 ring-white/10 backdrop-blur-md sm:p-6">
+      <div className="w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b from-[#A7EF9E] via-[#A7EF9E]/55 to-transparent" />
+      <p className="text-[0.97rem] leading-7 text-white/85 lg:text-[1.06rem] lg:leading-8">
         {tx(copy.hero.panelBody)}
       </p>
     </div>
@@ -148,7 +147,7 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   {
     type: "image",
     src: "/assets/parallax-center-site.webp",
-    fallbackSrc: "/assets/image.png",
+    fallbackSrc: "/assets/image.jpg",
     alt: "Center site preview",
   },
   {
@@ -159,13 +158,13 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   {
     type: "image",
     src: "/assets/parallax-flyhigh.webp",
-    fallbackSrc: "/assets/flyhigh.png",
+    fallbackSrc: "/assets/flyhigh.jpg",
     alt: "Left tall site preview",
   },
   {
     type: "image",
     src: "/assets/parallax-dr-guilherme-preview.webp",
-    fallbackSrc: "/assets/dr-guilherme-preview.png",
+    fallbackSrc: "/assets/dr-guilherme-preview.jpg",
     alt: "Dr Guilherme Maia project preview",
   },
   {
@@ -177,13 +176,13 @@ const portfolioZoomImages: ZoomMediaAsset[] = [
   {
     type: "image",
     src: "/assets/parallax-stephanie-bolsoni.webp",
-    fallbackSrc: "/assets/stephanie-bolsoni.png",
+    fallbackSrc: "/assets/stephanie-bolsoni.jpg",
     alt: "Stephanie Bolsoni project preview",
   },
   {
     type: "image",
     src: "/assets/parallax-ouroverde-preview.webp",
-    fallbackSrc: "/assets/ouroverde-preview.png",
+    fallbackSrc: "/assets/ouroverde-preview.jpg",
     alt: "Ouroverde project preview",
     objectPosition: "top",
   },
@@ -250,7 +249,7 @@ function HeroEchoVisual() {
               <div className="flex justify-center lg:-translate-y-10 xl:-translate-y-14 2xl:-translate-x-24 2xl:-translate-y-20">
                 <HeroIntroCopy staticDisplay />
               </div>
-              <div className="flex justify-center lg:translate-y-10 lg:justify-self-end xl:translate-y-16 2xl:translate-x-28 2xl:translate-y-24">
+              <div className="flex justify-center lg:translate-y-6 lg:justify-self-end xl:translate-y-9 2xl:translate-x-20 2xl:translate-y-12">
                 <HeroDescriptionPanel />
               </div>
             </div>
@@ -618,7 +617,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
       for (const item of navProjectItems) {
         const img = new Image();
         img.decoding = "async";
-        img.src = item.image;
+        img.src = "image" in item ? item.image : item.images[0];
       }
     };
     const ric = (window as typeof window & {
@@ -1190,7 +1189,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                         >
                           <div className="h-28 overflow-hidden rounded-[0.85rem] bg-white/[0.04] sm:h-32">
                             <img
-                              src={item.image}
+                              src={"image" in item ? item.image : item.images[0]}
                               alt={`${tx(copy.projects.thumbAlt)} ${item.title}`}
                               className={`h-full w-full object-cover transition duration-500 ${
                                 "imageScale" in item ? item.imageScale : "scale-110 group-hover:scale-[1.18]"
@@ -1222,8 +1221,52 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                       ))}
                     </div>
                   </div>
-                  <div className="mt-4 flex justify-center pb-1">
-                    <ScrollDownIndicator />
+                  <div className="mt-4 flex items-center justify-center gap-3 pb-1">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const s = projectsScrollerRef.current;
+                        if (s) s.scrollBy({ left: -Math.round(s.clientWidth * 0.6), behavior: "smooth" });
+                      }}
+                      disabled={!projectsScrollEdges.left}
+                      aria-label={tx({ "pt-BR": "Projetos anteriores", "en-US": "Previous projects" })}
+                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/[0.07] text-white/65 ring-1 ring-white/10 transition-all duration-300 hover:bg-white/[0.14] hover:text-white active:scale-95 disabled:pointer-events-none disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    >
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
+                    </button>
+
+                    <a
+                      href="/projetos"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={tx(copy.projects.viewAll)}
+                      className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-[#A7EF9E]/[0.10] text-[#A7EF9E]/85 ring-1 ring-[#A7EF9E]/25 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-[#A7EF9E] hover:text-black hover:shadow-[0_0_22px_-4px_rgba(167,239,158,0.6)] active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7" rx="1.6" className="origin-center transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:0ms] group-hover:scale-[1.22]" />
+                        <rect x="14" y="3" width="7" height="7" rx="1.6" className="origin-center transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:70ms] group-hover:scale-[1.22]" />
+                        <rect x="14" y="14" width="7" height="7" rx="1.6" className="origin-center transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:140ms] group-hover:scale-[1.22]" />
+                        <rect x="3" y="14" width="7" height="7" rx="1.6" className="origin-center transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:210ms] group-hover:scale-[1.22]" />
+                      </svg>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const s = projectsScrollerRef.current;
+                        if (s) s.scrollBy({ left: Math.round(s.clientWidth * 0.6), behavior: "smooth" });
+                      }}
+                      disabled={!projectsScrollEdges.right}
+                      aria-label={tx({ "pt-BR": "Próximos projetos", "en-US": "Next projects" })}
+                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/[0.07] text-white/65 ring-1 ring-white/10 transition-all duration-300 hover:bg-white/[0.14] hover:text-white active:scale-95 disabled:pointer-events-none disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    >
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </button>
                   </div>
                 </motion.div>
               ) : null}
@@ -1488,7 +1531,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                 <div className="flex justify-center lg:-translate-y-10 xl:-translate-y-14 2xl:-translate-x-24 2xl:-translate-y-20">
                   <HeroIntroCopy onOpenCv={() => setIsCvOpen(true)} />
                 </div>
-                <div className="flex justify-center lg:translate-y-10 lg:justify-self-end xl:translate-y-16 2xl:translate-x-28 2xl:translate-y-24">
+                <div className="flex justify-center lg:translate-y-6 lg:justify-self-end xl:translate-y-9 2xl:translate-x-20 2xl:translate-y-12">
                   <HeroDescriptionPanel />
                 </div>
               </motion.div>

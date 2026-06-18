@@ -46,6 +46,7 @@ export const categoryLabel: Record<Category, LocalizedText> = {
 };
 
 export const projectCategory: Record<string, Category> = {
+  "Mirela Albuquerque": "site",
   "Dr Guilherme Maia": "site",
   FlyHigh: "app",
   PetFeeder: "iot",
@@ -58,12 +59,63 @@ export const projectCategory: Record<string, Category> = {
   "Keeping House": "site",
   "Delusional Studio": "site",
   "Delulu Painel": "dashboard",
+  "Beyblade X Manager": "app",
 };
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  "Mirela Albuquerque": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Supabase", "Framer Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end: a home editorial em tons terrosos, as seções de tratamentos e procedimentos (transplante capilar e de sobrancelhas), a página de tricoscopia digital com laudo por IA, a FAQ, os fluxos de agendamento e um blog com painel próprio (CMS em Supabase). Construído em React + TanStack Start e publicado na Cloudflare, com microinterações (Framer Motion), responsividade caprichada e SEO/GEO. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end: the editorial home in earthy tones, the treatment and procedure sections (hair and eyebrow transplants), the digital trichoscopy page with AI-assisted reports, the FAQ, the booking flows and a blog with its own admin (a Supabase CMS). Built in React + TanStack Start and shipped on Cloudflare, with microinteractions (Framer Motion), careful responsiveness and SEO/GEO. All the AI tooling used in production was provided by the company.",
+    ),
+    images: [
+      "/assets/mirela-preview.jpg",
+      "/assets/mirela-1.jpg",
+      "/assets/mirela-2.jpg",
+      "/assets/mirela-3.jpg",
+      "/assets/mirela-4.jpg",
+      "/assets/mirela-5.jpg",
+    ],
+    shots: [
+      {
+        src: "/assets/mirela-preview.jpg",
+        title: t("Home editorial", "Editorial home"),
+        text: t("Primeira dobra em tons terrosos posicionando a medicina capilar.", "Above the fold in earthy tones positioning hair medicine."),
+      },
+      {
+        src: "/assets/mirela-1.jpg",
+        title: t("Tratamentos", "Treatments"),
+        text: t("Protocolos médicos individualizados após avaliação clínica.", "Individualized medical protocols after a clinical assessment."),
+      },
+      {
+        src: "/assets/mirela-2.jpg",
+        title: t("Procedimentos", "Procedures"),
+        text: t("Transplante capilar e de sobrancelhas, do planejamento ao pós-operatório.", "Hair and eyebrow transplants, from planning to post-op."),
+      },
+      {
+        src: "/assets/mirela-3.jpg",
+        title: t("Tricoscopia digital", "Digital trichoscopy"),
+        text: t("Diagnóstico detalhado com laudo por IA pra orientar o protocolo.", "Detailed diagnosis with AI-assisted reports to guide the protocol."),
+      },
+      {
+        src: "/assets/mirela-4.jpg",
+        title: t("Na clínica", "At the clinic"),
+        text: t("Galeria da avaliação capilar com tricoscopia digital.", "Gallery of the hair assessment with digital trichoscopy."),
+      },
+      {
+        src: "/assets/mirela-5.jpg",
+        title: t("Dúvidas respondidas", "Questions answered"),
+        text: t("FAQ que responde as principais dúvidas e leva ao agendamento.", "FAQ answering the main questions and driving to booking."),
+      },
+    ],
+  },
   "Dr Guilherme Maia": {
-    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
+    role: t(
+      "Meu primeiro projeto no estágio na Web Star Studio — atuei do design ao front-end. Uma landing médica com narrativa de autoridade para o urologista Dr. Guilherme Maia: hero, especialidades, trajetória e blog, com foco em clareza, responsividade e um CTA direto pra agendamento. Por ser o primeiro, foi onde aprendi o fluxo do estúdio do briefing à entrega. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "My first project during the Web Star Studio internship — I worked from design to front-end. A medical landing with an authority-driven narrative for urologist Dr. Guilherme Maia: hero, specialties, background and a blog, focused on clarity, responsiveness and a direct booking CTA. Being the first, it's where I learned the studio's flow from briefing to delivery. All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/guilherme-1.jpg",
       "/assets/guilherme-2.jpg",
@@ -91,14 +143,17 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Academic Embedded Systems project at CESAR School. An automatic pet feeder powered by an ESP32 — ultrasonic sensor, servo motor, potentiometer and a physical button — connected in real time to Firebase and a web dashboard, with the Gemini API suggesting feeding routines. I worked on the web dashboard (pet setup, live monitoring, reports and routines) and the hardware integration via Firebase.",
     ),
     images: [
-      "/assets/petfeeder-welcome.png",
-      "/assets/petfeeder-app.png",
-      "/assets/petfeeder-firebase.png",
+      "/assets/petfeeder-welcome.jpg",
+      "/assets/petfeeder-app.jpg",
+      "/assets/petfeeder-firebase.jpg",
     ],
   },
   "Dr Daniel Pianetti": {
-    tags: ["React", "Vite", "Tailwind CSS", "Three.js"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Three.js", "Supabase"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end: a home cinematográfica com objeto 3D (Da Vinci) e logo animada, as páginas dedicadas de cada procedimento, o blog com painel próprio (CMS em Supabase), o chatbot, os modais de agendamento e a integração de avaliações (Doctoralia + Google). Caprichei nas animações (GSAP/Framer), na responsividade e num SEO/GEO forte (JSON-LD, dados estruturados, llms.txt). Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end: the cinematic home with a 3D object (Da Vinci) and an animated logo, the dedicated page for each procedure, the blog with its own admin (a Supabase CMS), the chatbot, the booking modals and the reviews integration (Doctoralia + Google). I focused on the animations (GSAP/Framer), responsiveness and strong SEO/GEO (JSON-LD, structured data, llms.txt). All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/daniel-1.jpg",
       "/assets/daniel-2.jpg",
@@ -108,8 +163,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Stephanie Bolsoni": {
-    tags: ["React", "Vite", "Tailwind CSS"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Framer Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end: a landing premium, as páginas (sobre, especialidades, contato), a integração de avaliações reais (Doctify + Google), a galeria do consultório, o fluxo de agendamento e um blog com painel próprio (CMS em Supabase) pra ela publicar. Caprichei nas microinterações e na responsividade. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end: the premium landing, the pages (about, specialties, contact), the real-reviews integration (Doctify + Google), the clinic gallery, the booking flow and a blog with its own admin (a Supabase CMS) for her to publish. I focused on the microinteractions and responsiveness. All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/stephanie-1.jpg",
       "/assets/stephanie-2.jpg",
@@ -119,8 +177,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Izi Solutions": {
-    tags: ["React", "Vite", "Tailwind CSS"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Supabase", "Framer Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end: a landing de conversão, as páginas de serviços (Airbnb, short stay, escritórios), o FAQ, o blog com painel próprio (CMS em Supabase) e o site bilíngue (PT/EN). Construído em React + TanStack Start e publicado na Cloudflare, com microinterações (Framer Motion), responsividade e SEO/GEO forte (JSON-LD, sitemap, llms.txt). Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end: the conversion landing, the service pages (Airbnb, short stay, offices), the FAQ, the blog with its own admin (a Supabase CMS) and the bilingual site (PT/EN). Built in React + TanStack Start and shipped on Cloudflare, with microinteractions (Framer Motion), responsiveness and strong SEO/GEO (JSON-LD, sitemap, llms.txt). All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/izi-1.jpg",
       "/assets/izi-2.jpg",
@@ -130,8 +191,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Ines Knoden": {
-    tags: ["React", "Vite", "Tailwind CSS"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Framer Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end. Traduzi a direção de marca (serenidade, acolhimento, feminilidade madura) numa experiência suave: home, programas, sobre e contato, com paleta coral/pêssego, tipografia serifada com toques manuscritos e microinterações leves (Framer Motion). Construído em React + TanStack Start com estrutura bilíngue (PT/FR) e publicado na Cloudflare, com responsividade caprichada. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end. I translated the brand direction (serenity, warmth, mature femininity) into a soft experience: home, programs, about and contact, with a coral/peach palette, serif type with handwritten touches and gentle microinteractions (Framer Motion). Built in React + TanStack Start with a bilingual structure (PT/FR) and shipped on Cloudflare, with careful responsiveness. All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/ines-1.jpg",
       "/assets/ines-2.jpg",
@@ -141,8 +205,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Dr Dimas Antunes": {
-    tags: ["React", "Vite", "Tailwind CSS"],
-    role: webstarRole,
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "GSAP", "Framer Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end. Tirei do papel o conceito 'The Clinical Curator': uma experiência editorial de alto luxo com layout assimétrico, scrollytelling, glassmorphism e bento grid, tipografia de alto contraste e uma logo animada que faz morph (GSAP + flubber). Construído em React + TanStack Start e publicado na Cloudflare, com responsividade e microinterações caprichadas. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end. I brought the 'Clinical Curator' concept to life: a high-luxury editorial experience with an asymmetric layout, scrollytelling, glassmorphism and a bento grid, high-contrast typography and an animated morphing logo (GSAP + flubber). Built in React + TanStack Start and shipped on Cloudflare, with careful responsiveness and microinteractions. All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/dimas-1.jpg",
       "/assets/dimas-2.jpg",
@@ -158,35 +225,35 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Premium institutional landing page for cardiovascular surgeon Dr. Cristiano Berardo, during my internship at Web Star Studio. I worked from design to front-end: an authority-focused hero, an academic background section, specialties and procedures, a humanized-care narrative and a closing with the booking channels. I handled full responsiveness, the Framer Motion microinteractions and the premium finish that conveys trust to patients and physicians. All the AI tooling used in production was provided by the company.",
     ),
     images: [
-      "/assets/drcristiano-preview.png",
-      "/assets/drcristiano-1.png",
-      "/assets/drcristiano-2.png",
-      "/assets/drcristiano-3.png",
-      "/assets/drcristiano-4.png",
+      "/assets/drcristiano-preview.jpg",
+      "/assets/drcristiano-1.jpg",
+      "/assets/drcristiano-2.jpg",
+      "/assets/drcristiano-3.jpg",
+      "/assets/drcristiano-4.jpg",
     ],
     shots: [
       {
-        src: "/assets/drcristiano-preview.png",
+        src: "/assets/drcristiano-preview.jpg",
         title: t("Hero institucional", "Institutional hero"),
         text: t("Primeira dobra com posicionamento premium e autoridade médica.", "Above the fold with premium positioning and medical authority."),
       },
       {
-        src: "/assets/drcristiano-1.png",
+        src: "/assets/drcristiano-1.jpg",
         title: t("Trajetória", "Background"),
         text: t("Seção que conta a formação e a carreira do cirurgião.", "Section telling the surgeon's education and career."),
       },
       {
-        src: "/assets/drcristiano-2.png",
+        src: "/assets/drcristiano-2.jpg",
         title: t("Especialidades", "Specialties"),
         text: t("Procedimentos e áreas de atuação apresentados com clareza.", "Procedures and practice areas presented clearly."),
       },
       {
-        src: "/assets/drcristiano-3.png",
+        src: "/assets/drcristiano-3.jpg",
         title: t("Cuidado humanizado", "Humanized care"),
         text: t("Narrativa visual voltada para o paciente.", "Patient-focused visual narrative."),
       },
       {
-        src: "/assets/drcristiano-4.png",
+        src: "/assets/drcristiano-4.jpg",
         title: t("Contato", "Contact"),
         text: t("Fechamento com canais de agendamento.", "Closing with booking channels."),
       },
@@ -204,9 +271,9 @@ export const projectDetails: Record<string, ProjectDetail> = {
     images: [
       "/assets/keepinghouse-hero.jpg",
       "/assets/keepinghouse-categorias.jpg",
-      "/assets/keepinghouse-busca.png",
+      "/assets/keepinghouse-busca.jpg",
       "/assets/keepinghouse-concierge.jpg",
-      "/assets/keepinghouse-planos.png",
+      "/assets/keepinghouse-planos.jpg",
       "/assets/keepinghouse-mobile.jpg",
     ],
   },
@@ -217,35 +284,35 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "I conceived and produced Delusional's presentation site — an independent digital agency for web design and automation. I defined the positioning and copy for the three fronts (Web, Design and Automation), built the brutalist look with a 3D hero in Three.js, the microinteractions and the team's work showcase, and shipped it as a fast static site on Vercel. It's not a search site: it's the piece we show clients — in person or in an ad — to prove in seconds that the studio exists and delivers.",
     ),
     images: [
-      "/assets/delusional-studio-preview.png",
-      "/assets/delusional-studio-1.png",
-      "/assets/delusional-studio-2.png",
-      "/assets/delusional-studio-3.png",
-      "/assets/delusional-studio-4.png",
+      "/assets/delusional-studio-preview.jpg",
+      "/assets/delusional-studio-1.jpg",
+      "/assets/delusional-studio-2.jpg",
+      "/assets/delusional-studio-3.jpg",
+      "/assets/delusional-studio-4.jpg",
     ],
     shots: [
       {
-        src: "/assets/delusional-studio-preview.png",
+        src: "/assets/delusional-studio-preview.jpg",
         title: t("Home imersiva", "Immersive home"),
         text: t("Entrada do site com identidade visual marcante.", "Site entrance with a bold visual identity."),
       },
       {
-        src: "/assets/delusional-studio-1.png",
+        src: "/assets/delusional-studio-1.jpg",
         title: t("Showcase de projetos", "Project showcase"),
         text: t("Vitrine dos trabalhos entregues pelo estúdio.", "Display of the studio's delivered work."),
       },
       {
-        src: "/assets/delusional-studio-2.png",
+        src: "/assets/delusional-studio-2.jpg",
         title: t("Animações interativas", "Interactive animations"),
         text: t("Microinterações e movimento guiando a navegação.", "Microinteractions and motion guiding navigation."),
       },
       {
-        src: "/assets/delusional-studio-3.png",
+        src: "/assets/delusional-studio-3.jpg",
         title: t("Serviços", "Services"),
         text: t("O que o estúdio entrega, do design ao deploy.", "What the studio delivers, from design to deploy."),
       },
       {
-        src: "/assets/delusional-studio-4.png",
+        src: "/assets/delusional-studio-4.jpg",
         title: t("Contato", "Contact"),
         text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
       },
@@ -264,6 +331,53 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "/assets/delulu-status.jpg",
       "/assets/delulu-kanban.jpg",
       "/assets/delulu-mobile.jpg",
+    ],
+  },
+  "Beyblade X Manager": {
+    tags: ["React", "TypeScript", "Vite", "Supabase"],
+    role: t(
+      "Projeto pessoal full-stack que fiz do zero, sozinho e bem rápido — praticamente vibecodando num fim de tarde — só pra organizar as peladas de Beyblade X com os meus primos. Cuidei de tudo: a UI mobile com tema neon (efeitos de vidro/liquid glass), a lógica da partida 1v1 com os finishes oficiais (Spin, Over, Burst e Xtreme) e meta de pontos, o ranking e o histórico, com persistência local e sincronização via Supabase. Sem pretensão comercial: é só um projetinho divertido pra usar no celular.",
+      "A personal full-stack project I built from scratch, solo and fast — basically vibe-coding in an afternoon — just to organize Beyblade X matches with my cousins. I handled everything: the neon mobile UI (glass / liquid-glass effects), the 1v1 match logic with the official finishes (Spin, Over, Burst and Xtreme) and a points target, the ranking and the history, with local persistence and Supabase sync. No commercial ambition: it's just a fun little app to use on the phone.",
+    ),
+    images: [
+      "/assets/beyblade-preview.jpg",
+      "/assets/beyblade-1.jpg",
+      "/assets/beyblade-2.jpg",
+      "/assets/beyblade-3.jpg",
+      "/assets/beyblade-4.jpg",
+      "/assets/beyblade-5.jpg",
+    ],
+    shots: [
+      {
+        src: "/assets/beyblade-preview.jpg",
+        title: t("Visão geral", "Overview"),
+        text: t("App mobile com tema neon do Beyblade X.", "Mobile app with a neon Beyblade X theme."),
+      },
+      {
+        src: "/assets/beyblade-1.jpg",
+        title: t("Menu", "Home"),
+        text: t("Painel inicial com atalhos e os números das batalhas.", "Home with shortcuts and the battle stats."),
+      },
+      {
+        src: "/assets/beyblade-2.jpg",
+        title: t("Arena", "Arena"),
+        text: t("Placar ao vivo da partida 1v1 com os finishes oficiais.", "Live 1v1 scoreboard with the official finishes."),
+      },
+      {
+        src: "/assets/beyblade-3.jpg",
+        title: t("Ranking", "Ranking"),
+        text: t("Classificação dos bladers por vitórias e pontos.", "Blader leaderboard by wins and points."),
+      },
+      {
+        src: "/assets/beyblade-4.jpg",
+        title: t("Histórico", "History"),
+        text: t("Registro das batalhas anteriores e seus placares.", "Log of past battles and their scores."),
+      },
+      {
+        src: "/assets/beyblade-5.jpg",
+        title: t("Bladers", "Bladers"),
+        text: t("Cadastro dos jogadores que entram nas disputas.", "Registration of the players who join the matches."),
+      },
     ],
   },
 };
