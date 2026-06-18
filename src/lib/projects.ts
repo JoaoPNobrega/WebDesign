@@ -16,10 +16,13 @@ export const navProjectItems = [
   },
   {
     title: "FlyHigh",
-    image: "/assets/flynotch.png",
+    images: [
+      "/assets/flyhigh-cover.jpg",
+      "/assets/flyhigh-mockup-2.jpg",
+    ],
     description: {
-      "pt-BR": "App web mobile feito para gerenciar partidas e acompanhar estatísticas. Criei para ajudar no vôlei que jogo com meus primos, com inspiração no anime Haikyu!!.",
-      "en-US": "A mobile web app to manage matches and track statistics. I built it for the volleyball games I play with my cousins, inspired by the anime Haikyu!!.",
+      "pt-BR": "App mobile-first que criei pra organizar a pelada de vôlei do meu grupo: check-in de jogadores, montagem de times, fila, placar ao vivo, histórico e pagamento via Pix. Com tema visual inspirado no anime Haikyu!!.",
+      "en-US": "A mobile-first app I built to organize my group's volleyball pickup games: player check-in, team building, a queue, a live scoreboard, history and Pix payments. With visuals inspired by the anime Haikyu!!.",
     },
   },
   {
@@ -105,19 +108,17 @@ export const navProjectItems = [
   {
     title: "Keeping House",
     images: [
-      "/assets/keepinghouse-preview.png",
-      "/assets/keepinghouse-1.png",
-      "/assets/keepinghouse-2.png",
-      "/assets/keepinghouse-3.png",
-      "/assets/keepinghouse-4.png"
+      "/assets/keepinghouse-hero.jpg",
+      "/assets/keepinghouse-categorias.jpg",
+      "/assets/keepinghouse-busca.png",
+      "/assets/keepinghouse-concierge.jpg",
+      "/assets/keepinghouse-planos.png",
+      "/assets/keepinghouse-mobile.jpg"
     ],
     description: {
-      "pt-BR": "Site desenvolvido para a Keeping House, empresa de serviços de limpeza e organização residencial. Landing page com foco em conversão, apresentando planos, depoimentos e agendamento direto pelo WhatsApp.",
-      "en-US": "Website built for Keeping House, a residential cleaning and organization company. A conversion-focused landing page featuring service plans, testimonials and direct WhatsApp booking.",
+      "pt-BR": "Plataforma/marketplace de serviços domésticos da Keeping House: conecta famílias a diaristas, babás, cuidadoras, governantas e mais — com busca por CEP e categoria, perfis avaliados, planos de assinatura, vagas, um Concierge premium de curadoria e áreas logadas para contratante, profissional e administrador.",
+      "en-US": "Domestic-services marketplace for Keeping House: connects families with house cleaners, nannies, caregivers, housekeepers and more — with CEP + category search, reviewed profiles, subscription plans, job postings, a premium curated Concierge and logged-in areas for clients, professionals and admins.",
     },
-    partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
     href: "https://keepinghouse.com.br/",
   },
   {
@@ -130,8 +131,8 @@ export const navProjectItems = [
       "/assets/delusional-studio-4.png"
     ],
     description: {
-      "pt-BR": "Portfólio e site institucional da Delusional, minha empresa de desenvolvimento web freelance. Design imersivo com animações interativas, showcases de projetos e identidade visual marcante.",
-      "en-US": "Portfolio and institutional website for Delusional, my freelance web development company. Immersive design with interactive animations, project showcases and a bold visual identity.",
+      "pt-BR": "Site-vitrine da Delusional — agência digital independente de web design e automação com IA. Funciona como uma ponte com o cliente: em vez de depender de busca, é a peça que a equipe mostra pessoalmente ou em anúncio pra provar, em segundos, que o estúdio existe e entrega. Visual brutalista com hero 3D (Three.js), tipografia condensada e acento roxo, organizado em três frentes — Web, Design e Automação — com a vitrine dos trabalhos do time. Site estático rápido, publicado na Vercel pra ser compartilhado por link.",
+      "en-US": "Showcase site for Delusional — an independent digital agency for web design and AI automation. It works as a bridge to the client: instead of relying on search, it's the piece the team shows in person or in an ad to prove, in seconds, that the studio exists and delivers. A brutalist look with a 3D hero (Three.js), condensed type and a purple accent, organized around three fronts — Web, Design and Automation — with a showcase of the team's work. A fast static site, deployed on Vercel to be shared as a link.",
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
@@ -141,14 +142,16 @@ export const navProjectItems = [
   {
     title: "Delulu Painel",
     images: [
-      "/assets/delulu-painel-preview.png",
-      "/assets/delulu-painel-1.png",
-      "/assets/delulu-painel-2.png",
-      "/assets/delulu-painel-3.png"
+      "/assets/delulu-empresa.jpg",
+      "/assets/delulu-projetos.jpg",
+      "/assets/delulu-ganhos.jpg",
+      "/assets/delulu-status.jpg",
+      "/assets/delulu-kanban.jpg",
+      "/assets/delulu-mobile.jpg"
     ],
     description: {
-      "pt-BR": "Dashboard exclusivo para organizar a rotina do time na nossa iniciativa freelancer, a Delusional. Desenvolvido com uma estética Neumorphism, o painel conta com Kanban pessoal, gestão financeira e de projetos, cofre de contratos assinados e monitoramento de status (uptime) dos sites no ar.",
-      "en-US": "Exclusive dashboard to organize the team's routine in our freelance initiative, Delusional. Built with a Neumorphism aesthetic, the panel features a personal Kanban, financial and project management, a vault for signed contracts, and uptime status monitoring for live websites.",
+      "pt-BR": "Plataforma interna da Delusional (estúdio de desenvolvimento web freelance) para organizar e dar suporte a todo o time: distribuição de projetos, divisão de ganhos por membro, Kanban pessoal, cofre de contratos e monitoramento de uptime dos sites dos clientes. Estética Neumorphism (Soft UI), com login por papéis (dono/PO/membro).",
+      "en-US": "Internal platform for Delusional (a freelance web-dev studio) to organize and support the whole team: project distribution, per-member earnings split, a personal Kanban, a contracts vault and uptime monitoring of clients' sites. A Neumorphism (Soft UI) aesthetic, with role-based login (owner/PO/member).",
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",

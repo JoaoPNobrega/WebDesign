@@ -310,6 +310,34 @@ function ProjectView({ slug }: { slug: string }) {
               </motion.div>
             ) : null}
 
+            {detail?.credits?.length ? (
+              <motion.div variants={itemVariants}>
+                <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-white/38">
+                  {tx(copy.projects.creditsLabel)}
+                </p>
+                <ul className="mt-3 flex flex-col gap-1.5">
+                  {detail.credits.map((credit) => (
+                    <li key={credit.name} className="text-[0.92rem] leading-6 text-white/64">
+                      <span className="text-white/40">{tx(credit.role)} — </span>
+                      {credit.href ? (
+                        <a
+                          href={credit.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1 font-medium text-white/85 underline-offset-4 transition hover:text-[#A7EF9E] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50"
+                        >
+                          {credit.name}
+                          <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                        </a>
+                      ) : (
+                        <span className="font-medium text-white/85">{credit.name}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ) : null}
+
             {tools?.length ? (
               <motion.div variants={itemVariants}>
                 <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-white/38">

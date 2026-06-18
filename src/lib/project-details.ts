@@ -2,12 +2,6 @@ import type { LocalizedText } from "@/lib/i18n";
 
 const t = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en });
 
-// Papel padrão: projeto solo, de ponta a ponta.
-const soloRole = t(
-  "Projeto solo: design, front-end, responsividade e entrega — tudo feito por mim, do briefing ao deploy.",
-  "Solo project: design, front-end, responsiveness and delivery — all done by me, from briefing to deploy.",
-);
-
 // Projetos do estágio na Web Star: design + front-end por mim, com todo o
 // ferramental de IA fornecido pela empresa.
 const webstarRole = t(
@@ -32,6 +26,8 @@ export type ProjectDetail = {
   video?: string;
   /** Capa do vídeo (quando o YouTube não tem thumbnail em alta resolução). */
   videoPoster?: string;
+  /** Créditos de colaboração (ex.: back-end feito por outra pessoa). */
+  credits?: { role: LocalizedText; name: string; href?: string }[];
   role: LocalizedText;
   /** Prints extras para a galeria do "Saiba mais". A primeira é a capa. */
   images?: string[];
@@ -76,8 +72,15 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   FlyHigh: {
-    tags: ["React", "Vite", "Tailwind CSS"],
-    role: soloRole,
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Supabase"],
+    role: t(
+      "Projeto pessoal full-stack, do conceito ao deploy: um app mobile-first pra organizar a pelada de vôlei do meu grupo (Prainha ZS) — check-in de mensalistas e diaristas, montagem de times, fila de espera, placar ao vivo, histórico e pagamento via Pix. Visual com tema de anime (Haikyu!!). Front em React + TypeScript + Vite + Tailwind, estado com Zustand e Supabase como backend (com fallback local).",
+      "Personal full-stack project, from concept to deploy: a mobile-first app to organize my group's volleyball pickup games (Prainha ZS) — check-in for monthly and drop-in players, team building, a waiting queue, a live scoreboard, history and Pix payments. Anime-themed visuals (Haikyu!!). Front-end in React + TypeScript + Vite + Tailwind, Zustand state and Supabase as the backend (with a local fallback).",
+    ),
+    images: [
+      "/assets/flyhigh-cover.jpg",
+      "/assets/flyhigh-mockup-2.jpg",
+    ],
   },
   PetFeeder: {
     tags: ["ESP32", "C++ / Arduino", "Firebase", "Gemini AI", "Vanilla JS"],
@@ -190,49 +193,29 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Keeping House": {
-    tags: ["React", "Vite", "Tailwind CSS"],
+    tags: ["React", "TypeScript", "Vite", "React Router", "Leaflet", "Stripe"],
     role: t(
-      "Atuei no front-end: implementei toda a interface e a responsividade. O restante do projeto ficou com o time da Delusional.",
-      "I handled the front-end: I built the entire interface and responsiveness. The rest of the project was done by the Delusional team.",
+      "Desenvolvi todo o front-end desta plataforma de produção em React + TypeScript + Vite: a landing de conversão, a busca de profissionais por região (com mapa em Leaflet), os perfis públicos, o fluxo de assinatura via Stripe, o quadro de vagas, o Concierge premium e os painéis logados de contratante, profissional e admin. Cuidei da responsividade, da acessibilidade (AA) e dos estados de carregando/erro/vazio em cada tela. O back-end (Java/Spring) ficou com o time.",
+      "I built the entire front-end of this production platform in React + TypeScript + Vite: the conversion landing, the regional professional search (with a Leaflet map), public profiles, the Stripe subscription flow, the job board, the premium Concierge and the logged-in dashboards for clients, professionals and admins. I handled responsiveness, AA accessibility and loading/error/empty states on every screen. The back-end (Java/Spring) was handled by the team.",
     ),
-    images: [
-      "/assets/keepinghouse-preview.png",
-      "/assets/keepinghouse-1.png",
-      "/assets/keepinghouse-2.png",
-      "/assets/keepinghouse-3.png",
-      "/assets/keepinghouse-4.png",
+    credits: [
+      { role: t("Back-end", "Back-end"), name: "João Pedro Batista", href: "https://jpbatista.xyz" },
     ],
-    shots: [
-      {
-        src: "/assets/keepinghouse-preview.png",
-        title: t("Hero", "Hero"),
-        text: t("Primeira dobra com proposta de valor e CTA direto.", "Above the fold with value proposition and direct CTA."),
-      },
-      {
-        src: "/assets/keepinghouse-1.png",
-        title: t("Serviços", "Services"),
-        text: t("Apresentação dos serviços de limpeza e organização.", "Showcase of cleaning and organization services."),
-      },
-      {
-        src: "/assets/keepinghouse-2.png",
-        title: t("Planos", "Plans"),
-        text: t("Planos e pacotes com foco em conversão.", "Plans and packages built for conversion."),
-      },
-      {
-        src: "/assets/keepinghouse-3.png",
-        title: t("Depoimentos", "Testimonials"),
-        text: t("Prova social de clientes reais.", "Social proof from real clients."),
-      },
-      {
-        src: "/assets/keepinghouse-4.png",
-        title: t("Agendamento", "Booking"),
-        text: t("Fluxo de agendamento direto pelo WhatsApp.", "Direct WhatsApp booking flow."),
-      },
+    images: [
+      "/assets/keepinghouse-hero.jpg",
+      "/assets/keepinghouse-categorias.jpg",
+      "/assets/keepinghouse-busca.png",
+      "/assets/keepinghouse-concierge.jpg",
+      "/assets/keepinghouse-planos.png",
+      "/assets/keepinghouse-mobile.jpg",
     ],
   },
   "Delusional Studio": {
-    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    role: soloRole,
+    tags: ["HTML", "CSS", "JavaScript", "Three.js", "Vite"],
+    role: t(
+      "Concebi e produzi o site de apresentação da Delusional — agência digital independente de web design e automação. Defini o posicionamento e a copy das três frentes (Web, Design e Automação), montei o visual brutalista com hero 3D em Three.js, as microinterações e a vitrine dos trabalhos do time, e publiquei como site estático rápido na Vercel. Não é um site de busca: é a peça que a gente mostra ao cliente — pessoalmente ou em anúncio — pra provar em segundos que o estúdio existe e entrega.",
+      "I conceived and produced Delusional's presentation site — an independent digital agency for web design and automation. I defined the positioning and copy for the three fronts (Web, Design and Automation), built the brutalist look with a 3D hero in Three.js, the microinteractions and the team's work showcase, and shipped it as a fast static site on Vercel. It's not a search site: it's the piece we show clients — in person or in an ad — to prove in seconds that the studio exists and delivers.",
+    ),
     images: [
       "/assets/delusional-studio-preview.png",
       "/assets/delusional-studio-1.png",
@@ -269,35 +252,18 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
   "Delulu Painel": {
-    tags: ["React", "Vite", "Tailwind CSS", "Firebase"],
-    role: soloRole,
+    tags: ["React", "Vite", "Fastify", "Prisma", "PostgreSQL"],
+    role: t(
+      "Plataforma interna full-stack que criei do zero (design + front + back) como uma forma de organizar e dar suporte a todo o time da Delusional: distribuição de projetos entre os membros, divisão de ganhos, Kanban pessoal, cofre de contratos e monitoramento de uptime dos sites dos clientes — além de um wizard de criação de projeto. Front em React + Vite com design system Neumorphism (Soft UI) próprio; back em Node + Fastify + Prisma + PostgreSQL, com autenticação por papéis (dono/PO/membro).",
+      "Full-stack internal platform I built from scratch (design + front + back) as a way to organize and support the whole Delusional team: project distribution across members, earnings split, a personal Kanban, a contracts vault and uptime monitoring of clients' sites — plus a project-creation wizard. Front-end in React + Vite with a custom Neumorphism (Soft UI) design system; back-end in Node + Fastify + Prisma + PostgreSQL, with role-based auth (owner/PO/member).",
+    ),
     images: [
-      "/assets/delulu-painel-preview.png",
-      "/assets/delulu-painel-1.png",
-      "/assets/delulu-painel-2.png",
-      "/assets/delulu-painel-3.png",
-    ],
-    shots: [
-      {
-        src: "/assets/delulu-painel-preview.png",
-        title: t("Visão geral", "Overview"),
-        text: t("Dashboard principal com estética Neumorphism.", "Main dashboard with a Neumorphism aesthetic."),
-      },
-      {
-        src: "/assets/delulu-painel-1.png",
-        title: t("Kanban pessoal", "Personal Kanban"),
-        text: t("Organização da rotina e das tarefas do time.", "Organizing the team's routine and tasks."),
-      },
-      {
-        src: "/assets/delulu-painel-2.png",
-        title: t("Gestão financeira", "Financial management"),
-        text: t("Controle de projetos, valores e contratos assinados.", "Tracking projects, payments and signed contracts."),
-      },
-      {
-        src: "/assets/delulu-painel-3.png",
-        title: t("Monitoramento", "Monitoring"),
-        text: t("Status e uptime dos sites no ar, em tempo real.", "Live status and uptime of deployed websites."),
-      },
+      "/assets/delulu-empresa.jpg",
+      "/assets/delulu-projetos.jpg",
+      "/assets/delulu-ganhos.jpg",
+      "/assets/delulu-status.jpg",
+      "/assets/delulu-kanban.jpg",
+      "/assets/delulu-mobile.jpg",
     ],
   },
 };
