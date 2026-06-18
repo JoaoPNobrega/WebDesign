@@ -409,9 +409,12 @@ function ProjectImageCarousel({ images, title }: { images: readonly string[], ti
   );
 }
 
-export default function PortfolioLandingPage() {
+export default function PortfolioLandingPage({ runEntranceHint = false }: { runEntranceHint?: boolean }) {
   const { tx, lang, toggle } = useLang();
   const [isNavDetached, setIsNavDetached] = useState(false);
+  // Dica de onboarding: revela os rótulos dos ícones (currículo/idioma) por um
+  // instante quando a intro termina, como se o mouse passasse por cima.
+  const [showIconHint, setShowIconHint] = useState(false);
   const [notchProgress, setNotchProgress] = useState(0);
   const [isCvOpen, setIsCvOpen] = useState(false);
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
@@ -479,6 +482,30 @@ export default function PortfolioLandingPage() {
       autoMorphControlsRef.current?.stop();
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    if (!runEntranceHint) {
+      return;
+    }
+    // Depois que a intro sai: pisca os rótulos dos ícones e esconde de novo.
+    const showTimer = window.setTimeout(() => setShowIconHint(true), 450);
+    const hideTimer = window.setTimeout(() => setShowIconHint(false), 450 + 1900);
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, [runEntranceHint]);
+
+  // Voltando da página /projetos, reabrir o popup de projetos (viemos de lá).
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (window.sessionStorage.getItem("jp-open-projetos") === "1") {
+      window.sessionStorage.removeItem("jp-open-projetos");
+      setIsProjectsDropdownOpen(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -668,6 +695,9 @@ export default function PortfolioLandingPage() {
   const notchDepth = 1 - notchProgress;
   const isHeroDropdownOpen = isHeroCvDropdownOpen || isHeroContactDropdownOpen || isHeroProjectsDropdownOpen || isHeroLangDropdownOpen;
   const isHeroSubDropdownOpen = isHeroCvDropdownOpen || isHeroContactDropdownOpen || isHeroLangDropdownOpen;
+  // Nav destacada (a que "flutua" ao sair da hero): qualquer dropdown aberto nela.
+  const isDetachedDropdownOpen =
+    isNavDetached && (isCvDropdownOpen || isContactDropdownOpen || isProjectsDropdownOpen || isLangDropdownOpen);
   const visibleNotchDepth = isHeroDropdownOpen ? 1 : notchDepth;
   const notchDropdownExtraDepth = isHeroSubDropdownOpen ? 54 : 0;
   const notchSourceHeight = isHeroSubDropdownOpen ? 142 : 86;
@@ -743,36 +773,35 @@ export default function PortfolioLandingPage() {
                   else carouselGoPrev();
                 }}
               >
-                {/* Nav arrow — prev */}
-                <button
-                  onClick={carouselGoPrev}
-                  aria-label="Projeto anterior"
-                  className="absolute left-[calc(50%-18vw-1.25rem)] bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                {/* Ver todos os projetos → /projetos (canto superior esquerdo).
+                    Hover: sobe + glow menta + os 4 quadrados "pulam" em cascata. */}
+                <a
+                  href="/projetos"
+                  aria-label={tx(copy.projects.viewAll)}
+                  className="group absolute left-6 top-6 z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.07] text-white/65 ring-1 ring-white/10 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-white/[0.14] hover:text-[#A7EF9E] hover:shadow-[0_0_22px_-4px_rgba(167,239,158,0.55)] active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/40 sm:left-8 sm:top-8"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M10 13L5 8l5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7" rx="1.6" className="origin-center scale-100 transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:0ms] group-hover:scale-[1.22]" />
+                    <rect x="14" y="3" width="7" height="7" rx="1.6" className="origin-center scale-100 transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:70ms] group-hover:scale-[1.22]" />
+                    <rect x="14" y="14" width="7" height="7" rx="1.6" className="origin-center scale-100 transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:140ms] group-hover:scale-[1.22]" />
+                    <rect x="3" y="14" width="7" height="7" rx="1.6" className="origin-center scale-100 transition-transform duration-300 ease-out [transform-box:fill-box] [transition-delay:210ms] group-hover:scale-[1.22]" />
                   </svg>
-                </button>
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute left-[calc(100%+0.5rem)] top-1/2 z-50 w-max -translate-x-1 -translate-y-1/2 rounded-full bg-black/90 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/80 opacity-0 shadow-[0_14px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/10 transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100"
+                  >
+                    {tx(copy.projects.viewAll)}
+                  </span>
+                </a>
 
-                {/* Close Button */}
+                {/* Close Button (canto superior direito — convenção) */}
                 <button
                   onClick={() => setIsProjectsDropdownOpen(false)}
                   aria-label="Fechar projetos"
-                  className="group absolute left-1/2 -translate-x-1/2 bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition-all duration-300 hover:scale-110 hover:bg-white/[0.14] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  className="group absolute right-6 top-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition-all duration-300 hover:scale-110 hover:bg-white/[0.14] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 sm:right-8 sm:top-8"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:rotate-90">
                     <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-                  </svg>
-                </button>
-
-                {/* Nav arrow — next */}
-                <button
-                  onClick={carouselGoNext}
-                  aria-label="Próximo projeto"
-                  className="absolute right-[calc(50%-18vw-1.25rem)] bottom-16 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
 
@@ -857,7 +886,7 @@ export default function PortfolioLandingPage() {
                             </div>
                             {isCenterSlot && (
                               <a
-                                href={`/projeto/${projectSlug(item.title)}`}
+                                href={`/projetos/${projectSlug(item.title)}`}
                                 onClick={(e) => e.stopPropagation()}
                                 className="inline-flex h-9 w-fit flex-shrink-0 items-center gap-2 rounded-full bg-white/[0.08] px-5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/70 ring-1 ring-white/10 transition hover:bg-[#A7EF9E] hover:text-black hover:ring-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                               >
@@ -874,24 +903,64 @@ export default function PortfolioLandingPage() {
                   })}
                 </motion.div>
 
-                {/* Dot counter */}
-                <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
-                  {navProjectItems.map((_, i) => {
-                    const n = navProjectItems.length;
-                    const activeProjectIdx = ((carouselActiveIdx % n) + n) % n;
-                    return (
-                      <div
-                        key={i}
-                        className={`rounded-full transition-all duration-300 ${i === activeProjectIdx ? "h-1.5 w-4 bg-white/70" : "h-1.5 w-1.5 bg-white/20"}`}
-                      />
-                    );
-                  })}
+                {/* Navegação do carrossel: setas + indicador juntos no rodapé.
+                    Distância do fundo é responsiva à ALTURA da viewport: baixa em
+                    notebook (não bate nos cards) e mais folgada em desktop alto. */}
+                <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 [@media(min-height:760px)]:bottom-10 [@media(min-height:950px)]:bottom-16">
+                  <button
+                    onClick={carouselGoPrev}
+                    aria-label="Projeto anterior"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M10 13L5 8l5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+
+                  <div className="flex items-center gap-1.5">
+                    {navProjectItems.map((_, i) => {
+                      const n = navProjectItems.length;
+                      const activeProjectIdx = ((carouselActiveIdx % n) + n) % n;
+                      return (
+                        <div
+                          key={i}
+                          className={`rounded-full transition-all duration-300 ${i === activeProjectIdx ? "h-1.5 w-4 bg-white/70" : "h-1.5 w-1.5 bg-white/20"}`}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    onClick={carouselGoNext}
+                    aria-label="Próximo projeto"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white/60 ring-1 ring-white/10 transition hover:bg-white/[0.14] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
 
+        {/* Backdrop embaçado: quando a navbar destacada (a que flutua ao sair
+            da hero) expande qualquer dropdown, todo o fundo atrás dela desfoca.
+            z-[990] fica abaixo da nav (z-[999]) e acima do resto da página. */}
+        <AnimatePresence>
+          {isDetachedDropdownOpen ? (
+            <motion.div
+              key="detached-nav-backdrop"
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none fixed inset-0 z-[990] bg-[#050505]/25 backdrop-blur-[10px]"
+            />
+          ) : null}
+        </AnimatePresence>
         <div
           ref={navRef}
           className={`left-1/2 w-fit -translate-x-1/2 transition-[top] duration-500 ${
@@ -911,23 +980,34 @@ export default function PortfolioLandingPage() {
             }`}
           >
             <motion.div layout className="flex items-center justify-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsContactDropdownOpen(false);
-                  setIsProjectsDropdownOpen(false);
-                  setIsLangDropdownOpen(false);
-                  setIsCvDropdownOpen((current) => !current);
-                }}
-                aria-expanded={isCvDropdownOpen}
-                aria-label="Currículo"
-                className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
-                  isCvDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
-                }`}
-                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
-              >
-                <ShinyIcon maskUrl={CV_ICON_MASK} />
-              </button>
+              <span className="group relative inline-flex">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsContactDropdownOpen(false);
+                    setIsProjectsDropdownOpen(false);
+                    setIsLangDropdownOpen(false);
+                    setIsCvDropdownOpen((current) => !current);
+                  }}
+                  aria-expanded={isCvDropdownOpen}
+                  aria-label={tx(copy.cv.title)}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                    isCvDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
+                  }`}
+                  style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+                >
+                  <ShinyIcon maskUrl={CV_ICON_MASK} />
+                </button>
+                {/* Rótulo no hover/foco: ícone sozinho não comunica bem. */}
+                {!isCvDropdownOpen ? (
+                  <span
+                    role="tooltip"
+                    className={`pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-50 w-max -translate-x-1/2 rounded-full bg-black/90 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/80 shadow-[0_14px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/10 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 ${showIconHint ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"}`}
+                  >
+                    {tx(copy.cv.title)}
+                  </span>
+                ) : null}
+              </span>
               <button
                 type="button"
                 onClick={() => {
@@ -1024,23 +1104,34 @@ export default function PortfolioLandingPage() {
                 </AnimatePresence>
                 <span className="relative z-10">{tx(copy.nav.contact)}</span>
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsCvDropdownOpen(false);
-                  setIsContactDropdownOpen(false);
-                  setIsProjectsDropdownOpen(false);
-                  setIsLangDropdownOpen((current) => !current);
-                }}
-                aria-expanded={isLangDropdownOpen}
-                aria-label="Mudar idioma"
-                className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
-                  isLangDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
-                }`}
-                style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
-              >
-                <ShinyIcon maskUrl={LANG_ICON_MASK} />
-              </button>
+              <span className="group relative inline-flex">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsCvDropdownOpen(false);
+                    setIsContactDropdownOpen(false);
+                    setIsProjectsDropdownOpen(false);
+                    setIsLangDropdownOpen((current) => !current);
+                  }}
+                  aria-expanded={isLangDropdownOpen}
+                  aria-label={tx(copy.language.label)}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                    isLangDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
+                  }`}
+                  style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
+                >
+                  <ShinyIcon maskUrl={LANG_ICON_MASK} />
+                </button>
+                {/* Rótulo no hover/foco: ícone sozinho não comunica bem. */}
+                {!isLangDropdownOpen ? (
+                  <span
+                    role="tooltip"
+                    className={`pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-50 w-max -translate-x-1/2 rounded-full bg-black/90 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/80 shadow-[0_14px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/10 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 ${showIconHint ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"}`}
+                  >
+                    {tx(copy.language.label)}
+                  </span>
+                ) : null}
+              </span>
             </motion.div>
 
             <AnimatePresence>
@@ -1120,7 +1211,7 @@ export default function PortfolioLandingPage() {
                               {tx(item.description)}
                             </p>
                             <a
-                              href={`/projeto/${projectSlug(item.title)}`}
+                              href={`/projetos/${projectSlug(item.title)}`}
                               onClick={(e) => e.stopPropagation()}
                               className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/[0.07] px-2.5 py-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-white/60 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                             >
@@ -1281,10 +1372,14 @@ export default function PortfolioLandingPage() {
                             key={code}
                             type="button"
                             onClick={!isActive ? toggle : undefined}
-                            initial={{ opacity: 0, scale: 0.84, y: -6 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.88, y: -4 }}
-                            transition={{ duration: 0.28, delay: index * 0.06, ease: "easeOut" }}
+                            // Só fade: o transform (y/scale) era desacoplado pela
+                            // layout projection da pílula `layoutId` no botão ativo,
+                            // fazendo o PT-BR "colar" no lugar e só o EN descer. O
+                            // grupo já desce pela animação do container pai.
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.24, delay: index * 0.05, ease: "easeOut" }}
                             className={`relative h-9 rounded-full px-5 text-[0.7rem] font-bold uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60 ${
                               isActive
                                 ? "bg-[#A7EF9E]/[0.16] text-[#A7EF9E] cursor-default"
@@ -1349,10 +1444,12 @@ export default function PortfolioLandingPage() {
 
           <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(3,3,3,0.88)_0%,_rgba(3,3,3,0.55)_38%,_rgba(3,3,3,0.26)_62%,_rgba(3,3,3,0.6)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(5,5,5,0.1)_0%,_rgba(5,5,5,0)_28%,_rgba(5,5,5,0.12)_100%)]" />
-          <div className="absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 sm:left-8 sm:top-8">
+          {/* Badges do hero: somem quando o popup de projetos abre (as setas
+              ocupam o lugar). pointer-events-none para não bloquear os cliques. */}
+          <div className={`pointer-events-none absolute left-6 top-6 z-10 font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/42 transition-opacity duration-300 sm:left-8 sm:top-8 ${isHeroProjectsDropdownOpen ? "opacity-0" : "opacity-100"}`}>
             {tx(copy.hero.badgePortfolio)}
           </div>
-          <div className="absolute right-6 top-6 z-10 hidden text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 sm:right-8 sm:top-8 sm:block">
+          <div className={`pointer-events-none absolute right-6 top-6 z-10 hidden text-right font-mono text-[0.62rem] font-medium uppercase tracking-[0.3em] text-white/38 transition-opacity duration-300 sm:right-8 sm:top-8 sm:block ${isHeroProjectsDropdownOpen ? "opacity-0" : "opacity-100"}`}>
             {tx(copy.hero.badgeLocation)}
           </div>
         </div>

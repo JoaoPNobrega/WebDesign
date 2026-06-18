@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
 import PortfolioLandingPageMobile from "@/pages/PortfolioLandingPageMobile";
 import BadgePage from "@/pages/BadgePage";
 import ProjectPage from "@/pages/ProjectPage";
+import ProjectsPage from "@/pages/ProjectsPage";
 import IntroLogo from "@/components/IntroLogo";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { LanguageProvider } from "@/lib/i18n";
@@ -27,6 +29,9 @@ export default function App() {
     }
     return window.sessionStorage.getItem(INTRO_SEEN_KEY) !== "1";
   });
+  // Captura no primeiro render se a intro vai tocar nesta carga de página, para
+  // disparar a dica dos ícones só quando a intro de fato terminar.
+  const introWasShownRef = useRef(showIntro);
 
   const handleIntroDone = () => {
     if (typeof window !== "undefined") {
@@ -70,16 +75,8 @@ export default function App() {
     document.title = "Portfólio | João Pedro";
   }, [pathname]);
 
-  const projectMatch = pathname.match(/^\/projeto\/([^/]+)\/?$/);
-  if (projectMatch) {
-    return (
-      <LanguageProvider>
-        <main className="app-shell overflow-visible">
-          <ProjectPage slug={decodeURIComponent(projectMatch[1])} />
-        </main>
-      </LanguageProvider>
-    );
-  }
+  const projectMatch = pathname.match(/^\/projetos\/([^/]+)\/?$/);
+  const detailSlug = projectMatch ? decodeURIComponent(projectMatch[1]) : null;
 
   if (pathname === "/3d") {
     return (
@@ -91,10 +88,38 @@ export default function App() {
     );
   }
 
+  if (pathname === "/projetos" || detailSlug) {
+    return (
+      <LanguageProvider>
+        <main className="app-shell overflow-visible">
+          {/* Listagem fica como camada de base */}
+          <ProjectsPage />
+          {/* Detalhe do projeto desliza por cima da listagem (e desliza pra baixo
+              no Voltar). O next/prev entre projetos é tratado dentro da própria
+              ProjectPage. */}
+          <AnimatePresence>
+            {detailSlug ? (
+              <motion.div
+                key="project-detail-layer"
+                className="fixed inset-0 z-50"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <ProjectPage slug={detailSlug} />
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </main>
+      </LanguageProvider>
+    );
+  }
+
   return (
     <LanguageProvider>
       <main className="app-shell overflow-visible">
-        {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage />}
+        {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage runEntranceHint={!showIntro && introWasShownRef.current} />}
       </main>
       {showIntro ? <IntroLogo onDone={handleIntroDone} loaderMode /> : null}
     </LanguageProvider>

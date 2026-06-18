@@ -8,6 +8,16 @@ const soloRole = t(
   "Solo project: design, front-end, responsiveness and delivery — all done by me, from briefing to deploy.",
 );
 
+// Projetos do estágio na Web Star: design + front-end por mim, com todo o
+// ferramental de IA fornecido pela empresa.
+const webstarRole = t(
+  "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+  "Built during my internship at Web Star Studio, working from design to front-end. All the AI tooling used in production was provided by the company.",
+);
+
+// Ferramental de IA fornecido pela Web Star nos projetos do estágio.
+export const webstarTools = ["Claude", "Stitch", "Gemini", "Codex", "GPT"];
+
 export type ProjectShot = {
   src: string;
   title: LocalizedText;
@@ -16,6 +26,8 @@ export type ProjectShot = {
 
 export type ProjectDetail = {
   tags: string[];
+  /** Ferramentas/IA usadas na produção (ex.: Claude, Gemini…). */
+  tools?: string[];
   role: LocalizedText;
   /** Prints extras para a galeria do "Saiba mais". A primeira é a capa. */
   images?: string[];
@@ -23,10 +35,35 @@ export type ProjectDetail = {
   shots?: ProjectShot[];
 };
 
+// Categoria/disciplina de cada projeto (usado nas tags e nos filtros).
+export type Category = "site" | "app" | "dashboard" | "iot";
+
+export const categoryLabel: Record<Category, LocalizedText> = {
+  site: t("Site", "Site"),
+  app: t("App", "App"),
+  dashboard: t("Painel", "Dashboard"),
+  iot: t("IoT", "IoT"),
+};
+
+export const projectCategory: Record<string, Category> = {
+  "Dr Guilherme Maia": "site",
+  FlyHigh: "app",
+  PetFeeder: "iot",
+  "Dr Daniel Pianetti": "site",
+  "Stephanie Bolsoni": "site",
+  "Izi Solutions": "site",
+  "Ines Knoden": "site",
+  "Dr Dimas Antunes": "site",
+  "Dr Cristiano Berardo": "site",
+  "Keeping House": "site",
+  "Delusional Studio": "site",
+  "Delulu Painel": "dashboard",
+};
+
 export const projectDetails: Record<string, ProjectDetail> = {
   "Dr Guilherme Maia": {
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    role: soloRole,
+    role: webstarRole,
   },
   FlyHigh: {
     tags: ["React", "Vite", "Tailwind CSS"],
@@ -41,27 +78,30 @@ export const projectDetails: Record<string, ProjectDetail> = {
   },
   "Dr Daniel Pianetti": {
     tags: ["React", "Vite", "Tailwind CSS", "Three.js"],
-    role: soloRole,
+    role: webstarRole,
   },
   "Stephanie Bolsoni": {
     tags: ["React", "Vite", "Tailwind CSS"],
-    role: soloRole,
+    role: webstarRole,
   },
   "Izi Solutions": {
     tags: ["React", "Vite", "Tailwind CSS"],
-    role: soloRole,
+    role: webstarRole,
   },
   "Ines Knoden": {
     tags: ["React", "Vite", "Tailwind CSS"],
-    role: soloRole,
+    role: webstarRole,
   },
   "Dr Dimas Antunes": {
     tags: ["React", "Vite", "Tailwind CSS"],
-    role: soloRole,
+    role: webstarRole,
   },
   "Dr Cristiano Berardo": {
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    role: soloRole,
+    role: t(
+      "Landing page institucional premium para o cirurgião cardiovascular Dr. Cristiano Berardo, durante meu estágio na Web Star Studio. Atuei do design ao front-end: primeira dobra com posicionamento de autoridade, seção de trajetória acadêmica, especialidades e procedimentos, uma narrativa de cuidado humanizado e o fechamento com os canais de agendamento. Cuidei da responsividade completa, das microinterações em Framer Motion e do acabamento premium que passa confiança a pacientes e médicos. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Premium institutional landing page for cardiovascular surgeon Dr. Cristiano Berardo, during my internship at Web Star Studio. I worked from design to front-end: an authority-focused hero, an academic background section, specialties and procedures, a humanized-care narrative and a closing with the booking channels. I handled full responsiveness, the Framer Motion microinteractions and the premium finish that conveys trust to patients and physicians. All the AI tooling used in production was provided by the company.",
+    ),
     images: [
       "/assets/drcristiano-preview.png",
       "/assets/drcristiano-1.png",

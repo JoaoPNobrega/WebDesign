@@ -708,7 +708,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
         <p className="mt-2.5 text-[0.85rem] leading-6 text-white/55">{tx(project.description)}</p>
         <a
-          href={`/projeto/${projectSlug(project.title)}`}
+          href={`/projetos/${projectSlug(project.title)}`}
           className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-white py-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-black transition active:bg-[#A7EF9E]"
         >
           {tx(copy.projects.learnMore)}
