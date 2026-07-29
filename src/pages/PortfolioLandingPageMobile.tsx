@@ -107,12 +107,15 @@ const projects: Project[] = [
     href: "https://delusionalstudio.vercel.app/",
   },
   {
-    title: "FlyHigh",
-    image: "/assets/flyhigh-cover.jpg",
+    title: "Filipe Regueira",
+    image: "/assets/filipe-preview.jpg",
     description: L(
-      "App mobile-first que criei pra organizar a pelada de vôlei do meu grupo: check-in de jogadores, montagem de times, fila, placar ao vivo, histórico e pagamento via Pix. Com tema visual inspirado no anime Haikyu!!.",
-      "A mobile-first app I built to organize my group's volleyball pickup games: player check-in, team building, a queue, a live scoreboard, history and Pix payments. With visuals inspired by the anime Haikyu!!.",
+      "Site de autoridade do professor Filipe Regueira — promotor de justiça, autor e pesquisador em criminologia, política criminal e segurança pública. Direção visual “Tinta & Latão”: fundo quase-preto, acento em latão e tipografia serifada, pensada pra sustentar leitura longa sem cansar. Reúne os dois livros (com página própria pra “Balbúrdia Penal”), artigos publicados na imprensa, palestras filtráveis por tema, aparições na mídia e trajetória — mais um painel administrativo próprio onde ele mesmo publica conteúdo e acompanha os números do site.",
+      "Authority site for professor Filipe Regueira — public prosecutor, author and researcher in criminology, criminal policy and public safety. An “Ink & Brass” visual direction: near-black background, a brass accent and serif type, designed to hold long-form reading without fatigue. It gathers both books (with a dedicated page for “Balbúrdia Penal”), articles published in the press, talks filterable by topic, media appearances and his background — plus a custom admin panel where he publishes content himself and follows the site's numbers.",
     ),
+    partner: "Delusional",
+    partnerLogo: "/assets/delusional-logo.png",
+    href: "https://professorfiliperegueira.com.br/",
   },
   {
     title: "Keeping House",
@@ -215,15 +218,6 @@ const projects: Project[] = [
     ),
     partner: "Web Star Studio",
     href: "https://izisolutions.com.br/",
-  },
-  {
-    title: "Beyblade X Manager",
-    image: "/assets/beyblade-preview.jpg",
-    description: L(
-      "Projeto pessoal e despretensioso: um app mobile pra organizar as batalhas de Beyblade X entre os meus primos. Cadastro de bladers, partida 1v1 com placar ao vivo e os finishes oficiais (Spin, Over, Burst e Xtreme), além de histórico e ranking. Foi 100% vibecodado num fim de tarde, só pra ter algo divertido e funcional — nada comercial.",
-      "A casual personal project: a mobile app to organize Beyblade X battles with my cousins. Blader registration, 1v1 matches with a live scoreboard and the official finishes (Spin, Over, Burst and Xtreme), plus history and a ranking. It was 100% vibe-coded in an afternoon, just to have something fun and working — nothing commercial.",
-    ),
-    href: "https://beyblade-x-manager.vercel.app/",
   },
 ];
 

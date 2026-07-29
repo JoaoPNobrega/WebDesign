@@ -12,13 +12,19 @@ const t = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en
 const backCopy = t("Voltar", "Back");
 
 // Abas de filtro (como "All Web 3D Graphics…" do site de referência).
-const filters: { key: "all" | Category; label: LocalizedText }[] = [
+const allFilters: { key: "all" | Category; label: LocalizedText }[] = [
   { key: "all", label: t("Todos", "All") },
   { key: "site", label: t("Sites", "Sites") },
   { key: "app", label: t("Apps", "Apps") },
   { key: "dashboard", label: t("Painéis", "Dashboards") },
   { key: "iot", label: t("IoT", "IoT") },
 ];
+
+// Só mostra a aba de uma categoria que tenha projeto visível — assim, ao esconder
+// um projeto, a aba órfã some sozinha em vez de abrir uma lista vazia.
+const filters = allFilters.filter(
+  (f) => f.key === "all" || navProjectItems.some((p) => projectCategory[p.title] === f.key),
+);
 
 function projectImage(item: (typeof navProjectItems)[number]): string {
   if ("images" in item && Array.isArray(item.images)) {

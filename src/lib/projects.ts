@@ -1,8 +1,11 @@
 import type { LocalizedText } from "@/lib/i18n";
 
-export type NavProjectItem = (typeof navProjectItems)[number];
+export type NavProjectItem = (typeof allProjectItems)[number];
 
-export const navProjectItems = [
+/** Projetos que ficam fora da vitrine (dados preservados, só não aparecem). */
+const hiddenProjects: readonly string[] = ["FlyHigh", "Beyblade X Manager"];
+
+const allProjectItems = [
   {
     title: "Dr Daniel Pianetti",
     image: "/assets/daniel-notch.png",
@@ -215,6 +218,11 @@ export const navProjectItems = [
     href: "https://beyblade-x-manager.vercel.app/",
   },
 ] as const;
+
+/** Lista exibida em todo o site (vitrine, /projetos e navegação entre projetos). */
+export const navProjectItems: readonly NavProjectItem[] = allProjectItems.filter(
+  (item) => !hiddenProjects.includes(item.title),
+);
 
 export function projectSlug(title: string): string {
   return title
