@@ -58,6 +58,7 @@ export const projectCategory: Record<string, Category> = {
   "Dr Cristiano Berardo": "site",
   "Keeping House": "site",
   "Delusional Studio": "site",
+  "Filipe Regueira": "site",
   "Delulu Painel": "dashboard",
   "Beyblade X Manager": "app",
 };
@@ -315,6 +316,77 @@ export const projectDetails: Record<string, ProjectDetail> = {
         src: "/assets/delusional-studio-4.jpg",
         title: t("Contato", "Contact"),
         text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
+      },
+    ],
+  },
+  "Filipe Regueira": {
+    tags: ["Astro", "TypeScript", "React", "Tailwind CSS", "Supabase", "Vercel"],
+    role: t(
+      "Projeto full-stack que conduzi do briefing ao ar, pela Delusional: direção de arte, conteúdo, front-end e o painel administrativo. Traduzi o pedido do cliente — “sério, sem firula” — numa direção visual própria, “Tinta & Latão”: fundo quase-preto, acento em latão, Fraunces nos títulos e Newsreader no texto, com movimento contido (reveal no scroll, zero 3D) e contraste calibrado pra leitura longa. Construído em Astro, com as coleções de artigos e palestras filtráveis por tema, páginas dedicadas por livro, agregador de imprensa e SEO/JSON-LD. Por cima, um painel próprio em React + Supabase pra ele publicar artigos, palestras, imprensa e projetos, responder mensagens do formulário e acompanhar os analíticos do site — sem depender de mim pra cada atualização.",
+      "A full-stack project I led from briefing to launch, through Delusional: art direction, content, front-end and the admin panel. I translated the client's brief — “serious, no frills” — into a custom visual direction, “Ink & Brass”: near-black background, a brass accent, Fraunces for headings and Newsreader for body text, with restrained motion (scroll reveals, zero 3D) and contrast tuned for long-form reading. Built in Astro, with article and talk collections filterable by topic, dedicated pages per book, a press aggregator and SEO/JSON-LD. On top of it, a custom React + Supabase panel so he can publish articles, talks, press and projects, reply to form messages and follow the site's analytics — without depending on me for every update.",
+    ),
+    images: [
+      "/assets/filipe-preview.jpg",
+      "/assets/filipe-livro.jpg",
+      "/assets/filipe-livro-page.jpg",
+      "/assets/filipe-sobre.jpg",
+      "/assets/filipe-palestras-fotos.jpg",
+      "/assets/filipe-reconhecimentos.jpg",
+      "/assets/filipe-artigos.jpg",
+      "/assets/filipe-imprensa.jpg",
+      "/assets/filipe-palestras.jpg",
+      "/assets/filipe-mobile.jpg",
+    ],
+    shots: [
+      {
+        src: "/assets/filipe-preview.jpg",
+        title: t("Primeira dobra", "Above the fold"),
+        text: t("A tese do professor em uma frase, sobre fundo de biblioteca e acento em latão.", "The professor's thesis in one sentence, over a library backdrop with a brass accent."),
+      },
+      {
+        src: "/assets/filipe-livro.jpg",
+        title: t("O livro em destaque", "The featured book"),
+        text: t("“Balbúrdia Penal” ancora a home, com compra direta na Amazon.", "“Balbúrdia Penal” anchors the home, with a direct Amazon purchase link."),
+      },
+      {
+        src: "/assets/filipe-livro-page.jpg",
+        title: t("Página do livro", "Book page"),
+        text: t("Ficha completa: sinopse, ISBN, páginas, edição e onde comprar.", "Full record: synopsis, ISBN, pages, edition and where to buy."),
+      },
+      {
+        src: "/assets/filipe-sobre.jpg",
+        title: t("Biografia", "Biography"),
+        text: t("Trajetória acadêmica e institucional aberta por um trio de retratos.", "Academic and institutional background opened by a trio of portraits."),
+      },
+      {
+        src: "/assets/filipe-palestras-fotos.jpg",
+        title: t("Palestras em destaque", "Featured talks"),
+        text: t("Linha do tempo das participações, com fotos reais de cada evento.", "A timeline of his appearances, with real photos from each event."),
+      },
+      {
+        src: "/assets/filipe-reconhecimentos.jpg",
+        title: t("Reconhecimentos", "Recognitions"),
+        text: t("Condecorações e homenagens documentadas em cards datados.", "Decorations and honors documented in dated cards."),
+      },
+      {
+        src: "/assets/filipe-artigos.jpg",
+        title: t("Artigos", "Articles"),
+        text: t("Coleção de textos autorais filtrável por tema, com a fonte original creditada.", "A collection of his articles filterable by topic, crediting the original outlet."),
+      },
+      {
+        src: "/assets/filipe-imprensa.jpg",
+        title: t("Na mídia", "In the media"),
+        text: t("Agregador de entrevistas e reportagens, com o vídeo em destaque.", "An aggregator of interviews and press coverage, with the featured video."),
+      },
+      {
+        src: "/assets/filipe-palestras.jpg",
+        title: t("Temas de palestra", "Talk topics"),
+        text: t("Cinco temas prontos para convite, cada um levando ao formulário preenchido.", "Five topics ready to be booked, each one prefilling the contact form."),
+      },
+      {
+        src: "/assets/filipe-mobile.jpg",
+        title: t("No celular", "On mobile"),
+        text: t("A mesma hierarquia reduzida ao polegar, mantendo o conforto de leitura.", "The same hierarchy scaled to the thumb, keeping the reading comfort."),
       },
     ],
   },

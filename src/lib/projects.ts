@@ -32,6 +32,29 @@ export const navProjectItems = [
     href: "https://delusionalstudio.vercel.app/",
   },
   {
+    title: "Filipe Regueira",
+    images: [
+      "/assets/filipe-preview.jpg",
+      "/assets/filipe-livro.jpg",
+      "/assets/filipe-livro-page.jpg",
+      "/assets/filipe-sobre.jpg",
+      "/assets/filipe-palestras-fotos.jpg",
+      "/assets/filipe-reconhecimentos.jpg",
+      "/assets/filipe-artigos.jpg",
+      "/assets/filipe-imprensa.jpg",
+      "/assets/filipe-palestras.jpg",
+      "/assets/filipe-mobile.jpg"
+    ],
+    description: {
+      "pt-BR": "Site de autoridade do professor Filipe Regueira — promotor de justiça, autor e pesquisador em criminologia, política criminal e segurança pública. Direção visual “Tinta & Latão”: fundo quase-preto, acento em latão e tipografia serifada, pensada pra sustentar leitura longa sem cansar. Reúne os dois livros (com página própria pra “Balbúrdia Penal”), artigos publicados na imprensa, palestras filtráveis por tema, aparições na mídia e trajetória — mais um painel administrativo próprio onde ele mesmo publica conteúdo e acompanha os números do site.",
+      "en-US": "Authority site for professor Filipe Regueira — public prosecutor, author and researcher in criminology, criminal policy and public safety. An “Ink & Brass” visual direction: near-black background, a brass accent and serif type, designed to hold long-form reading without fatigue. It gathers both books (with a dedicated page for “Balbúrdia Penal”), articles published in the press, talks filterable by topic, media appearances and his background — plus a custom admin panel where he publishes content himself and follows the site's numbers.",
+    },
+    partner: "Delusional",
+    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    href: "https://professorfiliperegueira.com.br/",
+  },
+  {
     title: "FlyHigh",
     images: [
       "/assets/flyhigh-cover.jpg",
