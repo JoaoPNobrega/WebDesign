@@ -59,6 +59,7 @@ export const projectCategory: Record<string, Category> = {
   "Keeping House": "site",
   "Delusional Studio": "site",
   "Filipe Regueira": "site",
+  "Dr Adilis da Fonte": "site",
   "Delulu Painel": "dashboard",
   "Beyblade X Manager": "app",
 };
@@ -316,6 +317,77 @@ export const projectDetails: Record<string, ProjectDetail> = {
         src: "/assets/delusional-studio-4.jpg",
         title: t("Contato", "Contact"),
         text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
+      },
+    ],
+  },
+  "Dr Adilis da Fonte": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Supabase", "Motion"],
+    role: t(
+      "Desenvolvido durante meu estágio na Web Star Studio, atuando do design ao front-end: a home com hero em scrollytelling (Segurança · Experiência · Cuidado), a página Sobre com trajetória e titulação, as páginas por especialidade, a área para médicos encaminhadores, os depoimentos, o blog com painel próprio (CMS em Supabase) e os fluxos de agendamento por WhatsApp. Traduzi a promessa do médico numa direção sóbria e clínica — azul-petróleo, acento ciano e muito respiro —, cuidando das microinterações (Motion), da responsividade e do SEO. Construído em React + TanStack Start. Todo o ferramental de IA usado na produção foi fornecido pela empresa.",
+      "Built during my internship at Web Star Studio, working from design to front-end: the home with a scrollytelling hero (Safety · Experience · Care), the About page with his background and credentials, the per-specialty pages, the section for referring physicians, the testimonials, the blog with its own admin (a Supabase CMS) and the WhatsApp booking flows. I translated the doctor's promise into a sober, clinical direction — petrol blue, a cyan accent and plenty of breathing room — handling the microinteractions (Motion), responsiveness and SEO. Built in React + TanStack Start. All the AI tooling used in production was provided by the company.",
+    ),
+    images: [
+      "/assets/adilis-preview.jpg",
+      "/assets/adilis-hero.jpg",
+      "/assets/adilis-sobre.jpg",
+      "/assets/adilis-trajetoria.jpg",
+      "/assets/adilis-especialidades.jpg",
+      "/assets/adilis-encaminhadores.jpg",
+      "/assets/adilis-como-funciona.jpg",
+      "/assets/adilis-blog.jpg",
+      "/assets/adilis-agendamento.jpg",
+      "/assets/adilis-mobile.jpg",
+    ],
+    shots: [
+      {
+        src: "/assets/adilis-preview.jpg",
+        title: t("Abertura da página Sobre", "About page opening"),
+        text: t("O médico em cena e a tese do site: cirurgia é decisão técnica e relação de confiança.", "The doctor on screen and the site's thesis: surgery is a technical decision and a relationship of trust."),
+      },
+      {
+        src: "/assets/adilis-hero.jpg",
+        title: t("Hero em scrollytelling", "Scrollytelling hero"),
+        text: t("Segurança, experiência e cuidado emergem sobre o consultório conforme se rola.", "Safety, experience and care emerge over the consulting room as you scroll."),
+      },
+      {
+        src: "/assets/adilis-sobre.jpg",
+        title: t("Quem é o Dr. Adilis", "Who Dr. Adilis is"),
+        text: t("Mais de 20 anos de cirurgia de cabeça e pescoço, com as credenciais em destaque.", "Over 20 years of head and neck surgery, with the credentials up front."),
+      },
+      {
+        src: "/assets/adilis-trajetoria.jpg",
+        title: t("Trajetória em números", "Background in numbers"),
+        text: t("Anos de atuação, hospitais de referência e títulos — com nota de rodapé sobre a verificação.", "Years of practice, reference hospitals and specialist titles — with a footnote on verification."),
+      },
+      {
+        src: "/assets/adilis-especialidades.jpg",
+        title: t("Especialidades", "Specialties"),
+        text: t("Mapa de pontos da cabeça e do pescoço ligando cada região à sua patologia.", "A dotted head-and-neck map linking each region to its condition."),
+      },
+      {
+        src: "/assets/adilis-encaminhadores.jpg",
+        title: t("Médicos encaminhadores", "Referring physicians"),
+        text: t("Uma frente inteira do site para quem encaminha, e não para o paciente.", "A whole section of the site aimed at referrers rather than patients."),
+      },
+      {
+        src: "/assets/adilis-como-funciona.jpg",
+        title: t("Do encaminhamento ao retorno", "From referral to feedback"),
+        text: t("Os três passos do encaminhamento, com o vínculo com o médico assistente preservado.", "The three referral steps, keeping the bond with the assisting physician intact."),
+      },
+      {
+        src: "/assets/adilis-blog.jpg",
+        title: t("Blog clínico", "Clinical blog"),
+        text: t("Artigo em destaque e arquivo filtrável por tema, publicados pelo painel.", "A featured article and an archive filterable by topic, published from the admin."),
+      },
+      {
+        src: "/assets/adilis-agendamento.jpg",
+        title: t("Agendamento", "Booking"),
+        text: t("Fechamento da home levando direto à consulta.", "The home's closing section leading straight to booking."),
+      },
+      {
+        src: "/assets/adilis-mobile.jpg",
+        title: t("No celular", "On mobile"),
+        text: t("O mesmo tom clínico reduzido à tela do paciente, com agendamento a um toque.", "The same clinical tone scaled to the patient's screen, with one-tap booking."),
       },
     ],
   },

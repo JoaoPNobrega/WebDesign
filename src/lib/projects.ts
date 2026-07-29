@@ -69,6 +69,27 @@ const allProjectItems = [
     },
   },
   {
+    title: "Dr Adilis da Fonte",
+    images: [
+      "/assets/adilis-preview.jpg",
+      "/assets/adilis-hero.jpg",
+      "/assets/adilis-sobre.jpg",
+      "/assets/adilis-trajetoria.jpg",
+      "/assets/adilis-especialidades.jpg",
+      "/assets/adilis-encaminhadores.jpg",
+      "/assets/adilis-como-funciona.jpg",
+      "/assets/adilis-blog.jpg",
+      "/assets/adilis-agendamento.jpg",
+      "/assets/adilis-mobile.jpg"
+    ],
+    description: {
+      "pt-BR": "Site do Dr. Adilis da Fonte — cirurgião de cabeça e pescoço em Recife, chefe do serviço no IMIP e com residência no INCA —, desenvolvido durante meu estágio na Web Star Studio. O posicionamento é “segurança traduzida em conduta, não em promessa”: uma experiência clínica e sóbria, em azul-petróleo com acento ciano, que explica cada etapa do cuidado — do primeiro contato ao pós-operatório. Tem páginas por especialidade (tireoide, glândulas salivares, pele, pescoço), uma área dedicada a médicos encaminhadores, depoimentos, blog com painel próprio (CMS) e agendamento direto por WhatsApp.",
+      "en-US": "Website for Dr. Adilis da Fonte — a head and neck surgeon in Recife, head of the service at IMIP and trained at INCA — built during my internship at Web Star Studio. The positioning is “safety expressed as conduct, not as a promise”: a sober, clinical experience in petrol blue with a cyan accent, explaining every step of care — from first contact to post-op. It has per-specialty pages (thyroid, salivary glands, skin, neck), a section dedicated to referring physicians, testimonials, a blog with its own admin (CMS) and direct booking via WhatsApp.",
+    },
+    partner: "Web Star Studio",
+    href: "https://dradilis.webstar.studio/",
+  },
+  {
     title: "Keeping House",
     images: [
       "/assets/keepinghouse-hero.jpg",
