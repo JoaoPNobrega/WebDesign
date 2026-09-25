@@ -219,7 +219,9 @@ function HeroEchoVisual() {
           }}
         >
           <img
-            src="/portfolio/hero-risk-radar.png"
+            src="/portfolio/hero-risk-radar.webp"
+            srcSet="/portfolio/hero-risk-radar-1280.webp 1280w, /portfolio/hero-risk-radar.webp 2400w"
+            sizes="100vw"
             alt={tx(copy.hero.imageAlt)}
             className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
@@ -1463,7 +1465,10 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
             initial={{ scale: 1.06, opacity: 0 }}
             animate={{ scale: heroImageScale, opacity: 1 }}
             transition={{ scale: { duration: 0.18, ease: "linear" }, opacity: { duration: 1.1, ease: "easeOut" } }}
-            src="/portfolio/hero-risk-radar.png"
+            src="/portfolio/hero-risk-radar.webp"
+            srcSet="/portfolio/hero-risk-radar-1280.webp 1280w, /portfolio/hero-risk-radar.webp 2400w"
+            sizes="100vw"
+            fetchPriority="high"
             alt={tx(copy.hero.imageAlt)}
             className="absolute inset-0 h-full w-full object-cover object-center"
             style={{
@@ -1476,7 +1481,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
             initial={{ scale: 1.06, opacity: 0 }}
             animate={{ scale: heroImageScale, opacity: isHeroProjectsDropdownOpen ? 1 : 0 }}
             transition={{ scale: { duration: 0.18, ease: "linear" }, opacity: { duration: 0.36, ease: "easeOut" } }}
-            src="/portfolio/hero-risk-radar-blur.png"
+            src="/portfolio/hero-risk-radar-blur.webp"
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-center"
             style={{

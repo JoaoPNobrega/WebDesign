@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import PortfolioLandingPage from "@/pages/PortfolioLandingPage";
@@ -6,9 +6,9 @@ import PortfolioLandingPageMobile from "@/pages/PortfolioLandingPageMobile";
 import BadgePage from "@/pages/BadgePage";
 import ProjectPage from "@/pages/ProjectPage";
 import ProjectsPage from "@/pages/ProjectsPage";
-import IntroLogo from "@/components/IntroLogo";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { LanguageProvider } from "@/lib/i18n";
+import { applyRouteMeta } from "@/lib/seo";
 
 function getCurrentPath() {
   if (typeof window === "undefined") {
@@ -18,27 +18,22 @@ function getCurrentPath() {
   return window.location.pathname;
 }
 
-const INTRO_SEEN_KEY = "jp-intro-seen";
+// A dica dos ícones da home pisca só na primeira visita da sessão.
+const ENTRANCE_HINT_SEEN_KEY = "jp-entrance-hint-seen";
 
 export default function App() {
   const isMobile = useIsMobile();
   const [pathname, setPathname] = useState(getCurrentPath);
-  const [showIntro, setShowIntro] = useState(() => {
+  const [runEntranceHint] = useState(() => {
     if (typeof window === "undefined") {
       return false;
     }
-    return window.sessionStorage.getItem(INTRO_SEEN_KEY) !== "1";
+    return window.sessionStorage.getItem(ENTRANCE_HINT_SEEN_KEY) !== "1";
   });
-  // Captura no primeiro render se a intro vai tocar nesta carga de página, para
-  // disparar a dica dos ícones só quando a intro de fato terminar.
-  const introWasShownRef = useRef(showIntro);
 
-  const handleIntroDone = () => {
-    if (typeof window !== "undefined") {
-      window.sessionStorage.setItem(INTRO_SEEN_KEY, "1");
-    }
-    setShowIntro(false);
-  };
+  useEffect(() => {
+    window.sessionStorage.setItem(ENTRANCE_HINT_SEEN_KEY, "1");
+  }, []);
 
   useEffect(() => {
     const syncPath = () => setPathname(getCurrentPath());
@@ -72,7 +67,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = "Portfólio | João Pedro";
+    applyRouteMeta(pathname);
   }, [pathname]);
 
   const projectMatch = pathname.match(/^\/projetos\/([^/]+)\/?$/);
@@ -119,9 +114,8 @@ export default function App() {
   return (
     <LanguageProvider>
       <main className="app-shell overflow-visible">
-        {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage runEntranceHint={!showIntro && introWasShownRef.current} />}
+        {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage runEntranceHint={runEntranceHint} />}
       </main>
-      {showIntro ? <IntroLogo onDone={handleIntroDone} loaderMode /> : null}
     </LanguageProvider>
   );
 }
