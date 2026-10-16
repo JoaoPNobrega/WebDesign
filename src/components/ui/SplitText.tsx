@@ -75,11 +75,11 @@ export default function SplitText({
     <Tag
       className={className}
       style={{ textAlign, whiteSpace: "pre-line" }}
-      aria-label={text.replace(/\s+/g, " ").trim()}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: threshold, margin: rootMargin }}
     >
+      <span className="sr-only">{text.replace(/\s+/g, " ").trim()}</span>
       {lines.map((line, lineIndex) => {
         const previousCharacters = lines.slice(0, lineIndex).join("").length;
 

@@ -276,6 +276,15 @@ export default function seoPrerender(): Plugin {
         writeFileSync(join(outDir, file), html);
       }
 
+      // 404.html: o Vercel serve esse arquivo (com status 404) para rotas fora dos rewrites;
+      // o SPA carrega e renderiza a página NotFound.
+      writeFileSync(
+        join(outDir, "404.html"),
+        template
+          .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, '<title>Página não encontrada | João Pedro Nóbrega</title>\n    <meta name="robots" content="noindex" />')
+          .replace("<!--seo:content-->", ""),
+      );
+
       writeFileSync(join(outDir, "sitemap.xml"), sitemap(pages));
       writeFileSync(join(outDir, "llms.txt"), llmsTxt());
     },

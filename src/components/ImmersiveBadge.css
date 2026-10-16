@@ -170,3 +170,28 @@
   0% { top: -20%; }
   100% { top: 120%; }
 }
+
+/* Mobile/tablet: o badge fixo cobria os links do rodapé. Até 768px (mesmo breakpoint do layout mobile, useIsMobile) ele
+   sai do canto fixo e entra no fluxo do rodapé (variante `is-inline`). */
+.ib-immersive-badge.is-inline {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+  margin: 0 auto;
+  opacity: 1;
+  filter: none;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .ib-immersive-badge:not(.is-inline) {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .ib-immersive-badge.is-inline {
+    display: none;
+  }
+}

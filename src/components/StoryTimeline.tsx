@@ -107,7 +107,7 @@ export default function StoryTimeline() {
   const smooth = useSpring(scrollYProgress, { stiffness: 70, damping: 24, mass: 0.6 });
   const leftX = useTransform(smooth, [0, 1], ["0%", "40%"]);
   const rightX = useTransform(smooth, [0, 1], ["0%", "-40%"]);
-  const titleOpacity = useTransform(smooth, [0, 0.96], [1, 0]);
+  const titleOpacity = useTransform(smooth, [0, 0.03, 0.1], [1, 0.9, 0]);
 
   return (
     <section
@@ -123,13 +123,13 @@ export default function StoryTimeline() {
             style={desktop ? { x: leftX, opacity: titleOpacity } : undefined}
             className="text-[2.6rem] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-white md:text-[clamp(3rem,8vw,6.5rem)]"
           >
-            Primeiros
+            {tx({ "pt-BR": "Primeiros", "en-US": "First" })}
           </motion.h2>
           <motion.h2
             style={desktop ? { x: rightX, opacity: titleOpacity } : undefined}
             className="text-[2.6rem] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-white md:text-[clamp(3rem,8vw,6.5rem)]"
           >
-            Passos
+            {tx({ "pt-BR": "Passos", "en-US": "Steps" })}
           </motion.h2>
         </div>
 
@@ -245,14 +245,14 @@ function StoryCard({
       <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-[#A7EF9E]/[0.07] blur-3xl transition-opacity duration-500 group-hover:bg-[#A7EF9E]/[0.12]" />
 
       {/* header: logo (sem moldura) + período */}
-      <div className="relative mb-6 flex items-center justify-between gap-4">
+      <div className="relative mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <img
           src={item.logo}
           alt=""
           loading="lazy"
           className={`w-auto object-contain object-left ${item.logoClassName ?? "max-h-9 max-w-[60%]"}`}
         />
-        <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#A7EF9E]">
+        <span className="min-w-0 text-right font-mono text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-[#A7EF9E]">
           {tx(item.label)}
         </span>
       </div>

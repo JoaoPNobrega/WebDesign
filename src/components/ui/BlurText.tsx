@@ -114,8 +114,8 @@ export default function BlurText({
       id={id}
       className={`flex flex-wrap ${className}`}
       style={style}
-      aria-label={text.replace(/\s+/g, " ").trim()}
     >
+      <span className="sr-only">{text.replace(/\s+/g, " ").trim()}</span>
       {elements.map((segment, index) => {
         const spanTransition: Transition = {
           duration: totalDuration,

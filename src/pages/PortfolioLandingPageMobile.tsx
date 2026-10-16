@@ -4,8 +4,9 @@ import { Cloud, ExternalLink, Mail, Menu, Monitor, Server, X, type LucideIcon } 
 
 import DestructionSection from "@/components/DestructionSection";
 import CvModal from "@/components/ui/CvModal";
-import { projectSlug } from "@/lib/projects";
+import { getProjectBySlug, projectSlug } from "@/lib/projects";
 import TagSphere, { type Accent } from "@/components/ui/TagSphere";
+import { skillText } from "@/lib/skill-i18n";
 import { useLang, type LocalizedText } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
 import type { SiteLanguage } from "@/lib/site-language";
@@ -93,7 +94,7 @@ const projects: Project[] = [
       "Website for urologist Dr. Daniel Pianetti (Belo Horizonte), built during my internship at Web Star Studio. Focused on Da Vinci robotic surgery, urologic oncology (prostate, kidney and bladder) and HoLEP, with a 3D object, an animated logo and a narrative that conveys technology and trust. It has dedicated pages per procedure, a blog with its own admin (CMS), real reviews (Doctoralia + Google) and a chatbot — all with heavy SEO/GEO (JSON-LD, llms.txt) to rank and get cited by search and AI.",
     ),
     partner: "Web Star Studio",
-    href: "https://daniel.webstar.studio/",
+    href: "https://drdanielpianetti.com.br/",
   },
   {
     title: "Delusional Studio",
@@ -662,7 +663,7 @@ function MobileHero({ onOpenCv }: { onOpenCv: () => void }) {
   const reduce = useReducedMotion() ?? false;
 
   return (
-    <section id="top" className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
+    <section id="top" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden">
       {/* Full-bleed background photo */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -671,6 +672,7 @@ function MobileHero({ onOpenCv }: { onOpenCv: () => void }) {
           aria-hidden="true"
           className="h-full w-full object-cover object-[center_18%]"
           loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.38)_0%,rgba(5,5,5,0.12)_38%,rgba(5,5,5,0.72)_68%,rgba(5,5,5,0.96)_100%)]" />
       </div>
@@ -702,7 +704,7 @@ function MobileHero({ onOpenCv }: { onOpenCv: () => void }) {
           {tx(copy.hero.intro)}
         </h1>
         <p className="mt-3 text-base font-light uppercase tracking-[0.3em] text-white/70">
-          {tx(copy.hero.roleTitle)}
+          {tx(copy.hero.roleTitle).replace("Front-end", "Front\u2011end")}
         </p>
         <p className="mt-5 text-[0.92rem] leading-7 text-white/68">{tx(copy.hero.panelBody)}</p>
 
@@ -780,24 +782,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={partnerUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-white/[0.05] px-2.5 ring-1 ring-white/10 active:ring-[#A7EF9E]/45"
+              className="relative inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full bg-white/[0.05] px-2.5 after:absolute after:-inset-2 after:content-[''] ring-1 ring-white/10 active:ring-[#A7EF9E]/45"
               title={`${tx(copy.projects.partnership)} ${project.partner}`}
             >
               <img src={partnerLogo} alt={project.partner} className="h-3 w-auto object-contain" loading="lazy" />
             </a>
           ) : null}
         </div>
-        <p className="mt-2.5 text-[0.85rem] leading-6 text-white/55">{tx(project.description)}</p>
+        <p className="mt-2.5 line-clamp-4 text-[0.85rem] leading-6 text-white/55">
+          {tx(getProjectBySlug(projectSlug(project.title))?.description ?? project.description)}
+        </p>
         <a
           href={`/projetos/${projectSlug(project.title)}`}
           className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-white py-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-black transition active:bg-[#A7EF9E]"
         >
           {tx(copy.projects.learnMore)}
+          <span className="sr-only">: {project.title}</span>
         </a>
       </div>
     </motion.article>
   );
 }
+
+const MOBILE_FEATURED_COUNT = 6;
 
 function MobileProjects() {
   const { tx } = useLang();
@@ -815,10 +822,16 @@ function MobileProjects() {
         <span className="text-[#A7EF9E]">{tx(copy.projects.headingAccent)}</span>
       </motion.h2>
       <div className="flex flex-col gap-5">
-        {projects.map((project, index) => (
+        {projects.slice(0, MOBILE_FEATURED_COUNT).map((project, index) => (
           <ProjectCard key={project.title} project={project} index={index} />
         ))}
       </div>
+      <a
+        href="/projetos"
+        className="mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] text-[0.72rem] font-bold uppercase tracking-[0.16em] text-white/85 active:bg-white/[0.08]"
+      >
+        {tx(copy.projects.viewAll)} ({projects.length})
+      </a>
     </section>
   );
 }
@@ -857,7 +870,7 @@ function MobileSkills() {
               }`}
             >
               <Icon size={14} className={on ? "text-[#050505]" : "text-white/35"} aria-hidden="true" />
-              {g.label}
+              {skillText(g.label, lang)}
             </button>
           );
         })}
@@ -866,15 +879,15 @@ function MobileSkills() {
       <div className="mt-1 w-full">
         <TagSphere
           key={group.key}
-          tags={group.items}
+          tags={group.items.map((i) => skillText(i, lang))}
           accent={MINT_ACCENT}
-          label={`${group.label} ${lang === "pt-BR" ? "habilidades" : "skills"}`}
+          label={`${skillText(group.label, lang)} ${lang === "pt-BR" ? "habilidades" : "skills"}`}
         />
       </div>
 
       <ul className="sr-only">
         {skillGroups.map((g) => (
-          <li key={g.key}>{g.label}: {g.items.join(", ")}</li>
+          <li key={g.key}>{skillText(g.label, lang)}: {g.items.map((i) => skillText(i, lang)).join(", ")}</li>
         ))}
       </ul>
     </section>
@@ -1050,10 +1063,11 @@ export default function PortfolioLandingPageMobile() {
 
       <MobileHero onOpenCv={() => setIsCvOpen(true)} />
 
+      <MobileAbout />
+
       <MobileProjects />
 
       <div className="bg-[linear-gradient(180deg,#050505_0%,#08080d_24%,#0d0e16_52%,#0a0c0b_78%,#050505_100%)]">
-        <MobileAbout />
         <MobileSkills />
         <MobileExperience />
         <MobileEducation />

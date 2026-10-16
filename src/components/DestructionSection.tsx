@@ -211,6 +211,7 @@ export default function DestructionSection({
           className="w-full border-t border-white/[0.06] pb-8 pt-8 sm:pb-9"
         >
           <div className="flex flex-col items-center gap-6">
+            <ImmersiveBadge inline />
             <button
               type="button"
               onClick={scrollToPortfolioTop}
@@ -230,7 +231,7 @@ export default function DestructionSection({
                   href={item.href}
                   target={item.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                  className="font-mono text-[0.62rem] uppercase tracking-[0.24em] text-white/35 transition hover:text-[#A7EF9E] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
+                  className="inline-flex min-h-11 items-center font-mono text-[0.62rem] uppercase tracking-[0.24em] text-white/55 transition hover:text-[#A7EF9E] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A7EF9E]/45"
                 >
                   {item.label}
                 </a>

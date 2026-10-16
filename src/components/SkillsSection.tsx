@@ -4,6 +4,7 @@ import { Cloud, Monitor, Server, type LucideIcon } from "lucide-react";
 
 import TagSphere, { type Accent } from "@/components/ui/TagSphere";
 import ShinyText from "@/components/ui/ShinyText";
+import { skillText } from "@/lib/skill-i18n";
 import { useLang } from "@/lib/i18n";
 import { copy } from "@/lib/portfolio-copy";
 
@@ -96,7 +97,7 @@ export default function SkillsSection() {
   }, [active, lang]);
 
   const group = skillGroups[active];
-  const sphereLabel = `${group.label} ${lang === "pt-BR" ? "habilidades" : "skills"}`;
+  const sphereLabel = `${skillText(group.label, lang)} ${lang === "pt-BR" ? "habilidades" : "skills"}`;
 
   return (
     <section
@@ -173,7 +174,7 @@ export default function SkillsSection() {
                   }`}
                 >
                   <Icon size={16} className={on ? "text-[#050505]" : "text-white/35"} aria-hidden="true" />
-                  {g.label}
+                  {skillText(g.label, lang)}
                 </button>
               );
             })}
@@ -182,14 +183,14 @@ export default function SkillsSection() {
 
         {/* 3D draggable tag cloud — remounts per group so the fly-out replays */}
         <div className="mx-auto mt-2 w-full" style={{ maxWidth: 780 }}>
-          <TagSphere key={group.key} tags={group.items} accent={MINT_ACCENT} label={sphereLabel} />
+          <TagSphere key={group.key} tags={group.items.map((i) => skillText(i, lang))} accent={MINT_ACCENT} label={sphereLabel} />
         </div>
 
         {/* Accessible, static fallback of every skill (the cloud is decorative) */}
         <ul className="sr-only">
           {skillGroups.map((g) => (
             <li key={g.key}>
-              {g.label}: {g.items.join(", ")}
+              {skillText(g.label, lang)}: {g.items.map((i) => skillText(i, lang)).join(", ")}
             </li>
           ))}
         </ul>

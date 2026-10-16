@@ -18,6 +18,10 @@ export interface ZoomMediaAsset {
 	posterSrc?: string;
 	alt?: string;
 	objectPosition?: 'top' | 'bottom' | 'center';
+	/** Nome visível no tile (ex.: nome do projeto). */
+	label?: string;
+	/** Link do tile (ex.: página do projeto). */
+	href?: string;
 }
 
 interface ZoomParallaxProps {
@@ -185,10 +189,26 @@ export function ZoomParallax({
 							<motion.div
 								key={index}
 								style={{ scale }}
-								className={`absolute top-0 flex h-full w-full transform-gpu items-center justify-center [backface-visibility:hidden] [will-change:transform] ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
+								className={`pointer-events-none absolute top-0 flex h-full w-full transform-gpu items-center justify-center [backface-visibility:hidden] [will-change:transform] ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[30vh] [&>div]:!-left-[18vw] [&>div]:!h-[23vh] [&>div]:!w-[22vw]' : ''} ${index === 6 ? '[&>div]:!top-[25vh] [&>div]:!left-[25vw] [&>div]:!h-[22vh] [&>div]:!w-[14vw]' : ''} `}
 							>
 								<div className="relative h-[25vh] w-[25vw] transform-gpu [backface-visibility:hidden]">
-									{index === 0 && centerVisual ? centerVisual : <ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />}
+									{index === 0 && centerVisual ? (
+										centerVisual
+									) : media.href ? (
+										<a
+											href={media.href}
+											className="group/tile pointer-events-auto relative block h-full w-full overflow-hidden outline-none ring-[#A7EF9E] ring-offset-2 ring-offset-[#050505] focus-visible:ring-2"
+										>
+											<ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />
+											{media.label ? (
+												<span className="pointer-events-none absolute bottom-2 left-2 max-w-[calc(100%-1rem)] truncate rounded-full bg-black/70 px-2.5 py-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/90 ring-1 ring-white/15 backdrop-blur-sm transition-colors group-hover/tile:text-[#A7EF9E] group-focus-visible/tile:text-[#A7EF9E]">
+													{media.label}
+												</span>
+											) : null}
+										</a>
+									) : (
+										<ZoomMedia media={media} index={index} shouldLoad={shouldLoadMedia} />
+									)}
 								</div>
 							</motion.div>
 						);

@@ -228,7 +228,14 @@ function ProjectView({ slug }: { slug: string }) {
             ) : null}
             {partner ? (
               <span className="inline-flex items-center rounded-full bg-white/[0.06] px-3 py-1.5 ring-1 ring-white/10 backdrop-blur-sm">
-                <img src={partnerLogo} alt={partner} className="h-3.5 w-auto max-w-[5.5rem] object-contain" loading="lazy" />
+                <img
+                  src={partnerLogo}
+                  alt={partner}
+                  className={`w-auto object-contain ${
+                    "partnerLogo" in project ? "h-3.5 max-w-[5.5rem]" : "h-[1.05rem] max-w-[6.75rem] brightness-125"
+                  }`}
+                  loading="lazy"
+                />
               </span>
             ) : null}
           </motion.div>

@@ -7,8 +7,9 @@ import BadgePage from "@/pages/BadgePage";
 import ProjectPage from "@/pages/ProjectPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { LanguageProvider } from "@/lib/i18n";
-import { applyRouteMeta } from "@/lib/seo";
+import { LanguageProvider, useLang } from "@/lib/i18n";
+import NotFoundPage from "@/pages/NotFoundPage";
+import { applyRouteMeta, isKnownRoute } from "@/lib/seo";
 
 function getCurrentPath() {
   if (typeof window === "undefined") {
@@ -22,6 +23,15 @@ function getCurrentPath() {
 const ENTRANCE_HINT_SEEN_KEY = "jp-entrance-hint-seen";
 
 export default function App() {
+  return (
+    <LanguageProvider>
+      <AppRoutes />
+    </LanguageProvider>
+  );
+}
+
+function AppRoutes() {
+  const { lang } = useLang();
   const isMobile = useIsMobile();
   const [pathname, setPathname] = useState(getCurrentPath);
   const [runEntranceHint] = useState(() => {
@@ -67,25 +77,30 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    applyRouteMeta(pathname);
-  }, [pathname]);
+    applyRouteMeta(pathname, lang);
+  }, [pathname, lang]);
+
+  if (!isKnownRoute(pathname)) {
+    return (
+      <main className="app-shell overflow-visible">
+        <NotFoundPage />
+      </main>
+    );
+  }
 
   const projectMatch = pathname.match(/^\/projetos\/([^/]+)\/?$/);
   const detailSlug = projectMatch ? decodeURIComponent(projectMatch[1]) : null;
 
   if (pathname === "/3d") {
     return (
-      <LanguageProvider>
         <main className="app-shell overflow-visible">
           <BadgePage />
         </main>
-      </LanguageProvider>
     );
   }
 
   if (pathname === "/projetos" || detailSlug) {
     return (
-      <LanguageProvider>
         <main className="app-shell overflow-visible">
           {/* Listagem fica como camada de base */}
           <ProjectsPage />
@@ -107,15 +122,12 @@ export default function App() {
             ) : null}
           </AnimatePresence>
         </main>
-      </LanguageProvider>
     );
   }
 
   return (
-    <LanguageProvider>
       <main className="app-shell overflow-visible">
         {isMobile ? <PortfolioLandingPageMobile /> : <PortfolioLandingPage runEntranceHint={runEntranceHint} />}
       </main>
-    </LanguageProvider>
   );
 }

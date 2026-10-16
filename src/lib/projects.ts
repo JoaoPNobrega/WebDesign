@@ -14,7 +14,7 @@ const allProjectItems = [
       "en-US": "Website for urologist Dr. Daniel Pianetti (Belo Horizonte), built during my internship at Web Star Studio. Focused on Da Vinci robotic surgery, urologic oncology (prostate, kidney and bladder) and HoLEP, with a 3D object, an animated logo and a narrative that conveys technology and trust. It has dedicated pages per procedure, a blog with its own admin (CMS), real reviews (Doctoralia + Google) and a chatbot — all with heavy SEO/GEO (JSON-LD, llms.txt) to rank and get cited by search and AI.",
     },
     partner: "Web Star Studio",
-    href: "https://daniel.webstar.studio/",
+    href: "https://drdanielpianetti.com.br/",
   },
   {
     title: "Delusional Studio",

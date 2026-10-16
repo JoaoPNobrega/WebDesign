@@ -38,16 +38,16 @@ function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => v
   return (
     <div className="flex w-full max-w-2xl flex-col items-center text-center">
         {staticDisplay ? (
-          <p
+          <h1
             className="relative block min-h-16 w-full text-[2.6rem] font-medium normal-case leading-[0.96] tracking-[-0.04em] text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.52)] sm:text-[4.1rem] lg:min-h-20 lg:text-[4.2rem] xl:min-h-24 xl:text-[5rem] 2xl:text-[5.45rem]"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {tx(copy.hero.intro)}
-          </p>
+          </h1>
         ) : (
           <BlurText
             key={`intro-${lang}`}
-            tag="p"
+            tag="h1"
             text={tx(copy.hero.intro)}
             animateBy="letters"
             direction="top"
@@ -143,47 +143,57 @@ const navContactItems = [
   { label: "Email", icon: Mail, href: "mailto:jpan@cesar.school" },
 ] as const;
 
+// Galeria do zoom: só projetos visíveis em /projetos, cada tile leva ao detalhe.
 const portfolioZoomImages: ZoomMediaAsset[] = [
   {
     type: "image",
-    src: "/assets/parallax-center-site.webp",
-    fallbackSrc: "/assets/image.jpg",
-    alt: "Center site preview",
+    src: "/assets/keepinghouse-hero.jpg",
+    alt: `Preview do projeto Keeping House`,
+    label: "Keeping House",
+    href: `/projetos/${projectSlug("Keeping House")}`,
   },
   {
     type: "image",
     src: "/assets/daniel-parallax.png",
-    alt: "Dr Daniel Pianetti project preview",
+    alt: `Preview do projeto Dr Daniel Pianetti`,
+    label: "Dr Daniel Pianetti",
+    href: `/projetos/${projectSlug("Dr Daniel Pianetti")}`,
   },
   {
     type: "image",
-    src: "/assets/parallax-flyhigh.webp",
-    fallbackSrc: "/assets/flyhigh.jpg",
-    alt: "Left tall site preview",
+    src: "/assets/siaze-preview.jpg",
+    alt: `Preview do projeto Siaze`,
+    label: "Siaze",
+    href: `/projetos/${projectSlug("Siaze")}`,
+    objectPosition: "top",
   },
   {
     type: "image",
     src: "/assets/parallax-dr-guilherme-preview.webp",
-    fallbackSrc: "/assets/dr-guilherme-preview.jpg",
-    alt: "Dr Guilherme Maia project preview",
+    alt: `Preview do projeto Dr Guilherme Maia`,
+    label: "Dr Guilherme Maia",
+    href: `/projetos/${projectSlug("Dr Guilherme Maia")}`,
   },
   {
     type: "image",
-    src: "/assets/parallax-delusional-preview.webp",
-    fallbackSrc: "/assets/delusional-preview.jpg",
-    alt: "Delusional project preview",
+    src: "/assets/delusional-studio-preview.jpg",
+    alt: `Preview do projeto Delusional Studio`,
+    label: "Delusional Studio",
+    href: `/projetos/${projectSlug("Delusional Studio")}`,
   },
   {
     type: "image",
     src: "/assets/parallax-stephanie-bolsoni.webp",
-    fallbackSrc: "/assets/stephanie-bolsoni.jpg",
-    alt: "Stephanie Bolsoni project preview",
+    alt: `Preview do projeto Stephanie Bolsoni`,
+    label: "Stephanie Bolsoni",
+    href: `/projetos/${projectSlug("Stephanie Bolsoni")}`,
   },
   {
     type: "image",
-    src: "/assets/parallax-ouroverde-preview.webp",
-    fallbackSrc: "/assets/ouroverde-preview.jpg",
-    alt: "Ouroverde project preview",
+    src: "/assets/t4kena-preview.jpg",
+    alt: `Preview do projeto t4kena geek store`,
+    label: "t4kena geek store",
+    href: `/projetos/${projectSlug("t4kena geek store")}`,
     objectPosition: "top",
   },
 ];
@@ -709,7 +719,9 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
   // Same 14-command topology — Framer Motion interpolates every coordinate for a smooth morph.
   const notchPath = isProjectsNotchExpanded
     ? `M0 0H0C0 0 0 23.33 0 74.67C0 135.33 0 200.57 0 265.90C0 350 0 392 0 392H460C460 392 460 350 460 265.90C460 200.57 460 135.33 460 74.67C460 23.33 460 0 460 0H460V0H0V0Z`
-    : `M0 0H72C91 0 103 ${notchY(5)} 111 ${notchY(16)}C120 ${notchY(29)} 125 ${notchY(43)} 128 ${notchY(57)}C132 ${notchY(75)} 144 ${notchY(84)} 162 ${notchY(84)}H298C316 ${notchY(84)} 328 ${notchY(75)} 332 ${notchY(57)}C335 ${notchY(43)} 340 ${notchY(29)} 349 ${notchY(16)}C357 ${notchY(5)} 369 0 388 0H460V0H0V0Z`;
+   
+    // Bolso do notch alargado (±30) para caber o rótulo "Currículo" na nav.
+    : `M0 0H42C61 0 73 ${notchY(5)} 81 ${notchY(16)}C90 ${notchY(29)} 95 ${notchY(43)} 98 ${notchY(57)}C102 ${notchY(75)} 114 ${notchY(84)} 132 ${notchY(84)}H328C346 ${notchY(84)} 358 ${notchY(75)} 362 ${notchY(57)}C365 ${notchY(43)} 370 ${notchY(29)} 379 ${notchY(16)}C387 ${notchY(5)} 399 0 418 0H460V0H0V0Z`;
   const notchVisualHeight = isProjectsNotchExpanded ? "100vh" : isHeroSubDropdownOpen ? "7.35rem" : "5rem";
   const notchVisualWidth = isProjectsNotchExpanded ? "100vw" : isHeroSubDropdownOpen ? "94vw" : "96vw";
   const notchVisualMaxWidth = isProjectsNotchExpanded ? "100vw" : isHeroSubDropdownOpen ? "52rem" : "58rem";
@@ -892,6 +904,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                                 className="inline-flex h-9 w-fit flex-shrink-0 items-center gap-2 rounded-full bg-white/[0.08] px-5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/70 ring-1 ring-white/10 transition hover:bg-[#A7EF9E] hover:text-black hover:ring-[#A7EF9E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                               >
                                 {tx(copy.projects.learnMore)}
+<span className="sr-only">: {item.title}</span>
                                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                                   <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
@@ -991,24 +1004,14 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                     setIsCvDropdownOpen((current) => !current);
                   }}
                   aria-expanded={isCvDropdownOpen}
-                  aria-label={tx(copy.cv.title)}
-                  className={`flex h-8 w-8 items-center justify-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
-                    isCvDropdownOpen ? "bg-white/10" : "hover:bg-white/10"
+                  className={`flex h-8 items-center justify-center gap-2.5 rounded-full px-4 text-[1rem] font-medium uppercase tracking-[0.28em] drop-shadow-[0_0_8px_rgba(255,255,255,0.16)] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                    isCvDropdownOpen ? "bg-white/10 text-white" : "text-white/90 hover:bg-white/10 hover:text-white"
                   }`}
                   style={{ opacity: navTextOpacity, transform: `translateY(${navTextTranslateY}px)` }}
                 >
                   <ShinyIcon maskUrl={CV_ICON_MASK} />
-                </button>
-                {/* Rótulo no hover/foco: ícone sozinho não comunica bem. */}
-                {!isCvDropdownOpen ? (
-                  <span
-                    role="tooltip"
-                    className={`pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-50 w-max -translate-x-1/2 rounded-full bg-black/90 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/80 shadow-[0_14px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/10 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 ${showIconHint ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"}`}
-                  >
-                    {tx(copy.cv.title)}
-                  </span>
-                ) : null}
-              </span>
+                  <span>{tx(copy.cv.title)}</span>
+                </button>              </span>
               <button
                 type="button"
                 onClick={() => {
@@ -1217,6 +1220,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
                               className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/[0.07] px-2.5 py-1 text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-white/60 transition hover:bg-[#A7EF9E] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/60"
                             >
                               {tx(copy.projects.learnMore)}
+<span className="sr-only">: {item.title}</span>
                             </a>
                           </div>
                         </motion.article>
@@ -1563,7 +1567,7 @@ export default function PortfolioLandingPage({ runEntranceHint = false }: { runE
         </motion.div>
       </section>
 
-      <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} centerVisual={<HeroEchoVisual />} endBlend />
+      <ZoomParallax lockThreshold={0.8} images={portfolioZoomImages} endBlend />
 
       <div className="relative bg-[linear-gradient(180deg,#050505_0%,#08080d_22%,#0d0e16_48%,#0a0c0b_72%,#050505_100%)]">
         {/* Campo de partículas bem sutil (mesmo efeito da intro), atrás das seções */}

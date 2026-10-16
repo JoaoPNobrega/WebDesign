@@ -1,4 +1,5 @@
 import "./ImmersiveBadge.css";
+import { useLang } from "@/lib/i18n";
 
 /**
  * Réplica fiel do `immersive-badge` do projeto LioPortfolio
@@ -7,15 +8,19 @@ import "./ImmersiveBadge.css";
 export default function ImmersiveBadge({
   href = "/3d",
   visible = true,
+  inline = false,
 }: {
   href?: string;
   visible?: boolean;
+  /** Versão no fluxo do rodapé (usada só no mobile). */
+  inline?: boolean;
 }) {
+  const { tx } = useLang();
   return (
     <a
-      className={`ib-immersive-badge${visible ? " is-visible" : ""}`}
+      className={`ib-immersive-badge${visible ? " is-visible" : ""}${inline ? " is-inline" : ""}`}
       href={href}
-      aria-label="CESAR School — Crachá 3D — Interativo"
+      aria-label={tx({ "pt-BR": "CESAR School — Crachá 3D — Interativo", "en-US": "CESAR School — 3D Badge — Interactive" })}
     >
       <span className="ib-badge-corner tl" />
       <span className="ib-badge-corner tr" />
@@ -32,10 +37,10 @@ export default function ImmersiveBadge({
       </span>
       <span className="ib-badge-copy">
         <span>CESAR_SCHOOL</span>
-        <strong>CRACHÁ 3D</strong>
+        <strong>{tx({ "pt-BR": "CRACHÁ 3D", "en-US": "3D BADGE" })}</strong>
         <small>
           <span />
-          INTERATIVO
+          {tx({ "pt-BR": "INTERATIVO", "en-US": "INTERACTIVE" })}
         </small>
       </span>
     </a>

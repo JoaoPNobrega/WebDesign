@@ -99,7 +99,7 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-          className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2.5"
+          className="mt-2 flex flex-wrap items-center gap-x-5"
         >
           {filters.map((f) => {
             const isActive = activeCat === f.key;
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
                 type="button"
                 onClick={() => setActiveCat(f.key)}
                 aria-pressed={isActive}
-                className={`text-[0.7rem] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50 ${
+                className={`inline-flex min-h-11 items-center text-[0.7rem] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A7EF9E]/50 ${
                   isActive ? "text-white" : "text-white/35 hover:text-white/70"
                 }`}
               >

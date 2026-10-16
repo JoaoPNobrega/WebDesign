@@ -1,3 +1,4 @@
+import type { SiteLanguage } from "./site-language";
 import { navProjectItems, projectSlug, getProjectBySlug, getProjectImages } from "./projects";
 
 // Metadados por rota. Usado no cliente (título/descrição ao navegar) e no build
@@ -31,13 +32,34 @@ export function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path}`;
 }
 
-export function getRouteMeta(pathname: string): RouteMeta {
+/** Rotas que o SPA conhece; qualquer outra renderiza a página 404. */
+export function isKnownRoute(pathname: string): boolean {
   const path = pathname.replace(/\/+$/, "") || "/";
+  if (path === "/" || path === "/projetos" || path === "/3d") return true;
+  return /^\/projetos\/[^/]+$/.test(path);
+}
+
+export function getRouteMeta(pathname: string, lang: SiteLanguage = "pt-BR"): RouteMeta {
+  const path = pathname.replace(/\/+$/, "") || "/";
+  const en = lang === "en-US";
+
+  if (!isKnownRoute(path)) {
+    return {
+      path,
+      title: en ? "Page not found | João Pedro Nóbrega" : "Página não encontrada | João Pedro Nóbrega",
+      description: HOME_DESCRIPTION,
+      image: OG_IMAGE,
+      imageAlt: SITE_NAME,
+      type: "website",
+    };
+  }
 
   if (path === "/projetos") {
     return {
       path,
-      title: "Projetos | João Pedro Nóbrega — Desenvolvedor Front-end Júnior",
+      title: en
+        ? "Projects | João Pedro Nóbrega — Junior Front-end Developer"
+        : "Projetos | João Pedro Nóbrega — Desenvolvedor Front-end Júnior",
       description: `Sites, dashboards e produtos digitais desenvolvidos por João Pedro Nóbrega: ${navProjectItems
         .slice(0, 5)
         .map((item) => item.title)
@@ -54,17 +76,19 @@ export function getRouteMeta(pathname: string): RouteMeta {
     const cover = getProjectImages(project)[0];
     return {
       path: `/projetos/${projectSlug(project.title)}`,
-      title: `${project.title} — Projeto | João Pedro Nóbrega`,
-      description: truncate(project.description["pt-BR"]),
+      title: `${project.title} — ${en ? "Project" : "Projeto"} | João Pedro Nóbrega`,
+      description: truncate(project.description[lang]),
       image: cover ? absoluteUrl(cover) : OG_IMAGE,
-      imageAlt: `Preview do projeto ${project.title}`,
+      imageAlt: `${en ? "Preview of project" : "Preview do projeto"} ${project.title}`,
       type: "article",
     };
   }
 
   return {
     path: "/",
-    title: "João Pedro Nóbrega | Desenvolvedor Front-end Júnior em Recife — Portfólio",
+    title: en
+      ? "João Pedro Nóbrega | Junior Front-end Developer in Recife — Portfolio"
+      : "João Pedro Nóbrega | Desenvolvedor Front-end Júnior em Recife — Portfólio",
     description: HOME_DESCRIPTION,
     image: OG_IMAGE,
     imageAlt: "João Pedro Nóbrega — Desenvolvedor Front-end Júnior",
@@ -73,8 +97,8 @@ export function getRouteMeta(pathname: string): RouteMeta {
 }
 
 /** Atualiza título, descrição e canonical ao navegar no SPA. */
-export function applyRouteMeta(pathname: string) {
-  const meta = getRouteMeta(pathname);
+export function applyRouteMeta(pathname: string, lang: SiteLanguage = "pt-BR") {
+  const meta = getRouteMeta(pathname, lang);
   document.title = meta.title;
   const set = (selector: string, attr: string, value: string) => {
     document.head.querySelector(selector)?.setAttribute(attr, value);
@@ -85,4 +109,15 @@ export function applyRouteMeta(pathname: string) {
   set('meta[property="og:description"]', "content", meta.description);
   set('meta[property="og:url"]', "content", absoluteUrl(meta.path));
   set('meta[property="og:image"]', "content", meta.image);
+  let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
+  if (!isKnownRoute(pathname)) {
+    if (!robots) {
+      robots = document.createElement("meta");
+      robots.name = "robots";
+      document.head.appendChild(robots);
+    }
+    robots.content = "noindex";
+  } else if (robots?.content === "noindex") {
+    robots.remove();
+  }
 }
