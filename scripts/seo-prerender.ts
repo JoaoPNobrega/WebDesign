@@ -29,7 +29,8 @@ const person = {
   "@id": `${SITE_URL}/#person`,
   name: SITE_NAME,
   alternateName: "João Pedro",
-  jobTitle: "Software Developer",
+  jobTitle: "Desenvolvedor Front-end Júnior",
+  worksFor: { "@type": "Organization", name: "Web Star Studio", url: "https://www.webstar.studio/" },
   description: copy.about.paragraphOne["pt-BR"],
   url: `${SITE_URL}/`,
   image: `${SITE_URL}/assets/joao-pedro-about.jpeg`,
@@ -129,7 +130,7 @@ function buildPages(): Page[] {
     ],
     body: `<header>
   <h1>João Pedro Nóbrega</h1>
-  <p><strong>Software Developer</strong> · Recife, Brasil</p>
+  <p><strong>Desenvolvedor Front-end Júnior</strong> · Recife, Brasil</p>
   <p>${esc(copy.hero.panelBody["pt-BR"])}</p>
 </header>
 <section>
@@ -211,7 +212,7 @@ ${contactBlock()}`,
   ${detail?.tags?.length ? `<h2>Tecnologias</h2><p>${esc(detail.tags.join(", "))}</p>` : ""}
   ${external ? `<p><a href="${external}" rel="noopener">Ver site do projeto</a></p>` : ""}
 </article>
-<p>Projeto por <a href="/">João Pedro Nóbrega</a>, Software Developer em Recife.</p>`,
+<p>Projeto por <a href="/">João Pedro Nóbrega</a>, desenvolvedor front-end júnior em Recife.</p>`,
     };
   });
 
@@ -219,11 +220,11 @@ ${contactBlock()}`,
 }
 
 function llmsTxt() {
-  return `# João Pedro Nóbrega — Software Developer
+  return `# João Pedro Nóbrega — Desenvolvedor Front-end Júnior
 
 > ${copy.hero.panelBody["pt-BR"]}
 
-João Pedro Nóbrega é desenvolvedor de software em Recife (PE, Brasil), estudante de Ciência da Computação na CESAR School. ${copy.about.paragraphOne["pt-BR"]}
+João Pedro Nóbrega é desenvolvedor front-end júnior na Web Star Studio, em Recife (PE, Brasil), e estudante de Ciência da Computação na CESAR School (conclusão prevista para o fim de 2027). ${copy.about.paragraphOne["pt-BR"]}
 
 - Site: ${SITE_URL}/
 - LinkedIn: ${LINKEDIN_URL}

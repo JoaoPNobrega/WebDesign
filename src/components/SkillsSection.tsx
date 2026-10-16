@@ -55,13 +55,11 @@ const skillGroups: SkillGroup[] = [
     label: "Tools",
     icon: Cloud,
     items: [
-      "AWS",
       "Cloud",
       "Git",
       "Vite",
       "IoT",
       "n8n",
-      "Power Automate",
       "Lovable",
       "Claude Code",
       "Codex",
@@ -70,7 +68,6 @@ const skillGroups: SkillGroup[] = [
       "Kanban",
       "Metodologias Ágeis",
       "BPM",
-      "LGPD",
     ],
   },
 ];

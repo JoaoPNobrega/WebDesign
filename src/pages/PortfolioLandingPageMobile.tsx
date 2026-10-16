@@ -240,12 +240,12 @@ const workHistory: {
 }[] = [
   {
     isCurrent: true,
-    role: L("Desenvolvedor full stack", "Full stack developer"),
-    company: L("Web Star Studio · Estágio", "Web Star Studio · Internship"),
-    period: L("Fevereiro 2026 — Hoje", "February 2026 — Present"),
+    role: L("Desenvolvedor Front-end Júnior", "Junior Front-end Developer"),
+    company: L("Web Star Studio", "Web Star Studio"),
+    period: L("Outubro 2026 — Hoje", "October 2026 — Present"),
     description: L(
-      "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual.",
-      "Building and maintaining websites, focused on responsive layouts, front-end and visual identity.",
+      "Desenvolvimento e manutenção de sites, com foco em layouts responsivos e front-end.",
+      "Building and maintaining websites, focused on responsive layouts and front-end.",
     ),
   },
   {
@@ -254,18 +254,18 @@ const workHistory: {
     company: L("Autônomo", "Self-employed"),
     period: L("Abril 2026 — Hoje", "April 2026 — Present"),
     description: L(
-      "Criação de sites e landing pages sob demanda para clientes, do briefing à entrega — direção visual, front-end e acabamento.",
-      "Building websites and landing pages on demand for clients, from briefing to delivery — visual direction, front-end and polish.",
+      "Criação de sites e landing pages sob demanda para clientes, como o site do professor Filipe Regueira, do briefing à entrega — direção visual, front-end e acabamento.",
+      "Building websites and landing pages on demand for clients, such as professor Filipe Regueira's site, from briefing to delivery — visual direction, front-end and polish.",
     ),
   },
   {
     isCurrent: false,
-    role: L("Desenvolvedor de software", "Software developer"),
-    company: L("AJ Soluções & Sistemas · Estágio", "AJ Soluções & Sistemas · Internship"),
-    period: L("Setembro — Dezembro 2025", "September — December 2025"),
+    role: L("Estagiário Full Stack", "Full Stack Intern"),
+    company: L("Web Star Studio · Estágio", "Web Star Studio · Internship"),
+    period: L("Fevereiro — Setembro 2026", "February — September 2026"),
     description: L(
-      "Desenvolvimento de software, automações N8N e planilhas VBA.",
-      "Software development, N8N automations and VBA spreadsheets.",
+      "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual.",
+      "Building and maintaining websites, focused on responsive layouts, front-end and visual identity.",
     ),
   },
 ];
@@ -274,12 +274,13 @@ const educationInfo = {
   degree: L("Bacharelado em Ciência da Computação", "Bachelor's in Computer Science"),
   school: "CESAR School",
   location: L("Recife, PE · Brasil", "Recife, PE · Brazil"),
-  period: L("2022 — em andamento", "2022 — in progress"),
+  period: L("2022 — conclusão prevista: fim de 2027", "2022 — expected graduation: late 2027"),
 };
 
 const spokenLanguages: { name: LocalizedText; level: LocalizedText }[] = [
   { name: L("Português", "Portuguese"), level: L("Nativo", "Native") },
-  { name: L("Inglês", "English"), level: L("Avançado", "Advanced") },
+  { name: L("Inglês", "English"), level: L("Intermediário", "Intermediate") },
+  { name: L("Espanhol", "Spanish"), level: L("Básico", "Basic") },
 ];
 
 const skillGroups: { key: string; label: string; icon: LucideIcon; items: string[] }[] = [
@@ -299,7 +300,7 @@ const skillGroups: { key: string; label: string; icon: LucideIcon; items: string
     key: "devops",
     label: "Tools",
     icon: Cloud,
-    items: ["AWS", "Cloud", "Git", "Vite", "IoT", "n8n", "Power Automate", "Lovable", "Claude Code", "Codex", "Antigravity", "Scrum", "Kanban", "Metodologias Ágeis", "BPM", "LGPD"],
+    items: ["Cloud", "Git", "Vite", "IoT", "n8n", "Lovable", "Claude Code", "Codex", "Antigravity", "Scrum", "Kanban", "Metodologias Ágeis", "BPM"],
   },
 ];
 
@@ -900,6 +901,9 @@ function MobileExperience() {
               <ExpCard key={item.company["pt-BR"]} item={item} current={false} />
             ))}
           </div>
+          <p className="mt-5 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-white/35">
+            {tx(copy.experience.earlierNote)}
+          </p>
         </>
       )}
     </section>

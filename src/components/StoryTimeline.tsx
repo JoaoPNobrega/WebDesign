@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 import { useLang, type LocalizedText } from "@/lib/i18n";
+import { copy } from "@/lib/portfolio-copy";
 import ShinyText from "@/components/ui/ShinyText";
 
 type TimelineItem = {
@@ -23,62 +24,64 @@ const timelineItems: TimelineItem[] = [
     },
     text: {
       "pt-BR":
-        "Bacharelado em andamento na CESAR School, em Recife. Onde a lógica, os fundamentos e a vontade de construir coisas viraram profissão.",
+        "Bacharelado em andamento na CESAR School, em Recife, com conclusão prevista para o fim de 2027. Onde a lógica, os fundamentos e a vontade de construir coisas viraram profissão.",
       "en-US":
-        "Bachelor's in progress at CESAR School, in Recife. Where logic, fundamentals and the urge to build things became a profession.",
+        "Bachelor's in progress at CESAR School, in Recife, with expected graduation in late 2027. Where logic, fundamentals and the urge to build things became a profession.",
     },
     logo: "/assets/cesar-school-logo.png",
     anchorId: "education",
   },
   {
-    label: { "pt-BR": "Set 2025 · Estágio", "en-US": "Sep 2025 · Internship" },
+    label: { "pt-BR": "Fev – Set 2026 · Estágio", "en-US": "Feb – Sep 2026 · Internship" },
     title: {
-      "pt-BR": "Primeiro contato com o mercado",
-      "en-US": "First taste of the market",
+      "pt-BR": "Web Star Studio, estagiário full stack",
+      "en-US": "Web Star Studio, full stack intern",
     },
     text: {
       "pt-BR":
-        "Desenvolvedor de software na AJ Soluções & Sistemas: desenvolvimento, automações N8N e planilhas VBA. O começo prático de tudo.",
+        "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual.",
       "en-US":
-        "Software developer at AJ Soluções & Sistemas: development, N8N automations and VBA spreadsheets. Where the hands-on part began.",
-    },
-    logo: "/assets/aj-logo.svg",
-  },
-  {
-    label: { "pt-BR": "Fev 2026 · Estágio", "en-US": "Feb 2026 · Internship" },
-    title: {
-      "pt-BR": "Web Star Studio, full stack",
-      "en-US": "Web Star Studio, full stack",
-    },
-    text: {
-      "pt-BR":
-        "Desenvolvimento e manutenção de sites, com foco em layouts responsivos, front-end e identidade visual. Atualmente em andamento.",
-      "en-US":
-        "Building and maintaining websites, focused on responsive layouts, front-end and visual identity. Currently ongoing.",
+        "Building and maintaining websites, focused on responsive layouts, front-end and visual identity.",
     },
     logo: "/assets/webstar-logo-new.png",
     logoClassName: "max-h-8 max-w-[78%]",
   },
   {
-    label: { "pt-BR": "Abr 2026 · Freelance", "en-US": "Apr 2026 · Freelance" },
+    label: { "pt-BR": "Abr 2026 – atual · Freelance", "en-US": "Apr 2026 – now · Freelance" },
     title: {
       "pt-BR": "Autônomo, do briefing à entrega",
       "en-US": "Self-employed, briefing to delivery",
     },
     text: {
       "pt-BR":
-        "Criação de sites e landing pages sob demanda para clientes — direção visual, front-end e acabamento. Cada projeto, de ponta a ponta.",
+        "Criação de sites e landing pages sob demanda para clientes, como o site do professor Filipe Regueira — direção visual, front-end e acabamento. Cada projeto, de ponta a ponta.",
       "en-US":
-        "Building websites and landing pages on demand for clients — visual direction, front-end and polish. Each project, end to end.",
+        "Building websites and landing pages on demand for clients, such as professor Filipe Regueira's site — visual direction, front-end and polish. Each project, end to end.",
     },
     logo: "/assets/delusional-logo.png",
     logoClassName: "max-h-8 max-w-[68%]",
+  },
+  {
+    label: { "pt-BR": "Out 2026 – atual", "en-US": "Oct 2026 – now" },
+    title: {
+      "pt-BR": "Web Star Studio, desenvolvedor front-end júnior",
+      "en-US": "Web Star Studio, junior front-end developer",
+    },
+    text: {
+      "pt-BR":
+        "Depois do estágio, sigo na Web Star Studio como desenvolvedor front-end júnior: desenvolvimento e manutenção de sites, com foco em layouts responsivos e front-end.",
+      "en-US":
+        "After the internship, I stayed at Web Star Studio as a junior front-end developer: building and maintaining websites, focused on responsive layouts and front-end.",
+    },
+    logo: "/assets/webstar-logo-new.png",
+    logoClassName: "max-h-8 max-w-[78%]",
   },
 ];
 
 const spokenLanguages: { name: LocalizedText; level: LocalizedText }[] = [
   { name: { "pt-BR": "Português", "en-US": "Portuguese" }, level: { "pt-BR": "Nativo", "en-US": "Native" } },
-  { name: { "pt-BR": "Inglês", "en-US": "English" }, level: { "pt-BR": "Avançado", "en-US": "Advanced" } },
+  { name: { "pt-BR": "Inglês", "en-US": "English" }, level: { "pt-BR": "Intermediário", "en-US": "Intermediate" } },
+  { name: { "pt-BR": "Espanhol", "en-US": "Spanish" }, level: { "pt-BR": "Básico", "en-US": "Basic" } },
 ];
 
 function useIsDesktop() {
@@ -134,7 +137,14 @@ export default function StoryTimeline() {
         <div className="relative z-10 mt-16 md:mt-32 md:min-h-[1750px]">
           <AnimatedStoryLine />
           {timelineItems.map((item, index) => (
-            <StoryCard key={item.title["pt-BR"]} item={item} index={index} tx={tx} />
+            <Fragment key={item.title["pt-BR"]}>
+              <StoryCard item={item} index={index} tx={tx} />
+              {index === 0 && (
+                <p className="relative z-10 -mt-2 mb-6 px-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/35 md:-mt-[6rem] md:mb-[5rem] md:ml-[8%] md:w-[25rem]">
+                  {tx(copy.experience.earlierNote)}
+                </p>
+              )}
+            </Fragment>
           ))}
           <LanguagesCard index={timelineItems.length} />
         </div>

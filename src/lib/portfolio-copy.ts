@@ -5,7 +5,7 @@ const t = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en
 export const copy = {
   hero: {
     intro: t("João Pedro", "João Pedro"),
-    roleTitle: t("Software Developer", "Software Developer"),
+    roleTitle: t("Desenvolvedor Front-end Júnior", "Junior Front-end Developer"),
     eyebrow: t("Ciência da Computação + software", "Computer Science + software"),
     panelBody: t(
       "Crio sites e produtos digitais do design ao deploy. Front-end caprichado, full-stack quando precisa — interfaces rápidas, com movimento e acabamento, feitas pra comunicar e converter.",
@@ -53,8 +53,8 @@ export const copy = {
       "I build websites with presence, clarity and polish.",
     ),
     paragraphOne: t(
-      "Sou desenvolvedor de software com foco em experiências web. Hoje atuo no desenvolvimento e manutenção de sites, criando páginas responsivas, ajustando front-end e traduzindo identidade visual em interfaces claras, funcionais e bem acabadas.",
-      "I'm a software developer focused on web experiences. Today I build and maintain websites, creating responsive pages, refining front-end and translating visual identity into clear, functional and well-finished interfaces.",
+      "Sou desenvolvedor front-end júnior, com foco em experiências web. Hoje atuo no desenvolvimento e manutenção de sites, criando páginas responsivas, ajustando front-end e traduzindo identidade visual em interfaces claras, funcionais e bem acabadas.",
+      "I'm a junior front-end developer focused on web experiences. Today I build and maintain websites, creating responsive pages, refining front-end and translating visual identity into clear, functional and well-finished interfaces.",
     ),
     paragraphTwo: t(
       "Gosto de unir código, direção visual e senso de produto para entregar páginas que funcionam, comunicam bem e passam confiança desde o primeiro contato.",
@@ -77,6 +77,10 @@ export const copy = {
     pastGroup: t("Anteriores", "Previously"),
     srLive: t("Em andamento atualmente", "Currently ongoing"),
     srPast: t("Concluído", "Completed"),
+    earlierNote: t(
+      "Antes: estágio em desenvolvimento de software na AJ Soluções & Sistemas (set–dez 2025).",
+      "Before: software development internship at AJ Soluções & Sistemas (Sep–Dec 2025).",
+    ),
   },
   education: {
     eyebrow: t("Formação", "Education"),
@@ -86,7 +90,7 @@ export const copy = {
   },
   cv: {
     title: t("Currículo", "Résumé"),
-    subtitle: t("João Pedro — Software Developer", "João Pedro — Software Developer"),
+    subtitle: t("João Pedro — Desenvolvedor Front-end Júnior", "João Pedro — Junior Front-end Developer"),
     download: t("Baixar PDF", "Download PDF"),
     openInNewTab: t("Abrir em nova aba", "Open in new tab"),
     close: t("Fechar currículo", "Close résumé"),

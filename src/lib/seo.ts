@@ -19,7 +19,7 @@ export type RouteMeta = {
 };
 
 const HOME_DESCRIPTION =
-  "Portfólio de João Pedro Nóbrega, desenvolvedor de software em Recife. Sites e produtos digitais do design ao deploy: front-end caprichado, full-stack quando precisa, SEO e performance.";
+  "Portfólio de João Pedro Nóbrega, desenvolvedor front-end júnior em Recife. Sites e produtos digitais do design ao deploy: front-end caprichado, full-stack quando precisa, SEO e performance.";
 
 export function truncate(text: string, max = 158): string {
   if (text.length <= max) return text;
@@ -37,7 +37,7 @@ export function getRouteMeta(pathname: string): RouteMeta {
   if (path === "/projetos") {
     return {
       path,
-      title: "Projetos | João Pedro Nóbrega — Software Developer",
+      title: "Projetos | João Pedro Nóbrega — Desenvolvedor Front-end Júnior",
       description: `Sites, dashboards e produtos digitais desenvolvidos por João Pedro Nóbrega: ${navProjectItems
         .slice(0, 5)
         .map((item) => item.title)
@@ -64,10 +64,10 @@ export function getRouteMeta(pathname: string): RouteMeta {
 
   return {
     path: "/",
-    title: "João Pedro Nóbrega | Software Developer em Recife — Portfólio",
+    title: "João Pedro Nóbrega | Desenvolvedor Front-end Júnior em Recife — Portfólio",
     description: HOME_DESCRIPTION,
     image: OG_IMAGE,
-    imageAlt: "João Pedro Nóbrega — Software Developer",
+    imageAlt: "João Pedro Nóbrega — Desenvolvedor Front-end Júnior",
     type: "profile",
   };
 }
