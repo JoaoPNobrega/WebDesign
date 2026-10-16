@@ -19,7 +19,7 @@ const HERO_BG_IMAGE = "/assets/joao-pedro-about-clean.webp";
 const PARTNER_URLS: Record<string, string> = {
   "Web Star Studio": "https://www.webstar.studio/",
   "CESAR School": "https://www.cesar.school/",
-  "Delusional": "https://delusionalstudio.vercel.app/",
+  "Delusional": "https://delusionals.studio/",
 };
 
 const L = (pt: string, en: string): LocalizedText => ({ "pt-BR": pt, "en-US": en });
@@ -104,7 +104,7 @@ const projects: Project[] = [
     ),
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    href: "https://delusionalstudio.vercel.app/",
+    href: "https://delusionals.studio/",
   },
   {
     title: "Filipe Regueira",

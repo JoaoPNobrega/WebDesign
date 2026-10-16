@@ -29,7 +29,7 @@ const CV_DOWNLOAD_NAME = "Curriculo_Joao_Pedro.pdf";
 const PARTNER_URLS: Record<string, string> = {
   "Web Star Studio": "https://www.webstar.studio/",
   "CESAR School": "https://www.cesar.school/",
-  "Delusional": "https://delusionalstudio.vercel.app/",
+  "Delusional": "https://delusionals.studio/",
 };
 
 function HeroIntroCopy({ onOpenCv, staticDisplay = false }: { onOpenCv?: () => void; staticDisplay?: boolean }) {

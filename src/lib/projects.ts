@@ -32,7 +32,7 @@ const allProjectItems = [
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
     partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-    href: "https://delusionalstudio.vercel.app/",
+    href: "https://delusionals.studio/",
   },
   {
     title: "Filipe Regueira",

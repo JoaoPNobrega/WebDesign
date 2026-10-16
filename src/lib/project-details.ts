@@ -252,7 +252,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     images: ["/assets/siaze-preview.jpg", "/assets/siaze-1.jpg"],
     shots: [
       { src: "/assets/siaze-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com chamada pra contato e WhatsApp.", "Above the fold with contact and WhatsApp calls to action.") },
-      { src: "/assets/siaze-1.jpg", title: t("Serviços", "Services"), text: t("Serviços para empresas e seguradoras.", "Services for businesses and insurers.") },
+      { src: "/assets/siaze-1.jpg", title: t("Design em movimento", "Design in motion"), text: t("Serviços para empresas e seguradoras.", "Services for businesses and insurers.") },
     ],
   },
   "Affordable Granite": {
@@ -340,7 +340,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       },
       {
         src: "/assets/drcristiano-4.jpg",
-        title: t("Contato", "Contact"),
+        title: t("Comece enxuto, cresça depois", "Start lean, grow later"),
         text: t("Fechamento com canais de agendamento.", "Closing with booking channels."),
       },
     ],
@@ -379,28 +379,28 @@ export const projectDetails: Record<string, ProjectDetail> = {
     shots: [
       {
         src: "/assets/delusional-studio-preview.jpg",
-        title: t("Home imersiva", "Immersive home"),
-        text: t("Entrada do site com identidade visual marcante.", "Site entrance with a bold visual identity."),
+        title: t("Home", "Home"),
+        text: t("Hero com a peça 3D e a chamada principal.", "Hero with the 3D piece and the main call to action."),
       },
       {
         src: "/assets/delusional-studio-1.jpg",
-        title: t("Showcase de projetos", "Project showcase"),
-        text: t("Vitrine dos trabalhos entregues pelo estúdio.", "Display of the studio's delivered work."),
+        title: t("Cada peça tem uma função", "Every piece has a job"),
+        text: t("Vista explodida mostrando cada parte do site.", "Exploded view showing each part of the site."),
       },
       {
         src: "/assets/delusional-studio-2.jpg",
-        title: t("Animações interativas", "Interactive animations"),
-        text: t("Microinterações e movimento guiando a navegação.", "Microinteractions and motion guiding navigation."),
+        title: t("Lojas e marketplaces", "Stores and marketplaces"),
+        text: t("Seção de serviço guiada pela animação no scroll.", "Service section driven by the scroll animation."),
       },
       {
         src: "/assets/delusional-studio-3.jpg",
         title: t("Serviços", "Services"),
-        text: t("O que o estúdio entrega, do design ao deploy.", "What the studio delivers, from design to deploy."),
+        text: t("Animação a serviço da marca.", "Animation in service of the brand."),
       },
       {
         src: "/assets/delusional-studio-4.jpg",
         title: t("Contato", "Contact"),
-        text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
+        text: t("Versão inicial pronta pra crescer com novas páginas.", "A first version ready to grow with new pages."),
       },
     ],
   },
