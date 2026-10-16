@@ -103,7 +103,7 @@ const projects: Project[] = [
       "Showcase site for Delusional — an independent digital agency for web design and AI automation. It works as a bridge to the client: instead of relying on search, it's the piece the team shows in person or in an ad to prove, in seconds, that the studio exists and delivers. A brutalist look with a 3D hero (Three.js), condensed type and a purple accent, organized around three fronts — Web, Design and Automation — with a showcase of the team's work. A fast static site, deployed on Vercel to be shared as a link.",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.svg",
+    partnerLogo: "/assets/delusional-logo.png",
     href: "https://delusionalstudio.vercel.app/",
   },
   {
@@ -114,7 +114,7 @@ const projects: Project[] = [
       "Authority site for professor Filipe Regueira — public prosecutor, author and researcher in criminology, criminal policy and public safety. An “Ink & Brass” visual direction: near-black background, a brass accent and serif type, designed to hold long-form reading without fatigue. It gathers both books (with a dedicated page for “Balbúrdia Penal”), articles published in the press, talks filterable by topic, media appearances and his background — plus a custom admin panel where he publishes content himself and follows the site's numbers.",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.svg",
+    partnerLogo: "/assets/delusional-logo.png",
     href: "https://professorfiliperegueira.com.br/",
   },
   {
@@ -225,7 +225,7 @@ const projects: Project[] = [
       "Internal platform for Delusional (a freelance web-dev studio) to organize and support the whole team: project distribution, per-member earnings split, a personal Kanban, a contracts vault and uptime monitoring of clients' sites. A Neumorphism (Soft UI) aesthetic, with role-based login (owner/PO/member).",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.svg",
+    partnerLogo: "/assets/delusional-logo.png",
     href: "https://delulu-painel.vercel.app/",
   },
   {
