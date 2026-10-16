@@ -26,12 +26,12 @@ const allProjectItems = [
       "/assets/delusional-studio-4.jpg"
     ],
     description: {
-      "pt-BR": "Site-vitrine da Delusional — agência digital independente de web design e automação com IA. Funciona como uma ponte com o cliente: em vez de depender de busca, é a peça que a equipe mostra pessoalmente ou em anúncio pra provar, em segundos, que o estúdio existe e entrega. Visual brutalista com hero 3D (Three.js), tipografia condensada e acento roxo, organizado em três frentes — Web, Design e Automação — com a vitrine dos trabalhos do time. Site estático rápido, publicado na Vercel pra ser compartilhado por link.",
-      "en-US": "Showcase site for Delusional — an independent digital agency for web design and AI automation. It works as a bridge to the client: instead of relying on search, it's the piece the team shows in person or in an ad to prove, in seconds, that the studio exists and delivers. A brutalist look with a 3D hero (Three.js), condensed type and a purple accent, organized around three fronts — Web, Design and Automation — with a showcase of the team's work. A fast static site, deployed on Vercel to be shared as a link.",
+      "pt-BR": "Site da Delusional, estúdio independente de web design e automação em Recife. Apresenta os serviços (sites e landing pages, lojas e marketplaces, design e automação de tarefas) com hero 3D e animação guiada pelo scroll. Pensado pra busca local, com versões em português, inglês e espanhol.",
+      "en-US": "Website for Delusional, an independent web design and automation studio in Recife. It presents the services (websites and landing pages, stores and marketplaces, design and task automation) with a 3D hero and scroll-driven animation. Built for local search, with Portuguese, English and Spanish versions.",
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
     href: "https://delusionals.studio/",
   },
   {
@@ -54,7 +54,7 @@ const allProjectItems = [
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
     href: "https://professorfiliperegueira.com.br/",
   },
   {
@@ -116,7 +116,7 @@ const allProjectItems = [
     ctaLabel: "GitHub",
     partner: "CESAR School",
     partnerLogo: "/assets/cesar-school-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
   },
   {
     title: "t4kena geek store",
@@ -229,7 +229,7 @@ const allProjectItems = [
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
     href: "https://delulu-painel.vercel.app/",
   },
   {

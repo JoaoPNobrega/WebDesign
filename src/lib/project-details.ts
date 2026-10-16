@@ -366,8 +366,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "Delusional Studio": {
     tags: ["HTML", "CSS", "JavaScript", "Three.js", "Vite"],
     role: t(
-      "Concebi e produzi o site de apresentação da Delusional — agência digital independente de web design e automação. Defini o posicionamento e a copy das três frentes (Web, Design e Automação), montei o visual brutalista com hero 3D em Three.js, as microinterações e a vitrine dos trabalhos do time, e publiquei como site estático rápido na Vercel. Não é um site de busca: é a peça que a gente mostra ao cliente — pessoalmente ou em anúncio — pra provar em segundos que o estúdio existe e entrega.",
-      "I conceived and produced Delusional's presentation site — an independent digital agency for web design and automation. I defined the positioning and copy for the three fronts (Web, Design and Automation), built the brutalist look with a 3D hero in Three.js, the microinteractions and the team's work showcase, and shipped it as a fast static site on Vercel. It's not a search site: it's the piece we show clients — in person or in an ad — to prove in seconds that the studio exists and delivers.",
+      "Concebi e produzi o site da Delusional, estúdio independente de web design e automação em Recife. Escrevi a copy dos serviços (sites e landing pages, lojas e marketplaces, design e automação de tarefas), montei o hero 3D e as seções animadas pelo scroll e estruturei o site pra busca local, com versões em português, inglês e espanhol. Publicado na Vercel.",
+      "I conceived and produced the website for Delusional, an independent web design and automation studio in Recife. I wrote the copy for the services (websites and landing pages, stores and marketplaces, design and task automation), built the 3D hero and the scroll-animated sections and structured the site for local search, with Portuguese, English and Spanish versions. Deployed on Vercel.",
     ),
     images: [
       "/assets/delusional-studio-preview.jpg",
