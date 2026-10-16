@@ -58,7 +58,7 @@ const timelineItems: TimelineItem[] = [
       "en-US":
         "Building websites and landing pages on demand for clients, such as professor Filipe Regueira's site — visual direction, front-end and polish. Each project, end to end.",
     },
-    logo: "/assets/delusional-logo.png",
+    logo: "/assets/delusional-logo.svg",
     logoClassName: "max-h-8 max-w-[68%]",
   },
   {

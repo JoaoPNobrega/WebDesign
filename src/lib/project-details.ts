@@ -55,6 +55,12 @@ export const projectCategory: Record<string, Category> = {
   "Izi Solutions": "site",
   "Ines Knoden": "site",
   "Dr Dimas Antunes": "site",
+  "t4kena geek store": "site",
+  Siaze: "site",
+  "Affordable Granite": "site",
+  "Dra Danielle Talamonti": "site",
+  "Dra Raquel Kelner": "site",
+  "Dr Guilherme Mendonça": "site",
   "Dr Cristiano Berardo": "site",
   "Keeping House": "site",
   "Delusional Studio": "site",
@@ -218,6 +224,84 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "/assets/dimas-3.jpg",
       "/assets/dimas-4.jpg",
       "/assets/dimas-5.jpg",
+    ],
+  },
+  "t4kena geek store": {
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Zod"],
+    role: t(
+      "Projeto pessoal: a loja online da t4kena geek store, de cartas Pokémon TCG. Construí o front e o back em Next.js + TypeScript: catálogo com busca e filtros, coleções, página de produto, carrinho com limite por pessoa e escolha de entrega, e o pedido fechado pelo WhatsApp. O painel administrativo protegido por senha tem CRUD de produtos validado com Zod, controle de estoque com entrada e saída registradas e as configurações públicas da loja. A camada de dados fica isolada num repositório, pronta pra migrar pro Supabase.",
+      "Personal project: the online store for t4kena geek store, a Pokémon TCG card shop. I built front and back end in Next.js + TypeScript: a catalog with search and filters, collections, product pages, a cart with per-person limits and delivery options, and orders closed via WhatsApp. The password-protected admin panel has Zod-validated product CRUD, stock control with logged in/out movements and the store's public settings. The data layer is isolated behind a repository, ready to move to Supabase.",
+    ),
+    images: [
+      "/assets/t4kena-preview.jpg",
+      "/assets/t4kena-1.jpg",
+      "/assets/t4kena-2.jpg",
+    ],
+    shots: [
+      { src: "/assets/t4kena-preview.jpg", title: t("Home ilustrada", "Illustrated home"), text: t("Hero com cena ilustrada e atalhos pro catálogo e coleções.", "Hero with an illustrated scene and shortcuts to the catalog and collections.") },
+      { src: "/assets/t4kena-1.jpg", title: t("Catálogo", "Catalog"), text: t("Busca e filtros pelas cartas disponíveis.", "Search and filters across the available cards.") },
+      { src: "/assets/t4kena-2.jpg", title: t("Coleções", "Collections"), text: t("Navegação pelas coleções da loja.", "Browsing the store's collections.") },
+    ],
+  },
+  Siaze: {
+    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion", "GSAP"],
+    role: t(
+      "Site institucional da Siaze, desenvolvido na Web Star Studio. Atuei no front-end das páginas de home, sobre, serviços, prevenção, portal EAD e contato, com responsividade, animações e o visual moderno de healthtech pedido pela empresa. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Institutional website for Siaze, built at Web Star Studio. I worked on the front-end for the home, about, services, prevention, e-learning portal and contact pages, with responsiveness, animations and the modern healthtech look the company asked for. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/siaze-preview.jpg", "/assets/siaze-1.jpg"],
+    shots: [
+      { src: "/assets/siaze-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com chamada pra contato e WhatsApp.", "Above the fold with contact and WhatsApp calls to action.") },
+      { src: "/assets/siaze-1.jpg", title: t("Serviços", "Services"), text: t("Serviços para empresas e seguradoras.", "Services for businesses and insurers.") },
+    ],
+  },
+  "Affordable Granite": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Lovable"],
+    role: t(
+      "Site da Affordable Granite, empresa de bancadas em pedra e armários na Flórida (EUA), desenvolvido na Web Star Studio. Catálogo de materiais por categoria e marca, páginas de serviços e de áreas atendidas, galeria de projetos, pedido de orçamento, um visualizador com IA que aplica o material escolhido na foto do ambiente do cliente e um painel administrativo completo. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for Affordable Granite, a stone countertop and cabinet company in Florida (USA), built during my work at Web Star Studio. A material catalog by category and brand, service and service-area pages, a project gallery, estimate requests, an AI visualizer that applies the chosen material to a photo of the client's room and a full admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/granite-preview.jpg", "/assets/granite-1.jpg", "/assets/granite-2.jpg"],
+    shots: [
+      { src: "/assets/granite-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com chamada pra orçamento.", "Above the fold with a call to request an estimate.") },
+      { src: "/assets/granite-1.jpg", title: t("Visualizador", "Visualizer"), text: t("Visualizador de cozinha com IA.", "AI kitchen visualizer.") },
+      { src: "/assets/granite-2.jpg", title: t("Materiais", "Materials"), text: t("Catálogo de materiais com filtros.", "Material catalog with filters.") },
+    ],
+  },
+  "Dra Danielle Talamonti": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS"],
+    role: t(
+      "Site da coloproctologista Dra. Danielle Talamonti, desenvolvido na Web Star Studio. Home com posicionamento da médica, páginas de especialidades (doença hemorroidária e plicomas anais), sobre, blog, FAQ e contato, com painel administrativo em desenvolvimento. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for colorectal surgeon Dr. Danielle Talamonti, built during my work at Web Star Studio. A home presenting the doctor, specialty pages (hemorrhoidal disease and anal skin tags), about, blog, FAQ and contact, with an admin panel in development. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/danielle-preview.jpg", "/assets/danielle-1.jpg"],
+    shots: [
+      { src: "/assets/danielle-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com a apresentação da médica.", "Above the fold presenting the doctor.") },
+      { src: "/assets/danielle-1.jpg", title: t("Especialidades", "Specialties"), text: t("Especialidades em coloproctologia.", "Colorectal specialties.") },
+    ],
+  },
+  "Dra Raquel Kelner": {
+    tags: ["React", "Vite", "TypeScript", "Tailwind CSS", "GSAP"],
+    role: t(
+      "Site da proctologista e coloproctologista Dra. Raquel Kelner (Recife), desenvolvido na Web Star Studio. Páginas de condições, procedimentos, equipe, jornada do paciente, blog e agendamento, além de portal do paciente e painel administrativo. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for proctologist and colorectal surgeon Dr. Raquel Kelner (Recife), built during my work at Web Star Studio. Pages for conditions, procedures, team, patient journey, blog and booking, plus a patient portal and an admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/raquel-preview.jpg", "/assets/raquel-1.jpg"],
+    shots: [
+      { src: "/assets/raquel-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com a apresentação da médica.", "Above the fold presenting the doctor.") },
+      { src: "/assets/raquel-1.jpg", title: t("Procedimentos", "Procedures"), text: t("Procedimentos minimamente invasivos.", "Minimally invasive procedures.") },
+    ],
+  },
+  "Dr Guilherme Mendonça": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS"],
+    role: t(
+      "Site do cirurgião torácico Dr. Guilherme Mendonça (Arcoverde e Recife), desenvolvido na Web Star Studio. Páginas por especialidade (nódulo e câncer de pulmão, cirurgia robótica, derrame pleural, hiperidrose, broncoscopia e traqueoscopia), sobre, blog, FAQ e contato, com painel administrativo próprio. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for thoracic surgeon Dr. Guilherme Mendonça (Arcoverde and Recife), built during my work at Web Star Studio. Pages per specialty (lung nodules and cancer, robotic surgery, pleural effusion, hyperhidrosis, bronchoscopy and tracheostomy), about, blog, FAQ and contact, with its own admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/guilherme-mendonca-preview.jpg", "/assets/guilherme-mendonca-1.jpg"],
+    shots: [
+      { src: "/assets/guilherme-mendonca-preview.jpg", title: t("Sobre", "About"), text: t("Apresentação do médico.", "Introducing the doctor.") },
+      { src: "/assets/guilherme-mendonca-1.jpg", title: t("Especialidades", "Specialties"), text: t("Condições tratadas, uma por página.", "Conditions treated, one per page.") },
     ],
   },
   "Dr Cristiano Berardo": {

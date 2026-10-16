@@ -103,7 +103,7 @@ const projects: Project[] = [
       "Showcase site for Delusional — an independent digital agency for web design and AI automation. It works as a bridge to the client: instead of relying on search, it's the piece the team shows in person or in an ad to prove, in seconds, that the studio exists and delivers. A brutalist look with a 3D hero (Three.js), condensed type and a purple accent, organized around three fronts — Web, Design and Automation — with a showcase of the team's work. A fast static site, deployed on Vercel to be shared as a link.",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogo: "/assets/delusional-logo.svg",
     href: "https://delusionalstudio.vercel.app/",
   },
   {
@@ -114,7 +114,7 @@ const projects: Project[] = [
       "Authority site for professor Filipe Regueira — public prosecutor, author and researcher in criminology, criminal policy and public safety. An “Ink & Brass” visual direction: near-black background, a brass accent and serif type, designed to hold long-form reading without fatigue. It gathers both books (with a dedicated page for “Balbúrdia Penal”), articles published in the press, talks filterable by topic, media appearances and his background — plus a custom admin panel where he publishes content himself and follows the site's numbers.",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogo: "/assets/delusional-logo.svg",
     href: "https://professorfiliperegueira.com.br/",
   },
   {
@@ -149,6 +149,65 @@ const projects: Project[] = [
     partnerLogo: "/assets/cesar-school-logo.png",
   },
   {
+    title: "t4kena geek store",
+    image: "/assets/t4kena-preview.jpg",
+    description: L(
+      "Loja própria da t4kena geek store, de cartas Pokémon TCG em Recife — projeto pessoal. Catálogo com busca e filtros, coleções, lacrados, página de produto, carrinho com pedido fechado pelo WhatsApp e um painel administrativo próprio com CRUD de produtos, preço, estoque com movimentações registradas e configurações da loja. Visual ilustrado com animações em GSAP e scroll suave (Lenis).",
+      "Custom online store for t4kena geek store, a Pokémon TCG card shop in Recife — a personal project. Catalog with search and filters, collections, sealed products, product pages, a cart that closes the order via WhatsApp and a custom admin panel with product CRUD, pricing, stock movements and store settings. An illustrated look with GSAP animations and smooth scrolling (Lenis).",
+    ),
+    href: "https://t4kena.vercel.app/",
+  },
+  {
+    title: "Siaze",
+    image: "/assets/siaze-preview.jpg",
+    description: L(
+      "Site institucional da Siaze, empresa de gestão de sinistros, assistência à saúde e prevenção de acidentes para empresas e seguradoras, desenvolvido durante meu trabalho na Web Star Studio. Páginas de serviços, prevenção, portal EAD e contato, com visual moderno de healthtech.",
+      "Institutional website for Siaze, a company handling claims management, health assistance and accident prevention for businesses and insurers, built during my work at Web Star Studio. Services, prevention, e-learning portal and contact pages, with a modern healthtech look.",
+    ),
+    partner: "Web Star Studio",
+    href: "https://siaze.com.br/",
+  },
+  {
+    title: "Affordable Granite",
+    image: "/assets/granite-preview.jpg",
+    description: L(
+      "Site da Affordable Granite, empresa de bancadas em pedra e armários na Flórida (EUA), desenvolvido durante meu trabalho na Web Star Studio. Catálogo de materiais por categoria e marca, páginas de serviços e de áreas atendidas, galeria de projetos, pedido de orçamento, um visualizador com IA que aplica o material escolhido na foto do ambiente do cliente e um painel administrativo completo.",
+      "Website for Affordable Granite, a stone countertop and cabinet company in Florida (USA), built during my work at Web Star Studio. A material catalog by category and brand, service and service-area pages, a project gallery, estimate requests, an AI visualizer that applies the chosen material to a photo of the client's room and a full admin panel.",
+    ),
+    partner: "Web Star Studio",
+    href: "https://affordable-granite.webstarstudio.site/",
+  },
+  {
+    title: "Dra Danielle Talamonti",
+    image: "/assets/danielle-preview.jpg",
+    description: L(
+      "Site da coloproctologista Dra. Danielle Talamonti, desenvolvido durante meu trabalho na Web Star Studio. Home com posicionamento da médica, páginas de especialidades (doença hemorroidária e plicomas anais), sobre, blog, FAQ e contato, com painel administrativo em desenvolvimento.",
+      "Website for colorectal surgeon Dr. Danielle Talamonti, built during my work at Web Star Studio. A home presenting the doctor, specialty pages (hemorrhoidal disease and anal skin tags), about, blog, FAQ and contact, with an admin panel in development.",
+    ),
+    partner: "Web Star Studio",
+    href: "https://dradanielletalamonti.webstarstudio.site/",
+  },
+  {
+    title: "Dra Raquel Kelner",
+    image: "/assets/raquel-preview.jpg",
+    description: L(
+      "Site da proctologista e coloproctologista Dra. Raquel Kelner (Recife), desenvolvido durante meu trabalho na Web Star Studio. Páginas de condições, procedimentos, equipe, jornada do paciente, blog e agendamento, além de portal do paciente e painel administrativo.",
+      "Website for proctologist and colorectal surgeon Dr. Raquel Kelner (Recife), built during my work at Web Star Studio. Pages for conditions, procedures, team, patient journey, blog and booking, plus a patient portal and an admin panel.",
+    ),
+    partner: "Web Star Studio",
+    href: "https://draraquelkelner.com/",
+  },
+  {
+    title: "Dr Guilherme Mendonça",
+    image: "/assets/guilherme-mendonca-preview.jpg",
+    description: L(
+      "Site do cirurgião torácico Dr. Guilherme Mendonça (Arcoverde e Recife), desenvolvido durante meu trabalho na Web Star Studio. Páginas por especialidade (nódulo e câncer de pulmão, cirurgia robótica, derrame pleural, hiperidrose, broncoscopia e traqueoscopia), sobre, blog, FAQ e contato, com painel administrativo próprio.",
+      "Website for thoracic surgeon Dr. Guilherme Mendonça (Arcoverde and Recife), built during my work at Web Star Studio. Pages per specialty (lung nodules and cancer, robotic surgery, pleural effusion, hyperhidrosis, bronchoscopy and tracheostomy), about, blog, FAQ and contact, with its own admin panel.",
+    ),
+    partner: "Web Star Studio",
+    href: "https://drguilhermemendonca.com.br/",
+  },
+  {
     title: "Dr Cristiano Berardo",
     image: "/assets/drcristiano-preview.jpg",
     description: L(
@@ -166,7 +225,7 @@ const projects: Project[] = [
       "Internal platform for Delusional (a freelance web-dev studio) to organize and support the whole team: project distribution, per-member earnings split, a personal Kanban, a contracts vault and uptime monitoring of clients' sites. A Neumorphism (Soft UI) aesthetic, with role-based login (owner/PO/member).",
     ),
     partner: "Delusional",
-    partnerLogo: "/assets/delusional-logo.png",
+    partnerLogo: "/assets/delusional-logo.svg",
     href: "https://delulu-painel.vercel.app/",
   },
   {
