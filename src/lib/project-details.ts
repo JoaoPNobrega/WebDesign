@@ -55,6 +55,12 @@ export const projectCategory: Record<string, Category> = {
   "Izi Solutions": "site",
   "Ines Knoden": "site",
   "Dr Dimas Antunes": "site",
+  "t4kena geek store": "site",
+  Siaze: "site",
+  "Affordable Granite": "site",
+  "Dra Danielle Talamonti": "site",
+  "Dra Raquel Kelner": "site",
+  "Dr Guilherme Mendonça": "site",
   "Dr Cristiano Berardo": "site",
   "Keeping House": "site",
   "Delusional Studio": "site",
@@ -220,6 +226,84 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "/assets/dimas-5.jpg",
     ],
   },
+  "t4kena geek store": {
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Zod"],
+    role: t(
+      "Projeto pessoal: a loja online da t4kena geek store, de cartas Pokémon TCG. Construí o front e o back em Next.js + TypeScript: catálogo com busca e filtros, coleções, página de produto, carrinho com limite por pessoa e escolha de entrega, e o pedido fechado pelo WhatsApp. O painel administrativo protegido por senha tem CRUD de produtos validado com Zod, controle de estoque com entrada e saída registradas e as configurações públicas da loja. A camada de dados fica isolada num repositório, pronta pra migrar pro Supabase.",
+      "Personal project: the online store for t4kena geek store, a Pokémon TCG card shop. I built front and back end in Next.js + TypeScript: a catalog with search and filters, collections, product pages, a cart with per-person limits and delivery options, and orders closed via WhatsApp. The password-protected admin panel has Zod-validated product CRUD, stock control with logged in/out movements and the store's public settings. The data layer is isolated behind a repository, ready to move to Supabase.",
+    ),
+    images: [
+      "/assets/t4kena-preview.jpg",
+      "/assets/t4kena-1.jpg",
+      "/assets/t4kena-2.jpg",
+    ],
+    shots: [
+      { src: "/assets/t4kena-preview.jpg", title: t("Home ilustrada", "Illustrated home"), text: t("Hero com cena ilustrada e atalhos pro catálogo e coleções.", "Hero with an illustrated scene and shortcuts to the catalog and collections.") },
+      { src: "/assets/t4kena-1.jpg", title: t("Catálogo", "Catalog"), text: t("Busca e filtros pelas cartas disponíveis.", "Search and filters across the available cards.") },
+      { src: "/assets/t4kena-2.jpg", title: t("Coleções", "Collections"), text: t("Navegação pelas coleções da loja.", "Browsing the store's collections.") },
+    ],
+  },
+  Siaze: {
+    tags: ["React", "Vite", "Tailwind CSS", "Framer Motion", "GSAP"],
+    role: t(
+      "Site institucional da Siaze, desenvolvido na Web Star Studio. Atuei no front-end das páginas de home, sobre, serviços, prevenção, portal EAD e contato, com responsividade, animações e o visual moderno de healthtech pedido pela empresa. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Institutional website for Siaze, built at Web Star Studio. I worked on the front-end for the home, about, services, prevention, e-learning portal and contact pages, with responsiveness, animations and the modern healthtech look the company asked for. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/siaze-preview.jpg", "/assets/siaze-1.jpg"],
+    shots: [
+      { src: "/assets/siaze-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com chamada pra contato e WhatsApp.", "Above the fold with contact and WhatsApp calls to action.") },
+      { src: "/assets/siaze-1.jpg", title: t("Design em movimento", "Design in motion"), text: t("Serviços para empresas e seguradoras.", "Services for businesses and insurers.") },
+    ],
+  },
+  "Affordable Granite": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS", "Lovable"],
+    role: t(
+      "Site da Affordable Granite, empresa de bancadas em pedra e armários na Flórida (EUA), desenvolvido na Web Star Studio. Catálogo de materiais por categoria e marca, páginas de serviços e de áreas atendidas, galeria de projetos, pedido de orçamento, um visualizador com IA que aplica o material escolhido na foto do ambiente do cliente e um painel administrativo completo. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for Affordable Granite, a stone countertop and cabinet company in Florida (USA), built during my work at Web Star Studio. A material catalog by category and brand, service and service-area pages, a project gallery, estimate requests, an AI visualizer that applies the chosen material to a photo of the client's room and a full admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/granite-preview.jpg", "/assets/granite-1.jpg", "/assets/granite-2.jpg"],
+    shots: [
+      { src: "/assets/granite-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com chamada pra orçamento.", "Above the fold with a call to request an estimate.") },
+      { src: "/assets/granite-1.jpg", title: t("Visualizador", "Visualizer"), text: t("Visualizador de cozinha com IA.", "AI kitchen visualizer.") },
+      { src: "/assets/granite-2.jpg", title: t("Materiais", "Materials"), text: t("Catálogo de materiais com filtros.", "Material catalog with filters.") },
+    ],
+  },
+  "Dra Danielle Talamonti": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS"],
+    role: t(
+      "Site da coloproctologista Dra. Danielle Talamonti, desenvolvido na Web Star Studio. Home com posicionamento da médica, páginas de especialidades (doença hemorroidária e plicomas anais), sobre, blog, FAQ e contato, com painel administrativo em desenvolvimento. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for colorectal surgeon Dr. Danielle Talamonti, built during my work at Web Star Studio. A home presenting the doctor, specialty pages (hemorrhoidal disease and anal skin tags), about, blog, FAQ and contact, with an admin panel in development. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/danielle-preview.jpg", "/assets/danielle-1.jpg"],
+    shots: [
+      { src: "/assets/danielle-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com a apresentação da médica.", "Above the fold presenting the doctor.") },
+      { src: "/assets/danielle-1.jpg", title: t("Especialidades", "Specialties"), text: t("Especialidades em coloproctologia.", "Colorectal specialties.") },
+    ],
+  },
+  "Dra Raquel Kelner": {
+    tags: ["React", "Vite", "TypeScript", "Tailwind CSS", "GSAP"],
+    role: t(
+      "Site da proctologista e coloproctologista Dra. Raquel Kelner (Recife), desenvolvido na Web Star Studio. Páginas de condições, procedimentos, equipe, jornada do paciente, blog e agendamento, além de portal do paciente e painel administrativo. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for proctologist and colorectal surgeon Dr. Raquel Kelner (Recife), built during my work at Web Star Studio. Pages for conditions, procedures, team, patient journey, blog and booking, plus a patient portal and an admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/raquel-preview.jpg", "/assets/raquel-1.jpg"],
+    shots: [
+      { src: "/assets/raquel-preview.jpg", title: t("Home", "Home"), text: t("Primeira dobra com a apresentação da médica.", "Above the fold presenting the doctor.") },
+      { src: "/assets/raquel-1.jpg", title: t("Procedimentos", "Procedures"), text: t("Procedimentos minimamente invasivos.", "Minimally invasive procedures.") },
+    ],
+  },
+  "Dr Guilherme Mendonça": {
+    tags: ["React", "TypeScript", "TanStack Start", "Tailwind CSS"],
+    role: t(
+      "Site do cirurgião torácico Dr. Guilherme Mendonça (Arcoverde e Recife), desenvolvido na Web Star Studio. Páginas por especialidade (nódulo e câncer de pulmão, cirurgia robótica, derrame pleural, hiperidrose, broncoscopia e traqueoscopia), sobre, blog, FAQ e contato, com painel administrativo próprio. Todo o ferramental de IA da produção foi fornecido pela empresa.",
+      "Website for thoracic surgeon Dr. Guilherme Mendonça (Arcoverde and Recife), built during my work at Web Star Studio. Pages per specialty (lung nodules and cancer, robotic surgery, pleural effusion, hyperhidrosis, bronchoscopy and tracheostomy), about, blog, FAQ and contact, with its own admin panel. All the AI tooling used in production was provided by the company.",
+    ),
+    images: ["/assets/guilherme-mendonca-preview.jpg", "/assets/guilherme-mendonca-1.jpg"],
+    shots: [
+      { src: "/assets/guilherme-mendonca-preview.jpg", title: t("Sobre", "About"), text: t("Apresentação do médico.", "Introducing the doctor.") },
+      { src: "/assets/guilherme-mendonca-1.jpg", title: t("Especialidades", "Specialties"), text: t("Condições tratadas, uma por página.", "Conditions treated, one per page.") },
+    ],
+  },
   "Dr Cristiano Berardo": {
     tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     role: t(
@@ -256,7 +340,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       },
       {
         src: "/assets/drcristiano-4.jpg",
-        title: t("Contato", "Contact"),
+        title: t("Comece enxuto, cresça depois", "Start lean, grow later"),
         text: t("Fechamento com canais de agendamento.", "Closing with booking channels."),
       },
     ],
@@ -282,8 +366,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "Delusional Studio": {
     tags: ["HTML", "CSS", "JavaScript", "Three.js", "Vite"],
     role: t(
-      "Concebi e produzi o site de apresentação da Delusional — agência digital independente de web design e automação. Defini o posicionamento e a copy das três frentes (Web, Design e Automação), montei o visual brutalista com hero 3D em Three.js, as microinterações e a vitrine dos trabalhos do time, e publiquei como site estático rápido na Vercel. Não é um site de busca: é a peça que a gente mostra ao cliente — pessoalmente ou em anúncio — pra provar em segundos que o estúdio existe e entrega.",
-      "I conceived and produced Delusional's presentation site — an independent digital agency for web design and automation. I defined the positioning and copy for the three fronts (Web, Design and Automation), built the brutalist look with a 3D hero in Three.js, the microinteractions and the team's work showcase, and shipped it as a fast static site on Vercel. It's not a search site: it's the piece we show clients — in person or in an ad — to prove in seconds that the studio exists and delivers.",
+      "Concebi e produzi o site da Delusional, estúdio independente de web design e automação em Recife. Escrevi a copy dos serviços (sites e landing pages, lojas e marketplaces, design e automação de tarefas), montei o hero 3D e as seções animadas pelo scroll e estruturei o site pra busca local, com versões em português, inglês e espanhol. Publicado na Vercel.",
+      "I conceived and produced the website for Delusional, an independent web design and automation studio in Recife. I wrote the copy for the services (websites and landing pages, stores and marketplaces, design and task automation), built the 3D hero and the scroll-animated sections and structured the site for local search, with Portuguese, English and Spanish versions. Deployed on Vercel.",
     ),
     images: [
       "/assets/delusional-studio-preview.jpg",
@@ -295,28 +379,28 @@ export const projectDetails: Record<string, ProjectDetail> = {
     shots: [
       {
         src: "/assets/delusional-studio-preview.jpg",
-        title: t("Home imersiva", "Immersive home"),
-        text: t("Entrada do site com identidade visual marcante.", "Site entrance with a bold visual identity."),
+        title: t("Home", "Home"),
+        text: t("Hero com a peça 3D e a chamada principal.", "Hero with the 3D piece and the main call to action."),
       },
       {
         src: "/assets/delusional-studio-1.jpg",
-        title: t("Showcase de projetos", "Project showcase"),
-        text: t("Vitrine dos trabalhos entregues pelo estúdio.", "Display of the studio's delivered work."),
+        title: t("Cada peça tem uma função", "Every piece has a job"),
+        text: t("Vista explodida mostrando cada parte do site.", "Exploded view showing each part of the site."),
       },
       {
         src: "/assets/delusional-studio-2.jpg",
-        title: t("Animações interativas", "Interactive animations"),
-        text: t("Microinterações e movimento guiando a navegação.", "Microinteractions and motion guiding navigation."),
+        title: t("Lojas e marketplaces", "Stores and marketplaces"),
+        text: t("Seção de serviço guiada pela animação no scroll.", "Service section driven by the scroll animation."),
       },
       {
         src: "/assets/delusional-studio-3.jpg",
         title: t("Serviços", "Services"),
-        text: t("O que o estúdio entrega, do design ao deploy.", "What the studio delivers, from design to deploy."),
+        text: t("Animação a serviço da marca.", "Animation in service of the brand."),
       },
       {
         src: "/assets/delusional-studio-4.jpg",
         title: t("Contato", "Contact"),
-        text: t("Fechamento com chamada para novos projetos.", "Closing with a call for new projects."),
+        text: t("Versão inicial pronta pra crescer com novas páginas.", "A first version ready to grow with new pages."),
       },
     ],
   },

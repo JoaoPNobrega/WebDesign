@@ -19,6 +19,13 @@ export default function usePortfolioNavigation() {
     } else window.scrollTo(0, about.getBoundingClientRect().top + window.scrollY);
   }
 
+  function scrollToTarget(target: HTMLElement) {
+    const scroll = smoothScroll.current;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (scroll) scroll.scrollTo(target, reduce ? { immediate: true } : { duration: 1.4 });
+    else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  }
+
   function openAbout() {
     if (running.current) return;
     if (unlocked && window.scrollY > window.innerHeight * .25) { showAbout(); return; }
@@ -52,5 +59,5 @@ export default function usePortfolioNavigation() {
     return () => window.removeEventListener("scroll", update);
   }, [unlocked]);
 
-  return { unlocked, transitioning, aboutActive, openAbout };
+  return { unlocked, transitioning, aboutActive, openAbout, scrollToTarget };
 }

@@ -1,7 +1,8 @@
 import Signature from "./components/Signature";
 import ContactNotch from "./components/ContactNotch";
 import usePortfolioNavigation from "./components/usePortfolioNavigation";
-import AboutScene from "./components/AboutScene";
+import RedesignSections from "./components/redesign/RedesignSections";
+import SiteFooter from "./components/SiteFooter";
 
 export default function App() {
   const navigation = usePortfolioNavigation();
@@ -29,7 +30,8 @@ export default function App() {
         </div>
         <Signature />
       </section>
-      {navigation.unlocked && <AboutScene />}
+      {navigation.unlocked && <RedesignSections onNavigate={navigation.scrollToTarget} />}
+      {navigation.unlocked && <SiteFooter />}
     </main>
   );
 }

@@ -14,7 +14,7 @@ const allProjectItems = [
       "en-US": "Website for urologist Dr. Daniel Pianetti (Belo Horizonte), built during my internship at Web Star Studio. Focused on Da Vinci robotic surgery, urologic oncology (prostate, kidney and bladder) and HoLEP, with a 3D object, an animated logo and a narrative that conveys technology and trust. It has dedicated pages per procedure, a blog with its own admin (CMS), real reviews (Doctoralia + Google) and a chatbot — all with heavy SEO/GEO (JSON-LD, llms.txt) to rank and get cited by search and AI.",
     },
     partner: "Web Star Studio",
-    href: "https://daniel.webstar.studio/",
+    href: "https://drdanielpianetti.com.br/",
   },
   {
     title: "Delusional Studio",
@@ -26,13 +26,13 @@ const allProjectItems = [
       "/assets/delusional-studio-4.jpg"
     ],
     description: {
-      "pt-BR": "Site-vitrine da Delusional — agência digital independente de web design e automação com IA. Funciona como uma ponte com o cliente: em vez de depender de busca, é a peça que a equipe mostra pessoalmente ou em anúncio pra provar, em segundos, que o estúdio existe e entrega. Visual brutalista com hero 3D (Three.js), tipografia condensada e acento roxo, organizado em três frentes — Web, Design e Automação — com a vitrine dos trabalhos do time. Site estático rápido, publicado na Vercel pra ser compartilhado por link.",
-      "en-US": "Showcase site for Delusional — an independent digital agency for web design and AI automation. It works as a bridge to the client: instead of relying on search, it's the piece the team shows in person or in an ad to prove, in seconds, that the studio exists and delivers. A brutalist look with a 3D hero (Three.js), condensed type and a purple accent, organized around three fronts — Web, Design and Automation — with a showcase of the team's work. A fast static site, deployed on Vercel to be shared as a link.",
+      "pt-BR": "Site da Delusional, estúdio independente de web design e automação em Recife. Apresenta os serviços (sites e landing pages, lojas e marketplaces, design e automação de tarefas) com hero 3D e animação guiada pelo scroll. Pensado pra busca local, com versões em português, inglês e espanhol.",
+      "en-US": "Website for Delusional, an independent web design and automation studio in Recife. It presents the services (websites and landing pages, stores and marketplaces, design and task automation) with a 3D hero and scroll-driven animation. Built for local search, with Portuguese, English and Spanish versions.",
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
-    href: "https://delusionalstudio.vercel.app/",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
+    href: "https://delusionals.studio/",
   },
   {
     title: "Filipe Regueira",
@@ -54,7 +54,7 @@ const allProjectItems = [
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
     href: "https://professorfiliperegueira.com.br/",
   },
   {
@@ -116,7 +116,86 @@ const allProjectItems = [
     ctaLabel: "GitHub",
     partner: "CESAR School",
     partnerLogo: "/assets/cesar-school-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
+  },
+  {
+    title: "t4kena geek store",
+    images: [
+      "/assets/t4kena-preview.jpg",
+      "/assets/t4kena-1.jpg",
+      "/assets/t4kena-2.jpg"
+    ],
+    description: {
+      "pt-BR": "Loja própria da t4kena geek store, de cartas Pokémon TCG em Recife — projeto pessoal. Catálogo com busca e filtros, coleções, lacrados, página de produto, carrinho com pedido fechado pelo WhatsApp e um painel administrativo próprio com CRUD de produtos, preço, estoque com movimentações registradas e configurações da loja. Visual ilustrado com animações em GSAP e scroll suave (Lenis).",
+      "en-US": "Custom online store for t4kena geek store, a Pokémon TCG card shop in Recife — a personal project. Catalog with search and filters, collections, sealed products, product pages, a cart that closes the order via WhatsApp and a custom admin panel with product CRUD, pricing, stock movements and store settings. An illustrated look with GSAP animations and smooth scrolling (Lenis).",
+    },
+    href: "https://t4kena.vercel.app/",
+  },
+  {
+    title: "Siaze",
+    images: [
+      "/assets/siaze-preview.jpg",
+      "/assets/siaze-1.jpg"
+    ],
+    description: {
+      "pt-BR": "Site institucional da Siaze, empresa de gestão de sinistros, assistência à saúde e prevenção de acidentes para empresas e seguradoras, desenvolvido durante meu trabalho na Web Star Studio. Páginas de serviços, prevenção, portal EAD e contato, com visual moderno de healthtech.",
+      "en-US": "Institutional website for Siaze, a company handling claims management, health assistance and accident prevention for businesses and insurers, built during my work at Web Star Studio. Services, prevention, e-learning portal and contact pages, with a modern healthtech look.",
+    },
+    partner: "Web Star Studio",
+    href: "https://siaze.com.br/",
+  },
+  {
+    title: "Affordable Granite",
+    images: [
+      "/assets/granite-preview.jpg",
+      "/assets/granite-1.jpg",
+      "/assets/granite-2.jpg"
+    ],
+    description: {
+      "pt-BR": "Site da Affordable Granite, empresa de bancadas em pedra e armários na Flórida (EUA), desenvolvido durante meu trabalho na Web Star Studio. Catálogo de materiais por categoria e marca, páginas de serviços e de áreas atendidas, galeria de projetos, pedido de orçamento, um visualizador com IA que aplica o material escolhido na foto do ambiente do cliente e um painel administrativo completo.",
+      "en-US": "Website for Affordable Granite, a stone countertop and cabinet company in Florida (USA), built during my work at Web Star Studio. A material catalog by category and brand, service and service-area pages, a project gallery, estimate requests, an AI visualizer that applies the chosen material to a photo of the client's room and a full admin panel.",
+    },
+    partner: "Web Star Studio",
+    href: "https://affordable-granite.webstarstudio.site/",
+  },
+  {
+    title: "Dra Danielle Talamonti",
+    images: [
+      "/assets/danielle-preview.jpg",
+      "/assets/danielle-1.jpg"
+    ],
+    description: {
+      "pt-BR": "Site da coloproctologista Dra. Danielle Talamonti, desenvolvido durante meu trabalho na Web Star Studio. Home com posicionamento da médica, páginas de especialidades (doença hemorroidária e plicomas anais), sobre, blog, FAQ e contato, com painel administrativo em desenvolvimento.",
+      "en-US": "Website for colorectal surgeon Dr. Danielle Talamonti, built during my work at Web Star Studio. A home presenting the doctor, specialty pages (hemorrhoidal disease and anal skin tags), about, blog, FAQ and contact, with an admin panel in development.",
+    },
+    partner: "Web Star Studio",
+    href: "https://dradanielletalamonti.webstarstudio.site/",
+  },
+  {
+    title: "Dra Raquel Kelner",
+    images: [
+      "/assets/raquel-preview.jpg",
+      "/assets/raquel-1.jpg"
+    ],
+    description: {
+      "pt-BR": "Site da proctologista e coloproctologista Dra. Raquel Kelner (Recife), desenvolvido durante meu trabalho na Web Star Studio. Páginas de condições, procedimentos, equipe, jornada do paciente, blog e agendamento, além de portal do paciente e painel administrativo.",
+      "en-US": "Website for proctologist and colorectal surgeon Dr. Raquel Kelner (Recife), built during my work at Web Star Studio. Pages for conditions, procedures, team, patient journey, blog and booking, plus a patient portal and an admin panel.",
+    },
+    partner: "Web Star Studio",
+    href: "https://draraquelkelner.com/",
+  },
+  {
+    title: "Dr Guilherme Mendonça",
+    images: [
+      "/assets/guilherme-mendonca-preview.jpg",
+      "/assets/guilherme-mendonca-1.jpg"
+    ],
+    description: {
+      "pt-BR": "Site do cirurgião torácico Dr. Guilherme Mendonça (Arcoverde e Recife), desenvolvido durante meu trabalho na Web Star Studio. Páginas por especialidade (nódulo e câncer de pulmão, cirurgia robótica, derrame pleural, hiperidrose, broncoscopia e traqueoscopia), sobre, blog, FAQ e contato, com painel administrativo próprio.",
+      "en-US": "Website for thoracic surgeon Dr. Guilherme Mendonça (Arcoverde and Recife), built during my work at Web Star Studio. Pages per specialty (lung nodules and cancer, robotic surgery, pleural effusion, hyperhidrosis, bronchoscopy and tracheostomy), about, blog, FAQ and contact, with its own admin panel.",
+    },
+    partner: "Web Star Studio",
+    href: "https://drguilhermemendonca.com.br/",
   },
   {
     title: "Dr Cristiano Berardo",
@@ -150,7 +229,7 @@ const allProjectItems = [
     },
     partner: "Delusional",
     partnerLogo: "/assets/delusional-logo.png",
-    partnerLogoClassName: "h-5 w-auto object-contain sm:h-6",
+    partnerLogoClassName: "h-[0.95rem] w-auto object-contain",
     href: "https://delulu-painel.vercel.app/",
   },
   {
